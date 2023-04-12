@@ -1,90 +1,230 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 
-<SplitPane dividerPositions="0.21994134897360704" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <VBox layoutX="32.0" layoutY="33.0" prefHeight="124.0" prefWidth="244.0">
-               <children>
-                  <Label text="Label" />
-               </children>
-            </VBox>
-            <VBox layoutX="30.0" layoutY="264.0" prefHeight="217.0" prefWidth="250.0">
-               <children>
-                  <Label text="Label" />
-                  <Label text="Label" />
-                  <Label text="Label" />
-               </children>
-            </VBox>
-            <VBox layoutX="39.0" layoutY="580.0" prefHeight="163.0" prefWidth="215.0">
-               <children>
-                  <Label text="Label" />
-               </children>
-            </VBox>
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <SplitPane dividerPositions="0.4544235924932976" layoutX="8.0" layoutY="93.0" orientation="VERTICAL" prefHeight="665.0" prefWidth="1053.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="151.0" prefWidth="201.0">
-                     <children>
-                        <TableView layoutX="9.0" layoutY="69.0" prefHeight="224.0" prefWidth="1025.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="A" />
-                            <TableColumn prefWidth="75.0" text="B" />
-                              <TableColumn prefWidth="75.0" text="C" />
-                              <TableColumn prefWidth="75.0" text="D" />
-                              <TableColumn prefWidth="75.0" text="E" />
-                          </columns>
-                        </TableView>
-                        <TextField layoutX="457.0" layoutY="33.0" />
-                        <ChoiceBox layoutX="171.0" layoutY="33.0" prefWidth="150.0" />
-                        <Label layoutX="80.0" layoutY="37.0" text="Label" />
-                        <Label layoutX="400.0" layoutY="37.0" text="Label" />
-                        <Button layoutX="627.0" layoutY="33.0" mnemonicParsing="false" text="Button" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="935.0">
-                     <children>
-                        <SplitPane dividerPositions="0.48484848484848486" layoutX="5.0" layoutY="2.0" prefHeight="404.0" prefWidth="1034.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <Label layoutX="30.0" layoutY="26.0" text="Label" />
-                                    <Label layoutX="32.0" layoutY="92.0" text="Label" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <Label layoutX="40.0" layoutY="28.0" text="Label" />
-                                    <TableView layoutX="17.0" layoutY="61.0" prefHeight="280.0" prefWidth="489.0">
-                                      <columns>
-                                        <TableColumn prefWidth="75.0" text="A2" />
-                                        <TableColumn prefWidth="75.0" text="B2" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
-                                      </columns>
-                                    </TableView>
-                                    <ScrollBar layoutX="492.0" layoutY="83.0" orientation="VERTICAL" prefHeight="261.0" prefWidth="21.0" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-            <Label layoutX="18.0" layoutY="22.0" prefHeight="50.0" prefWidth="181.0" text="Label" />
-         </children></AnchorPane>
-  </items>
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <items>
+        <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
+            <children>
+                <VBox prefHeight="767.0" prefWidth="255.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="187.0" prefWidth="239.0">
+                            <children>
+
+                                <ImageView>
+                                    <image>
+                                        <Image url="@icons/COMPANYLOGO.png" />
+                                    </image>
+
+                                </ImageView>
+
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <SVGPath content="M20 8.76017V15.5967C20 17.4377 18.5076 18.93 16.6667 18.93H15.4444C14.8922 18.93 14.4444 18.4823 14.4444 17.93V17.7078C14.4444 17.1555 14.8922 16.7078 15.4444 16.7078H16.6667C17.2803 16.7078 17.7778 16.2104 17.7778 15.5967V8.76017C17.7778 8.41409 17.6165 8.08778 17.3416 7.87755L10.6749 2.77951C10.2765 2.47486 9.72345 2.47485 9.32506 2.77951L2.65839 7.87755C2.38348 8.08777 2.22222 8.41409 2.22222 8.76017V15.5967C2.22222 16.2104 2.71968 16.7078 3.33333 16.7078H4.55556C5.10784 16.7078 5.55556 17.1555 5.55556 17.7078V17.93C5.55556 18.4823 5.10784 18.93 4.55556 18.93H3.33333C1.49239 18.93 0 17.4377 0 15.5967V8.76017C0 7.72193 0.48377 6.74299 1.3085 6.11231L7.97517 1.01427C9.17036 0.100302 10.8297 0.100308 12.0248 1.01427L18.6915 6.11231C19.5162 6.74299 20 7.72194 20 8.76017ZM9.88889 9.15228H10.1111C11.768 9.15228 13.1111 10.4954 13.1111 12.1523V15.7078C13.1111 17.3647 11.768 18.7078 10.1111 18.7078H9.88889C8.23204 18.7078 6.88889 17.3647 6.88889 15.7078V12.1523C6.88889 10.4954 8.23204 9.15228 9.88889 9.15228ZM11.1111 12.1523C11.1111 11.6 10.6634 11.1523 10.1111 11.1523H9.88889C9.3366 11.1523 8.88889 11.6 8.88889 12.1523V15.7078C8.88889 16.2601 9.3366 16.7078 9.88889 16.7078H10.1111C10.6634 16.7078 11.1111 16.2601 11.1111 15.7078V12.1523Z" styleClass="side-menu-icon-home" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                        <Label styleClass="side-menu-text" text="HOME">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <SVGPath content="M11 4C11 5.65685 9.65685 7 8 7C6.34315 7 5 5.65685 5 4C5 2.34315 6.34315 1 8 1C9.65685 1 11 2.34315 11 4Z M1 16.5C1 12.9101 3.91015 10 7.5 10H8.5C12.0899 10 15 12.9101 15 16.5V17C15 17.5523 14.5523 18 14 18H2C1.44772 18 1 17.5523 1 17V16.5Z" stroke="#0D6EFD" styleClass="side-menu-icon-projects" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="side-menu-text" text="PROJECTS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="99.0" prefWidth="239.0">
+                            <children>
+                                <SVGPath content="M1.29298 0.292893C0.902459 0.683418 0.902459 1.31658 1.29298 1.70711L2.29298 2.70711C2.68351 3.09763 3.31667 3.09763 3.7072 2.70711C4.09772 2.31658 4.09772 1.68342 3.7072 1.29289L2.7072 0.292893C2.31667 -0.0976311 1.68351 -0.0976311 1.29298 0.292893ZM17.293 0.292893C17.6835 -0.0976311 18.3167 -0.0976311 18.7072 0.292893C19.0977 0.683418 19.0977 1.31658 18.7072 1.70711L17.7072 2.70711C17.3167 3.09763 16.6835 3.09763 16.293 2.70711C15.9025 2.31658 15.9025 1.68342 16.293 1.29289L17.293 0.292893ZM17.7072 11.2929L18.7072 12.2929C19.0977 12.6834 19.0977 13.3166 18.7072 13.7071C18.3167 14.0976 17.6835 14.0976 17.293 13.7071L16.293 12.7071C15.9025 12.3166 15.9025 11.6834 16.293 11.2929C16.6835 10.9024 17.3167 10.9024 17.7072 11.2929ZM1.29298 13.7071C0.902459 13.3166 0.902459 12.6834 1.29298 12.2929L2.29298 11.2929C2.68351 10.9024 3.31667 10.9024 3.7072 11.2929C4.09772 11.6834 4.09772 12.3166 3.7072 12.7071L2.7072 13.7071C2.31667 14.0976 1.68351 14.0976 1.29298 13.7071ZM18.4142 8.00003C18.9665 8.00007 19.4142 7.55238 19.4142 7.0001C19.4143 6.44781 18.9666 6.00007 18.4143 6.00003L18.0001 6C17.4478 5.99996 17.0001 6.44765 17 6.99993C17 7.55222 17.4477 7.99996 18 8L18.4142 8.00003ZM2.49035e-09 7.20719C3.86797e-05 7.75948 0.447785 8.20716 1.00007 8.20712L1.41428 8.20709C1.96657 8.20705 2.41425 7.75931 2.41421 7.20702C2.41417 6.65474 1.96643 6.20705 1.41414 6.20709L0.99993 6.20712C0.447645 6.20716 -3.85544e-05 6.65491 2.49035e-09 7.20719ZM13.4366 11.9189C14.9865 10.8341 16 9.0354 16 7C16 3.68629 13.3137 1 10 1C6.68629 1 4 3.68629 4 7C4 9.0354 5.0135 10.8341 6.56337 11.9189C6.21123 12.3497 6 12.9002 6 13.5C6 14.7099 6.85949 15.7191 8.00122 15.9502C8.00041 15.9667 8 15.9833 8 16C8 16.5523 8.44772 17 9 17H11C11.5523 17 12 16.5523 12 16C12 15.9833 11.9996 15.9667 11.9988 15.9502C13.1405 15.7191 14 14.7099 14 13.5C14 12.9002 13.7888 12.3497 13.4366 11.9189ZM10 11C12.2091 11 14 9.20914 14 7C14 4.79086 12.2091 3 10 3C7.79086 3 6 4.79086 6 7C6 9.20914 7.79086 11 10 11ZM10 13H9.91465H8.5C8.22386 13 8 13.2239 8 13.5C8 13.7761 8.22386 14 8.5 14H9.91465H10.0854H11.5C11.7761 14 12 13.7761 12 13.5C12 13.2239 11.7761 13 11.5 13H10.0854H10Z" styleClass="side-menu-icon-workers" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="side-menu-text" text="WORKERS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="343.0" prefWidth="239.0" />
+                        <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="200.0" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="10.0" minWidth="-Infinity" prefHeight="225.0" prefWidth="1119.0">
+            <children>
+                <VBox prefHeight="751.0" prefWidth="1118.0">
+                    <children>
+                        <HBox prefHeight="110.0" prefWidth="1118.0">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <children>
+                                <Label prefHeight="66.0" prefWidth="167.0" styleClass="heading" text="PROJECTS" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="20.0" top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="463.0" prefWidth="1078.0" styleClass="box">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <VBox prefHeight="293.0" prefWidth="1155.0">
+                                    <children>
+                                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="1039.0">
+                                            <children>
+                                                <Label prefHeight="64.0" prefWidth="111.0" styleClass="heading-3" text="Filter by" />
+                                                <ChoiceBox prefHeight="61.0" prefWidth="150.0" styleClass="input-select">
+                                                    <HBox.margin>
+                                                        <Insets top="10.0" />
+                                                    </HBox.margin>
+                                                </ChoiceBox>
+                                                <Label prefHeight="64.0" prefWidth="58.0" styleClass="heading-3" text="Title">
+                                                    <HBox.margin>
+                                                        <Insets left="30.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                                <TextField prefHeight="38.0" prefWidth="256.0" styleClass="input-select">
+                                                    <HBox.margin>
+                                                        <Insets top="10.0" />
+                                                    </HBox.margin>
+                                                </TextField>
+                                                <Button maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="57.0" styleClass="button-back">
+                                                    <HBox.margin>
+                                                        <Insets left="7.0" top="17.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets top="20.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox prefHeight="347.0" prefWidth="1039.0">
+                                            <children>
+                                                <TableView prefHeight="297.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
+                                                    <columns>
+                                                        <TableColumn prefWidth="338.6666488647461" text="Title" />
+                                                        <TableColumn minWidth="0.0" prefWidth="220.53341674804688" text="Deadline" />
+                                                        <TableColumn minWidth="0.0" prefWidth="260.79998779296875" text="Manager" />
+                                                        <TableColumn minWidth="0.0" prefWidth="97.60009765625" />
+                                                        <TableColumn minWidth="0.0" prefWidth="459.199951171875" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="325.0" prefWidth="1118.0">
+                            <children>
+                                <HBox prefHeight="246.0" prefWidth="867.0" styleClass="box">
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                    <children>
+                                        <VBox prefHeight="231.0" prefWidth="543.0">
+                                            <children>
+                                                <HBox prefHeight="55.0" prefWidth="539.0">
+                                                    <children>
+                                                        <Label styleClass="heading-2" text="Website for VIA University">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox disable="true" layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="539.0">
+                                                    <children>
+                                                        <TextArea editable="false" prefHeight="193.0" prefWidth="540.0" promptText="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." styleClass="normal-text">
+                                                            <HBox.margin>
+                                                                <Insets left="10.0" />
+                                                            </HBox.margin>
+                                                        </TextArea>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="367.0" prefWidth="846.0" styleClass="box">
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
+                                    </HBox.margin>
+                                    <children>
+                                        <VBox prefHeight="231.0" prefWidth="543.0">
+                                            <children>
+                                                <HBox prefHeight="55.0" prefWidth="539.0">
+                                                    <children>
+                                                        <Label styleClass="heading-2" text="Manager of the project">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox disable="true" layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="539.0" />
+                                                <TableView prefHeight="361.0" prefWidth="519.0" styleClass="table-view2">
+                                                    <columns>
+                                                        <TableColumn prefWidth="88.79998779296875" text="Number" />
+                                                        <TableColumn minWidth="0.0" prefWidth="241.60010528564453" text="Name" />
+                                                        <TableColumn minWidth="0.0" prefWidth="567.1999206542969" text="Position" />
+                                                    </columns>
+                                                    <VBox.margin>
+                                                        <Insets left="10.0" right="10.0" />
+                                                    </VBox.margin>
+                                                </TableView>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </items>
 </SplitPane>
