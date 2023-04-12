@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane dividerPositions="0.21994134897360704" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox layoutX="32.0" layoutY="33.0" prefHeight="124.0" prefWidth="244.0">
+               <children>
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox layoutX="30.0" layoutY="264.0" prefHeight="217.0" prefWidth="250.0">
+               <children>
+                  <Label text="Label" />
+                  <Label text="Label" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox layoutX="39.0" layoutY="580.0" prefHeight="163.0" prefWidth="215.0">
+               <children>
+                  <Label text="Label" />
+               </children>
+            </VBox>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <SplitPane dividerPositions="0.4544235924932976" layoutX="8.0" layoutY="93.0" orientation="VERTICAL" prefHeight="665.0" prefWidth="1053.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="151.0" prefWidth="201.0">
+                     <children>
+                        <TableView layoutX="9.0" layoutY="69.0" prefHeight="224.0" prefWidth="1025.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="A" />
+                            <TableColumn prefWidth="75.0" text="B" />
+                              <TableColumn prefWidth="75.0" text="C" />
+                              <TableColumn prefWidth="75.0" text="D" />
+                              <TableColumn prefWidth="75.0" text="E" />
+                          </columns>
+                        </TableView>
+                        <TextField layoutX="457.0" layoutY="33.0" />
+                        <ChoiceBox layoutX="171.0" layoutY="33.0" prefWidth="150.0" />
+                        <Label layoutX="80.0" layoutY="37.0" text="Label" />
+                        <Label layoutX="400.0" layoutY="37.0" text="Label" />
+                        <Button layoutX="627.0" layoutY="33.0" mnemonicParsing="false" text="Button" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="935.0">
+                     <children>
+                        <SplitPane dividerPositions="0.48484848484848486" layoutX="5.0" layoutY="2.0" prefHeight="404.0" prefWidth="1034.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label layoutX="30.0" layoutY="26.0" text="Label" />
+                                    <Label layoutX="32.0" layoutY="92.0" text="Label" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <Label layoutX="40.0" layoutY="28.0" text="Label" />
+                                    <TableView layoutX="17.0" layoutY="61.0" prefHeight="280.0" prefWidth="489.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="A2" />
+                                        <TableColumn prefWidth="75.0" text="B2" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                      </columns>
+                                    </TableView>
+                                    <ScrollBar layoutX="492.0" layoutY="83.0" orientation="VERTICAL" prefHeight="261.0" prefWidth="21.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <Label layoutX="18.0" layoutY="22.0" prefHeight="50.0" prefWidth="181.0" text="Label" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
