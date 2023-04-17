@@ -10,7 +10,7 @@ import model.TaskList;
 
 import java.util.ArrayList;
 
-public class TasksViewModel extends ViewModel
+public class TasksViewModel implements ViewModel
 {
     private Model model;
     private TaskList taskList;

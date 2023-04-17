@@ -3,7 +3,7 @@ package view;
 import javafx.scene.layout.Region;
 import viewmodel.ViewModel;
 
-public class ProjectsViewController implements ViewController
+public class TasksViewController implements ViewController
 {
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)

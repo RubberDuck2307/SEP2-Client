@@ -1,5 +1,5 @@
 package viewmodel;
 
-public class ViewModel
+public interface ViewModel
 {
 }
