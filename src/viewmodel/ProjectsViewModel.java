@@ -8,7 +8,7 @@ import model.Task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ProjectViewModel extends ViewModel
+public class ProjectsViewModel extends ViewModel
 {
     private StringProperty titleProperty;
     private StringProperty descriptionProperty;
@@ -19,7 +19,7 @@ public class ProjectViewModel extends ViewModel
     private ArrayList<Task> projectTasks;
     private StringProperty error;
 
-    public ProjectViewModel(Project project) {
+    public ProjectsViewModel(Project project) {
         super();
         titleProperty = new SimpleStringProperty(project.getTitle());
         descriptionProperty = new SimpleStringProperty(project.getDescription());
