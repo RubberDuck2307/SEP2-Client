@@ -24,7 +24,7 @@ public class ProjectsViewModel extends ViewModel
         titleProperty = new SimpleStringProperty(project.getTitle());
         descriptionProperty = new SimpleStringProperty(project.getDescription());
         deadlineProperty = new SimpleObjectProperty<>(project.getDeadline());
-        projectManagerProperty = new SimpleStringProperty(project.getProjectManager().getFirstName() + " " + project.getProjectManager().getLastName() + " " + project.getProjectManager().getPhoneNumber());
+        //projectManagerProperty = new SimpleStringProperty(project.getProjectManager().getFirstName() + " " + project.getProjectManager().getLastName() + " " + project.getProjectManager().getPhoneNumber());
     }
 
 
@@ -54,7 +54,7 @@ public class ProjectsViewModel extends ViewModel
 
     public ArrayList<Employee> getEmployeesWithAccess() {
         Project project = null;
-        return new ArrayList<>(project.getEmployeesWithAccess());
+        return new ArrayList<>();//project.getEmployeesWithAccess());
     }
 
 }
