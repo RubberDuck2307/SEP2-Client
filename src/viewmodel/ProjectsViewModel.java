@@ -8,7 +8,7 @@ import model.Task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ProjectsViewModel extends ViewModel
+public class ProjectsViewModel implements ViewModel
 {
     private StringProperty titleProperty;
     private StringProperty descriptionProperty;
@@ -20,7 +20,6 @@ public class ProjectsViewModel extends ViewModel
     private StringProperty error;
 
     public ProjectsViewModel(Project project) {
-        super();
         titleProperty = new SimpleStringProperty(project.getTitle());
         descriptionProperty = new SimpleStringProperty(project.getDescription());
         deadlineProperty = new SimpleObjectProperty<>(project.getDeadline());
@@ -56,5 +55,4 @@ public class ProjectsViewModel extends ViewModel
         Project project = null;
         return new ArrayList<>();//project.getEmployeesWithAccess());
     }
-
 }
