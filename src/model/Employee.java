@@ -4,6 +4,7 @@ public class Employee {
     private Integer workingNumber;
     private String name;
     private UserProfile userProfile;
+    private String position;
 
 
     public Integer getWorkingNumber() {
@@ -28,5 +29,9 @@ public class Employee {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public String getPosition() {
+        return position;
     }
 }

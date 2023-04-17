@@ -1,7 +1,9 @@
 package viewmodel;
 
 import javafx.beans.property.*;
+import javafx.scene.layout.Region;
 import model.Employee;
+import model.Model;
 import model.Project;
 import model.Task;
 
@@ -10,40 +12,39 @@ import java.util.ArrayList;
 
 public class ProjectsViewModel implements ViewModel
 {
+    private Model model;
     private StringProperty titleProperty;
     private StringProperty descriptionProperty;
     private ObjectProperty<LocalDate> deadlineProperty;
-    private StringProperty projectManagerProperty;
+    private StringProperty employeeNameProperty;
+    private StringProperty managerNameProperty;
+    private StringProperty employeePositionProperty;
+    private ArrayList<Employee> employeesList;
 
-    private ArrayList<Employee> employees;
-    private ArrayList<Task> projectTasks;
-    private StringProperty error;
-
-    public ProjectsViewModel(Project project) {
-        titleProperty = new SimpleStringProperty(project.getTitle());
-        descriptionProperty = new SimpleStringProperty(project.getDescription());
-        deadlineProperty = new SimpleObjectProperty<>(project.getDeadline());
-        projectManagerProperty = new SimpleStringProperty(project.getProjectManager().getFirstName() + " " + project.getProjectManager().getLastName() + " " + project.getProjectManager().getPhoneNumber());
+    public ProjectsViewModel(Model model) {
+        this.model = model;
+        titleProperty = new SimpleStringProperty();
+        descriptionProperty = new SimpleStringProperty();
+        deadlineProperty = new SimpleObjectProperty<>();
+        employeeNameProperty = new SimpleStringProperty();
+        managerNameProperty = new SimpleStringProperty();
+        employeePositionProperty = new SimpleStringProperty();
+        this.employeesList = new ArrayList<>();
     }
 
-
-    public StringProperty titleProperty() {
-        return titleProperty;
+    public StringProperty getMangerNameProperty() {
+        return managerNameProperty;
     }
 
-    public StringProperty descriptionProperty() {
-        return descriptionProperty;
+    public StringProperty getEmployeePositionProperty() {
+        return employeePositionProperty;
     }
 
-    public LocalDate getDeadlineProperty() {
-        return deadlineProperty.get();
+    public StringProperty getEmployeeNameProperty() {
+        return employeeNameProperty;
     }
 
-    public StringProperty projectManagerProperty() {
-        return projectManagerProperty;
-    }
-
-    public ObjectProperty<LocalDate> deadlineProperty() {
+    public ObjectProperty<LocalDate> getDeadlineProperty() {
         return deadlineProperty;
     }
 
@@ -51,8 +52,16 @@ public class ProjectsViewModel implements ViewModel
         this.deadlineProperty.set(deadlineProperty);
     }
 
-    public ArrayList<Employee> getEmployeesWithAccess() {
-        Project project = null;
-        return new ArrayList<>(project.getEmployeesWithAccess());
+    public StringProperty getTitleProperty() {
+        return titleProperty;
     }
+
+    public StringProperty getDescriptionProperty() {
+        return descriptionProperty;
+    }
+
+    //public ArrayList<Employee> getEmployeesWithAccess() {
+      //  Project project = null;
+        //return new ArrayList<>(project.getEmployeesWithAccess());
+    //}
 }
