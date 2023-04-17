@@ -25,7 +25,7 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("projects");
+    openView("tasks");
   }
 
   public void openView(String id)
@@ -63,6 +63,7 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         root = loader.load();
         viewController = loader.getController();
+        viewController.init(this,viewModel,root);
       }
       catch (Exception e)
       {
