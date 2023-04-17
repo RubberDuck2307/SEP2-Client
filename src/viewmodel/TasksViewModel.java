@@ -16,6 +16,12 @@ public class TasksViewModel implements ViewModel
     private TaskList taskList;
     private ObservableList<Task> tasks;
     private StringProperty error;
+    private StringProperty projectName;
+    private StringProperty taskName;
+    private StringProperty taskDescription;
+    private ObservableList<TasksTable> tasksTables;
+    private ObservableList<CommentsTable> commentsTables;
+    private ObservableList<WorkersTable> workersTables;
     
     public TasksViewModel(Model model)
     {
@@ -30,5 +36,33 @@ public class TasksViewModel implements ViewModel
         return error;
     }
     
+    public String getProjectName()
+    {
+        return projectName.get();
+    }
     
+    public StringProperty projectNameProperty()
+    {
+        return projectName;
+    }
+    
+    public String getTaskName()
+    {
+        return taskName.get();
+    }
+    
+    public StringProperty taskNameProperty()
+    {
+        return taskName;
+    }
+    
+    public String getTaskDescription()
+    {
+        return taskDescription.get();
+    }
+    
+    public StringProperty taskDescriptionProperty()
+    {
+        return taskDescription;
+    }
 }
