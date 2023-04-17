@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Project {
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private LocalDate deadline;
     private Employee projectManager;
 
-    public Project(Long id, String name, String description, LocalDate deadline, Employee projectManager) {
+    public Project(Long id, String title, String description, LocalDate deadline, Employee projectManager) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.deadline = deadline;
         this.projectManager = projectManager;
@@ -25,12 +25,12 @@ public class Project {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public String getDescription() {

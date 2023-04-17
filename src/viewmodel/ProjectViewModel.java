@@ -6,7 +6,6 @@ import model.Project;
 import model.Task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ProjectViewModel extends ViewModel
