@@ -1,31 +1,27 @@
 package viewmodel;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Employee;
 import model.Model;
 import model.Task;
 import model.TaskList;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TasksViewModel implements ViewModel
 {
     private Model model;
-    private StringProperty projectNameProperty;
-    private StringProperty taskNameProperty;
-    private StringProperty taskDescriptionProperty;
-    
-    
-    
-    private ArrayList<Employee> employees;
     private TaskList taskList;
     private ObservableList<Task> tasks;
     private StringProperty error;
+    private StringProperty projectName;
+    private StringProperty taskName;
+    private StringProperty taskDescription;
+    private ObservableList<TasksTable> tasksTables;
+    private ObservableList<CommentsTable> commentsTables;
+    private ObservableList<WorkersTable> workersTables;
     
     public TasksViewModel(Model model)
     {
@@ -40,13 +36,33 @@ public class TasksViewModel implements ViewModel
         return error;
     }
     
-    public TaskList getTaskList()
+    public String getProjectName()
     {
-        return taskList;
+        return projectName.get();
     }
     
-    public ObservableList<Task> getTasks()
+    public StringProperty projectNameProperty()
     {
-        return tasks;
+        return projectName;
+    }
+    
+    public String getTaskName()
+    {
+        return taskName.get();
+    }
+    
+    public StringProperty taskNameProperty()
+    {
+        return taskName;
+    }
+    
+    public String getTaskDescription()
+    {
+        return taskDescription.get();
+    }
+    
+    public StringProperty taskDescriptionProperty()
+    {
+        return taskDescription;
     }
 }
