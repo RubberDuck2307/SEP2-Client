@@ -44,7 +44,6 @@ public class TasksViewController implements ViewController
     projectName.textProperty().bind(this.viewModel.projectNameProperty());
     taskName.textProperty().bind(this.viewModel.taskNameProperty());
     taskDescription.textProperty().bind(this.viewModel.taskDescriptionProperty());
-
   }
 
   @Override public Region getRoot()
