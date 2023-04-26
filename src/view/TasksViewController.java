@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import viewmodel.*;
+import viewmodel.TaskView.CommentsTable;
+import viewmodel.TaskView.TasksTable;
+import viewmodel.TaskView.WorkersTable;
 
 import java.time.LocalDate;
 

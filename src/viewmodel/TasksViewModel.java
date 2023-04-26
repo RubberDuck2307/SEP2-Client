@@ -7,8 +7,9 @@ import javafx.collections.ObservableList;
 import model.Model;
 import model.Task;
 import model.TaskList;
-
-import java.util.ArrayList;
+import viewmodel.TaskView.CommentsTable;
+import viewmodel.TaskView.TasksTable;
+import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewModel implements ViewModel
 {

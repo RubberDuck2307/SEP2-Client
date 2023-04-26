@@ -1,4 +1,4 @@
-package viewmodel;
+package viewmodel.TaskView;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
