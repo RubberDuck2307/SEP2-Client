@@ -1,16 +1,13 @@
 package view;
 
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
-import javafx.util.StringConverter;
 import viewmodel.*;
+import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
-
-import java.time.LocalDate;
 
 public class TasksViewController implements ViewController
 {

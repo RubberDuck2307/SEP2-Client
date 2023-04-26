@@ -2,13 +2,11 @@ package view;
 
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
-import viewmodel.ProjectsViewModel;
-import viewmodel.TasksViewModel;
+import viewmodel.ProjectView.ProjectsTable;
+import viewmodel.ProjectView.ProjectsViewModel;
+import viewmodel.TaskView.WorkersTable;
 import viewmodel.ViewModel;
 
 import java.time.LocalDate;
@@ -18,16 +16,17 @@ public class ProjectsViewController implements ViewController
   public TableColumn<ProjectsViewModel, Void> delete;
   public TableColumn edit;
   @FXML
-  private TableView<ProjectsViewModel> projectsListTable;
+  private TableView<ProjectsTable> projectTable;
   @FXML
-  private TableView<ProjectsViewModel> employeesListTable;
+  private TableView<ProjectsTable> employeesListTable;
 
-  @FXML private TableColumn<ProjectsViewModel, String>  titleColumn;
-  @FXML private TableColumn<ProjectsViewModel, LocalDate> deadlineColumn;
-  @FXML private TableColumn<ProjectsViewModel, String> managerColumn;
-  @FXML private TableColumn<ProjectsViewModel, String>  projectEmployeeNameColumn;
-  @FXML private TableColumn<ProjectsViewModel, String> projectEmployeePositionColumn;
-  @FXML private StringProperty error;
+  @FXML private TableColumn<ProjectsTable, String>  titleColumn;
+  @FXML private TableColumn<ProjectsTable, String> deadlineColumn;
+  @FXML private TableColumn<ProjectsTable, String> managerColumn;
+  @FXML private TableColumn<WorkersTable, String>  projectEmployeeNameColumn;
+  @FXML private TableColumn<WorkersTable, String> projectEmployeePositionColumn;
+  @FXML private TextArea descriptionArea;
+  @FXML private Label titleLabel;
 
   private Region root;
   private ProjectsViewModel viewModel;
@@ -39,48 +38,60 @@ public class ProjectsViewController implements ViewController
     this.root = root;
     this.viewHandler = viewHandler;
     this.viewModel = (ProjectsViewModel) viewModel;
-    this.projectsListTable = new TableView<>();
-    /*titleColumn.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());
-    deadlineColumn.setCellValueFactory(cellData -> cellData.getValue().getDeadlineProperty());
-    managerColumn.setCellValueFactory(cellData -> cellData.getValue().getMangerNameProperty());
 
-    projectEmployeeNameColumn.setCellValueFactory(cellData -> cellData.getValue().getEmployeeNameProperty());
-    projectEmployeePositionColumn.setCellValueFactory(cellData -> cellData.getValue().getEmployeePositionProperty());*/
-
-    delete.setCellFactory(column -> {
-      return new TableCell<ProjectsViewModel, Void>() {
-        private final Button button = new Button("Click me");
-
-        {
-          // set the button's action
-          button.setOnAction(event -> {
-
-            // handle button click with customer object
-          });
-        }
-
-        @Override
-        protected void updateItem(Void item, boolean empty) {
-          super.updateItem(item, empty);
-          if (empty) {
-            setGraphic(null);
-          } else {
-            setGraphic(button);
-          }
-        }
-      };
-    });
-
-    projectsListTable.getColumns().add(delete);
+    titleLabel.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
+    descriptionArea.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
 
 
-    //projectsListTable.setItems();
+    titleColumn.setCellValueFactory(cellData -> cellData.getValue().getTitleValue());
+    deadlineColumn.setCellValueFactory(cellData -> cellData.getValue().deadlineProperty());
+    managerColumn.setCellValueFactory(cellData -> cellData.getValue().getManagerValue());
+
+    projectEmployeeNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+    projectTable.setItems(this.viewModel.getProjectsObservableList());
+
+
+
+//    delete.setCellFactory(column -> {
+//      return new TableCell<>() {
+//        private final Button button = new Button("Click me");
+//
+//        {
+//          // set the button's action
+//          button.setOnAction(event -> {
+//
+//            // handle button click with customer object
+//          });
+//        }
+//
+//        @Override
+//        protected void updateItem(Void item, boolean empty) {
+//          super.updateItem(item, empty);
+//          if (empty) {
+//            setGraphic(null);
+//          } else {
+//            setGraphic(button);
+//          }
+//        }
+//      };
+//    });
+//
+//    projectsListTable.getColumns().add(delete);
+//
+//
+//    //projectsListTable.setItems();
   }
 
   @Override public void reset()
   {
-    error.setValue("");
+
   }
+
+  @FXML public void projectTableClick(){
+    viewModel.setProject(projectTable.getSelectionModel().getSelectedItem().getId());
+    viewHandler.openView("tasks");
+  }
+
   public Region getRoot()
   {
     return root;

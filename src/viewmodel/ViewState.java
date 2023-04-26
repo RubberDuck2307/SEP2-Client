@@ -16,7 +16,7 @@ public class ViewState
   private Employee employee;
 
   public ViewState(){
-    this.project=new Project(1L, "HonzaRules", "Honza commands Alex to do Class Diagram", LocalDate.now(), new ArrayList<>());
+    this.project = new Project(1L,"gg","gg", LocalDate.now(), new ArrayList<>());
     this.task=null;
     this.employee = null;
   }
