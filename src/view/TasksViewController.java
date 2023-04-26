@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.util.StringConverter;
 import model.Task;
 import viewmodel.*;
+import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
@@ -73,34 +74,34 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getNumberProperty());
     workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());
 
-    delete.setCellFactory(column -> {
-      new TableCell<ProjectsViewModel, Void>()
-      {
-        private final Button button = new Button("Click me");
-
-        {
-          // set the button's action
-          button.setOnAction(event -> {
-            // handle button click with customer object
-          });
-        }
-
-        @Override protected void updateItem(Void item, boolean empty)
-        {
-          super.updateItem(item, empty);
-          if (empty)
-          {
-            setGraphic(null);
-          }
-          else
-          {
-            setGraphic(button);
-          }
-        }
-      };
-      return new TableCell<>();
-    });
-    // TODO buttons add and edit
+//    delete.setCellFactory(column -> {
+//      new TableCell<ProjectsViewModel, Void>()
+//      {
+//        private final Button button = new Button("Click me");
+//
+//        {
+//          // set the button's action
+//          button.setOnAction(event -> {
+//            // handle button click with customer object
+//          });
+//        }
+//
+//        @Override protected void updateItem(Void item, boolean empty)
+//        {
+//          super.updateItem(item, empty);
+//          if (empty)
+//          {
+//            setGraphic(null);
+//          }
+//          else
+//          {
+//            setGraphic(button);
+//          }
+//        }
+//      };
+//      return new TableCell<>();
+//    });
+//    // TODO buttons add and edit
   }
 
   @FXML private void chooseTask()
