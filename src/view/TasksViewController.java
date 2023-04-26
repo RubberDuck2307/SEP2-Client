@@ -3,8 +3,10 @@ package view;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.util.StringConverter;
+import model.Task;
 import viewmodel.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
@@ -47,6 +49,10 @@ public class TasksViewController implements ViewController
     this.root = root;
     this.viewHandler = viewHandler;
     this.viewModel = (TasksViewModel) viewModel;
+    commentsTable.setVisible(false);
+    workersTable.setVisible(false);
+
+
     projectName.textProperty().bind(this.viewModel.projectNameProperty());
     taskName.textProperty().bind(this.viewModel.taskNameProperty());
     taskDescription.textProperty()
@@ -100,6 +106,16 @@ public class TasksViewController implements ViewController
     // TODO buttons add and edit
   }
 
+  @FXML private void chooseTask()
+  {
+    if (taskTable.getSelectionModel().getSelectedItem() != null)
+    {
+      viewModel.chooseTask(taskTable.getSelectionModel().getSelectedItem().getId());
+      workersTable.setVisible(true);
+      commentsTable.setVisible(true);
+    }
+  }
+
   @Override public Region getRoot()
   {
     return root;
@@ -108,5 +124,10 @@ public class TasksViewController implements ViewController
   @Override public void reset()
   {
 
+  }
+
+  public void openProjects(MouseEvent mouseEvent)
+  {
+    viewHandler.openView("projects");
   }
 }

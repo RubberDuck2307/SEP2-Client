@@ -15,16 +15,9 @@ public class TasksTable
     private StringProperty deadline;
     private StringProperty priority;
     private StringProperty status;
+    private Long id;
     private StringProperty tags;
-    
-    public TasksTable(String title, LocalDate deadline, String priority, String status, String tags)
-    {
-    this.title = new SimpleStringProperty(title);
-    this.deadline = new SimpleStringProperty(deadline.toString());
-    this.priority = new SimpleStringProperty(priority);
-    this.status = new SimpleStringProperty(status);
-    //this.tags = new SimpleStringProperty(tags);
-    }
+
 
     public TasksTable(Task task)
     {
@@ -32,6 +25,7 @@ public class TasksTable
         setDeadline(task.getDeadline());
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
+        this.id=task.getId();
         //this.tags = new SimpleStringProperty(task.getTags());
     }
 
@@ -55,7 +49,12 @@ public class TasksTable
     {
         return deadline.get();
     }
-    
+
+    public Long getId()
+    {
+        return id;
+    }
+
     public StringProperty deadlineProperty()
     {
         return deadline;
