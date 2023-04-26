@@ -40,7 +40,6 @@ public class TasksViewModel implements ViewModel
     this.viewState = new ViewState();
     this.taskList = new TaskList();
     this.employeeList = new EmployeeList();
-    taskList.addTask(viewState.getTask());
     //employeeList.addEmployee(viewState.getEmployee());
     this.projectName = new SimpleStringProperty();
     this.taskName = new SimpleStringProperty();
@@ -51,7 +50,6 @@ public class TasksViewModel implements ViewModel
     this.name = new SimpleStringProperty();
     this.position = new SimpleStringProperty();
     this.number = new SimpleIntegerProperty();
-
     load();
   }
 
@@ -59,11 +57,11 @@ public class TasksViewModel implements ViewModel
   {
     Project project = viewState.getProject();
     taskList = model.getAllTasksOfProject(project.getId());
-    ArrayList<Employee> employees = taskList.getTaskById(1L).getWorkers();
-    for (int i = 0; i < employees.size(); i++)
-    {
-      workersTables.add(new WorkersTable(employees.get(i)));
-    }
+    taskName.setValue("Description");
+    projectName.setValue(project.getName());
+    taskDescription.setValue("Select a task to see the description and comments");
+
+    tasksTables.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
       tasksTables.add(new TasksTable(taskList.getTask(i)));
@@ -141,5 +139,18 @@ public class TasksViewModel implements ViewModel
   public StringProperty positionProperty()
   {
     return position;
+  }
+
+  public void chooseTask(Long id)
+  {
+    Task task=taskList.getTaskById(id);
+    taskName.setValue(task.getName());
+    taskDescription.setValue(task.getDescription());
+    ArrayList<Employee> employees = taskList.getTaskById(id).getWorkers();
+    workersTables.clear();
+    for (int i = 0; i < employees.size(); i++)
+    {
+      workersTables.add(new WorkersTable(employees.get(i)));
+    }
   }
 }
