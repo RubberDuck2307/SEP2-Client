@@ -30,6 +30,11 @@ public class TasksViewModel implements ViewModel
        this.model = model;
        this.tasks = FXCollections.observableArrayList();
        this.taskList = new TaskList();
+       this.projectName= new SimpleStringProperty();
+       this.taskName=new SimpleStringProperty();
+       this.taskDescription =new SimpleStringProperty();
+
+
     }
     
     public StringProperty getError()
