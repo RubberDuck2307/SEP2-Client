@@ -1,6 +1,8 @@
 package model;
 
-public class UserProfile {
+import java.io.Serializable;
+
+public class UserProfile implements Serializable{
 
     private Integer workingNumber;
 

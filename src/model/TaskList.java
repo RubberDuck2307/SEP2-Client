@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class TaskList {
+public class TaskList implements Serializable {
 
     private ArrayList<Task> tasksList;
 
@@ -41,6 +42,17 @@ public class TaskList {
         tasksList.add(task);
     }
 
+    public Task getTask(int index){
+        return tasksList.get(index);
+    }
 
+    public int size(){
+        return tasksList.size();
+    }
 
+    @Override
+    public String toString() {
+        return "{" +  tasksList +
+                '}';
+    }
 }
