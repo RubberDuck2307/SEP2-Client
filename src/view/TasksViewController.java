@@ -45,6 +45,11 @@ public class TasksViewController implements ViewController
     taskName.textProperty().bind(this.viewModel.taskNameProperty());
     taskDescription.textProperty().bind(this.viewModel.taskDescriptionProperty());
 
+    title.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());
+    deadline.setCellValueFactory(cellData -> cellData.getValue().getDeadlineProperty());
+    priority.setCellValueFactory(cellData -> cellData.getValue().getPriorityProperty());
+    status.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
+    taskTable.setItems(viewModel.getAll());
   }
 
   @Override public Region getRoot()
