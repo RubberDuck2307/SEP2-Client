@@ -62,7 +62,7 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getPriorityProperty());
     status.setCellValueFactory(
         cellData -> cellData.getValue().getStatusProperty());
-    taskTable.setItems(viewModel.getAll());
+    taskTable.setItems(this.viewModel.getAll());
     //worker table
     name.setCellValueFactory(
         cellData -> cellData.getValue().getNameProperty());

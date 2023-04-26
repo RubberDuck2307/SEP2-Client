@@ -5,5 +5,5 @@ import viewmodel.TaskView.TasksTable;
 
 public interface ViewModel
 {
-  ObservableList<TasksTable> getAll();
+
 }
