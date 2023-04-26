@@ -201,13 +201,13 @@
                                         </HBox>
                                         <HBox prefHeight="347.0" prefWidth="1039.0">
                                             <children>
-                                                <TableView prefHeight="297.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
+                                                <TableView fx:id="projectTable" prefHeight="297.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
                                                     <columns>
                                                         <TableColumn prefWidth="338.6666488647461" text="Title" />
                                                         <TableColumn minWidth="0.0" prefWidth="220.53341674804688" text="Deadline" />
                                                         <TableColumn minWidth="0.0" prefWidth="260.79998779296875" text="Manager" />
-                                                        <TableColumn minWidth="0.0" prefWidth="97.60009765625" />
-                                                        <TableColumn minWidth="0.0" prefWidth="120.0" />
+                                                        <TableColumn fx:id="delete" minWidth="0.0" prefWidth="97.60009765625" />
+                                                        <TableColumn fx:id="edit" minWidth="0.0" prefWidth="120.0" />
                                                     </columns>
                                                 </TableView>
                                             </children>
