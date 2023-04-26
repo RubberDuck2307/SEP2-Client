@@ -14,7 +14,8 @@ public class ViewHandler
   private Scene currentScene;
   private Stage primaryStage;
   private ViewModelFactory viewModelFactory;
-  private ViewController viewController;
+  private ProjectsViewController projectsViewController;
+  private TasksViewController tasksViewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
@@ -24,19 +25,19 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("projects");
+    openView("tasks");
   }
 
-  public void openView(ViewController viewController, String id)
+  public void openView(String id)
   {
     Region root = null;
     switch (id)
     {
       case "projects":{
-        root = loadViewController(viewController, viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
+        root = loadViewController(projectsViewController, viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
         break;}
       case "tasks":{
-        root = loadViewController(viewController, viewModelFactory.getTasksViewModel() ,"TasksView.fxml");
+        root = loadViewController(tasksViewController, viewModelFactory.getTasksViewModel() ,"TasksView.fxml");
         break;}
     }
     currentScene.setRoot(root);
@@ -62,6 +63,7 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         root = loader.load();
         viewController = loader.getController();
+        viewController.init(this,viewModel,root);
       }
       catch (Exception e)
       {
