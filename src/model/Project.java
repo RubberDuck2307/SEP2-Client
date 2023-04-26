@@ -1,17 +1,19 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-public class Project {
+public class Project implements Serializable {
     private Long id;
-    private String title;
+    private String name;
     private String description;
     private LocalDate deadline;
-    private Employee projectManager;
+    private ArrayList<Employee> projectManager;
 
-    public Project(Long id, String title, String description, LocalDate deadline, Employee projectManager) {
+    public Project(Long id, String name, String description, LocalDate deadline, ArrayList<Employee> projectManager) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.projectManager = projectManager;
@@ -25,12 +27,12 @@ public class Project {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String name) {
-        this.title = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -49,11 +51,22 @@ public class Project {
         this.deadline = deadline;
     }
 
-    public Employee getProjectManager() {
+    public ArrayList<Employee> getProjectManager() {
         return projectManager;
     }
 
-    public void setProjectManager(Employee projectManager) {
+    public void setProjectManager(ArrayList<Employee> projectManager) {
         this.projectManager = projectManager;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deadline=" + deadline +
+                ", projectManager=" + projectManager +
+                '}';
     }
 }

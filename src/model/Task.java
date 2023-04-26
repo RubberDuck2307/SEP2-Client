@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Task {
+public class Task implements Serializable {
     private Long id;
     private String name;
     private String description;
@@ -27,6 +28,18 @@ public class Task {
         this.projectId = projectId;
         this.startingDate = startingDate;
         this.workers = workers;
+    }
+
+    public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.deadline = deadline;
+        this.estimatedTime = estimatedTime;
+        this.priority = priority;
+        this.status = status;
+        this.projectId = projectId;
+        this.startingDate = startingDate;
     }
 
     public Long getId() {
@@ -109,4 +122,19 @@ public class Task {
         this.workers = workers;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deadline=" + deadline +
+                ", estimatedTime=" + estimatedTime +
+                ", priority='" + priority + '\'' +
+                ", status='" + status + '\'' +
+                ", projectId=" + projectId +
+                ", startingDate=" + startingDate +
+                ", workers=" + workers +
+                '}';
+    }
 }

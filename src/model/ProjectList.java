@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ProjectList {
+public class ProjectList implements Serializable {
 
     ArrayList<Project> projects;
 
@@ -28,4 +29,10 @@ public class ProjectList {
         projects.add(project);
     }
 
+    @Override
+    public String toString() {
+        return "ProjectList{" +
+                "projects=" + projects +
+                '}';
+    }
 }
