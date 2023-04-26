@@ -29,10 +29,16 @@ public class TasksTable
     public TasksTable(Task task)
     {
         this.title = new SimpleStringProperty(task.getName());
-        this.deadline = new SimpleStringProperty(task.getDeadline().toString());
+        setDeadline(task.getDeadline());
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
         //this.tags = new SimpleStringProperty(task.getTags());
+    }
+
+    public void setDeadline(LocalDate deadline)
+    {
+        if(deadline!=null)    this.deadline = new SimpleStringProperty(deadline.toString());
+        else this.deadline=new SimpleStringProperty("");
     }
 
     public String getTitle()

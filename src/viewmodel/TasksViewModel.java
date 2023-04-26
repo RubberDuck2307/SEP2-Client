@@ -22,8 +22,8 @@ public class TasksViewModel implements ViewModel
     private StringProperty projectName;
     private StringProperty taskName;
     private StringProperty taskDescription;
-    private ObservableList<TasksTable> tasksTables;
     private ObservableList<Task> tasks;
+    private ObservableList<TasksTable> tasksTables;
     private ObservableList<CommentsTable> commentsTables;
     private ObservableList<WorkersTable> workersTables;
     private ViewState viewState;
@@ -40,8 +40,9 @@ public class TasksViewModel implements ViewModel
        this.taskName=new SimpleStringProperty();
        this.taskDescription =new SimpleStringProperty();
        this.tasksTables=FXCollections.observableArrayList();
-        tasksTables.add(new TasksTable(viewState.getTask()));
-        //load();  TODO DEFINITELY SOON
+       this.commentsTables=FXCollections.observableArrayList();
+       this.workersTables=FXCollections.observableArrayList();
+       load();
     }
 
     public void load(){
@@ -51,6 +52,8 @@ public class TasksViewModel implements ViewModel
             tasksTables.add(new TasksTable(taskList.getTask(i)));
         }
     }
+
+
 
     public ObservableList<TasksTable> getAll() {
         return tasksTables;

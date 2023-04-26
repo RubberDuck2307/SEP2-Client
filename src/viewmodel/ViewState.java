@@ -14,9 +14,8 @@ public class ViewState
   private Task task;
 
   public ViewState(){
-    this.project=new Project(1L, "HonzaRules", "Honza commands slave Alex to do Class Diagram", LocalDate.now(), new ArrayList<>());
-    this.task=new Task(1L, "AnnaBigDicc", "Anna has a long shaft. :)",
-        LocalDate.now(), 69, "HIGH", "TO DO", 1L, LocalDate.now(), new ArrayList<>());
+    this.project=new Project(1L, "HonzaRules", "Honza commands Alex to do Class Diagram", LocalDate.now(), new ArrayList<>());
+    this.task=null;
   }
 
   public Task getTask()
