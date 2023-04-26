@@ -6,20 +6,40 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import model.Project;
 
 import java.time.LocalDate;
 
 public class ProjectsTable
 {
   private StringProperty title;
-  private ObjectProperty<LocalDate> deadline;
+  private ObjectProperty<String> deadline;
   private StringProperty manager;
+
+  private Long id;
 
   public ProjectsTable(String title, LocalDate deadline, String manager)
   {
     this.title = new SimpleStringProperty(title);
     this.deadline = new SimpleObjectProperty<>();
+    setDeadline(deadline);
     this.manager = new SimpleStringProperty(manager);
+  }
+
+  public ProjectsTable(Project project){
+    this.title = new SimpleStringProperty(project.getName());
+    this.deadline = new SimpleObjectProperty<>();
+    setDeadline(project.getDeadline());
+    this.manager = new SimpleStringProperty(project.getProjectManager().get(0).getName());
+    this.id = project.getId();
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getTitle()
@@ -32,14 +52,16 @@ public class ProjectsTable
     return title;
   }
 
-  public LocalDate getDeadline()
-  {
+  public String getDeadline() {
     return deadline.get();
   }
 
-  public ObjectProperty<LocalDate> deadlineProperty()
-  {
+  public ObjectProperty<String> deadlineProperty() {
     return deadline;
+  }
+
+  public void setDeadline(LocalDate deadline) {
+    this.deadline.set(deadline.toString());
   }
 
   public String getManager()
@@ -57,14 +79,19 @@ public class ProjectsTable
   {
     return title;
   }
-  public ObservableValue<LocalDate> getDeadlineValue()
 
-  {
-    return deadline;
-  }
   public ObservableValue<String> getManagerValue()
 
   {
     return manager;
+  }
+
+  @Override
+  public String toString() {
+    return "ProjectsTable{" +
+            "title=" + title +
+            ", deadline=" + deadline +
+            ", manager=" + manager +
+            '}';
   }
 }

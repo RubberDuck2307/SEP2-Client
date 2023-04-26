@@ -32,12 +32,12 @@ public class TasksViewModel implements ViewModel
   private StringProperty position;
   private ViewState viewState;
 
-  public TasksViewModel(Model model)
+  public TasksViewModel(Model model, ViewState viewState)
   {
     this.error = new SimpleStringProperty();
     this.model = model;
     this.tasks = FXCollections.observableArrayList();
-    this.viewState = new ViewState();
+    this.viewState = viewState;
     this.taskList = new TaskList();
     this.employeeList = new EmployeeList();
     //employeeList.addEmployee(viewState.getEmployee());

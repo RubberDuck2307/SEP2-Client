@@ -29,6 +29,13 @@ public class ProjectList implements Serializable {
         projects.add(project);
     }
 
+    public int size(){
+        return projects.size();
+    }
+
+    public Project get(int index){
+        return projects.get(index);
+    }
     @Override
     public String toString() {
         return "ProjectList{" +
