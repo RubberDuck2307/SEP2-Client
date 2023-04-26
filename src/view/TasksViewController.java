@@ -1,7 +1,10 @@
 package view;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.util.StringConverter;
@@ -56,6 +59,9 @@ public class TasksViewController implements ViewController
     taskDescription.textProperty()
         .bind(this.viewModel.taskDescriptionProperty());
 
+    //buttonColumn.setCellFactory(buttonColumn.forTableColumn());
+
+
 
     // task table
     title.setCellValueFactory(
@@ -66,6 +72,7 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getPriorityProperty());
     status.setCellValueFactory(
         cellData -> cellData.getValue().getStatusProperty());
+    delete.setCellValueFactory(new PropertyValueFactory<TasksTable, String>("button"));
     taskTable.setItems(this.viewModel.getAll());
     //worker table
     name.setCellValueFactory(
@@ -74,34 +81,6 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getNumberProperty());
     workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());
 
-//    delete.setCellFactory(column -> {
-//      new TableCell<ProjectsViewModel, Void>()
-//      {
-//        private final Button button = new Button("Click me");
-//
-//        {
-//          // set the button's action
-//          button.setOnAction(event -> {
-//            // handle button click with customer object
-//          });
-//        }
-//
-//        @Override protected void updateItem(Void item, boolean empty)
-//        {
-//          super.updateItem(item, empty);
-//          if (empty)
-//          {
-//            setGraphic(null);
-//          }
-//          else
-//          {
-//            setGraphic(button);
-//          }
-//        }
-//      };
-//      return new TableCell<>();
-//    });
-//    // TODO buttons add and edit
   }
 
   @FXML private void chooseTask()
