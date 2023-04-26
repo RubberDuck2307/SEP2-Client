@@ -25,7 +25,7 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("tasks");
+    openView("projects");
   }
 
   public void openView(String id)

@@ -1,8 +1,8 @@
 package model;
 
-public interface Model
-{
-    TaskList getAllTasks();
+public interface Model {
 
-    ProjectList getAllProjects();
+    TaskList getAllTasksOfProject(Long id) ;
+
+    ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 }
