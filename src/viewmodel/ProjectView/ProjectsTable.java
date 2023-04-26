@@ -56,11 +56,13 @@ public class ProjectsTable
 
   {
     return title;
-  }public ObservableValue<LocalDate> getDeadlineValue()
+  }
+  public ObservableValue<LocalDate> getDeadlineValue()
 
   {
     return deadline;
-  }public ObservableValue<String> getManagerValue()
+  }
+  public ObservableValue<String> getManagerValue()
 
   {
     return manager;
