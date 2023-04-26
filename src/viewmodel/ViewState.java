@@ -1,5 +1,6 @@
 package viewmodel;
 
+import model.Employee;
 import model.Project;
 import model.Task;
 import view.ProjectsViewController;
@@ -12,10 +13,12 @@ public class ViewState
 {
   private Project project;
   private Task task;
+  private Employee employee;
 
   public ViewState(){
     this.project=new Project(1L, "HonzaRules", "Honza commands Alex to do Class Diagram", LocalDate.now(), new ArrayList<>());
     this.task=null;
+    this.employee = null;
   }
 
   public Task getTask()
@@ -26,6 +29,11 @@ public class ViewState
   public Project getProject()
   {
     return project;
+  }
+
+  public Employee getEmployee()
+  {
+    return employee;
   }
 
   public void setProject(Project project)

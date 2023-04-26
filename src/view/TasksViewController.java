@@ -1,8 +1,10 @@
 package view;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import javafx.util.StringConverter;
 import viewmodel.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
@@ -12,11 +14,14 @@ import java.time.LocalDate;
 
 public class TasksViewController implements ViewController
 {
+
   @FXML private Label projectName;
   @FXML private Label taskName;
   @FXML private TextArea taskDescription;
 
   @FXML private TableView<TasksTable> taskTable;
+  @FXML public TableColumn<TasksTable, String> delete;
+  @FXML public TableColumn<TasksTable, String> edit;
   @FXML private TableColumn<TasksTable, String> title;
   @FXML private TableColumn<TasksTable, String> deadline;
   @FXML private TableColumn<TasksTable, String> priority;
@@ -35,6 +40,7 @@ public class TasksViewController implements ViewController
   private Region root;
   private TasksViewModel viewModel;
   private ViewHandler viewHandler;
+
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)
   {
@@ -43,22 +49,61 @@ public class TasksViewController implements ViewController
     this.viewModel = (TasksViewModel) viewModel;
     projectName.textProperty().bind(this.viewModel.projectNameProperty());
     taskName.textProperty().bind(this.viewModel.taskNameProperty());
-    taskDescription.textProperty().bind(this.viewModel.taskDescriptionProperty());
+    taskDescription.textProperty()
+        .bind(this.viewModel.taskDescriptionProperty());
 
-    title.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());
-    deadline.setCellValueFactory(cellData -> cellData.getValue().getDeadlineProperty());
-    priority.setCellValueFactory(cellData -> cellData.getValue().getPriorityProperty());
-    status.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
+
+    // task table
+    title.setCellValueFactory(
+        cellData -> cellData.getValue().getTitleProperty());
+    deadline.setCellValueFactory(
+        cellData -> cellData.getValue().getDeadlineProperty());
+    priority.setCellValueFactory(
+        cellData -> cellData.getValue().getPriorityProperty());
+    status.setCellValueFactory(
+        cellData -> cellData.getValue().getStatusProperty());
     taskTable.setItems(viewModel.getAll());
+    //worker table
+    name.setCellValueFactory(
+        cellData -> cellData.getValue().getNameProperty());
+    number.setCellValueFactory(
+        cellData -> cellData.getValue().getNumberProperty());
+    workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());
+
+    delete.setCellFactory(column -> {
+      new TableCell<ProjectsViewModel, Void>()
+      {
+        private final Button button = new Button("Click me");
+
+        {
+          // set the button's action
+          button.setOnAction(event -> {
+            // handle button click with customer object
+          });
+        }
+
+        @Override protected void updateItem(Void item, boolean empty)
+        {
+          super.updateItem(item, empty);
+          if (empty)
+          {
+            setGraphic(null);
+          }
+          else
+          {
+            setGraphic(button);
+          }
+        }
+      };
+      return new TableCell<>();
+    });
+    // TODO buttons add and edit
   }
 
   @Override public Region getRoot()
   {
     return root;
   }
-
-
-
 
   @Override public void reset()
   {

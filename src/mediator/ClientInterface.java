@@ -1,5 +1,6 @@
 package mediator;
 
+import model.EmployeeList;
 import model.ProjectList;
 import model.TaskList;
 
@@ -10,6 +11,7 @@ public interface ClientInterface {
     TaskList getAllTasksOfProject(Long id) ;
 
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
+
 
     String hello();
 }
