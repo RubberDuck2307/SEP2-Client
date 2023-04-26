@@ -4,13 +4,15 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
+import model.Task;
 
 import java.time.LocalDate;
 
 public class TasksTable
 {
     private StringProperty title;
-    private ObjectProperty<LocalDate> deadline;
+    private StringProperty deadline;
     private StringProperty priority;
     private StringProperty status;
     private StringProperty tags;
@@ -18,12 +20,21 @@ public class TasksTable
     public TasksTable(String title, LocalDate deadline, String priority, String status, String tags)
     {
     this.title = new SimpleStringProperty(title);
-    this.deadline = new SimpleObjectProperty<>();
+    this.deadline = new SimpleStringProperty(deadline.toString());
     this.priority = new SimpleStringProperty(priority);
     this.status = new SimpleStringProperty(status);
-    this.tags = new SimpleStringProperty(tags);
+    //this.tags = new SimpleStringProperty(tags);
     }
-    
+
+    public TasksTable(Task task)
+    {
+        this.title = new SimpleStringProperty(task.getName());
+        this.deadline = new SimpleStringProperty(task.getDeadline().toString());
+        this.priority = new SimpleStringProperty(task.getPriority());
+        this.status = new SimpleStringProperty(task.getStatus());
+        //this.tags = new SimpleStringProperty(task.getTags());
+    }
+
     public String getTitle()
     {
         return title.get();
@@ -34,12 +45,12 @@ public class TasksTable
         return title;
     }
     
-    public LocalDate getDeadline()
+    public String getDeadline()
     {
         return deadline.get();
     }
     
-    public ObjectProperty<LocalDate> deadlineProperty()
+    public StringProperty deadlineProperty()
     {
         return deadline;
     }
@@ -72,5 +83,22 @@ public class TasksTable
     public StringProperty tagsProperty()
     {
         return tags;
+    }
+
+    public ObservableValue<String> getTitleProperty()
+    {
+        return title;
+    }
+    public ObservableValue<String> getDeadlineProperty()
+    {
+        return deadline;
+    }
+    public ObservableValue<String> getPriorityProperty()
+    {
+        return priority;
+    }
+    public ObservableValue<String> getStatusProperty()
+    {
+        return status;
     }
 }

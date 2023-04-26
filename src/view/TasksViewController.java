@@ -18,7 +18,7 @@ public class TasksViewController implements ViewController
 
   @FXML private TableView<TasksTable> taskTable;
   @FXML private TableColumn<TasksTable, String> title;
-  @FXML private TableColumn<TasksTable, LocalDate> deadline;
+  @FXML private TableColumn<TasksTable, String> deadline;
   @FXML private TableColumn<TasksTable, String> priority;
   @FXML private TableColumn<TasksTable, String> status;
   @FXML private TableColumn<TasksTable, String> tags;

@@ -1,11 +1,13 @@
 package viewmodel;
 
 import javafx.beans.property.*;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.Model;
 import model.Project;
 import model.Task;
+import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -58,6 +60,11 @@ public class ProjectsViewModel implements ViewModel
 
     public StringProperty getDescriptionProperty() {
         return descriptionProperty;
+    }
+
+    @Override public ObservableList<TasksTable> getAll()
+    {
+        return null;
     }
 
     //public ArrayList<Employee> getEmployeesWithAccess() {
