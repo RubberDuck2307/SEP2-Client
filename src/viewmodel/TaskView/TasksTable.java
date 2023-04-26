@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 import model.Task;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ public class TasksTable
     private StringProperty deadline;
     private StringProperty priority;
     private StringProperty status;
+    private Button button;
     private Long id;
     private StringProperty tags;
 
@@ -26,7 +28,18 @@ public class TasksTable
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
         this.id=task.getId();
+        this.button=new Button("CLICK");
         //this.tags = new SimpleStringProperty(task.getTags());
+    }
+
+    public Button getButton()
+    {
+        return button;
+    }
+
+    public void setButton(Button button)
+    {
+        this.button = button;
     }
 
     public void setDeadline(LocalDate deadline)
