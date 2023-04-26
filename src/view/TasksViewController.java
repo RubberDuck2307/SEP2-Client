@@ -72,7 +72,7 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getPriorityProperty());
     status.setCellValueFactory(
         cellData -> cellData.getValue().getStatusProperty());
-    delete.setCellValueFactory(new PropertyValueFactory<TasksTable, String>("button"));
+    delete.setCellValueFactory(new PropertyValueFactory<>("button"));
     taskTable.setItems(this.viewModel.getAll());
     //worker table
     name.setCellValueFactory(

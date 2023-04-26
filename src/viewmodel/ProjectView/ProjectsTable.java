@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
 import model.Project;
 
 import java.time.LocalDate;
@@ -16,7 +18,10 @@ public class ProjectsTable
   private ObjectProperty<String> deadline;
   private StringProperty manager;
 
+
   private Long id;
+  private Button button;
+
 
   public ProjectsTable(String title, LocalDate deadline, String manager)
   {
@@ -32,7 +37,29 @@ public class ProjectsTable
     setDeadline(project.getDeadline());
     this.manager = new SimpleStringProperty(project.getProjectManager().get(0).getName());
     this.id = project.getId();
+
+    this.button=new Button(" ");
+
+    openTasks();
+
+    button.setId("showTasks");
+
   }
+  public Button getButton()
+  {
+    return button;
+  }
+  public void openTasks(){
+    button.setOnAction(e -> {
+      System.out.println("hhhhhhh");
+    });
+  }
+
+  public void setButton(Button button)
+  {
+    this.button = button;
+  }
+
 
   public Long getId() {
     return id;

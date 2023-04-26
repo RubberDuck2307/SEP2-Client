@@ -12,6 +12,8 @@ import viewmodel.ViewState;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static javafx.application.Platform.runLater;
+
 public class ProjectsViewModel implements ViewModel
 {
     private Model model;
@@ -19,6 +21,7 @@ public class ProjectsViewModel implements ViewModel
     private StringProperty descriptionProperty;
     private ProjectList projectList;
     private ObservableList<ProjectsTable> projectsObservableList;
+    private ProjectsTable projectsTable;
     private ViewState viewState;
     public ProjectsViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
@@ -28,6 +31,8 @@ public class ProjectsViewModel implements ViewModel
         projectList = new ProjectList();
         projectsObservableList = FXCollections.observableArrayList();
         load();
+        projectsTable = new ProjectsTable(projectList.getProjectByID(1L));
+        runLater(() -> projectsTable.openTasks());
     }
 
     public void load(){
@@ -36,6 +41,7 @@ public class ProjectsViewModel implements ViewModel
             projectsObservableList.add(new ProjectsTable(projectList.get(i)));
         }
         System.out.println(projectsObservableList.get(0));
+
     }
 
     public StringProperty getTitleProperty() {
@@ -59,6 +65,9 @@ public class ProjectsViewModel implements ViewModel
         titleProperty.setValue(project.getName());
         descriptionProperty.setValue(project.getDescription());
         viewState.setProject(project);
+
+
+
 
 
     }
