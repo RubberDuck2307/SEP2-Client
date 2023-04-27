@@ -23,6 +23,7 @@ public class ProjectsViewModel implements ViewModel
     private StringProperty descriptionProperty;
     private ProjectList projectList;
     private ObservableList<ProjectsTable> projectsObservableList;
+    private ObservableList<Project> projects;
     private ObservableList<ProjectManagersTable> projectManagersTables;
     private ProjectsTable projectsTable;
     private ViewState viewState;
@@ -34,8 +35,10 @@ public class ProjectsViewModel implements ViewModel
         projectList = new ProjectList();
         projectsObservableList = FXCollections.observableArrayList();
         projectManagersTables = FXCollections.observableArrayList();
+        projects = FXCollections.observableArrayList();
         load();
-        projectsTable = new ProjectsTable(projectList.getProjectByID(1L));
+
+
 
     }
 
@@ -43,6 +46,7 @@ public class ProjectsViewModel implements ViewModel
         projectList = model.getAllProjectsByWorkingNumber(1);
         for (int i = 0; i < projectList.size(); i++) {
             projectsObservableList.add(new ProjectsTable(projectList.get(i)));
+            projects.add(projectList.get(i));
         }
         System.out.println(projectsObservableList.get(0));
     }
@@ -82,6 +86,12 @@ public class ProjectsViewModel implements ViewModel
             projectManagersTables.add(new ProjectManagersTable(project.getProjectManager().get(i)));
         }
     }
+
+
+    public ObservableList<Project> getProjects() {
+        return projects;
+    }
+
     public void openView(){
 
     }
