@@ -3,6 +3,7 @@ package viewmodel.ProjectView;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import model.*;
 import viewmodel.TaskView.TasksTable;
@@ -31,17 +32,19 @@ public class ProjectsViewModel implements ViewModel
         projectList = new ProjectList();
         projectsObservableList = FXCollections.observableArrayList();
         load();
-        projectsTable = new ProjectsTable(projectList.getProjectByID(1L));
-        runLater(() -> projectsTable.openTasks());
+        projectsTable = new ProjectsTable(projectList.getProjectByID(1L), this);
+
     }
 
     public void load(){
         projectList = model.getAllProjectsByWorkingNumber(1);
         for (int i = 0; i < projectList.size(); i++) {
-            projectsObservableList.add(new ProjectsTable(projectList.get(i)));
+            projectsObservableList.add(new ProjectsTable(projectList.get(i), this));
         }
         System.out.println(projectsObservableList.get(0));
-
+    }
+    public Button getButton(){
+        return projectsTable.getBtton();
     }
 
     public StringProperty getTitleProperty() {
@@ -69,6 +72,9 @@ public class ProjectsViewModel implements ViewModel
 
 
 
+
+    }
+    public void openView(){
 
     }
 }

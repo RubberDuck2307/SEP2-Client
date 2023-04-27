@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import model.Project;
+import viewmodel.ViewModel;
 
 import java.time.LocalDate;
 
@@ -18,9 +19,9 @@ public class ProjectsTable
   private ObjectProperty<String> deadline;
   private StringProperty manager;
 
-
+  private ProjectsViewModel viewModel;
   private Long id;
-  private Button button;
+  private Button btton;
 
 
   public ProjectsTable(String title, LocalDate deadline, String manager)
@@ -31,33 +32,33 @@ public class ProjectsTable
     this.manager = new SimpleStringProperty(manager);
   }
 
-  public ProjectsTable(Project project){
+  public ProjectsTable(Project project, ProjectsViewModel viewModel){
     this.title = new SimpleStringProperty(project.getName());
     this.deadline = new SimpleObjectProperty<>();
     setDeadline(project.getDeadline());
     this.manager = new SimpleStringProperty(project.getProjectManager().get(0).getName());
     this.id = project.getId();
 
-    this.button=new Button(" ");
+   // this.btton=new Button(" ");
 
-    openTasks();
-
-    button.setId("showTasks");
+    //openTasks();
+    this.viewModel = viewModel;
+  //  btton.setId("showTasks");
 
   }
-  public Button getButton()
+  public Button getBtton()
   {
-    return button;
+    return btton;
   }
-  public void openTasks(){
-    button.setOnAction(e -> {
-      System.out.println("hhhhhhh");
+ /* public void openTasks(){
+    btton.setOnAction(e -> {
+      viewModel.openView();
     });
-  }
+  }*/
 
-  public void setButton(Button button)
+  public void setBtton(Button btton)
   {
-    this.button = button;
+    this.btton = btton;
   }
 
 

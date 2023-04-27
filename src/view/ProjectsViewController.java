@@ -1,9 +1,12 @@
 package view;
 
 import javafx.beans.property.StringProperty;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
@@ -11,11 +14,12 @@ import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
 import viewmodel.ViewModel;
 
+import java.awt.event.InputEvent;
 import java.time.LocalDate;
 
 public class ProjectsViewController implements ViewController
 {
-  public TableColumn<ProjectsTable, String> delete;
+  public TableColumn<ProjectsTable, Button> delete;
   public TableColumn edit;
   @FXML private TableView<ProjectsTable> projectTable;
   @FXML private TableView<ProjectsTable> employeesListTable;
@@ -27,7 +31,6 @@ public class ProjectsViewController implements ViewController
   @FXML private TableColumn<WorkersTable, String> projectEmployeePositionColumn;
   @FXML private TextArea descriptionArea;
   @FXML private Label titleLabel;
-
   private Region root;
   private ProjectsViewModel viewModel;
   private ViewHandler viewHandler;
@@ -50,19 +53,30 @@ public class ProjectsViewController implements ViewController
         cellData -> cellData.getValue().deadlineProperty());
     managerColumn.setCellValueFactory(
         cellData -> cellData.getValue().getManagerValue());
-
     projectEmployeeNameColumn.setCellValueFactory(
         cellData -> cellData.getValue().nameProperty());
 
-    delete.setCellValueFactory(new PropertyValueFactory<>("button"));
+    PropertyValueFactory<ProjectsTable, Button> button = new PropertyValueFactory("btton"
+    );
+    delete.setCellValueFactory(button);
     delete.setStyle("-fx-alignment: CENTER;");
+
+    for (int i = 0; i < this.viewModel.getProjectsObservableList().size(); i++){
+      Button button1 = new Button(" ");
+      button1.setId("showTasks");
+      button1.setOnAction(e -> {
+        projectTableClick();
+        viewHandler.openView("tasks");
+      });
+      ((ProjectsViewModel) viewModel).getProjectsObservableList().get(i).setBtton(button1);
+    }
+
     projectTable.setItems(this.viewModel.getProjectsObservableList());
 
   }
 
   @Override public void reset()
   {
-
   }
 
   @FXML public void projectTableClick()
@@ -71,12 +85,14 @@ public class ProjectsViewController implements ViewController
     {
       viewModel.setProject(
           projectTable.getSelectionModel().getSelectedItem().getId());
-      viewHandler.openView("tasks");
     }
   }
 
   public Region getRoot()
   {
     return root;
+  }
+  public void openTask(){
+    viewHandler.openView("tasks");
   }
 }
