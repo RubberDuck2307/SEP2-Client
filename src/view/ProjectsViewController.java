@@ -22,13 +22,11 @@ public class ProjectsViewController implements ViewController
   public TableColumn<ProjectsTable, Button> delete;
   public TableColumn edit;
   @FXML private TableView<ProjectsTable> projectTable;
-  @FXML private TableView<ProjectsTable> employeesListTable;
-
   @FXML private TableColumn<ProjectsTable, String> titleColumn;
   @FXML private TableColumn<ProjectsTable, String> deadlineColumn;
-  @FXML private TableColumn<ProjectsTable, String> managerColumn;
-  @FXML private TableColumn<WorkersTable, String> projectEmployeeNameColumn;
-  @FXML private TableColumn<WorkersTable, String> projectEmployeePositionColumn;
+
+  @FXML private TableView<ProjectManagersTable> employeesListTable;
+  @FXML private TableColumn<ProjectManagersTable, String> projectEmployeeNameColumn;
   @FXML private TextArea descriptionArea;
   @FXML private Label titleLabel;
   private Region root;
@@ -51,10 +49,11 @@ public class ProjectsViewController implements ViewController
         cellData -> cellData.getValue().getTitleValue());
     deadlineColumn.setCellValueFactory(
         cellData -> cellData.getValue().deadlineProperty());
-    managerColumn.setCellValueFactory(
-        cellData -> cellData.getValue().getManagerValue());
+
+
     projectEmployeeNameColumn.setCellValueFactory(
-        cellData -> cellData.getValue().nameProperty());
+        cellData -> cellData.getValue().getNameValue());
+    employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
 
     PropertyValueFactory<ProjectsTable, Button> button = new PropertyValueFactory("btton"
     );

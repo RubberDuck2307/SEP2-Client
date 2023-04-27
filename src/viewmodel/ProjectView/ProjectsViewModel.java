@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import model.*;
 import viewmodel.TaskView.TasksTable;
+import viewmodel.TaskView.WorkersTable;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
@@ -22,6 +23,7 @@ public class ProjectsViewModel implements ViewModel
     private StringProperty descriptionProperty;
     private ProjectList projectList;
     private ObservableList<ProjectsTable> projectsObservableList;
+    private ObservableList<ProjectManagersTable> projectManagersTables;
     private ProjectsTable projectsTable;
     private ViewState viewState;
     public ProjectsViewModel(Model model, ViewState viewState) {
@@ -31,6 +33,7 @@ public class ProjectsViewModel implements ViewModel
         descriptionProperty = new SimpleStringProperty();
         projectList = new ProjectList();
         projectsObservableList = FXCollections.observableArrayList();
+        projectManagersTables = FXCollections.observableArrayList();
         load();
         projectsTable = new ProjectsTable(projectList.getProjectByID(1L), this);
 
@@ -55,6 +58,11 @@ public class ProjectsViewModel implements ViewModel
         return projectsObservableList;
     }
 
+    public ObservableList<ProjectManagersTable> getProjectManagersObservableList()
+    {
+        return projectManagersTables;
+    }
+
     public void setProjectsObservableList(ObservableList<ProjectsTable> projectsObservableList) {
         this.projectsObservableList = projectsObservableList;
     }
@@ -68,11 +76,11 @@ public class ProjectsViewModel implements ViewModel
         titleProperty.setValue(project.getName());
         descriptionProperty.setValue(project.getDescription());
         viewState.setProject(project);
-
-
-
-
-
+        projectManagersTables.clear();
+        for (int i = 0; i < project.getProjectManager().size(); i++)
+        {
+            projectManagersTables.add(new ProjectManagersTable(project.getProjectManager().get(i)));
+        }
     }
     public void openView(){
 
