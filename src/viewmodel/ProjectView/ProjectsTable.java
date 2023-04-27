@@ -16,26 +16,16 @@ public class ProjectsTable
 {
   private StringProperty title;
   private ObjectProperty<String> deadline;
-  private StringProperty manager;
 
 
   private Long id;
   private Button button;
 
-
-  public ProjectsTable(String title, LocalDate deadline, String manager)
-  {
-    this.title = new SimpleStringProperty(title);
-    this.deadline = new SimpleObjectProperty<>();
-    setDeadline(deadline);
-    this.manager = new SimpleStringProperty(manager);
-  }
-
   public ProjectsTable(Project project){
     this.title = new SimpleStringProperty(project.getName());
     this.deadline = new SimpleObjectProperty<>();
     setDeadline(project.getDeadline());
-    this.manager = new SimpleStringProperty(project.getProjectManager().get(0).getName());
+    //this.manager = new SimpleStringProperty(project.getProjectManager().get(0).getName());
     this.id = project.getId();
 
     this.button=new Button(" ");
@@ -91,26 +81,10 @@ public class ProjectsTable
     this.deadline.set(deadline.toString());
   }
 
-  public String getManager()
-  {
-    return manager.get();
-  }
-
-  public StringProperty managerProperty()
-  {
-    return manager;
-  }
-
   public ObservableValue<String> getTitleValue()
 
   {
     return title;
-  }
-
-  public ObservableValue<String> getManagerValue()
-
-  {
-    return manager;
   }
 
   @Override
@@ -118,7 +92,6 @@ public class ProjectsTable
     return "ProjectsTable{" +
             "title=" + title +
             ", deadline=" + deadline +
-            ", manager=" + manager +
             '}';
   }
 }
