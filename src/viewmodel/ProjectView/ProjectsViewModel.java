@@ -35,14 +35,14 @@ public class ProjectsViewModel implements ViewModel
         projectsObservableList = FXCollections.observableArrayList();
         projectManagersTables = FXCollections.observableArrayList();
         load();
-        projectsTable = new ProjectsTable(projectList.getProjectByID(1L), this);
+        projectsTable = new ProjectsTable(projectList.getProjectByID(1L));
 
     }
 
     public void load(){
         projectList = model.getAllProjectsByWorkingNumber(1);
         for (int i = 0; i < projectList.size(); i++) {
-            projectsObservableList.add(new ProjectsTable(projectList.get(i), this));
+            projectsObservableList.add(new ProjectsTable(projectList.get(i)));
         }
         System.out.println(projectsObservableList.get(0));
     }

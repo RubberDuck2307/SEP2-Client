@@ -19,7 +19,6 @@ public class ProjectsTable
   private ObjectProperty<String> deadline;
   private StringProperty manager;
 
-  private ProjectsViewModel viewModel;
   private Long id;
   private Button btton;
 
@@ -27,25 +26,16 @@ public class ProjectsTable
     this.title = new SimpleStringProperty(project.getName());
     this.deadline = new SimpleObjectProperty<>();
     setDeadline(project.getDeadline());
-    //this.manager = new SimpleStringProperty(project.getProjectManager().get(0).getName());
     this.id = project.getId();
 
-   // this.btton=new Button(" ");
 
-    //openTasks();
-    this.viewModel = viewModel;
-  //  btton.setId("showTasks");
 
   }
   public Button getBtton()
   {
     return btton;
   }
- /* public void openTasks(){
-    btton.setOnAction(e -> {
-      viewModel.openView();
-    });
-  }*/
+
 
   public void setBtton(Button btton)
   {
