@@ -21,6 +21,7 @@ import java.time.LocalDate;
 public class ProjectsViewController implements ViewController
 {
   public TableColumn<ProjectsTable, Button> delete;
+  public TableColumn<ProjectsTable, Button> openTask;
   public TableColumn edit;
   @FXML private TableView<ProjectsTable> projectTable;
   @FXML private TableColumn<ProjectsTable, String> titleColumn;
@@ -60,6 +61,7 @@ public class ProjectsViewController implements ViewController
     );
     delete.setCellValueFactory(button);
     delete.setStyle("-fx-alignment: CENTER;");
+
 
     for (int i = 0; i < this.viewModel.getProjectsObservableList().size(); i++){
       Button button1 = new Button(" ");
