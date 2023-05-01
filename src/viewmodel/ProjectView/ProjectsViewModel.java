@@ -37,18 +37,15 @@ public class ProjectsViewModel implements ViewModel
         projectManagersTables = FXCollections.observableArrayList();
         projects = FXCollections.observableArrayList();
         load();
-
-
-
     }
 
     public void load(){
         projectList = model.getAllProjectsByWorkingNumber(1);
+        System.out.println(projectList);
         for (int i = 0; i < projectList.size(); i++) {
             projectsObservableList.add(new ProjectsTable(projectList.get(i)));
             projects.add(projectList.get(i));
         }
-        System.out.println(projectsObservableList.get(0));
     }
     public Button getButton(){
         return projectsTable.getBtton();

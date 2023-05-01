@@ -73,6 +73,7 @@ public class ViewHandler
     else
     {
       viewController.reset();
+      System.out.println("reset");
     }
     return viewController.getRoot();
   }

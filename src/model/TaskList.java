@@ -50,6 +50,9 @@ public class TaskList implements Serializable {
         return tasksList.size();
     }
 
+    public boolean contains(Task task){
+        return tasksList.contains(task);
+    }
     @Override
     public String toString() {
         return "{" +  tasksList +

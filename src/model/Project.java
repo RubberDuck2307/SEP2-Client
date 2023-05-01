@@ -19,6 +19,21 @@ public class Project implements Serializable {
         this.projectManager = projectManager;
     }
 
+    public Project(Long id, String name, String description, LocalDate deadline) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.deadline = deadline;
+        this.projectManager = new ArrayList<>();
+    }
+
+    public Project(String name, String description, LocalDate deadline) {
+        this.name = name;
+        this.description = description;
+        this.deadline = deadline;
+        this.projectManager = new ArrayList<>();
+    }
+
     public Long getId() {
         return id;
     }

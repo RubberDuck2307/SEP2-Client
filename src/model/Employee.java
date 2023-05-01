@@ -9,13 +9,30 @@ public class Employee implements Serializable {
     private LocalDate dob;
     private String phoneNumber;
     private String gender;
+    private EmployeeRole role;
+    private String email;
 
-    public Employee(Integer workingNumber, String name, LocalDate dob, String phoneNumber, String gender) {
+    private UserProfile userProfile;
+
+    public Employee(Integer workingNumber, String name, LocalDate dob, String phoneNumber, String gender, EmployeeRole role, String email) {
         this.workingNumber = workingNumber;
         this.name = name;
         this.dob = dob;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.role = role;
+        this.email = email;
+    }
+
+    public Employee(Integer workingNumber, String name, LocalDate dob, String phoneNumber, String gender, EmployeeRole role, String email, UserProfile userProfile) {
+        this.workingNumber = workingNumber;
+        this.name = name;
+        this.dob = dob;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.role = role;
+        this.email = email;
+        setUserProfile(userProfile);
     }
 
     public Integer getWorkingNumber() {
@@ -56,6 +73,24 @@ public class Employee implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        if (!userProfile.getWorkingNumber().equals(this.workingNumber)){
+            throw new RuntimeException("Working number of user profile is not the same as employee's working number");
+        }
+        this.userProfile = userProfile;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public EmployeeRole getRole() {
+        return role;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
     }
 
     @Override

@@ -81,6 +81,7 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getNumberProperty());
     workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());
 
+    this.viewModel.load();
   }
 
   @FXML private void chooseTask()
@@ -100,7 +101,7 @@ public class TasksViewController implements ViewController
 
   @Override public void reset()
   {
-
+    viewModel.load();
   }
 
   public void openProjects(MouseEvent mouseEvent)

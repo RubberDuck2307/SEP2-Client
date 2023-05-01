@@ -9,7 +9,7 @@ public class Task implements Serializable {
     private String name;
     private String description;
     private LocalDate deadline;
-    private int estimatedTime;
+    private Integer estimatedTime;
     private String priority;
     private String status;
     private Long projectId;
@@ -28,6 +28,18 @@ public class Task implements Serializable {
         this.projectId = projectId;
         this.startingDate = startingDate;
         this.workers = workers;
+    }
+
+    public Task(String name, String description, LocalDate deadline, Integer estimatedTime, String priority, String status, Long projectId, LocalDate startingDate) {
+        this.name = name;
+        this.description = description;
+        this.deadline = deadline;
+        this.estimatedTime = estimatedTime;
+        this.priority = priority;
+        this.status = status;
+        this.projectId = projectId;
+        this.startingDate = startingDate;
+        this.workers = new ArrayList<>();
     }
 
     public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate) {
@@ -122,6 +134,21 @@ public class Task implements Serializable {
         this.workers = workers;
     }
 
+    public boolean equals(Object object){
+        if (object instanceof Task){
+            Task task = (Task) object;
+            return task.getId().equals(this.getId()) &&
+                    task.getStatus().equals(this.getStatus()) &&
+                    task.getPriority().equals(this.getPriority()) &&
+                    task.getEstimatedTime() == this.getEstimatedTime() &&
+                    task.getDeadline().equals(this.getDeadline()) &&
+                    task.getStartingDate().equals(this.getStartingDate()) &&
+                    task.getDescription().equals(this.getDescription()) &&
+                    task.getName().equals(this.getName()) &&
+                    task.getProjectId().equals(this.getProjectId());
+        }
+        return false;
+    }
     @Override
     public String toString() {
         return "Task{" +
@@ -137,4 +164,6 @@ public class Task implements Serializable {
                 ", workers=" + workers +
                 '}';
     }
+
+
 }
