@@ -1,6 +1,8 @@
 package mediator;
 
+import model.Project;
 import model.ProjectList;
+import model.Task;
 import model.TaskList;
 
 import java.beans.PropertyChangeSupport;
@@ -35,6 +37,30 @@ public class Client implements ClientInterface {
         try {
             return model.getAllProjectsByWorkingNumber(workingNumber);
         } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void saveProject(Project project)
+    {
+        try
+        {
+            model.saveProject(project);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void saveTask(Task task)
+    {
+        try
+        {
+            model.saveTask(task);
+        }
+        catch (RemoteException e)
+        {
             throw new RuntimeException(e);
         }
     }

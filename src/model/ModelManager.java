@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ModelManager implements Model {
 
-    ClientInterface client;
+    private ClientInterface client;
 
     public ModelManager(ClientInterface client) {
         this.client = client;
@@ -21,5 +21,15 @@ public class ModelManager implements Model {
     @Override
     public ProjectList getAllProjectsByWorkingNumber(Integer workingNumber) {
         return client.getAllProjectsByWorkingNumber(workingNumber);
+    }
+
+    @Override public void saveProject(Project project)
+    {
+        client.saveProject(project);
+    }
+
+    @Override public void saveTask(Task task)
+    {
+        client.saveTask(task);
     }
 }

@@ -1,8 +1,6 @@
 package mediator;
 
-import model.EmployeeList;
-import model.ProjectList;
-import model.TaskList;
+import model.*;
 
 import java.rmi.RemoteException;
 
@@ -12,6 +10,9 @@ public interface ClientInterface {
 
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
+    void saveProject(Project project);
+
+    void saveTask(Task task);
 
     String hello();
 }
