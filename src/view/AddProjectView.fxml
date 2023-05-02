@@ -147,7 +147,7 @@
                                 <Insets />
                             </opaqueInsets>
                             <children>
-                        <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#" prefHeight="44.0" prefWidth="133.0" styleClass="button-back">
+                        <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
                            <HBox.margin>
                               <Insets left="10.0" top="20.0" />
                            </HBox.margin>
@@ -167,14 +167,29 @@
                                     <children>
                                         <VBox prefHeight="397.0" prefWidth="539.0">
                                  <children>
-                                    <Label prefHeight="18.0" prefWidth="94.0" text="Title" />
-                                    <TextField />
-                                    <Label prefHeight="18.0" prefWidth="497.0" text="Error message" />
-                                    <Label prefHeight="18.0" prefWidth="112.0" text="Deadline" />
+                                    <Label prefHeight="18.0" prefWidth="94.0" styleClass="labels-form" text="Title" />
+                                    <TextField styleClass="text-fields" />
+                                    <Label prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
+                                    <Label layoutX="10.0" layoutY="391.0" prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Deadline">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
                                     <DatePicker />
-                                    <Label prefHeight="18.0" prefWidth="112.0" text="Description" />
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" />
-                                    <Button mnemonicParsing="false" text="Create a project" />
+                                    <Label prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Description">
+                                       <padding>
+                                          <Insets top="15.0" />
+                                       </padding></Label>
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" styleClass="textarea-fields" />
+                                    <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
+                                       <children>
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="create-button" text="Create a project">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                    </VBox>
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" right="20.0" top="30.0" />
@@ -198,17 +213,17 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                                <HBox prefHeight="42.0" prefWidth="475.0">
+                                                <HBox prefHeight="31.0" prefWidth="454.0">
                                        <children>
-                                          <ChoiceBox prefHeight="31.0" prefWidth="232.0" styleClass="input-select">
+                                          <ChoiceBox prefHeight="23.0" prefWidth="186.0" styleClass="input-select-filter">
                                              <HBox.margin>
-                                                <Insets right="40.0" />
+                                                <Insets right="20.0" />
                                              </HBox.margin>
                                           </ChoiceBox>
-                                          <TextField prefHeight="31.0" prefWidth="287.0" styleClass="input-select" />
+                                          <TextField prefHeight="23.0" prefWidth="274.0" styleClass="input-select-filter" />
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="90.0" />
+                                          <Insets left="10.0" right="10.0" />
                                        </VBox.margin>
                                                 </HBox>
                                                 <TableView fx:id="workersTable" prefHeight="239.0" prefWidth="486.0" styleClass="table-view2">
@@ -221,7 +236,15 @@
                                                         <Insets left="15.0" right="15.0" />
                                                     </VBox.margin>
                                                 </TableView>
-                                    <Button mnemonicParsing="false" text="Add managers" />
+                                    <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
+                                       <children>
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="create-button" text="Assign managers">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                    </VBox>
                                             </children>
                                  <HBox.margin>
                                     <Insets left="20.0" right="20.0" top="10.0" />

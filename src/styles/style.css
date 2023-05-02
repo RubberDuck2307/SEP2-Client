@@ -86,6 +86,13 @@
     -fx-max-width: -size;
 -fx-shape: "M4 11C4 7.13401 7.13401 4 11 4C14.866 4 18 7.13401 18 11C18 14.866 14.866 18 11 18C7.13401 18 4 14.866 4 11ZM11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C13.125 20 15.078 19.2635 16.6177 18.0319L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L18.0319 16.6177C19.2635 15.078 20 13.125 20 11C20 6.02944 15.9706 2 11 2Z" ;
 }
+.go-back{
+    -fx-background-color: #007BFF ;
+    -size: 15;
+  -fx-shape:"M7.828 12.9998L13.192 18.3638L11.778 19.7778L4 11.9998L11.778 4.22183L13.192 5.63583L7.828 10.9998L20 10.9998V12.9998L7.828 12.9998Z";
+
+}
+
 .button-add{
     -fx-background-color: #007BFF ;
 
@@ -96,6 +103,106 @@
     -fx-max-width: -size;
 -fx-shape: "M13 17.6944C12.4017 17.6944 11.9166 17.2094 11.9166 16.6111V14.0833H9.38885C8.79054 14.0833 8.30552 13.5983 8.30552 13C8.30552 12.4017 8.79054 11.9167 9.38885 11.9167H11.9166V9.38888C11.9166 8.79057 12.4017 8.30555 13 8.30555C13.5983 8.30555 14.0833 8.79057 14.0833 9.38888V11.9167H16.6111C17.2094 11.9167 17.6944 12.4017 17.6944 13C17.6944 13.5983 17.2094 14.0833 16.6111 14.0833H14.0833V16.6111C14.0833 17.2094 13.5983 17.6944 13 17.6944Z M2.16667 13C2.16667 7.01691 7.01692 2.16666 13 2.16666C18.9831 2.16666 23.8333 7.01691 23.8333 13C23.8333 18.9831 18.9831 23.8333 13 23.8333C7.01692 23.8333 2.16667 18.9831 2.16667 13ZM13 4.33332C8.21354 4.33332 4.33334 8.21352 4.33334 13C4.33334 17.7865 8.21354 21.6667 13 21.6667C17.7865 21.6667 21.6667 17.7865 21.6667 13C21.6667 8.21352 17.7865 4.33332 13 4.33332Z"  ;
 }
+.create-button{
+-fx-background-color: #007BFF;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+}
+.text-fields{
+ -fx-background-color: #fff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-padding: 6px;
+}
+.error-message{
+-fx-text-fill: red;
+ -fx-font-size: 10px;
+}
+.labels-form{
+-fx-text-fill: black;
+ -fx-font-size: 14px;
+-fx-font-weight: 700;
+}
+.textarea-fields{
+-fx-background-color: #fff;
+ -fx-background-radius: 7px;
+  -fx-border-color: #ddd;
+  -fx-border-radius: 7px;
+  -fx-padding: -1px;
+}
+.input-select-filter{
+-fx-font-size: 10px;
+-fx-background-color: #E6F2FE;
+-fx-border-color:#0D6EFD;
+-fx-border-radius: 5px;
+}
+/*date picker             */
+* {
+	-fx-primary-color: #007BFF;
+	-fx-secondary-color: #007BFF;
+	-fx-light-grey-color: #d1d1d1;
+	-fx-focus-color: -fx-secondary-color;
+}
+
+.date-picker .arrow-button {
+	-fx-background-color: -fx-primary-color;
+	-fx-background-radius: 0;
+}
+.date-picker .arrow-button:hover {
+	-fx-background-color: -fx-secondary-color;
+}
+.date-picker .arrow-button .arrow {
+	-fx-background-color: white;
+}
+.date-picker .cell {
+	-fx-background-color: white;
+}
+.date-picker .cell:hover {
+	-fx-background-color: -fx-light-grey-color;
+}
+.date-picker .cell:focused {
+	-fx-background-color: -fx-light-grey-color;
+}
+.date-picker .selected {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+.date-picker .selected:focused {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+.date-picker-popup .month-year-pane {
+	-fx-background-color: -fx-primary-color;
+}
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: white;
+}
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: -fx-secondary-color;
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .button-edit{
 -icon-paint: red;
     -fx-background-color: #007BFF;
