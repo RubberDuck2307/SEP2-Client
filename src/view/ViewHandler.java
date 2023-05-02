@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 import viewmodel.ViewModel;
 import viewmodel.ViewModelFactory;
 
-import javax.swing.text.View;
-
 public class ViewHandler
 {
   private Scene currentScene;
@@ -16,6 +14,7 @@ public class ViewHandler
   private ViewModelFactory viewModelFactory;
   private ProjectsViewController projectsViewController;
   private TasksViewController tasksViewController;
+  private AddProjectViewController addProjectViewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
@@ -39,6 +38,11 @@ public class ViewHandler
       case "tasks":{
         root = loadViewController(tasksViewController, viewModelFactory.getTasksViewModel() ,"TasksView.fxml");
         break;}
+      case "addProject":{
+        root = loadViewController((ViewController) addProjectViewController,
+            (ViewModel) viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
+        break;
+      }
     }
     currentScene.setRoot(root);
     String title = "";
@@ -77,4 +81,5 @@ public class ViewHandler
     }
     return viewController.getRoot();
   }
+
 }
