@@ -264,7 +264,7 @@
                                             <children>
                                                 <HBox prefHeight="55.0" prefWidth="539.0">
                                                     <children>
-                                                        <Label styleClass="heading-2" text="Worskers of the project">
+                                                        <Label styleClass="heading-2" text="Workers of the project">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" top="10.0" />
                                                             </HBox.margin>
