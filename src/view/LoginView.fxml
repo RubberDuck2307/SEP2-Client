@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TasksViewController">
+    <items>
+        <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="704.0" style="-fx-border-radius: 10px;" styleClass="side-box">
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+         <children>
+            <HBox layoutX="25.0" layoutY="10.0" minWidth="-Infinity" prefHeight="747.0" prefWidth="102.0" style="-fx-border-radius: 10px;" styleClass="side-box">
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="747.0" prefWidth="75.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="79.0" styleClass="labels-form" text="BestGroup" />
+                     </children>
+                      <ImageView>
+                          <image>
+                              <Image url="@../icons/logo.jpg" />
+                          </image>
+
+                      </ImageView>
+                  </VBox>
+
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="767.0" prefWidth="486.0" style="-fx-border-radius: 10px;" styleClass="side-box">
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+               <children>
+                  <VBox maxHeight="300.0" maxWidth="400.0" prefWidth="642.0">
+                     <children>
+                        <Label prefHeight="0.0" prefWidth="642.0" styleClass="heading" text="Welcome back" textAlignment="CENTER" />
+                        <Label prefHeight="0.0" prefWidth="642.0" styleClass="small-message" text="Welcome back. Please enter your details." textAlignment="CENTER" />
+                        <Label styleClass="labels-form" text="Working number">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField styleClass="text-fields" />
+                        <Label layoutX="10.0" layoutY="82.0" styleClass="labels-form" text="Password">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField layoutX="10.0" layoutY="102.0" styleClass="text-fields" />
+                        <HBox alignment="CENTER" prefHeight="64.0" prefWidth="400.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                              <HBox layoutX="110.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
+                              <Label prefHeight="20.0" prefWidth="127.0" styleClass="forgot-password-link" text="Forgot password" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="191.0" prefHeight="64.0" prefWidth="400.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="436.0" styleClass="create-button" text="Sign in" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="10.0" minWidth="-Infinity" prefHeight="767.0" prefWidth="643.0">
+         <children>
+            <HBox prefHeight="767.0" prefWidth="653.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="767.0" prefWidth="724.0">
+                     <children>
+                        <ImageView fitHeight="330.0" fitWidth="342.0">
+                           <image>
+                              <Image url="@../icons/minion.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+        </HBox>
+    </items>
+</SplitPane>
