@@ -434,11 +434,7 @@
 .button-more-info:hover{
 -fx-background-color: #A4CCF5;
 }
-/* tables
-
-
-
-*/
+/* tables                    */
 .table-view {
     -fx-background-color: transparent;
 
@@ -464,21 +460,34 @@
 .table-view .cell{
   -fx-cell-size: 25;
   -fx-alignment: center-left;
-  -fx-background-color: #F8F9FA;
+
   -fx-font-size: 12px !important;
   -fx-text-fill: #152536;
   -fx-alignment: CENTER_LEFT;
+  -fx-border-color: transparent;
+}
+.table-view .cell:selected{
+  -fx-background-color: red;
+
 }
 
 .table-view .cell:even{
   -fx-background-color: F4F4F4;
+
 }
 .table-view .cell:odd{
   -fx-background-color: white;
+
 }
 /* todo implement hover and selected this is not working*/
-.table-view .cell:hover{
+
+.table-row-cell:selected .text {
+       -fx-fill: #007BFF ;
+       -fx-font-weight: 700;
 }
+
+
+
 
 
 /* scroll bar starts here */
