@@ -2,6 +2,7 @@ package view;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +18,7 @@ import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewController implements ViewController
 {
+
 
   @FXML private Label projectName;
   @FXML private Label taskName;
@@ -52,8 +54,6 @@ public class TasksViewController implements ViewController
     this.viewModel = (TasksViewModel) viewModel;
     commentsTable.setVisible(false);
     workersTable.setVisible(false);
-
-
     projectName.textProperty().bind(this.viewModel.projectNameProperty());
     taskName.textProperty().bind(this.viewModel.taskNameProperty());
     taskDescription.textProperty()
@@ -107,5 +107,11 @@ public class TasksViewController implements ViewController
   public void openProjects(MouseEvent mouseEvent)
   {
     viewHandler.openView("projects");
+  }
+
+  public void addNewTask(ActionEvent actionEvent)
+  {
+
+    viewHandler.openView("addTask");
   }
 }

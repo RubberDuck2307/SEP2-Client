@@ -103,6 +103,8 @@ public class ProjectsViewController implements ViewController {
     public void reset() {
     }
 
+    // TODO fix the buttons - projectTable.getSelectionModel().getSelectedItem() does not work inside button
+
     @FXML
     public void projectTableClick() {
         if (projectTable.getSelectionModel().getSelectedItem() != null) {
