@@ -26,6 +26,10 @@ public class EmployeeList implements Serializable
     return employeesList.get(index);
   }
 
+  public Employee get(int index){
+    return this.employeesList.get(index);
+  }
+
   public int size(){
     return employeesList.size();
   }

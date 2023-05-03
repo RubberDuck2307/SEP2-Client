@@ -23,6 +23,12 @@ public class ModelManager implements Model {
         return client.getAllProjectsByWorkingNumber(workingNumber);
     }
 
+    @Override public void assignWorkerToTask(Integer workingNumber,
+        Long taskID)
+    {
+        client.assignWorkerToTask(workingNumber, taskID);
+    }
+
     @Override public void saveProject(Project project)
     {
         client.saveProject(project);

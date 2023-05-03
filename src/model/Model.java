@@ -6,6 +6,8 @@ public interface Model {
 
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
+    void assignWorkerToTask(Integer workingNumber, Long taskID);
+
     void saveProject(Project project);
 
     void saveTask(Task task);

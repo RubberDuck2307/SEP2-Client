@@ -8,17 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import javafx.util.StringConverter;
-import model.Task;
 import viewmodel.*;
-import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewController implements ViewController
 {
-
 
   @FXML private Label projectName;
   @FXML private Label taskName;
@@ -104,6 +100,10 @@ public class TasksViewController implements ViewController
     viewModel.load();
   }
 
+  @FXML public void assignWorker(){
+    viewHandler.openView("assignWorkersToTask");
+  }
+
   public void openProjects(MouseEvent mouseEvent)
   {
     viewHandler.openView("projects");
@@ -111,7 +111,6 @@ public class TasksViewController implements ViewController
 
   public void addNewTask(ActionEvent actionEvent)
   {
-
     viewHandler.openView("addTask");
   }
 }

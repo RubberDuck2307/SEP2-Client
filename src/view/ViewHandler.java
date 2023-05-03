@@ -16,6 +16,7 @@ public class ViewHandler
   private ViewModelFactory viewModelFactory;
   private ProjectsViewController projectsViewController;
   private TasksViewController tasksViewController;
+  private AssignWorkersToTaskViewController assignWorkersToTaskViewController;
   private AddTaskViewController addTaskViewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -39,6 +40,9 @@ public class ViewHandler
         break;}
       case "tasks":{
         root = loadViewController(tasksViewController, viewModelFactory.getTasksViewModel() ,"TasksView.fxml");
+        break;}
+      case "assignWorkersToTask":{
+        root = loadViewController(assignWorkersToTaskViewController, viewModelFactory.getAssignWorkersToTaskViewModel() ,"AssignWorkersToTaskView.fxml");
         break;}
       case "addTask":{
         root = loadViewController(addTaskViewController, viewModelFactory.getAddTaskViewModel() ,"AddTaskToProjectView.fxml");

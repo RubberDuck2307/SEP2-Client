@@ -14,5 +14,7 @@ public interface ClientInterface {
 
     void saveTask(Task task);
 
+    void assignWorkerToTask(Integer workingNumber, Long taskID);
+
     String hello();
 }
