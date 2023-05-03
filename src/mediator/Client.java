@@ -32,6 +32,17 @@ public class Client implements ClientInterface {
         }
     }
 
+    public void assignWorkerToTask(Integer workingNumber, Long taskID){
+        try
+        {
+            model.assignWorkerToTask(workingNumber, taskID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public ProjectList getAllProjectsByWorkingNumber(Integer workingNumber){
         try {
