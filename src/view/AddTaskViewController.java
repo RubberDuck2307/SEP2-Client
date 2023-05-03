@@ -20,6 +20,8 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class AddTaskViewController implements ViewController
 {
@@ -40,12 +42,14 @@ public class AddTaskViewController implements ViewController
   @FXML public TableColumn tableName;
   @FXML public TableColumn checkButton;
   @FXML public Button assignWorkersButton;
-  public Button addTag;
+  @FXML public Button addTag;
+  @FXML public Label errorTitleHours;
   private Region root;
   private AddTaskViewModel viewModel;
   private ViewHandler viewHandler;
   private int counter;
   private ArrayList<CheckBox> checkboxes;
+  private int hoursAsInteger;
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)
   {
@@ -53,14 +57,36 @@ public class AddTaskViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (AddTaskViewModel) viewModel;
     this.viewModel.load();
+    createtask();
+    setChoiceBox();
     this.counter = 0;
     this.checkboxes = new ArrayList<>();
-    priority.getItems().add(Priority.HIGH);
-    priority.getItems().add(Priority.MEDIUM);
-    priority.getItems().add(Priority.LOW);
-    priority.setValue(Priority.HIGH);
+    addTag();
+    bindEverything();
+    errorTitleHours.setText(null);
+  }
 
+  @Override public Region getRoot()
+  {
+    return root;
+  }
+  public void bindEverything(){
 
+    nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
+    errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
+    errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
+    // not needed
+    title.textProperty().bindBidirectional(this.viewModel.titleProperty());
+    Bindings.bindBidirectional(estimatedHours.textProperty(),((AddTaskViewModel) viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
+    description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
+    tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
+  }
+
+  @Override public void reset()
+  {
+    viewModel.load();
+  }
+  public void addTag(){
     addTag.setOnAction(e -> {
       if(tags.getText()!=null){
 
@@ -74,6 +100,13 @@ public class AddTaskViewController implements ViewController
         tags.setText(null);
       }
     });
+  }
+
+  public void openProjects()
+  {
+    viewHandler.openView("projects");
+  }
+  public void createtask(){
     createTaskButton.setOnAction(e -> {
       String tags = "";
       for(int i = 0; i<checkboxes.size(); i++){
@@ -86,38 +119,40 @@ public class AddTaskViewController implements ViewController
           }
         }
       }
-      Task task = new Task(title.getText(), description.getText(), deadline.getValue(), Integer.parseInt(estimatedHours.getText()), priority.getValue().toString(), "NOT STARTED", 1L, deadline.getValue());
-      ((AddTaskViewModel) viewModel).add(task);
-      System.out.println("Here are the tags: " + tags);
-      viewHandler.openView("projects");
+
+      if (Objects.equals(estimatedHours.getText(), ""))
+      {
+        errorTitleHours.setText("Hours can not be empty!");
+      }
+      if (!Objects.equals(estimatedHours.getText(), ""))
+      {
+        try{
+          hoursAsInteger = Integer.parseInt(estimatedHours.getText());
+        }
+        catch (NumberFormatException ex){
+          errorTitleHours.setText("Please insert only numbers");
+        }
+      }
+
+      if (title.getText() == null)
+      {
+        errorTitleMessage.setText("Title can not be empty!");
+      }
+      else {
+        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, priority.getValue().toString(), "NOT STARTED", 1L, deadline.getValue());
+        ( viewModel).add(task);
+        System.out.println("Here are the tags: " + tags);
+        viewHandler.openView("projects");
+      }
+
     });
 
-
-
-
-    nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
-
-    // not needed
-    title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-    errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
-    Bindings.bindBidirectional(estimatedHours.textProperty(),((AddTaskViewModel) viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
-    description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
-    tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
   }
-
-  @Override public Region getRoot()
-  {
-    return root;
-  }
-
-  @Override public void reset()
-  {
-    viewModel.load();
-  }
-
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
+  public void setChoiceBox(){
+    priority.getItems().add(Priority.HIGH);
+    priority.getItems().add(Priority.MEDIUM);
+    priority.getItems().add(Priority.LOW);
+    priority.setValue(Priority.HIGH);
   }
 
 }

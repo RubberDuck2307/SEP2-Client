@@ -18,6 +18,7 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty nameOfTheProject;
   private StringProperty title;
   private StringProperty errorTitleMessage;
+  private StringProperty errorTitleHours;
   private StringProperty deadline;
   private StringProperty description;
   private StringProperty priority;
@@ -37,6 +38,7 @@ public class AddTaskViewModel implements ViewModel
     this.priority = new SimpleStringProperty();
     this.estimatedHours = new SimpleIntegerProperty();
     this.tags = new SimpleStringProperty();
+    this.errorTitleHours = new SimpleStringProperty();
 
     load();
   }
@@ -105,5 +107,11 @@ public class AddTaskViewModel implements ViewModel
   public StringProperty tagsProperty()
   {
     return tags;
+  }
+
+
+  public StringProperty errorTitleHoursProperty()
+  {
+    return errorTitleHours;
   }
 }
