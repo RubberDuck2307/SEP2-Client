@@ -13,6 +13,7 @@ public interface ClientInterface {
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
     EmployeeList getEmployeesAssignedToManager(int managerNumber);
     void removeWorkerFromTask(Integer workingNumber, Long taskID);
+    EmployeeList getAllEmployeesAssignedToProject(Long projectId);
 
     void saveProject(Project project);
 

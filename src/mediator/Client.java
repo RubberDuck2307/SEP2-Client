@@ -81,6 +81,15 @@ public class Client implements ClientInterface {
         }
     }
 
+    @Override
+    public EmployeeList getAllEmployeesAssignedToProject(Long projectId) {
+        try {
+            return model.getAllEmployeesAssignedToProject(projectId);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override public void saveProject(Project project)
     {
         try

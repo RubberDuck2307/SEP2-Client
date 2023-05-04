@@ -64,6 +64,7 @@ public class AddTaskViewController implements ViewController
     addTag();
     bindEverything();
     errorTitleHours.setText(null);
+    this.viewModel.load();
   }
 
   @Override public Region getRoot()

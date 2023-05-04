@@ -73,10 +73,11 @@ public class ProjectsViewController implements ViewController {
         delete.setCellValueFactory(button);
         delete.setStyle("-fx-alignment: CENTER;");
 
+        this.viewModel.load();
+
         projectsTables = FXCollections.observableArrayList();
-        for (int i = 0; i < this.viewModel.getProjects().size(); i++) {
-            ProjectsTable projectsTable = new ProjectsTable(this.viewModel.getProjects().get(i));
-            projectsTables.add(new ProjectsTable(this.viewModel.getProjects().get(i)));
+        for (int i = 0; i < this.viewModel.getProjectList().size(); i++) {
+            projectsTables.add(new ProjectsTable(this.viewModel.getProjectList().get(i)));
             Button button1 = new Button(" ");
             button1.setId("showTasks");
             Long index = (long) i;
@@ -90,6 +91,7 @@ public class ProjectsViewController implements ViewController {
 
 
         projectTable.setItems(projectsTables);
+        employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
 
     }
 

@@ -9,29 +9,21 @@ public class Project implements Serializable {
     private String name;
     private String description;
     private LocalDate deadline;
-    private ArrayList<Employee> projectManager;
 
-    public Project(Long id, String name, String description, LocalDate deadline, ArrayList<Employee> projectManager) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.deadline = deadline;
-        this.projectManager = projectManager;
-    }
+
+
 
     public Project(Long id, String name, String description, LocalDate deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.deadline = deadline;
-        this.projectManager = new ArrayList<>();
     }
 
     public Project(String name, String description, LocalDate deadline) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
-        this.projectManager = new ArrayList<>();
     }
 
     public Long getId() {
@@ -66,13 +58,6 @@ public class Project implements Serializable {
         this.deadline = deadline;
     }
 
-    public ArrayList<Employee> getProjectManager() {
-        return projectManager;
-    }
-
-    public void setProjectManager(ArrayList<Employee> projectManager) {
-        this.projectManager = projectManager;
-    }
 
     @Override
     public String toString() {
@@ -81,7 +66,6 @@ public class Project implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", deadline=" + deadline +
-                ", projectManager=" + projectManager +
                 '}';
     }
 }

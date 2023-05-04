@@ -43,7 +43,6 @@ public class AddTaskViewModel implements ViewModel
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
 
-    load();
   }
   public void load()
   {
