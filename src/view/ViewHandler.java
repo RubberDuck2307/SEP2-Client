@@ -15,12 +15,7 @@ public class ViewHandler
   private Scene currentScene;
   private Stage primaryStage;
   private ViewModelFactory viewModelFactory;
-  private ProjectsViewController projectsViewController;
-  private TasksViewController tasksViewController;
-  private AssignWorkersToTaskViewController assignWorkersToTaskViewController;
-  private AddTaskViewController addTaskViewController;
-  private AddProjectViewController addProjectViewController;
-  private EditTaskViewController editTaskViewController;
+  private ViewController  viewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
@@ -39,22 +34,22 @@ public class ViewHandler
     switch (id)
     {
       case "projects":{
-        root = loadViewController(projectsViewController, viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
+        root = loadViewController(viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
         break;}
       case "editTask":{
-        root = loadViewController(editTaskViewController, viewModelFactory.getEditTaskViewModel(), "EditTaskView.fxml");
+        root = loadViewController( viewModelFactory.getEditTaskViewModel(), "EditTaskView.fxml");
         break;}
       case "tasks":{
-        root = loadViewController(tasksViewController, viewModelFactory.getTasksViewModel() ,"TasksView.fxml");
+        root = loadViewController( viewModelFactory.getTasksViewModel() ,"TasksView.fxml");
         break;}
       case "assignWorkersToTask":{
-        root = loadViewController(assignWorkersToTaskViewController, viewModelFactory.getAssignWorkersToTaskViewModel() ,"AssignWorkersToTaskView.fxml");
+        root = loadViewController( viewModelFactory.getAssignWorkersToTaskViewModel() ,"AssignWorkersToTaskView.fxml");
         break;}
       case "addTask":{
-        root = loadViewController(addTaskViewController, viewModelFactory.getAddTaskViewModel() ,"AddTaskToProjectView.fxml");
+        root = loadViewController( viewModelFactory.getAddTaskViewModel() ,"AddTaskToProjectView.fxml");
         break;}
       case "addProject":{
-        root = loadViewController(addProjectViewController,
+        root = loadViewController(
             viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
         break;
       }
@@ -71,11 +66,9 @@ public class ViewHandler
     primaryStage.setHeight(root.getPrefHeight());
     primaryStage.show();
   }
-  private Region loadViewController(ViewController viewController, ViewModel viewModel, String fxmlFile)
+  private Region loadViewController(ViewModel viewModel, String fxmlFile)
   {
     Region root = null;
-    if (viewController == null)
-    {
       try
       {
         FXMLLoader loader = new FXMLLoader();
@@ -88,12 +81,7 @@ public class ViewHandler
       {
         e.printStackTrace();
       }
-    }
-    else
-    {
-      viewController.reset();
-      System.out.println("reset");
-    }
+
     return viewController.getRoot();
   }
 }
