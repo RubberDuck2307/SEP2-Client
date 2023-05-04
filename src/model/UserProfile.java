@@ -4,11 +4,15 @@ import java.io.Serializable;
 
 public class UserProfile implements Serializable {
 
+    public UserProfile(Integer workingNumber, String password) {
+        this.workingNumber = workingNumber;
+        this.password = password;
+    }
+
     private Integer workingNumber;
 
     private String password;
 
-    private String role;
 
     public Integer getWorkingNumber() {
         return workingNumber;
@@ -26,14 +30,10 @@ public class UserProfile implements Serializable {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
+
+
 
 
 
