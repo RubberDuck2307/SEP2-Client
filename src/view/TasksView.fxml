@@ -155,7 +155,7 @@
                               <Insets right="10.0" top="8.0" />
                            </HBox.margin>
                         </Button>
-                        <Button id="hoo" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="57.0" styleClass="button-edit">
+                        <Button id="hoo" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#editTask" prefHeight="53.0" prefWidth="57.0" styleClass="button-edit">
                            <HBox.margin>
                               <Insets top="8.0" />
                            </HBox.margin>

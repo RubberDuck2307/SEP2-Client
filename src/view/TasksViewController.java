@@ -109,8 +109,12 @@ public class TasksViewController implements ViewController
     viewHandler.openView("projects");
   }
 
-  public void addNewTask(ActionEvent actionEvent)
+  public void addNewTask()
   {
     viewHandler.openView("addTask");
+  }
+  public void editTask()
+  {
+    viewHandler.openView("editTask");
   }
 }

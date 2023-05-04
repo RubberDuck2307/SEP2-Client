@@ -14,7 +14,7 @@ import viewmodel.TaskView.TasksTable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AddTaskViewModel implements ViewModel
+public class EditTaskViewModel implements ViewModel
 {
   private Model model;
   private ViewState viewState;
@@ -29,7 +29,7 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty tags;
 
 
-  public AddTaskViewModel(Model model, ViewState viewState)
+  public EditTaskViewModel(Model model, ViewState viewState)
   {
     this.model = model;
     this.viewState = viewState;
@@ -49,7 +49,8 @@ public class AddTaskViewModel implements ViewModel
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
-    deadline.setValue(project.getDeadline().toString());
+    Task task = viewState.getTask();
+    //title.setValue(task.getName());
   }
   public StringProperty getNameOfTheProject()
   {
@@ -62,10 +63,19 @@ public class AddTaskViewModel implements ViewModel
 
       task.setDeadline(project.getDeadline());
     }
-    task.setProjectId(project.getId());
     //TODO edit later
-    System.out.println("Bobek: " + task.toString());
-    model.saveTask(task);
+    /*
+    if(task.getWorkers().size()==0){
+      ArrayList<Employee> employees = new ArrayList<>();
+
+      Employee employee = new Employee(2,"Anna", LocalDate.now(),"123456789", "MALE", EmployeeRole.HR,"aaa" );
+      employees.add(employee);
+      task.setWorkers(employees);
+    }*/
+    Task task2 = new Task(project.getId(),task.getName(),task.getDescription(),task.getDeadline(),task.getEstimatedTime(),
+        task.getPriority(), task.getStatus(), task.getProjectId(),task.getStartingDate(), task.getWorkers());
+    System.out.println("Bobek: " + task2.toString());
+    //model.saveTask(task);
   }
 
   public StringProperty nameOfTheProjectProperty()
