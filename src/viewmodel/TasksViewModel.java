@@ -154,11 +154,11 @@ public class TasksViewModel implements ViewModel
     taskDescription.setValue(task.getDescription());
     System.out.println(task);
     viewState.setTask(task);
-    ArrayList<Employee> employees = task.getWorkers();
+    EmployeeList employeeList = model.getEmployeesOfTask(id);
     workersTables.clear();
-    for (int i = 0; i < employees.size(); i++)
+    for (int i = 0; i < employeeList.size(); i++)
     {
-      workersTables.add(new WorkersTable(employees.get(i)));
+      workersTables.add(new WorkersTable(employeeList.get(i)));
     }
   }
 }

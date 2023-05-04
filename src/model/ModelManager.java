@@ -24,10 +24,15 @@ public class ModelManager implements Model {
         return client.getAllProjectsByWorkingNumber(workingNumber);
     }
 
-    @Override public ArrayList<Employee> getEmployeesAssignedToManager(
+    @Override public EmployeeList getEmployeesAssignedToManager(
         int managerNumber)
     {
         return client.getEmployeesAssignedToManager(managerNumber);
+    }
+
+    @Override
+    public void removeWorkerFromTask(Integer workingNumber, Long taskID) {
+        client.removeWorkerFromTask(workingNumber, taskID);
     }
 
     @Override public void assignWorkerToTask(Integer workingNumber,
@@ -39,6 +44,11 @@ public class ModelManager implements Model {
     @Override public void saveProject(Project project)
     {
         client.saveProject(project);
+    }
+
+    @Override
+    public EmployeeList getEmployeesOfTask(Long taskId) {
+        return client.getEmployeesOfTask(taskId);
     }
 
     @Override public void saveTask(Task task)

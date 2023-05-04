@@ -42,6 +42,15 @@ public class Client implements ClientInterface {
     }
 
     @Override
+    public EmployeeList getEmployeesOfTask(Long taskId) {
+        try {
+            return model.getEmployeesOfTask(taskId);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public ProjectList getAllProjectsByWorkingNumber(Integer workingNumber){
         try {
             return model.getAllProjectsByWorkingNumber(workingNumber);
@@ -50,7 +59,7 @@ public class Client implements ClientInterface {
         }
     }
 
-    @Override public ArrayList<Employee> getEmployeesAssignedToManager(
+    @Override public EmployeeList getEmployeesAssignedToManager(
         int managerNumber)
     {
         try
@@ -59,6 +68,15 @@ public class Client implements ClientInterface {
         }
         catch (RemoteException e)
         {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void removeWorkerFromTask(Integer workingNumber, Long taskID) {
+        try {
+            model.removeWorkerFromTask(workingNumber, taskID);
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }

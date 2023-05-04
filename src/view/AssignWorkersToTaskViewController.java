@@ -39,7 +39,6 @@ public class AssignWorkersToTaskViewController implements ViewController
         cellData -> cellData.getValue().getNameProperty());
     numberColumn.setCellValueFactory(
         cellData -> cellData.getValue().getNumberProperty());
-    workersTable.setItems(this.viewModel.getWorkersWithCheckboxTableObservableList());
 
     PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox"
     );
@@ -49,42 +48,29 @@ public class AssignWorkersToTaskViewController implements ViewController
 
 
     ObservableList<WorkersWithCheckboxTable> workerTable = FXCollections.observableArrayList();
-    for (int i = 0; i < this.viewModel.getEmployees().size(); i++) {
-      Employee employee=this.viewModel.getEmployees().get(i);
+    for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++) {
+      Employee employee=this.viewModel.getEmployeesOfManager().get(i);
       workerTable.add(new WorkersWithCheckboxTable(employee));
       CheckBox checkBox = new CheckBox(" ");
       checkBox.setId("checklist");
       checkBox.setOnAction(e -> {
-        checkAssignee(employee);
+        assignEmployee(employee);
       });
+      checkBox.setSelected(this.viewModel.isAssigned(employee));
       workerTable.get(i).setCheckbox(checkBox);
     }
 
     workersTable.setItems(workerTable);
-
-    //    //TODO There are two solutions for one problem -> choose better one ask STEFFEN...
-    //    for (int i = 0; i < this.viewModel.getWorkerObservableList().size(); i++) {
-    //      Button button1 = new Button(" ");
-    //      button1.setId("showTasks");
-    //      button1.setOnAction(e -> {
-    //        projectTableClick();
-    //        viewHandler.openView("tasks");
-    //      });
-    //      ((ProjectsViewModel) viewModel).getProjectsObservableList().get(i).setBtton(button1);
-    //    }
   }
 
-  public void checkAssignee(Employee employee)
+  public void assignEmployee(Employee employee)
   {
-    viewModel.checkAsignee(employee);
+    viewModel.assignEmployee(employee);
   }
   @FXML public void openProjects(){
     viewHandler.openView("projects");
   }
 
-  @FXML public void assignWorkers(){
-    viewModel.assignWorkers();
-  }
 
   @Override public Region getRoot()
   {
