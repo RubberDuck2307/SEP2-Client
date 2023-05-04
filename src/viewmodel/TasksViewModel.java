@@ -55,6 +55,7 @@ public class TasksViewModel implements ViewModel
 
   public void load()
   {
+    System.out.println("load");
     Project project = viewState.getProject();
     taskList = model.getAllTasksOfProject(project.getId());
     taskName.setValue("Description");
