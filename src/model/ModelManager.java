@@ -4,6 +4,7 @@ package model;
 import mediator.ClientInterface;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ModelManager implements Model {
 
@@ -21,6 +22,12 @@ public class ModelManager implements Model {
     @Override
     public ProjectList getAllProjectsByWorkingNumber(Integer workingNumber) {
         return client.getAllProjectsByWorkingNumber(workingNumber);
+    }
+
+    @Override public ArrayList<Employee> getEmployeesAssignedToManager(
+        int managerNumber)
+    {
+        return client.getEmployeesAssignedToManager(managerNumber);
     }
 
     @Override public void assignWorkerToTask(Integer workingNumber,

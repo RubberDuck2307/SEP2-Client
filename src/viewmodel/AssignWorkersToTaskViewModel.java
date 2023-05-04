@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -23,8 +24,8 @@ public class AssignWorkersToTaskViewModel implements ViewModel
     this.model = model;
     asigneeList =new ArrayList<>();
     employeeList=new EmployeeList();
-    employeeList.addEmployee(new Employee(112,"Gabi", LocalDate.now(),"123", "M", EmployeeRole.WORKER, "gabi@rema.1000"));
-    employeeList.addEmployee(new Employee(113,"Gigi", LocalDate.now(),"1234", "M", EmployeeRole.WORKER, "gigi@rema.1000"));
+    //employeeList.addEmployee(new Employee(112,"Gabi", LocalDate.now(),"123", "M", EmployeeRole.WORKER, "gabi@rema.1000"));
+    //employeeList.addEmployee(new Employee(113,"Gigi", LocalDate.now(),"1234", "M", EmployeeRole.WORKER, "gigi@rema.1000"));
     employees = FXCollections.observableArrayList();
     workersWithCheckboxTableObservableList=FXCollections.observableArrayList();
     projectName=new SimpleStringProperty();
@@ -33,17 +34,19 @@ public class AssignWorkersToTaskViewModel implements ViewModel
 
   public void load()
   {
-    //TODO add method getAllEmployees
-    //employeeList = viewState.getProject().getProjectManager().get(0);
+    Project project = viewState.getProject();
+    projectName.set(project.getName());
+    //TODO get the employee list of the current person
+    //employeeList = new EmployeeList();
+    ArrayList<Employee> arrayList=model.getEmployeesAssignedToManager(4);
+    //TODO decide between arrayList and EmployeeList
     workersWithCheckboxTableObservableList.clear();
     employees.clear();
-    for (int i = 0; i < employeeList.size(); i++) {
+    for (int i = 0; i < arrayList.size(); i++) {
+      employeeList.addEmployee(arrayList.get(i));
       workersWithCheckboxTableObservableList.add(new WorkersWithCheckboxTable(employeeList.get(i)));
       employees.add(employeeList.get(i));
     }
-    Project project = viewState.getProject();
-    System.out.println("\n** " + project);
-    projectName.set(project.getName());
     /*tasksTables.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
@@ -66,7 +69,7 @@ public class AssignWorkersToTaskViewModel implements ViewModel
     for(int i=0;i<asigneeList.size();i++){
       System.out.println(taskID+" ** "+ asigneeList.get(i));
       //TODO use the method
-      //model.assignWorkerToTask(asigneeList.get(i).getWorkingNumber(), taskID);
+      model.assignWorkerToTask(asigneeList.get(i).getWorkingNumber(), taskID);
     }
   }
 
