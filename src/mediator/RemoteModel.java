@@ -4,6 +4,7 @@ import model.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface RemoteModel extends Remote {
 
@@ -21,5 +22,7 @@ public interface RemoteModel extends Remote {
     void saveEmployee(Employee employee) throws RemoteException;
 
     void updateProject(Project project) throws RemoteException;
+
+    ArrayList<Employee> getEmployeesAssignedToManager(int managerNumber) throws RemoteException;
     String hello() throws RemoteException;
 }

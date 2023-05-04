@@ -88,16 +88,6 @@ public class ProjectsViewController implements ViewController {
         }
 
 
-        //TOD O There are two solutions for one problem -> choose better one ask STEFFEN
-//        for (int i = 0; i < this.viewModel.getProjectsObservableList().size(); i++) {
-//            Button button1 = new Button(" ");
-//            button1.setId("showTasks");
-//            button1.setOnAction(e -> {
-//                projectTableClick(e);
-//                viewHandler.openView("tasks");
-//            });
-//            ((ProjectsViewModel) viewModel).getProjectsObservableList().get(i).setBtton(button1);
-//        }
 
         projectTable.setItems(projectsTables);
 
@@ -107,7 +97,6 @@ public class ProjectsViewController implements ViewController {
     public void reset() {
     }
 
-    // TODO fix the buttons - projectTable.getSelectionModel().getSelectedItem() does not work inside button
 
     @FXML
     public void projectTableClick() {
