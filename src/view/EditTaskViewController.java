@@ -13,6 +13,7 @@ import model.Priority;
 import model.Task;
 import utility.StringIntegerConverter;
 import viewmodel.AddTaskViewModel;
+import viewmodel.EditTaskViewModel;
 import viewmodel.TasksViewModel;
 import viewmodel.ViewModel;
 
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class AddTaskViewController implements ViewController
+public class EditTaskViewController implements ViewController
 {
   @FXML public Button backButton;
   @FXML public Label nameOfTheProject;
@@ -45,7 +46,7 @@ public class AddTaskViewController implements ViewController
   @FXML public Button addTag;
   @FXML public Label errorTitleHours;
   private Region root;
-  private AddTaskViewModel viewModel;
+  private EditTaskViewModel viewModel;
   private ViewHandler viewHandler;
   private int counter;
   private ArrayList<CheckBox> checkboxes;
@@ -55,7 +56,7 @@ public class AddTaskViewController implements ViewController
   {
     this.root = root;
     this.viewHandler = viewHandler;
-    this.viewModel = (AddTaskViewModel) viewModel;
+    this.viewModel = (EditTaskViewModel) viewModel;
     this.viewModel.load();
     createtask();
     setChoiceBox();
@@ -64,6 +65,7 @@ public class AddTaskViewController implements ViewController
     addTag();
     bindEverything();
     errorTitleHours.setText(null);
+    ((EditTaskViewModel) viewModel).load();
   }
 
   @Override public Region getRoot()
@@ -75,9 +77,8 @@ public class AddTaskViewController implements ViewController
     nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
     errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
     errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
-    // not needed
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-    Bindings.bindBidirectional(estimatedHours.textProperty(),((AddTaskViewModel) viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
+    Bindings.bindBidirectional(estimatedHours.textProperty(),( viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
     description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
   }
@@ -100,6 +101,9 @@ public class AddTaskViewController implements ViewController
         tags.setText(null);
       }
     });
+  }
+  public void setPriority(){
+    viewModel.setPriority();
   }
 
   public void openProjects()
@@ -139,7 +143,7 @@ public class AddTaskViewController implements ViewController
         errorTitleMessage.setText("Title can not be empty!");
       }
       else {
-        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, priority.getValue().toString(), "TO DO", 1L, deadline.getValue());
+        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, "HIGH", "NOT STARTED", 1L, deadline.getValue());
 
         (viewModel).add(task);
         System.out.println("Here are the tags: " + tags);
@@ -153,7 +157,6 @@ public class AddTaskViewController implements ViewController
     priority.getItems().add(Priority.HIGH);
     priority.getItems().add(Priority.MEDIUM);
     priority.getItems().add(Priority.LOW);
-    priority.setValue(Priority.HIGH);
   }
 
 }

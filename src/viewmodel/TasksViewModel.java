@@ -50,7 +50,6 @@ public class TasksViewModel implements ViewModel
     this.name = new SimpleStringProperty();
     this.position = new SimpleStringProperty();
     this.number = new SimpleIntegerProperty();
-    load();
   }
 
   public void load()
@@ -61,11 +60,12 @@ public class TasksViewModel implements ViewModel
     taskName.setValue("Description");
     projectName.setValue(project.getName());
     taskDescription.setValue("Select a task to see the description and comments");
-
     tasksTables.clear();
+    tasks.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
       tasksTables.add(new TasksTable(taskList.getTask(i)));
+      tasks.add(taskList.getTask(i));
     }
 
   }
@@ -142,11 +142,17 @@ public class TasksViewModel implements ViewModel
     return position;
   }
 
+  public ObservableList<Task> getTasks()
+  {
+    return tasks;
+  }
+
   public void chooseTask(Long id)
   {
     Task task=taskList.getTaskById(id);
     taskName.setValue(task.getName());
     taskDescription.setValue(task.getDescription());
+    System.out.println(task);
     viewState.setTask(task);
     ArrayList<Employee> employees = taskList.getTaskById(id).getWorkers();
     workersTables.clear();

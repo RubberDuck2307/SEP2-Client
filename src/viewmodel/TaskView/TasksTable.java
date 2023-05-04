@@ -19,6 +19,7 @@ public class TasksTable
     private Button button;
     private Long id;
     private StringProperty tags;
+    private Button btton;
 
 
     public TasksTable(Task task)
@@ -28,7 +29,7 @@ public class TasksTable
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
         this.id=task.getId();
-        this.button=new Button("CLICK");
+        //this.button=new Button("CLICK");
         //this.tags = new SimpleStringProperty(task.getTags());
     }
 
@@ -42,6 +43,14 @@ public class TasksTable
         this.button = button;
     }
 
+    public Button getBtton()
+    {
+        return btton;
+    }
+    public void setBtton(Button btton)
+    {
+        this.btton = btton;
+    }
     public void setDeadline(LocalDate deadline)
     {
         if(deadline!=null)    this.deadline = new SimpleStringProperty(deadline.toString());

@@ -155,7 +155,7 @@
                               <Insets right="10.0" top="8.0" />
                            </HBox.margin>
                         </Button>
-                        <Button id="hoo" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="57.0" styleClass="button-edit">
+                        <Button id="hoo" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#editTask" prefHeight="53.0" prefWidth="57.0" styleClass="button-edit">
                            <HBox.margin>
                               <Insets top="8.0" />
                            </HBox.margin>
@@ -215,7 +215,7 @@
                                         </HBox>
                                         <HBox prefHeight="290.0" prefWidth="1039.0">
                                             <children>
-                                                <TableView fx:id="taskTable" onMousePressed="#chooseTask" prefHeight="243.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
+                                                <TableView fx:id="taskTable" onMousePressed="#taskTableClick" prefHeight="243.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
                                                     <columns>
                                                         <TableColumn fx:id="title" prefWidth="428.0000228881836" text="Title" />
                                                         <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="128.00003051757812" text="Deadline" />
@@ -223,7 +223,7 @@
                                                         <TableColumn fx:id="status" minWidth="0.0" prefWidth="90.4000244140625" text="Status" />
                                                         <TableColumn fx:id="tags" minWidth="0.0" prefWidth="123.19989013671875" text="Tags" />
                                                         <TableColumn fx:id="delete" minWidth="0.0" prefWidth="81.5999755859375" text="Delete" />
-                                                        <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="58.4000244140625" />
+                                                        <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="71.9998779296875" text="Edit" />
                                                     </columns>
                                                 </TableView>
                                             </children>

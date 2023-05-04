@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import viewmodel.EditTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.ViewModelFactory;
 
@@ -19,6 +20,7 @@ public class ViewHandler
   private AssignWorkersToTaskViewController assignWorkersToTaskViewController;
   private AddTaskViewController addTaskViewController;
   private AddProjectViewController addProjectViewController;
+  private EditTaskViewController editTaskViewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
@@ -38,6 +40,9 @@ public class ViewHandler
     {
       case "projects":{
         root = loadViewController(projectsViewController, viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
+        break;}
+      case "editTask":{
+        root = loadViewController(editTaskViewController, viewModelFactory.getEditTaskViewModel(), "EditTaskView.fxml");
         break;}
       case "tasks":{
         root = loadViewController(tasksViewController, viewModelFactory.getTasksViewModel() ,"TasksView.fxml");

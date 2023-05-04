@@ -14,7 +14,7 @@ import viewmodel.TaskView.TasksTable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AddTaskViewModel implements ViewModel
+public class EditTaskViewModel implements ViewModel
 {
   private Model model;
   private ViewState viewState;
@@ -29,7 +29,7 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty tags;
 
 
-  public AddTaskViewModel(Model model, ViewState viewState)
+  public EditTaskViewModel(Model model, ViewState viewState)
   {
     this.model = model;
     this.viewState = viewState;
@@ -42,30 +42,34 @@ public class AddTaskViewModel implements ViewModel
     this.estimatedHours = new SimpleIntegerProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
-
-    load();
   }
   public void load()
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
-    deadline.setValue(project.getDeadline().toString());
+    Task task = viewState.getTask();
+    title.setValue(task.getName());
+    description.setValue(task.getDescription());
+    estimatedHours.setValue(task.getEstimatedTime());
+  }
+  public void setPriority(){
+    Task task = viewState.getTask();
+    priority.setValue(task.getPriority());
   }
   public StringProperty getNameOfTheProject()
   {
     return nameOfTheProject;
   }
   public void add(Task task){
-    // TODO finish this:
+
     Project project = viewState.getProject();
     if(task.getDeadline()==null){
 
-      task.setDeadline(project.getDeadline());
+      task.setDeadline(task.getDeadline());
     }
     task.setProjectId(project.getId());
-    //TODO edit later
     System.out.println("Bobek: " + task.toString());
-    model.saveTask(task);
+    //model.updateTask(task);
   }
 
   public StringProperty nameOfTheProjectProperty()

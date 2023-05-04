@@ -1,14 +1,15 @@
 package view;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import model.Task;
 import viewmodel.*;
+import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
@@ -22,7 +23,7 @@ public class TasksViewController implements ViewController
 
   @FXML private TableView<TasksTable> taskTable;
   @FXML public TableColumn<TasksTable, String> delete;
-  @FXML public TableColumn<TasksTable, String> edit;
+  @FXML public TableColumn<TasksTable, Button> edit;
   @FXML private TableColumn<TasksTable, String> title;
   @FXML private TableColumn<TasksTable, String> deadline;
   @FXML private TableColumn<TasksTable, String> priority;
@@ -41,6 +42,7 @@ public class TasksViewController implements ViewController
   private Region root;
   private TasksViewModel viewModel;
   private ViewHandler viewHandler;
+  private ObservableList<TasksTable> taskTables;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)
@@ -48,6 +50,7 @@ public class TasksViewController implements ViewController
     this.root = root;
     this.viewHandler = viewHandler;
     this.viewModel = (TasksViewModel) viewModel;
+    this.viewModel.load();
     commentsTable.setVisible(false);
     workersTable.setVisible(false);
     projectName.textProperty().bind(this.viewModel.projectNameProperty());
@@ -68,8 +71,8 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getPriorityProperty());
     status.setCellValueFactory(
         cellData -> cellData.getValue().getStatusProperty());
-    delete.setCellValueFactory(new PropertyValueFactory<>("button"));
-    taskTable.setItems(this.viewModel.getAll());
+    //delete.setCellValueFactory(new PropertyValueFactory<>("button"));
+    //taskTable.setItems(this.viewModel.getAll());
     //worker table
     name.setCellValueFactory(
         cellData -> cellData.getValue().getNameProperty());
@@ -77,18 +80,38 @@ public class TasksViewController implements ViewController
         cellData -> cellData.getValue().getNumberProperty());
     workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());
 
-    this.viewModel.load();
-  }
+    PropertyValueFactory<TasksTable, Button> button = new PropertyValueFactory("btton");
+    edit.setCellValueFactory(button);
+    edit.setStyle("-fx-alignment: CENTER;");
 
-  @FXML private void chooseTask()
-  {
-    if (taskTable.getSelectionModel().getSelectedItem() != null)
-    {
-      viewModel.chooseTask(taskTable.getSelectionModel().getSelectedItem().getId());
+    taskTables = FXCollections.observableArrayList();
+    for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
+      taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
+      Button button1 = new Button("edit ");
+      button1.setId("editTasks");
+      Long index = (long) i;
+      button1.setOnAction(e -> {
+        taskButtonTableClick(index);
+        viewHandler.openView("editTask");
+      });
+      taskTables.get(i).setBtton(button1);
+    }
+    taskTable.setItems(taskTables);
+
+  }
+  public void taskButtonTableClick(Long index){
+    taskTable.getSelectionModel().select(index.intValue());
+    taskTableClick();
+  }
+  public void taskTableClick() {
+    if (taskTable.getSelectionModel().getSelectedItem() != null) {
+      viewModel.chooseTask(
+          taskTable.getSelectionModel().getSelectedItem().getId());
       workersTable.setVisible(true);
       commentsTable.setVisible(true);
     }
   }
+
 
   @Override public Region getRoot()
   {
@@ -109,8 +132,12 @@ public class TasksViewController implements ViewController
     viewHandler.openView("projects");
   }
 
-  public void addNewTask(ActionEvent actionEvent)
+  public void addNewTask()
   {
     viewHandler.openView("addTask");
+  }
+  public void editTask()
+  {
+    viewHandler.openView("editTask");
   }
 }
