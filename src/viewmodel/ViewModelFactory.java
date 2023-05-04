@@ -1,6 +1,7 @@
 package viewmodel;
 
 import model.Model;
+import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
 
 public class ViewModelFactory
