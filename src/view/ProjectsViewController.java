@@ -3,12 +3,12 @@ package view;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import viewmodel.ProjectView.ProjectManagersTable;
 import viewmodel.ProjectView.ProjectsTable;
@@ -18,6 +18,7 @@ import viewmodel.TaskView.WorkersTable;
 import viewmodel.ViewModel;
 
 import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class ProjectsViewController implements ViewController {
     private Region root;
     private ProjectsViewModel viewModel;
     private ViewHandler viewHandler;
+    private ObservableList<ProjectsTable> projectsTables;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -71,29 +73,31 @@ public class ProjectsViewController implements ViewController {
         delete.setCellValueFactory(button);
         delete.setStyle("-fx-alignment: CENTER;");
 
-        ObservableList<ProjectsTable> projectsTables = FXCollections.observableArrayList();
+        projectsTables = FXCollections.observableArrayList();
         for (int i = 0; i < this.viewModel.getProjects().size(); i++) {
+            ProjectsTable projectsTable = new ProjectsTable(this.viewModel.getProjects().get(i));
             projectsTables.add(new ProjectsTable(this.viewModel.getProjects().get(i)));
             Button button1 = new Button(" ");
             button1.setId("showTasks");
+            Long index = (long) i;
             button1.setOnAction(e -> {
-                projectTableClick();
+                projectButtonTableClick(index);
                 viewHandler.openView("tasks");
             });
             projectsTables.get(i).setBtton(button1);
         }
 
 
-        //TODO There are two solutions for one problem -> choose better one ask STEFFEN
-        for (int i = 0; i < this.viewModel.getProjectsObservableList().size(); i++) {
-            Button button1 = new Button(" ");
-            button1.setId("showTasks");
-            button1.setOnAction(e -> {
-                projectTableClick();
-                viewHandler.openView("tasks");
-            });
-            ((ProjectsViewModel) viewModel).getProjectsObservableList().get(i).setBtton(button1);
-        }
+        //TOD O There are two solutions for one problem -> choose better one ask STEFFEN
+//        for (int i = 0; i < this.viewModel.getProjectsObservableList().size(); i++) {
+//            Button button1 = new Button(" ");
+//            button1.setId("showTasks");
+//            button1.setOnAction(e -> {
+//                projectTableClick(e);
+//                viewHandler.openView("tasks");
+//            });
+//            ((ProjectsViewModel) viewModel).getProjectsObservableList().get(i).setBtton(button1);
+//        }
 
         projectTable.setItems(projectsTables);
 
@@ -107,10 +111,16 @@ public class ProjectsViewController implements ViewController {
 
     @FXML
     public void projectTableClick() {
+
         if (projectTable.getSelectionModel().getSelectedItem() != null) {
             viewModel.setProject(
                     projectTable.getSelectionModel().getSelectedItem().getId());
         }
+    }
+
+    public void projectButtonTableClick(Long index){
+        projectTable.getSelectionModel().select(index.intValue());
+        projectTableClick();
     }
 
     public Region getRoot() {
