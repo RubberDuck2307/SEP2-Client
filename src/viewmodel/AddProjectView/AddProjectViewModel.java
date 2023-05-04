@@ -7,10 +7,11 @@ import model.Employee;
 import model.EmployeeList;
 import model.Model;
 import model.Project;
+import viewmodel.ViewModel;
 import viewmodel.ViewState;
 import java.time.LocalDate;
 
-public class AddProjectViewModel
+public class AddProjectViewModel implements ViewModel
 {
   private StringProperty titleProperty;
   private SimpleObjectProperty<LocalDate> deadlineProperty;
@@ -45,6 +46,11 @@ public class AddProjectViewModel
   //{
   //  model.addProject(project);
   //}
+
+  public void createButtonPressed(){
+    //System.out.println(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
+    model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
+  }
 
   public StringProperty getTitleProperty()
   {

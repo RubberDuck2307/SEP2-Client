@@ -54,8 +54,8 @@ public class ViewHandler
         root = loadViewController(addTaskViewController, viewModelFactory.getAddTaskViewModel() ,"AddTaskToProjectView.fxml");
         break;}
       case "addProject":{
-        root = loadViewController((ViewController) addProjectViewController,
-            (ViewModel) viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
+        root = loadViewController(addProjectViewController,
+            viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
         break;
       }
     }

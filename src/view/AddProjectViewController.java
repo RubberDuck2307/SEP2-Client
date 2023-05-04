@@ -6,10 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import model.Project;
 import viewmodel.AddProjectView.AddProjectViewModel;
+import viewmodel.ViewModel;
 
-
-public class AddProjectViewController
+public class AddProjectViewController implements ViewController
 {
   @FXML private TextField title;
 
@@ -20,20 +21,24 @@ public class AddProjectViewController
   private AddProjectViewModel viewModel;
   private ViewHandler viewHandler;
 
-  public void init(ViewHandler viewHandler, AddProjectViewModel viewModel, Region root)
+  @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
+      Region root)
   {
     this.root = root;
     this.viewHandler = viewHandler;
-    this.viewModel = viewModel;
-    title.textProperty().bindBidirectional(viewModel.getTitleProperty());
-    description.textProperty().bindBidirectional(viewModel.getDescriptionProperty());
-    deadline.valueProperty().bindBidirectional(viewModel.getDeadlineProperty());
-    errorLabel.textProperty().bind(viewModel.getErrorProperty());
+    this.viewModel = (AddProjectViewModel) viewModel;
+
+    title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
+    description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
+    deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
+    errorLabel.textProperty().bind(this.viewModel.getErrorProperty());
   }
+
   public void reset()
   {
     viewModel.reset();
   }
+
   public Region getRoot()
   {
     return root;
@@ -43,8 +48,7 @@ public class AddProjectViewController
   {
     // maybe here needs to be some sort of check for the possibly selected project manager while creating project
 
-   //Project project = new Project(title.getText(),deadline.SOMETHING, description.getText())
-
+    viewModel.createButtonPressed();
     //viewModel.add(vinyl)
     //viewHandler.openView("projects")
   }
