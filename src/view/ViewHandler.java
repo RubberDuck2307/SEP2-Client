@@ -18,6 +18,7 @@ public class ViewHandler
   private TasksViewController tasksViewController;
   private AssignWorkersToTaskViewController assignWorkersToTaskViewController;
   private AddTaskViewController addTaskViewController;
+  private AddProjectViewController addProjectViewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
@@ -47,6 +48,11 @@ public class ViewHandler
       case "addTask":{
         root = loadViewController(addTaskViewController, viewModelFactory.getAddTaskViewModel() ,"AddTaskToProjectView.fxml");
         break;}
+      case "addProject":{
+        root = loadViewController((ViewController) addProjectViewController,
+            (ViewModel) viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
+        break;
+      }
     }
     currentScene.setRoot(root);
     String title = "";
