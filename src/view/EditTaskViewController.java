@@ -65,6 +65,7 @@ public class EditTaskViewController implements ViewController
     addTag();
     bindEverything();
     errorTitleHours.setText(null);
+    ((EditTaskViewModel) viewModel).load();
   }
 
   @Override public Region getRoot()
@@ -100,6 +101,9 @@ public class EditTaskViewController implements ViewController
         tags.setText(null);
       }
     });
+  }
+  public void setPriority(){
+    viewModel.setPriority();
   }
 
   public void openProjects()
@@ -139,7 +143,7 @@ public class EditTaskViewController implements ViewController
         errorTitleMessage.setText("Title can not be empty!");
       }
       else {
-        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, priority.getValue().toString(), "NOT STARTED", 1L, deadline.getValue());
+        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, "HIGH", "NOT STARTED", 1L, deadline.getValue());
 
         (viewModel).add(task);
         System.out.println("Here are the tags: " + tags);

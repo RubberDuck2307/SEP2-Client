@@ -107,18 +107,11 @@ public class TasksViewController implements ViewController
     if (taskTable.getSelectionModel().getSelectedItem() != null) {
       viewModel.chooseTask(
           taskTable.getSelectionModel().getSelectedItem().getId());
-    }
-  }
-
-  @FXML private void chooseTask()
-  {
-    if (taskTable.getSelectionModel().getSelectedItem() != null)
-    {
-      viewModel.chooseTask(taskTable.getSelectionModel().getSelectedItem().getId());
       workersTable.setVisible(true);
       commentsTable.setVisible(true);
     }
   }
+
 
   @Override public Region getRoot()
   {

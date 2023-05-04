@@ -42,40 +42,34 @@ public class EditTaskViewModel implements ViewModel
     this.estimatedHours = new SimpleIntegerProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
-
-    load();
   }
   public void load()
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
     Task task = viewState.getTask();
-    //title.setValue(task.getName());
+    title.setValue(task.getName());
+    description.setValue(task.getDescription());
+    estimatedHours.setValue(task.getEstimatedTime());
+  }
+  public void setPriority(){
+    Task task = viewState.getTask();
+    priority.setValue(task.getPriority());
   }
   public StringProperty getNameOfTheProject()
   {
     return nameOfTheProject;
   }
   public void add(Task task){
-    // TODO finish this:
+
     Project project = viewState.getProject();
     if(task.getDeadline()==null){
 
-      task.setDeadline(project.getDeadline());
+      task.setDeadline(task.getDeadline());
     }
-    //TODO edit later
-    /*
-    if(task.getWorkers().size()==0){
-      ArrayList<Employee> employees = new ArrayList<>();
-
-      Employee employee = new Employee(2,"Anna", LocalDate.now(),"123456789", "MALE", EmployeeRole.HR,"aaa" );
-      employees.add(employee);
-      task.setWorkers(employees);
-    }*/
-    Task task2 = new Task(project.getId(),task.getName(),task.getDescription(),task.getDeadline(),task.getEstimatedTime(),
-        task.getPriority(), task.getStatus(), task.getProjectId(),task.getStartingDate(), task.getWorkers());
-    System.out.println("Bobek: " + task2.toString());
-    //model.saveTask(task);
+    task.setProjectId(project.getId());
+    System.out.println("Bobek: " + task.toString());
+    //model.updateTask(task);
   }
 
   public StringProperty nameOfTheProjectProperty()

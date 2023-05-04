@@ -215,7 +215,7 @@
                                         </HBox>
                                         <HBox prefHeight="290.0" prefWidth="1039.0">
                                             <children>
-                                                <TableView fx:id="taskTable" onMousePressed="#chooseTask" prefHeight="243.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
+                                                <TableView fx:id="taskTable" onMousePressed="#taskTableClick" prefHeight="243.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
                                                     <columns>
                                                         <TableColumn fx:id="title" prefWidth="428.0000228881836" text="Title" />
                                                         <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="128.00003051757812" text="Deadline" />
