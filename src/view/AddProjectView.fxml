@@ -147,7 +147,7 @@
                                 <Insets />
                             </opaqueInsets>
                             <children>
-                        <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
+                        <Button alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
                            <HBox.margin>
                               <Insets left="10.0" top="20.0" />
                            </HBox.margin>
@@ -168,22 +168,22 @@
                                         <VBox prefHeight="397.0" prefWidth="539.0">
                                  <children>
                                     <Label prefHeight="18.0" prefWidth="94.0" styleClass="labels-form" text="Title" />
-                                    <TextField styleClass="text-fields" />
-                                    <Label prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
+                                    <TextField fx:id="title" styleClass="text-fields" />
+                                    <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                     <Label layoutX="10.0" layoutY="391.0" prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Deadline">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <DatePicker />
+                                    <DatePicker fx:id="deadline" />
                                     <Label prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Description">
                                        <padding>
                                           <Insets top="15.0" />
                                        </padding></Label>
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" styleClass="textarea-fields" />
+                                    <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" styleClass="textarea-fields" />
                                     <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
                                        <children>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="create-button" text="Create a project">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createButtonPressed" styleClass="create-button" text="Create a project">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>

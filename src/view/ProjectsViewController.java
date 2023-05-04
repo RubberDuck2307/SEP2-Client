@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class ProjectsViewController implements ViewController {
     public TableColumn<ProjectsTable, Button> delete;
-    public TableColumn<ProjectsTable, Button> openTask;
+    //public TableColumn<ProjectsTable, Button> openTask;
     public TableColumn edit;
     @FXML
     private TableView<ProjectsTable> projectTable;
@@ -125,6 +125,10 @@ public class ProjectsViewController implements ViewController {
 
     public Region getRoot() {
         return root;
+    }
+
+    @FXML public void openAddProject() {
+        viewHandler.openView("addProject");
     }
 
     public void openTask() {
