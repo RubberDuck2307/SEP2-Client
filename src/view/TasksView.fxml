@@ -223,7 +223,7 @@
                                                         <TableColumn fx:id="status" minWidth="0.0" prefWidth="90.4000244140625" text="Status" />
                                                         <TableColumn fx:id="tags" minWidth="0.0" prefWidth="123.19989013671875" text="Tags" />
                                                         <TableColumn fx:id="delete" minWidth="0.0" prefWidth="81.5999755859375" text="Delete" />
-                                                        <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="58.4000244140625" />
+                                                        <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="71.9998779296875" text="Edit" />
                                                     </columns>
                                                 </TableView>
                                             </children>

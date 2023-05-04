@@ -41,7 +41,7 @@ public class ProjectsViewModel implements ViewModel
 
     public void load(){
         projectList = model.getAllProjectsByWorkingNumber(1);
-        System.out.println(projectList);
+        //System.out.println(projectList);
         for (int i = 0; i < projectList.size(); i++) {
             projectsObservableList.add(new ProjectsTable(projectList.get(i)));
             projects.add(projectList.get(i));
@@ -89,7 +89,4 @@ public class ProjectsViewModel implements ViewModel
         return projects;
     }
 
-    public void openView(){
-
-    }
 }
