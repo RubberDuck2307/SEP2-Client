@@ -53,6 +53,10 @@ public class ViewHandler
             viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
         break;
       }
+      case "createUserProfile":{
+        System.out.println("loading");
+        root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(),"CreateUserProfileView.fxml");
+      }
     }
     currentScene.setRoot(root);
     String title = "";
@@ -68,9 +72,11 @@ public class ViewHandler
   }
   private Region loadViewController(ViewModel viewModel, String fxmlFile)
   {
+    System.out.println("hello");
     Region root = null;
       try
       {
+        System.out.println("hello");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlFile));
         root = loader.load();
