@@ -42,13 +42,9 @@ public class AddProjectViewModel implements ViewModel
     descriptionProperty.setValue("");
     deadlineProperty.setValue(null);
   }
-  //public void add(Project project)
-  //{
-  //  model.addProject(project);
-  //}
+
 
   public void createButtonPressed(){
-    //System.out.println(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
     model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
   }
 

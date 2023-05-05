@@ -1,11 +1,7 @@
 package view;
 
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,14 +9,7 @@ import javafx.scene.layout.Region;
 import viewmodel.ProjectView.ProjectManagersTable;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
-import viewmodel.TaskView.TasksTable;
-import viewmodel.TaskView.WorkersTable;
 import viewmodel.ViewModel;
-
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class ProjectsViewController implements ViewController
 {
@@ -90,13 +79,8 @@ public class ProjectsViewController implements ViewController
         employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
         
     }
-    
-    @Override
-    public void reset()
-    {
-    }
-    
-    
+
+
     @FXML
     public void projectTableClick()
     {
