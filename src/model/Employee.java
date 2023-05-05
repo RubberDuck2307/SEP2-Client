@@ -35,6 +35,15 @@ public class Employee implements Serializable {
         setUserProfile(userProfile);
     }
 
+    public Employee(String name, LocalDate dob, String phoneNumber, String gender, EmployeeRole role, String email) {
+        this.name = name;
+        this.dob = dob;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.role = role;
+        this.email = email;
+    }
+
     public Integer getWorkingNumber() {
         return workingNumber;
     }
@@ -76,11 +85,15 @@ public class Employee implements Serializable {
     }
 
     public void setUserProfile(UserProfile userProfile) {
-        if (!userProfile.getWorkingNumber().equals(this.workingNumber)){
+        if (userProfile == null) {
+            this.userProfile = null;
+        } else if (!userProfile.getWorkingNumber().equals(this.workingNumber)) {
             throw new RuntimeException("Working number of user profile is not the same as employee's working number");
+        } else {
+            this.userProfile = userProfile;
         }
-        this.userProfile = userProfile;
     }
+
     public String getEmail() {
         return email;
     }
