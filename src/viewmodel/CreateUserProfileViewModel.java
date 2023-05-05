@@ -21,18 +21,25 @@ public class CreateUserProfileViewModel implements ViewModel
     private ViewState viewState;
     private StringProperty firstName;
     private StringProperty firstNameE;
+    private BooleanProperty firstNameB;
     private StringProperty lastName;
     private StringProperty lastNameE;
+    private BooleanProperty lastNameD;
     private StringProperty email;
     private StringProperty emailE;
+    private BooleanProperty emailB;
     private ObjectProperty<String> role;
     private StringProperty roleE;
+    private BooleanProperty roleB;
     private StringProperty phoneNumber;
     private StringProperty phoneNumberE;
+    private BooleanProperty phoneNumberB;
     private StringProperty password;
     private StringProperty passwordE;
+    private BooleanProperty passwordB;
     private ObjectProperty<LocalDate> dob;
     private StringProperty dobE;
+    private BooleanProperty dobB;
     private StringProperty jobTitle;
     
     CreateUserProfileViewModel(Model model, ViewState viewState)
