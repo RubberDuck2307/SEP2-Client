@@ -275,6 +275,7 @@
                                                 <TableView fx:id="employeesListTable" prefHeight="361.0" prefWidth="519.0" styleClass="table-view2">
                                                     <columns>
                                                         <TableColumn fx:id="projectEmployeeNameColumn" minWidth="0.0" prefWidth="241.60010528564453" text="Name" />
+                                          <TableColumn fx:id="projectEmployeeRoleColumn" minWidth="0.0" prefWidth="241.60010528564453" text="Role" />
                                                         <!--TableColumn fx:id="projectEmployeePositionColumn" minWidth="0.0" prefWidth="567.1999206542969" text="Position" /-->
                                                     </columns>
                                                     <VBox.margin>

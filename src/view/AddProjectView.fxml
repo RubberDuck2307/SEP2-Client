@@ -181,15 +181,7 @@
                                           <Insets top="15.0" />
                                        </padding></Label>
                                     <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" styleClass="textarea-fields" />
-                                    <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
-                                       <children>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createButtonPressed" styleClass="create-button" text="Create a project">
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Button>
-                                       </children>
-                                    </VBox>
+                                    <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" right="20.0" top="30.0" />
@@ -226,7 +218,7 @@
                                           <Insets left="10.0" right="10.0" />
                                        </VBox.margin>
                                                 </HBox>
-                                                <TableView fx:id="workersTable" prefHeight="239.0" prefWidth="486.0" styleClass="table-view2">
+                                                <TableView fx:id="workersTable" prefHeight="489.0" prefWidth="445.0" styleClass="table-view2">
                                                     <columns>
                                                         <TableColumn fx:id="number" prefWidth="88.79998779296875" text="Number" />
                                                         <TableColumn fx:id="name" minWidth="0.0" prefWidth="241.60010528564453" text="Name" />
@@ -238,7 +230,7 @@
                                                 </TableView>
                                     <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
                                        <children>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="create-button" text="Assign managers">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createButtonPressed" styleClass="create-button" text="Create a project">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>

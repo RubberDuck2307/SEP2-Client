@@ -253,15 +253,7 @@
                                                         <HBox fx:id="hBoxForTags" prefHeight="100.0" prefWidth="200.0" />
                                                     </children>
                                                 </VBox>
-                                                <VBox alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="495.0">
-                                                    <children>
-                                                        <Button fx:id="createTaskButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createtask" styleClass="create-button" text="Create a task">
-                                                            <VBox.margin>
-                                                                <Insets />
-                                                            </VBox.margin>
-                                                        </Button>
-                                                    </children>
-                                                </VBox>
+                                                <VBox alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="495.0" />
                                             </children>
                                             <HBox.margin>
                                                 <Insets left="20.0" right="20.0" top="30.0" />
@@ -310,8 +302,7 @@
                                                 </TableView>
                                                 <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
                                                     <children>
-
-                                                        <Button fx:id="assignWorkersButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="create-button" text="Assign workers">
+                                                        <Button fx:id="createTaskButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createtask" styleClass="create-button" text="Create a task">
                                                             <VBox.margin>
                                                                 <Insets />
                                                             </VBox.margin>

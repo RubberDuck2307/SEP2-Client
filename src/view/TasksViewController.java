@@ -85,8 +85,8 @@ public class TasksViewController implements ViewController
     taskTables = FXCollections.observableArrayList();
     for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
       taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
-      Button button1 = new Button("edit ");
-      button1.setId("editTasks");
+      Button button1 = new Button("");
+      button1.setId("button-edit");
       Long index = (long) i;
       button1.setOnAction(e -> {
         taskButtonTableClick(index);

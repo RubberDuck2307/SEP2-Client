@@ -16,6 +16,7 @@ public class ProjectsViewController implements ViewController
     public TableColumn<ProjectsTable, Button> delete;
     //public TableColumn<ProjectsTable, Button> openTask;
     public TableColumn edit;
+
     @FXML
     private TableView<ProjectsTable> projectTable;
     @FXML
@@ -27,6 +28,7 @@ public class ProjectsViewController implements ViewController
     private TableView<ProjectManagersTable> employeesListTable;
     @FXML
     private TableColumn<ProjectManagersTable, String> projectEmployeeNameColumn;
+    public TableColumn<ProjectManagersTable, String> projectEmployeeRoleColumn;
     @FXML
     private TextArea descriptionArea;
     @FXML
@@ -51,6 +53,7 @@ public class ProjectsViewController implements ViewController
         
         
         projectEmployeeNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameValue());
+        projectEmployeeRoleColumn.setCellValueFactory(cellData -> cellData.getValue().getRoleValue());
         employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
         
         PropertyValueFactory<ProjectsTable, Button> button = new PropertyValueFactory("btton");
