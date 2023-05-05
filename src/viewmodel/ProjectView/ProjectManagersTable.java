@@ -8,9 +8,11 @@ import model.Employee;
 public class ProjectManagersTable
 {
   private StringProperty name;
+  private StringProperty role;
 
   public ProjectManagersTable(Employee projectManager){
     this.name=new SimpleStringProperty(projectManager.getName());
+    this.role = new SimpleStringProperty(projectManager.getRole().toString());
   }
 
   public String getName()
@@ -27,5 +29,9 @@ public class ProjectManagersTable
 
   {
     return name;
+  }public ObservableValue<String> getRoleValue()
+
+  {
+    return role;
   }
 }
