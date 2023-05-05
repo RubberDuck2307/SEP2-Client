@@ -1,28 +1,18 @@
 package view;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Priority;
 import model.Task;
 import utility.StringIntegerConverter;
-import viewmodel.AddTaskViewModel;
 import viewmodel.EditTaskViewModel;
-import viewmodel.TasksViewModel;
 import viewmodel.ViewModel;
 
-import javax.swing.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class EditTaskViewController implements ViewController
 {
@@ -83,11 +73,7 @@ public class EditTaskViewController implements ViewController
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
   }
 
-  @Override public void reset()
-  {
-    viewModel.load();
-  }
-  public void addTag(){
+    public void addTag(){
     addTag.setOnAction(e -> {
       if(tags.getText()!=null){
 

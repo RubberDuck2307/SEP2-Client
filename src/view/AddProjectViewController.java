@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import model.Project;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.ViewModel;
 
@@ -34,11 +33,6 @@ public class AddProjectViewController implements ViewController
     errorLabel.textProperty().bind(this.viewModel.getErrorProperty());
   }
 
-  public void reset()
-  {
-    viewModel.reset();
-  }
-
   public Region getRoot()
   {
     return root;
@@ -46,11 +40,9 @@ public class AddProjectViewController implements ViewController
 
   @FXML public void createButtonPressed()
   {
-    // maybe here needs to be some sort of check for the possibly selected project manager while creating project
 
     viewModel.createButtonPressed();
-    //viewModel.add(vinyl)
-    //viewHandler.openView("projects")
+
   }
   @FXML public void backButtonPressed()
   {

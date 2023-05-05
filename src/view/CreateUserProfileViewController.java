@@ -6,14 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import model.Employee;
 import model.EmployeeRole;
-import model.UserProfile;
-import viewmodel.AddTaskViewModel;
 import viewmodel.CreateUserProfileViewModel;
 import viewmodel.ViewModel;
-
-import java.util.Objects;
 
 public class CreateUserProfileViewController implements ViewController
 {
@@ -90,13 +85,8 @@ public class CreateUserProfileViewController implements ViewController
         System.out.println(root);
         return root;
     }
-    
-    
-    @Override
-    public void reset()
-    {
-    }
-    
+
+
     @FXML
     public void createProfile()
     {

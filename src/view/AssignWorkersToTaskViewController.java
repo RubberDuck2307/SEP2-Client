@@ -67,6 +67,10 @@ public class AssignWorkersToTaskViewController implements ViewController
   {
     viewModel.assignEmployee(employee);
   }
+  @FXML public void backButtonClick(){
+    viewHandler.openLastWindow();
+  }
+
   @FXML public void openProjects(){
     viewHandler.openView("projects");
   }
@@ -75,11 +79,6 @@ public class AssignWorkersToTaskViewController implements ViewController
   @Override public Region getRoot()
   {
     return root;
-  }
-
-  @Override public void reset()
-  {
-
   }
 
 }

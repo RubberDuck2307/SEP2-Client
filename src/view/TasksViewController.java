@@ -7,9 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import model.Task;
 import viewmodel.*;
-import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
@@ -116,11 +114,6 @@ public class TasksViewController implements ViewController
   @Override public Region getRoot()
   {
     return root;
-  }
-
-  @Override public void reset()
-  {
-    viewModel.load();
   }
 
   @FXML public void assignWorker(){

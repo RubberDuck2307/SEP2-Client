@@ -14,12 +14,17 @@ public class ViewHandler
 {
   private Scene currentScene;
   private Stage primaryStage;
+
+  private String lastPageId;
+  private String currentPageId;
   private ViewModelFactory viewModelFactory;
   private ViewController  viewController;
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
     currentScene = new Scene(new Region());
+    lastPageId = "";
+    currentPageId = "projects";
   }
 
   public void start(Stage primaryStage)
@@ -54,10 +59,14 @@ public class ViewHandler
         break;
       }
       case "createUserProfile":{
-        System.out.println("loading");
         root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(),"CreateUserProfileView.fxml");
       }
+      default:{
+        throw new IllegalArgumentException("Unknown id: " + id);
+      }
     }
+    lastPageId = currentPageId;
+    currentPageId = id;
     currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null)
@@ -72,11 +81,9 @@ public class ViewHandler
   }
   private Region loadViewController(ViewModel viewModel, String fxmlFile)
   {
-    System.out.println("hello");
     Region root = null;
       try
       {
-        System.out.println("hello");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlFile));
         root = loader.load();
@@ -89,5 +96,10 @@ public class ViewHandler
       }
 
     return viewController.getRoot();
+  }
+
+  public void openLastWindow()
+  {
+    openView(lastPageId);
   }
 }
