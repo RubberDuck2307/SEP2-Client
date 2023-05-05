@@ -255,7 +255,7 @@
                                                 </VBox>
                                                 <VBox alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="495.0">
                                                     <children>
-                                                        <Button fx:id="createTaskButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="create-button" text="Create a task">
+                                                        <Button fx:id="createTaskButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createtask" styleClass="create-button" text="Create a task">
                                                             <VBox.margin>
                                                                 <Insets />
                                                             </VBox.margin>

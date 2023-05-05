@@ -57,7 +57,6 @@ public class AddTaskViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (AddTaskViewModel) viewModel;
     this.viewModel.load();
-    createtask();
     setChoiceBox();
     this.counter = 0;
     this.checkboxes = new ArrayList<>();
@@ -78,7 +77,8 @@ public class AddTaskViewController implements ViewController
     errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
     // not needed
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-    Bindings.bindBidirectional(estimatedHours.textProperty(),((AddTaskViewModel) viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
+    estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+    //Bindings.bindBidirectional(estimatedHours.textProperty(),((AddTaskViewModel) viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
     description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
   }
@@ -108,47 +108,8 @@ public class AddTaskViewController implements ViewController
     viewHandler.openView("projects");
   }
   public void createtask(){
-    createTaskButton.setOnAction(e -> {
-      String tags = "";
-      for(int i = 0; i<checkboxes.size(); i++){
-        if(checkboxes.get(i).isSelected()){
-          if(tags.equals("")){
-            tags = checkboxes.get(i).getText();
-          }
-          else{
-            tags = tags + ", "+ checkboxes.get(i).getText();
-          }
-        }
-      }
-
-      if (Objects.equals(estimatedHours.getText(), ""))
-      {
-        errorTitleHours.setText("Hours can not be empty!");
-      }
-      if (!Objects.equals(estimatedHours.getText(), ""))
-      {
-        try{
-          hoursAsInteger = Integer.parseInt(estimatedHours.getText());
-        }
-        catch (NumberFormatException ex){
-          errorTitleHours.setText("Please insert only numbers");
-        }
-      }
-
-      if (title.getText() == null)
-      {
-        errorTitleMessage.setText("Title can not be empty!");
-      }
-      else {
-        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, priority.getValue().toString(), "TO DO", 1L, deadline.getValue());
-
-        (viewModel).add(task);
-        System.out.println("Here are the tags: " + tags);
-        viewHandler.openView("projects");
-      }
-
-    });
-
+    (viewModel).add();
+    viewHandler.openView("projects");
   }
   public void setChoiceBox(){
     priority.getItems().add(Priority.HIGH);

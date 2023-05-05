@@ -1,9 +1,6 @@
 package viewmodel;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +10,7 @@ import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddTaskViewModel implements ViewModel
 {
@@ -22,11 +20,12 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty title;
   private StringProperty errorTitleMessage;
   private StringProperty errorTitleHours;
-  private StringProperty deadline;
+  private ObjectProperty<LocalDate> deadline;
   private StringProperty description;
   private StringProperty priority;
-  private IntegerProperty estimatedHours;
+  private StringProperty estimatedHours;
   private StringProperty tags;
+  private int estimatedHoursInt;
 
 
   public AddTaskViewModel(Model model, ViewState viewState)
@@ -36,10 +35,11 @@ public class AddTaskViewModel implements ViewModel
     this.nameOfTheProject = new SimpleStringProperty();
     this.title = new SimpleStringProperty();
     this.errorTitleMessage = new SimpleStringProperty();
-    this.deadline = new SimpleStringProperty();
+    LocalDate localDate = LocalDate.now();
+    this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
     this.priority = new SimpleStringProperty();
-    this.estimatedHours = new SimpleIntegerProperty();
+    this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
 
@@ -48,23 +48,55 @@ public class AddTaskViewModel implements ViewModel
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
-    deadline.setValue(project.getDeadline().toString());
+    deadline.setValue(project.getDeadline());
   }
   public StringProperty getNameOfTheProject()
   {
     return nameOfTheProject;
   }
-  public void add(Task task){
-    // TODO finish this:
+  public void add(){
     Project project = viewState.getProject();
-    if(task.getDeadline()==null){
-
-      task.setDeadline(project.getDeadline());
+    boolean valid = true;
+    if (title.getValue().trim().isEmpty() || title.getValue().trim().length() <= 1)
+    {
+      valid = false;
+      errorTitleMessage.setValue("Name cannot be empty!");
     }
-    task.setProjectId(project.getId());
-    //TODO edit later
-    System.out.println("Bobek: " + task.toString());
-    model.saveTask(task);
+
+    if (deadline.toString().equals(""))
+    {
+      deadline.setValue(project.getDeadline());
+    }
+    if (Objects.equals(priority.getValue(), null))
+    {
+      priority.setValue("HIGH");
+    }
+
+
+    if (Objects.equals(estimatedHours.getValue().trim(), ""))
+    {
+      estimatedHoursInt = 0;
+    }
+    if (!Objects.equals(estimatedHours.getValue(), ""))
+    {
+      try{
+        estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
+      }
+      catch (NumberFormatException ex){
+        valid = false;
+        errorTitleHours.setValue("Please insert only numbers");
+      }
+    }
+
+    if (valid)
+    {
+      //todo display date and fix choice selectors and validation
+      Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO",
+          project.getId(), LocalDate.now());
+      System.out.println("Bobek: " + task2.toString());
+      model.saveTask(task2);
+    }
+
   }
 
   public StringProperty nameOfTheProjectProperty()
@@ -85,7 +117,7 @@ public class AddTaskViewModel implements ViewModel
 
 
 
-  public StringProperty deadlineProperty()
+  public ObjectProperty<LocalDate> deadlineProperty()
   {
     return deadline;
   }
@@ -104,7 +136,7 @@ public class AddTaskViewModel implements ViewModel
 
 
 
-  public IntegerProperty estimatedHoursProperty()
+  public StringProperty estimatedHoursProperty()
   {
     return estimatedHours;
   }
