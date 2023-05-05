@@ -28,7 +28,7 @@ public class CreateUserProfileViewController implements ViewController
     @FXML
     public Label emailErrorL;
     @FXML
-    public ChoiceBox<EmployeeRole> roleL;
+    public ChoiceBox<String> roleL;
     @FXML
     public Label roleErrorL;
     @FXML
@@ -76,7 +76,10 @@ public class CreateUserProfileViewController implements ViewController
         phoneNumberErrorL.textProperty().bindBidirectional(this.viewModel.phoneNumberEProperty());
         passwordL.textProperty().bindBidirectional(this.viewModel.passwordProperty());
         passwordErrorL.textProperty().bindBidirectional(this.viewModel.passwordEProperty());
-        roleL.setItems(this.viewModel.roleProperty());
+        dobL.valueProperty().bindBidirectional(this.viewModel.dobProperty());
+        dobErrorL.textProperty().bindBidirectional(this.viewModel.dobEProperty());
+        roleL.valueProperty().bindBidirectional(this.viewModel.roleProperty());
+        roleL.setValue("");
     }
     
     @Override
@@ -101,9 +104,9 @@ public class CreateUserProfileViewController implements ViewController
     
     public void setChoiceBox()
     {
-        roleL.getItems().add(EmployeeRole.MAIN_MANAGER);
-        roleL.getItems().add(EmployeeRole.PROJECT_MANAGER);
-        roleL.getItems().add(EmployeeRole.WORKER);
-        roleL.setValue(EmployeeRole.HR);
+        roleL.getItems().add(EmployeeRole.MAIN_MANAGER.name());
+        roleL.getItems().add(EmployeeRole.PROJECT_MANAGER.name());
+        roleL.getItems().add(EmployeeRole.WORKER.name());
+        roleL.setValue(EmployeeRole.HR.name());
     }
 }

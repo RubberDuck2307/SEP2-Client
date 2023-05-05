@@ -8,12 +8,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import model.*;
+import util.Validator;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class CreateUserProfileViewModel implements ViewModel
 {
+    private Validator validator;
     private Model model;
     private ViewState viewState;
     private StringProperty firstName;
@@ -22,7 +25,7 @@ public class CreateUserProfileViewModel implements ViewModel
     private StringProperty lastNameE;
     private StringProperty email;
     private StringProperty emailE;
-    private ObservableList<EmployeeRole> role;
+    private ObjectProperty<String> role;
     private StringProperty roleE;
     private StringProperty phoneNumber;
     private StringProperty phoneNumberE;
@@ -42,7 +45,7 @@ public class CreateUserProfileViewModel implements ViewModel
         this.lastNameE = new SimpleStringProperty("");
         this.email = new SimpleStringProperty("");
         this.emailE = new SimpleStringProperty("");
-        this.role = new SimpleListProperty<>();
+        this.role = new SimpleObjectProperty<>();
         this.roleE = new SimpleStringProperty("");
         this.phoneNumber = new SimpleStringProperty("");
         this.phoneNumberE = new SimpleStringProperty("");
@@ -52,56 +55,92 @@ public class CreateUserProfileViewModel implements ViewModel
         this.dob = new SimpleObjectProperty<>(localDate);
         this.dobE = new SimpleStringProperty("");
         this.jobTitle = new SimpleStringProperty("");
+        validator = new Validator();
     }
     
     public boolean createUserProfile()
     {
         boolean valid = true;
-        if (firstName.getValue().trim().isEmpty() || firstName.getValue().trim().length() <= 1)
+        try
+        {
+            validator.validateFirstName(firstName);
+            firstNameE.setValue("✓");
+        }
+        catch (Exception e)
         {
             valid = false;
-            firstNameE.setValue("First name cannot be empty!");
-        } else firstNameE.setValue("✓");
-        
-        if (lastName.getValue().trim().isEmpty() || lastName.getValue().trim().length() <= 1)
-        {
-            valid = false;
-            lastNameE.setValue("Last name cannot be empty!");
-        } else lastNameE.setValue("✓");
-        
-        if (email.getValue().trim().isEmpty())
-        {
-            valid = false;
-            emailE.setValue("E-mail cannot be empty");
-        } else if (!email.getValue().trim().contains("@") || !email.getValue().trim().contains("."))
-        {
-            emailE.setValue("Wrong email format");
-        } else emailE.setValue("✓");
-        
-        if (Objects.equals(phoneNumber.getValue().trim(), ""))
-        {
-            valid = false;
-            phoneNumberE.setValue("Phone number cannot be empty");
-        } else if (phoneNumber.getValue().trim().charAt(0) == '+')
-        {
-            SimpleStringProperty replacedPhoneNumber = new SimpleStringProperty(phoneNumber.getValue().replace("+",""));
-            System.out.println(replacedPhoneNumber.getValue());
+            firstNameE.setValue(e.getMessage());
         }
         
-        if (Objects.equals(password.getValue(), ""))
+        try
+        {
+            validator.validateLastName(lastName);
+            lastNameE.setValue("✓");
+        }
+        catch (Exception e)
         {
             valid = false;
-            passwordE.setValue("password cannot be empty");
+            lastNameE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validateEmail(email.getValue());
+            emailE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            valid = false;
+            emailE.setValue(e.getMessage());
         }
         
-        if (Objects.equals(password.getValue(), ""))
+        try
+        {
+            validator.validateChoiceBox(role.getValue());
+            roleE.setValue("✓");
+            
+        }
+        catch (Exception e)
         {
             valid = false;
-            passwordE.setValue("password cannot be empty");
+            roleE.setValue(e.getMessage());
+        }
+        
+        try
+        {
+            validator.validatePhoneNumber(phoneNumber.getValue());
+            phoneNumberE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            valid = false;
+            phoneNumberE.setValue(e.getMessage());
+        }
+        
+        try
+        {
+            validator.validatePassword(password.getValue());
+            passwordE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            valid = false;
+            passwordE.setValue(e.getMessage());
+        }
+        
+        try
+        {
+            validator.validateDOB(dob.getValue());
+            dobE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            valid = false;
+            dobE.setValue(e.getMessage());
         }
         
         if (valid)
         {
+            //TODO choice-box and datepicker
             UserProfile userProfile = new UserProfile(111, password.getValue());
             Employee employee = new Employee(111, firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), "gender not specified jey", EmployeeRole.WORKER, email.getValue());
             add(employee);
@@ -230,7 +269,7 @@ public class CreateUserProfileViewModel implements ViewModel
         return role.toString();
     }
     
-    public ObservableList<EmployeeRole> roleProperty()
+    public ObjectProperty<String> roleProperty()
     {
         return role;
     }

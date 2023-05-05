@@ -120,6 +120,7 @@ public class ProjectsViewController implements ViewController
     @FXML
     public void openCreateUserProfiles()
     {
+        System.out.println("niga");
         viewHandler.openView("createUserProfile");
     }
 }

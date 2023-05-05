@@ -60,6 +60,7 @@ public class ViewHandler
       }
       case "createUserProfile":{
         root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(),"CreateUserProfileView.fxml");
+        break;
       }
       default:{
         throw new IllegalArgumentException("Unknown id: " + id);
