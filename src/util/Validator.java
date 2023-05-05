@@ -14,25 +14,37 @@ public class Validator
 {
     public void validateFirstName(StringProperty firstName)
     {
-        if (firstName.getValue().trim().isEmpty() || firstName.getValue().trim().length() <= 1)
+        if (firstName.getValue().trim().isEmpty())
         {
             throw new RuntimeException("First name cannot be empty!");
+        }
+        else if (firstName.getValue().trim().length() <= 1)
+        {
+            throw new RuntimeException("First name has to be longer than one character!");
         }
     }
     
     public void validateLastName(StringProperty lastName)
     {
-        if (lastName.getValue().trim().isEmpty() || lastName.getValue().trim().length() <= 1)
+        if (lastName.getValue().trim().isEmpty())
         {
             throw new RuntimeException("Last name cannot be empty!");
+        }
+        else if (lastName.getValue().trim().length() <= 1)
+        {
+            throw new RuntimeException("Last name has to be longer than one character!");
         }
     }
     
     public void validateName(StringProperty name)
     {
-        if (name.getValue().trim().isEmpty() || name.getValue().trim().length() <= 1)
+        if (name.getValue().trim().isEmpty())
         {
             throw new RuntimeException("Name cannot be empty!");
+        }
+        else if (name.getValue().trim().length() <= 1)
+        {
+            throw new RuntimeException("Name has to be longer than one character!");
         }
     }
     
@@ -96,6 +108,7 @@ public class Validator
             throw new RuntimeException("Date of birth has to be in the past");
         }
     }
+    
     public void validateDeadline(LocalDate deadline)
     {
         if (!deadline.isAfter(LocalDate.now()))
@@ -106,7 +119,7 @@ public class Validator
     
     public void validateChoiceBox(String choiceBox)
     {
-        if (choiceBox.isEmpty())
+        if (choiceBox.trim().isEmpty())
         {
             throw new RuntimeException("Choice box cannot be empty!");
         }
@@ -114,9 +127,13 @@ public class Validator
     
     public void validateTitle(StringProperty title)
     {
-        if (title.getValue().trim().isEmpty() || title.getValue().trim().length() <= 1)
+        if (title.getValue().trim().isEmpty())
         {
             throw new RuntimeException("Title cannot be empty!");
+        }
+        else if (title.getValue().trim().length() <= 1)
+        {
+            throw new RuntimeException("Title has to be longer than one character!");
         }
     }
     
