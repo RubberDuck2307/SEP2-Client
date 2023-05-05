@@ -33,7 +33,7 @@ public class EditTaskViewController implements ViewController
   @FXML public Label errorTitleMessage;
   @FXML public DatePicker deadline;
   @FXML public TextArea description;
-  @FXML public ChoiceBox priority;
+  @FXML public ChoiceBox<String> priority;
   @FXML public TextField estimatedHours;
   @FXML public TextField tags;
   @FXML public HBox hBoxForTags;
@@ -46,7 +46,7 @@ public class EditTaskViewController implements ViewController
   @FXML public Button assignWorkersButton;
   @FXML public Button addTag;
   @FXML public Label errorTitleHours;
-  public ChoiceBox status;
+  public ChoiceBox<String> status;
   private Region root;
   private EditTaskViewModel viewModel;
   private ViewHandler viewHandler;
@@ -81,6 +81,9 @@ public class EditTaskViewController implements ViewController
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
     estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
     //Bindings.bindBidirectional(estimatedHours.textProperty(),( viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
+    deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
+    status.valueProperty().bindBidirectional(this.viewModel.statusProperty());
+    priority.valueProperty().bindBidirectional(this.viewModel.priorityProperty());
     description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
   }
@@ -117,9 +120,9 @@ public class EditTaskViewController implements ViewController
       viewHandler.openView("projects");
   }
   public void setChoiceBox(){
-    priority.getItems().add(Priority.HIGH);
-    priority.getItems().add(Priority.MEDIUM);
-    priority.getItems().add(Priority.LOW);
+    priority.getItems().add(Priority.HIGH.name());
+    priority.getItems().add(Priority.MEDIUM.name());
+    priority.getItems().add(Priority.LOW.name());
 
     status.getItems().add("TO DO");
     status.getItems().add("DONE");

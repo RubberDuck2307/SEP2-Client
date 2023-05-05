@@ -78,6 +78,7 @@ public class AddTaskViewController implements ViewController
     // not needed
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
     estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+    deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
     //Bindings.bindBidirectional(estimatedHours.textProperty(),((AddTaskViewModel) viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
     description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());

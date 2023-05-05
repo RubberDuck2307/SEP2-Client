@@ -22,8 +22,8 @@ public class EditTaskViewModel implements ViewModel
   private StringProperty errorTitleHours;
   private ObjectProperty<LocalDate> deadline;
   private StringProperty description;
-  private StringProperty priority;
-  private StringProperty status;
+  private ObjectProperty<String> priority;
+  private ObjectProperty<String> status;
   private StringProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
@@ -40,17 +40,19 @@ public class EditTaskViewModel implements ViewModel
     LocalDate localDate = LocalDate.now();
     this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
-    this.priority = new SimpleStringProperty();
+    this.priority = new SimpleObjectProperty<>();
     this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
-    this.status = new SimpleStringProperty();
+    this.status = new SimpleObjectProperty<>();
   }
   public void load()
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
     Task task = viewState.getTask();
+    status.setValue(task.getStatus());
+    priority.setValue(task.getPriority());
     title.setValue(task.getName());
     description.setValue(task.getDescription());
     estimatedHours.setValue(task.getEstimatedTime() + "");
@@ -132,6 +134,11 @@ public class EditTaskViewModel implements ViewModel
 
 
 
+  public ObjectProperty<String> statusProperty()
+  {
+    return status;
+  }
+
   public ObjectProperty<LocalDate> deadlineProperty()
   {
     return deadline;
@@ -144,7 +151,7 @@ public class EditTaskViewModel implements ViewModel
   }
 
 
-  public StringProperty priorityProperty()
+  public ObjectProperty<String> priorityProperty()
   {
     return priority;
   }
