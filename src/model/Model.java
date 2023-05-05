@@ -18,4 +18,5 @@ public interface Model {
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     void saveTask(Task task);
+    void updateTask(Task task);
 }

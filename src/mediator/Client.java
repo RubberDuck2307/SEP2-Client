@@ -17,7 +17,6 @@ public class Client implements ClientInterface {
 
     public Client() throws MalformedURLException, NotBoundException, RemoteException {
         model = (RemoteModel) Naming.lookup("rmi://localhost:1099/Case");
-
     }
 
 
@@ -118,6 +117,18 @@ public class Client implements ClientInterface {
         try {
             return model.hello();
         } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void updateTask(Task task)
+    {
+        try
+        {
+            model.updateTask(task);
+        }
+        catch (RemoteException e)
+        {
             throw new RuntimeException(e);
         }
     }

@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Priority;
+import model.Project;
 import model.Task;
 import utility.StringIntegerConverter;
 import viewmodel.AddTaskViewModel;
@@ -45,6 +46,7 @@ public class EditTaskViewController implements ViewController
   @FXML public Button assignWorkersButton;
   @FXML public Button addTag;
   @FXML public Label errorTitleHours;
+  public ChoiceBox status;
   private Region root;
   private EditTaskViewModel viewModel;
   private ViewHandler viewHandler;
@@ -58,13 +60,13 @@ public class EditTaskViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (EditTaskViewModel) viewModel;
     this.viewModel.load();
-    createtask();
+    errorTitleHours.setText(null);
     setChoiceBox();
     this.counter = 0;
     this.checkboxes = new ArrayList<>();
     addTag();
     bindEverything();
-    errorTitleHours.setText(null);
+
     ((EditTaskViewModel) viewModel).load();
   }
 
@@ -73,12 +75,12 @@ public class EditTaskViewController implements ViewController
     return root;
   }
   public void bindEverything(){
-
     nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
     errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
     errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-    Bindings.bindBidirectional(estimatedHours.textProperty(),( viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
+    estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+    //Bindings.bindBidirectional(estimatedHours.textProperty(),( viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
     description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
   }
@@ -111,52 +113,17 @@ public class EditTaskViewController implements ViewController
     viewHandler.openView("projects");
   }
   public void createtask(){
-    createTaskButton.setOnAction(e -> {
-      String tags = "";
-      for(int i = 0; i<checkboxes.size(); i++){
-        if(checkboxes.get(i).isSelected()){
-          if(tags.equals("")){
-            tags = checkboxes.get(i).getText();
-          }
-          else{
-            tags = tags + ", "+ checkboxes.get(i).getText();
-          }
-        }
-      }
-
-      if (Objects.equals(estimatedHours.getText(), ""))
-      {
-        errorTitleHours.setText("Hours can not be empty!");
-      }
-      if (!Objects.equals(estimatedHours.getText(), ""))
-      {
-        try{
-          hoursAsInteger = Integer.parseInt(estimatedHours.getText());
-        }
-        catch (NumberFormatException ex){
-          errorTitleHours.setText("Please insert only numbers");
-        }
-      }
-
-      if (title.getText() == null)
-      {
-        errorTitleMessage.setText("Title can not be empty!");
-      }
-      else {
-        Task task = new Task(title.getText(), description.getText(), deadline.getValue(), hoursAsInteger, "HIGH", "NOT STARTED", 1L, deadline.getValue());
-
-        (viewModel).add(task);
-        System.out.println("Here are the tags: " + tags);
-        viewHandler.openView("projects");
-      }
-
-    });
-
+      (viewModel).add();
+      viewHandler.openView("projects");
   }
   public void setChoiceBox(){
     priority.getItems().add(Priority.HIGH);
     priority.getItems().add(Priority.MEDIUM);
     priority.getItems().add(Priority.LOW);
+
+    status.getItems().add("TO DO");
+    status.getItems().add("DONE");
+    status.getItems().add("IN PROGRESS");
   }
 
 }

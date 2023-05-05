@@ -60,4 +60,9 @@ public class ModelManager implements Model {
     {
         client.saveTask(task);
     }
+
+    @Override public void updateTask(Task task)
+    {
+        client.updateTask(task);
+    }
 }

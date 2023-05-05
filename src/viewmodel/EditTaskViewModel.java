@@ -1,9 +1,6 @@
 package viewmodel;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +10,7 @@ import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class EditTaskViewModel implements ViewModel
 {
@@ -22,11 +20,14 @@ public class EditTaskViewModel implements ViewModel
   private StringProperty title;
   private StringProperty errorTitleMessage;
   private StringProperty errorTitleHours;
-  private StringProperty deadline;
+  private ObjectProperty<LocalDate> deadline;
   private StringProperty description;
   private StringProperty priority;
-  private IntegerProperty estimatedHours;
+  private StringProperty status;
+  private StringProperty estimatedHours;
   private StringProperty tags;
+  private int estimatedHoursInt;
+
 
 
   public EditTaskViewModel(Model model, ViewState viewState)
@@ -36,12 +37,14 @@ public class EditTaskViewModel implements ViewModel
     this.nameOfTheProject = new SimpleStringProperty();
     this.title = new SimpleStringProperty();
     this.errorTitleMessage = new SimpleStringProperty();
-    this.deadline = new SimpleStringProperty();
+    LocalDate localDate = LocalDate.now();
+    this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
     this.priority = new SimpleStringProperty();
-    this.estimatedHours = new SimpleIntegerProperty();
+    this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
+    this.status = new SimpleStringProperty();
   }
   public void load()
   {
@@ -50,7 +53,9 @@ public class EditTaskViewModel implements ViewModel
     Task task = viewState.getTask();
     title.setValue(task.getName());
     description.setValue(task.getDescription());
-    estimatedHours.setValue(task.getEstimatedTime());
+    estimatedHours.setValue(task.getEstimatedTime() + "");
+    errorTitleMessage.setValue("");
+    errorTitleHours.setValue("");
   }
   public void setPriority(){
     Task task = viewState.getTask();
@@ -60,16 +65,53 @@ public class EditTaskViewModel implements ViewModel
   {
     return nameOfTheProject;
   }
-  public void add(Task task){
-
+  public void add(){
     Project project = viewState.getProject();
-    if(task.getDeadline()==null){
-
-      task.setDeadline(task.getDeadline());
+    Task task1 = viewState.getTask();
+    boolean valid = true;
+    if (title.getValue().trim().isEmpty() || title.getValue().trim().length() <= 1)
+    {
+      valid = false;
+      errorTitleMessage.setValue("Name cannot be empty!");
     }
-    task.setProjectId(project.getId());
-    System.out.println("Bobek: " + task.toString());
-    //model.updateTask(task);
+
+    if (deadline.toString().equals(""))
+    {
+      deadline.setValue(task1.getDeadline());
+    }
+
+    if (Objects.equals(priority.getValue(), null))
+    {
+      priority.setValue(task1.getPriority());
+    }
+    if (Objects.equals(status.getValue(), null))
+    {
+      status.setValue(task1.getStatus());
+    }
+    if (Objects.equals(estimatedHours.getValue().trim(), ""))
+    {
+      estimatedHoursInt = 0;
+    }
+    if (!Objects.equals(estimatedHours.getValue(), ""))
+    {
+      try{
+        estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
+      }
+      catch (NumberFormatException ex){
+        valid = false;
+        errorTitleHours.setValue("Please insert only numbers");
+      }
+    }
+
+    if (valid)
+    {
+      //todo display date and fix choice selectors and validation
+      Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(),
+          project.getId(), LocalDate.now());
+      System.out.println("Bobek: " + task2.toString());
+      model.updateTask(task2);
+    }
+
   }
 
   public StringProperty nameOfTheProjectProperty()
@@ -90,7 +132,7 @@ public class EditTaskViewModel implements ViewModel
 
 
 
-  public StringProperty deadlineProperty()
+  public ObjectProperty<LocalDate> deadlineProperty()
   {
     return deadline;
   }
@@ -109,7 +151,7 @@ public class EditTaskViewModel implements ViewModel
 
 
 
-  public IntegerProperty estimatedHoursProperty()
+  public StringProperty estimatedHoursProperty()
   {
     return estimatedHours;
   }
