@@ -1,18 +1,11 @@
 package viewmodel;
 
 import javafx.beans.property.*;
-import javafx.collections.ObservableList;
 import model.Model;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import model.*;
 import util.Validator;
 
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 public class CreateUserProfileViewModel implements ViewModel
 {
@@ -21,31 +14,155 @@ public class CreateUserProfileViewModel implements ViewModel
     private ViewState viewState;
     private StringProperty firstName;
     private StringProperty firstNameE;
-    private BooleanProperty firstNameB;
+    private BooleanProperty firstNameValue;
     private StringProperty lastName;
     private StringProperty lastNameE;
-    private BooleanProperty lastNameD;
+    private BooleanProperty lastNameValue;
     private StringProperty email;
     private StringProperty emailE;
-    private BooleanProperty emailB;
+    private BooleanProperty emailValue;
     private ObjectProperty<String> role;
     private StringProperty roleE;
-    private BooleanProperty roleB;
+    private BooleanProperty roleValue;
     private StringProperty phoneNumber;
     private StringProperty phoneNumberE;
-    private BooleanProperty phoneNumberB;
+    private BooleanProperty phoneNumberValue;
     private StringProperty password;
     private StringProperty passwordE;
-    private BooleanProperty passwordB;
+    private BooleanProperty passwordValue;
     private ObjectProperty<LocalDate> dob;
     private StringProperty dobE;
-    private BooleanProperty dobB;
+    private BooleanProperty dobValue;
     private StringProperty jobTitle;
+    private Integer workingNumber;
     
     CreateUserProfileViewModel(Model model, ViewState viewState)
     {
         this.model = model;
         this.viewState = viewState;
+        load();
+    }
+    
+    public boolean createUserProfile()
+    {
+        boolean valid = true;
+        try
+        {
+            validator.validateFirstName(firstName);
+            firstNameValue.setValue(true);
+            firstNameE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            firstNameValue.setValue(false);
+            valid = false;
+            firstNameE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validateLastName(lastName);
+            lastNameValue.setValue(true);
+            lastNameE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            lastNameValue.setValue(false);
+            valid = false;
+            lastNameE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validateEmail(email.getValue());
+            emailValue.setValue(true);
+            emailE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            emailValue.setValue(false);
+            valid = false;
+            emailE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validateChoiceBox(role.getValue());
+            roleValue.setValue(true);
+            roleE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            roleValue.setValue(false);
+            valid = false;
+            roleE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validatePhoneNumber(phoneNumber.getValue());
+            phoneNumberValue.setValue(true);
+            phoneNumberE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            phoneNumberValue.setValue(false);
+            valid = false;
+            phoneNumberE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validatePassword(password.getValue());
+            passwordValue.setValue(true);
+            passwordE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            passwordValue.setValue(false);
+            valid = false;
+            passwordE.setValue(e.getMessage());
+        }
+        try
+        {
+            validator.validateDOB(dob.getValue());
+            dobValue.setValue(true);
+            dobE.setValue("✓");
+        }
+        catch (Exception e)
+        {
+            dobValue.setValue(false);
+            valid = false;
+            dobE.setValue(e.getMessage());
+        }
+        if (valid)
+        {
+            add();
+        }
+        return valid;
+    }
+    
+    private void add()
+    {
+        EmployeeRole selectedRole;
+        switch (role.getValue())
+        {
+            case "Main Manager":
+                selectedRole = EmployeeRole.MAIN_MANAGER;
+                break;
+            case "Project Manager":
+                selectedRole = EmployeeRole.PROJECT_MANAGER;
+                break;
+            case "Worker":
+                selectedRole = EmployeeRole.WORKER;
+                break;
+            case "HR":
+                selectedRole = EmployeeRole.HR;
+                break;
+            default:
+                throw new RuntimeException("No role matches");
+        }
+        Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), "F", selectedRole, email.getValue());
+        workingNumber = model.saveEmployee(employee, password.getValue());
+    }
+    
+    public void load()
+    {
         this.firstName = new SimpleStringProperty("");
         this.firstNameE = new SimpleStringProperty("");
         this.lastName = new SimpleStringProperty("");
@@ -62,103 +179,14 @@ public class CreateUserProfileViewModel implements ViewModel
         this.dob = new SimpleObjectProperty<>(localDate);
         this.dobE = new SimpleStringProperty("");
         this.jobTitle = new SimpleStringProperty("");
-        validator = new Validator();
-    }
-    
-    public boolean createUserProfile()
-    {
-        boolean valid = true;
-        try
-        {
-            validator.validateFirstName(firstName);
-            firstNameE.setValue("✓");
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            firstNameE.setValue(e.getMessage());
-        }
-        
-        try
-        {
-            validator.validateLastName(lastName);
-            lastNameE.setValue("✓");
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            lastNameE.setValue(e.getMessage());
-        }
-        try
-        {
-            validator.validateEmail(email.getValue());
-            emailE.setValue("✓");
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            emailE.setValue(e.getMessage());
-        }
-        
-        try
-        {
-            validator.validateChoiceBox(role.getValue());
-            roleE.setValue("✓");
-            
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            roleE.setValue(e.getMessage());
-        }
-        
-        try
-        {
-            validator.validatePhoneNumber(phoneNumber.getValue());
-            phoneNumberE.setValue("✓");
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            phoneNumberE.setValue(e.getMessage());
-        }
-        
-        try
-        {
-            validator.validatePassword(password.getValue());
-            passwordE.setValue("✓");
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            passwordE.setValue(e.getMessage());
-        }
-        
-        try
-        {
-            validator.validateDOB(dob.getValue());
-            dobE.setValue("✓");
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            dobE.setValue(e.getMessage());
-        }
-        
-        if (valid)
-        {
-            //TODO choice-box and datepicker
-            UserProfile userProfile = new UserProfile(111, password.getValue());
-            Employee employee = new Employee(111, firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), "gender not specified jey", EmployeeRole.WORKER, email.getValue());
-            add(employee);
-        }
-        System.out.println(role);
-        return valid;
-    }
-    
-    public void add(Employee employee)
-    {
-        System.out.println(employee.getName() + " added to the system");
+        this.validator = new Validator();
+        this.firstNameValue = new SimpleBooleanProperty(false);
+        this.lastNameValue = new SimpleBooleanProperty(false);
+        this.emailValue = new SimpleBooleanProperty(false);
+        this.roleValue = new SimpleBooleanProperty(false);
+        this.phoneNumberValue = new SimpleBooleanProperty(false);
+        this.passwordValue = new SimpleBooleanProperty(false);
+        this.dobValue = new SimpleBooleanProperty(false);
     }
     
     public String getFirstName()
@@ -320,4 +348,81 @@ public class CreateUserProfileViewModel implements ViewModel
     {
         return jobTitle;
     }
+    
+    public boolean getFirstNameValue()
+    {
+        return firstNameValue.get();
+    }
+    
+    public BooleanProperty firstNameValueProperty()
+    {
+        return firstNameValue;
+    }
+    
+    public boolean getLastNameValue()
+    {
+        return lastNameValue.get();
+    }
+    
+    public BooleanProperty lastNameValueProperty()
+    {
+        return lastNameValue;
+    }
+    
+    public boolean getEmailValue()
+    {
+        return emailValue.get();
+    }
+    
+    public BooleanProperty emailValueProperty()
+    {
+        return emailValue;
+    }
+    
+    public boolean getRoleValue()
+    {
+        return roleValue.get();
+    }
+    
+    public BooleanProperty roleValueProperty()
+    {
+        return roleValue;
+    }
+    
+    public boolean getPhoneNumberValue()
+    {
+        return phoneNumberValue.get();
+    }
+    
+    public BooleanProperty phoneNumberValueProperty()
+    {
+        return phoneNumberValue;
+    }
+    
+    public boolean getPasswordValue()
+    {
+        return passwordValue.get();
+    }
+    
+    public BooleanProperty passwordValueProperty()
+    {
+        return passwordValue;
+    }
+    
+    public boolean getDobValue()
+    {
+        return dobValue.get();
+    }
+    
+    public BooleanProperty dobValueProperty()
+    {
+        return dobValue;
+    }
+    
+    public Integer getWorkingNumber()
+    {
+        return workingNumber;
+    }
+    
 }
+

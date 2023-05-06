@@ -3,6 +3,7 @@ package model;
 
 import mediator.ClientInterface;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -64,5 +65,10 @@ public class ModelManager implements Model {
     @Override public void updateTask(Task task)
     {
         client.updateTask(task);
+    }
+    
+    @Override public Integer saveEmployee(Employee employee, String password)
+    {
+        return client.saveEmployee(employee,password);
     }
 }

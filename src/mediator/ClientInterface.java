@@ -18,6 +18,8 @@ public interface ClientInterface {
     void saveProject(Project project);
 
     void saveTask(Task task);
+    
+    Integer saveEmployee(Employee employee, String password);
 
     void assignWorkerToTask(Integer workingNumber, Long taskID);
 
