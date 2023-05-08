@@ -25,7 +25,7 @@ public class EditTaskViewModel implements ViewModel
   private StringProperty description;
   private ObjectProperty<String> priority;
   private ObjectProperty<String> status;
-  private StringProperty estimatedHours;
+  private IntegerProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
   private StringProperty errorPriorityMessage;
@@ -45,7 +45,7 @@ public class EditTaskViewModel implements ViewModel
     this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
     this.priority = new SimpleObjectProperty<>();
-    this.estimatedHours = new SimpleStringProperty();
+    this.estimatedHours = new SimpleIntegerProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
     this.status = new SimpleObjectProperty<>();
@@ -62,7 +62,7 @@ public class EditTaskViewModel implements ViewModel
     priority.setValue(task.getPriority());
     title.setValue(task.getName());
     description.setValue(task.getDescription());
-    estimatedHours.setValue(task.getEstimatedTime() + "");
+    estimatedHours.setValue(task.getEstimatedTime());
     errorTitleMessage.setValue("");
     errorTitleHours.setValue("");
   }
@@ -91,6 +91,9 @@ public class EditTaskViewModel implements ViewModel
     {
       status.setValue(task1.getStatus());
     }
+    if(deadline.getValue()==null){
+      deadline.setValue(project.getDeadline());
+    }
     try
     {
       validator.validateTitle(title.getValue());
@@ -102,17 +105,23 @@ public class EditTaskViewModel implements ViewModel
     }
     try
     {
-      validator.validateEstimatedTimer(getEstimatedHours());
+      validator.validateEstimatedTimer(getEstimatedHours().toString());
     }
     catch (Exception e)
     {
       valid = false;
       errorTitleHours.setValue(e.getMessage());
     }
-    if(deadline!=null){
-      if (deadline.getValue().isAfter(project.getDeadline())){
+    if(deadline.getValue()!=null){
+      try
+      {
+        System.out.println("this is current deadline: " + deadline.getValue());
+        validator.validateTaskDeadline(deadline.getValue(), project.getDeadline());
+      }
+      catch (Exception e)
+      {
         valid = false;
-        errorDeadlineMessage.setValue("Deadline of the task can not be later than deadline of the project.");
+        errorDeadlineMessage.setValue(e.getMessage());
       }
     }
     if (valid)
@@ -141,7 +150,7 @@ public class EditTaskViewModel implements ViewModel
     return errorTitleMessage;
   }
 
-  public String getEstimatedHours()
+  public Integer getEstimatedHours()
   {
     return estimatedHours.get();
   }
@@ -190,7 +199,7 @@ public class EditTaskViewModel implements ViewModel
 
 
 
-  public StringProperty estimatedHoursProperty()
+  public IntegerProperty estimatedHoursProperty()
   {
     return estimatedHours;
   }
