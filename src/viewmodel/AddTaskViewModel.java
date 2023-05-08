@@ -83,7 +83,7 @@ public class AddTaskViewModel implements ViewModel
     boolean valid = true;
     try
     {
-      validator.validateTitle(title);
+      validator.validateTitle(title.getValue());
     }
     catch (Exception e)
     {

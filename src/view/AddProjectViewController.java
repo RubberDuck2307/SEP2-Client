@@ -69,26 +69,30 @@ public class AddProjectViewController implements ViewController {
 
         managersTable.setItems(workersWithCheckboxTables);
     }
+    titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
+    deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
+  }
 
 
     public Region getRoot() {
         return root;
     }
 
+  @FXML public void createButtonPressed()
+  {
+    if(viewModel.addProject()){
+      viewHandler.openView("projects");
+    }
+  }
+  @FXML public void backButtonPressed()
+  {
+    viewHandler.openLastWindow();
+  }
     private void assignEmployee(Employee employee) {
 
     }
-    @FXML
-    public void createButtonPressed() {
 
-        viewModel.createButtonPressed();
 
-    }
-
-    @FXML
-    public void backButtonPressed() {
-        viewHandler.openView("projects");
-    }
 
 
 }

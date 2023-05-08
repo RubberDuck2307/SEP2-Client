@@ -7,15 +7,23 @@ import model.Employee;
 import model.EmployeeList;
 import model.Model;
 import model.Project;
+import util.Validator;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 import java.time.LocalDate;
 
 public class AddProjectViewModel implements ViewModel
 {
+  private Validator validator;
   private StringProperty titleProperty;
+  private StringProperty titleEProperty;
   private SimpleObjectProperty<LocalDate> deadlineProperty;
+  private StringProperty deadlineEProperty;
   private StringProperty descriptionProperty;
+  private ObservableList<AssignManagersTable> assignManagersObservableList;
+  private AssignManagersTable assignManagersTable;
+  private EmployeeList employeesList;
+  private ObservableList<Employee> employees;
   private StringProperty errorProperty;
   private EmployeeList managers;
   private EmployeeList assignedManagers;
@@ -29,9 +37,14 @@ public class AddProjectViewModel implements ViewModel
     this.viewState = viewState;
     this.titleProperty = new SimpleStringProperty();
     this.descriptionProperty = new SimpleStringProperty();
-    this.errorProperty = new SimpleStringProperty();
+    this.titleEProperty = new SimpleStringProperty();
+    this.deadlineEProperty = new SimpleStringProperty();
     this.deadlineProperty = new SimpleObjectProperty<>();
     managers = new EmployeeList();
+    this.validator=new Validator();
+    employeesList = new EmployeeList();
+    assignManagersObservableList = FXCollections.observableArrayList();
+    employees = FXCollections.observableArrayList();
   }
 
     public void load()
@@ -41,6 +54,42 @@ public class AddProjectViewModel implements ViewModel
   public void createButtonPressed(){
     model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
 
+  public void reset()
+  {
+    titleProperty.setValue("");
+    descriptionProperty.setValue("");
+    deadlineProperty.setValue(null);
+  }
+
+
+  public boolean addProject(){
+    Boolean valid=true;
+    try
+    {
+      validator.validateTitle(titleProperty.getValue());
+      //firstNameValue.setValue(true);
+      //titleEProperty.setValue("✓");
+    }
+    catch (Exception e)
+    {
+      //titleEProperty.setValue(false);
+      valid = false;
+      titleEProperty.setValue(e.getMessage());
+    }
+    try
+    {
+      validator.validateDeadline(deadlineProperty.get());
+      //firstNameValue.setValue(true);
+      //deadlineEProperty.setValue("✓");
+    }
+    catch (Exception e)
+    {
+      //titleEProperty.setValue(false);
+      valid = false;
+      deadlineEProperty.setValue(e.getMessage());
+    }
+    if(valid) model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
+    return valid;
   }
 
   public StringProperty getTitleProperty()
@@ -53,9 +102,14 @@ public class AddProjectViewModel implements ViewModel
     return descriptionProperty;
   }
 
-  public StringProperty getErrorProperty()
+  public StringProperty getTitleErrorProperty()
   {
-    return errorProperty;
+    return titleEProperty;
+  }
+
+  public StringProperty getDeadlineErrorProperty()
+  {
+    return deadlineEProperty;
   }
 
   public SimpleObjectProperty<LocalDate> getDeadlineProperty()

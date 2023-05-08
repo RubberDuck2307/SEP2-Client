@@ -169,13 +169,14 @@
                                  <children>
                                     <Label prefHeight="18.0" prefWidth="94.0" styleClass="labels-form" text="Title" />
                                     <TextField fx:id="title" styleClass="text-fields" />
-                                    <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
+                                    <Label fx:id="titleE" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                     <Label layoutX="10.0" layoutY="391.0" prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Deadline">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Label>
                                     <DatePicker fx:id="deadline" />
+                                    <Label fx:id="deadlineE" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                     <Label prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Description">
                                        <padding>
                                           <Insets top="15.0" />
