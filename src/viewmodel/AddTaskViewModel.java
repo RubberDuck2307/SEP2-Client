@@ -20,10 +20,12 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty nameOfTheProject;
   private StringProperty title;
   private StringProperty errorTitleMessage;
+  private StringProperty errorPriorityMessage;
   private StringProperty errorTitleHours;
+  private StringProperty errorDeadlineMessage;
   private ObjectProperty<LocalDate> deadline;
   private StringProperty description;
-  private StringProperty priority;
+  private ObjectProperty<String> priority;
   private StringProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
@@ -40,27 +42,37 @@ public class AddTaskViewModel implements ViewModel
     LocalDate localDate = LocalDate.now();
     this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
-    this.priority = new SimpleStringProperty();
+    this.priority = new SimpleObjectProperty<>();
     this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
+    this.errorDeadlineMessage = new SimpleStringProperty();
+    this.errorPriorityMessage = new SimpleStringProperty();
     this.validator = new Validator();
-
-
-
   }
   public void load()
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
     deadline.setValue(project.getDeadline());
-
+    errorTitleHours.setValue(null);
+    errorDeadlineMessage.setValue(null);
+    errorTitleMessage.setValue(null);
+    errorPriorityMessage.setValue(null);
+    title.setValue("");
+    priority.setValue(null);
+    description.setValue("");
+    estimatedHours.setValue(null);
   }
   public StringProperty getNameOfTheProject()
   {
     return nameOfTheProject;
   }
   public boolean add(){
+    errorTitleHours.setValue(null);
+    errorDeadlineMessage.setValue(null);
+    errorTitleMessage.setValue(null);
+    errorPriorityMessage.setValue(null);
     Project project = viewState.getProject();
     boolean valid = true;
     try
@@ -70,7 +82,7 @@ public class AddTaskViewModel implements ViewModel
     catch (Exception e)
     {
       valid = false;
-      errorTitleMessage.setValue("Title can not be empty");
+      errorTitleMessage.setValue("Title can not be empty.");
     }
     try
     {
@@ -81,8 +93,21 @@ public class AddTaskViewModel implements ViewModel
       valid = false;
       errorTitleHours.setValue(e.getMessage());
     }
+    if(deadline!=null){
+      if (deadline.getValue().isAfter(project.getDeadline())){
+        valid = false;
+        errorDeadlineMessage.setValue("Deadline of the task can not be later than deadline of the project.");
+      }
+    }
+    if (priority.getValue()==null){
+      valid = false;
+      errorPriorityMessage.setValue("The priority needs to be set.");
+    }
+
     if (valid)
     {
+      //TODO validate priority!!
+
       Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO",
           project.getId(), LocalDate.now());
       System.out.println("Bobek: " + task2.toString());
@@ -101,6 +126,17 @@ public class AddTaskViewModel implements ViewModel
     return title;
   }
 
+
+
+  public StringProperty errorPriorityMessageProperty()
+  {
+    return errorPriorityMessage;
+  }
+
+  public StringProperty errorDeadlineMessageProperty()
+  {
+    return errorDeadlineMessage;
+  }
 
   public StringProperty errorTitleMessageProperty()
   {
@@ -121,7 +157,7 @@ public class AddTaskViewModel implements ViewModel
   }
 
 
-  public StringProperty priorityProperty()
+  public ObjectProperty priorityProperty()
   {
     return priority;
   }
