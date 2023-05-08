@@ -18,7 +18,7 @@ public interface ClientInterface {
     EmployeeList getAllProjectManagers();
 
     void saveProject(Project project);
-
+    void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Long saveTask(Task task);
     
     Integer saveEmployee(Employee employee, String password);

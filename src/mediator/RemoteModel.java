@@ -18,6 +18,7 @@ public interface RemoteModel extends Remote {
 
     void assignWorkerToTask(Integer workingNumber, Long taskID) throws RemoteException;
 
+    void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     Employee login(UserProfile userProfile) throws RemoteException;
     
     Integer saveEmployee(Employee employee, String password) throws RemoteException;

@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Client implements ClientInterface {
@@ -128,6 +129,16 @@ public class Client implements ClientInterface {
         }
     }
 
+    public void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID){
+        try
+        {
+            model.unassignEmployeesFromTask(employeeWorkingNumbers, TaskID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
     @Override public Long saveTask(Task task)
     {
         try
