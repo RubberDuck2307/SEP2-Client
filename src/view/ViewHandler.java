@@ -9,6 +9,7 @@ import viewmodel.ViewModel;
 import viewmodel.ViewModelFactory;
 
 import javax.swing.text.View;
+import java.util.HashMap;
 
 public class ViewHandler
 {
@@ -18,7 +19,8 @@ public class ViewHandler
   private String lastPageId;
   private String currentPageId;
   private ViewModelFactory viewModelFactory;
-  private ViewController  viewController;
+  private ViewController viewController;
+
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
@@ -82,6 +84,7 @@ public class ViewHandler
   }
   private Region loadViewController(ViewModel viewModel, String fxmlFile)
   {
+
     Region root = null;
       try
       {
@@ -95,7 +98,6 @@ public class ViewHandler
       {
         e.printStackTrace();
       }
-
     return viewController.getRoot();
   }
 

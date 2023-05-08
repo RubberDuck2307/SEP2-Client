@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Task implements Serializable {
     private Long id;
@@ -15,9 +16,9 @@ public class Task implements Serializable {
     private Long projectId;
     private LocalDate startingDate;
 
-    private ArrayList<Employee> workers;
+    private EmployeeList workers;
 
-    public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate, ArrayList<Employee> workers) {
+    public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate, EmployeeList workers) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,7 +40,7 @@ public class Task implements Serializable {
         this.status = status;
         this.projectId = projectId;
         this.startingDate = startingDate;
-        this.workers = new ArrayList<>();
+        workers = new EmployeeList();
     }
 
     public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate) {
@@ -126,11 +127,11 @@ public class Task implements Serializable {
         this.startingDate = startingDate;
     }
 
-    public ArrayList<Employee> getWorkers() {
+    public EmployeeList getWorkers() {
         return workers;
     }
 
-    public void setWorkers(ArrayList<Employee> workers) {
+    public void setWorkers(EmployeeList workers) {
         this.workers = workers;
     }
 

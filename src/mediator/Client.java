@@ -2,13 +2,10 @@ package mediator;
 
 import model.*;
 
-import java.beans.PropertyChangeSupport;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.server.RemoteServer;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class Client implements ClientInterface {
@@ -84,6 +81,24 @@ public class Client implements ClientInterface {
     public EmployeeList getAllEmployeesAssignedToProject(Long projectId) {
         try {
             return model.getAllEmployeesAssignedToProject(projectId);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) {
+        try {
+            model.assignEmployeesToTask(employeeWorkingNumbers, TaskID);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public EmployeeList getAllProjectManagers() {
+        try {
+            return model.getAllProjectManagers();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }

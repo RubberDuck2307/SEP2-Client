@@ -17,10 +17,9 @@ public class AddProjectViewModel implements ViewModel
   private SimpleObjectProperty<LocalDate> deadlineProperty;
   private StringProperty descriptionProperty;
   private StringProperty errorProperty;
-  private ObservableList<AssignManagersTable> assignManagersObservableList;
-  private AssignManagersTable assignManagersTable;
-  private EmployeeList employeesList;
-  private ObservableList<Employee> employees;
+  private EmployeeList managers;
+  private EmployeeList assignedManagers;
+
   private ViewState viewState;
   private Model model;
 
@@ -32,20 +31,16 @@ public class AddProjectViewModel implements ViewModel
     this.descriptionProperty = new SimpleStringProperty();
     this.errorProperty = new SimpleStringProperty();
     this.deadlineProperty = new SimpleObjectProperty<>();
-    assignManagersObservableList = FXCollections.observableArrayList();
-    employees = FXCollections.observableArrayList();
-    employeesList = new EmployeeList();
-  }
-  public void reset()
-  {
-    titleProperty.setValue("");
-    descriptionProperty.setValue("");
-    deadlineProperty.setValue(null);
+    managers = new EmployeeList();
   }
 
-
+    public void load()
+    {
+      managers = model.getAllProjectManagers();
+    }
   public void createButtonPressed(){
     model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
+
   }
 
   public StringProperty getTitleProperty()
@@ -68,25 +63,7 @@ public class AddProjectViewModel implements ViewModel
     return deadlineProperty;
   }
 
-  public ObservableList<AssignManagersTable> getAssignManagersObservableList()
-  {
-    return assignManagersObservableList;
+  public EmployeeList getManagers() {
+    return managers;
   }
-
-  public ObservableList<Employee> getEmployees()
-  {
-    return employees;
-  }
-
-  public void setAssignManagersObservableList(
-      ObservableList<AssignManagersTable> assignManagersObservableList)
-  {
-    this.assignManagersObservableList = assignManagersObservableList;
-  }
-
-  public void setEmployees(ObservableList<Employee> employees)
-  {
-    this.employees = employees;
-  }
-
 }

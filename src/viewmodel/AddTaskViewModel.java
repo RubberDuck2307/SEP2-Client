@@ -26,6 +26,8 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
+  private EmployeeList workers;
+  private ArrayList<Integer> assignedEmployeeIDs;
 
 
   public AddTaskViewModel(Model model, ViewState viewState)
@@ -42,13 +44,16 @@ public class AddTaskViewModel implements ViewModel
     this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
-
+    this.workers = new EmployeeList();
+    this.assignedEmployeeIDs = new ArrayList<>();
   }
   public void load()
   {
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
     deadline.setValue(project.getDeadline());
+    workers = model.getEmployeesAssignedToManager(4);
+    assignedEmployeeIDs.clear();
   }
   public StringProperty getNameOfTheProject()
   {
@@ -95,6 +100,7 @@ public class AddTaskViewModel implements ViewModel
           project.getId(), LocalDate.now());
       System.out.println("Bobek: " + task2.toString());
       model.saveTask(task2);
+      model.assignEmployeesToTask(assignedEmployeeIDs, viewState.getProject().getId());
     }
 
   }
@@ -150,5 +156,12 @@ public class AddTaskViewModel implements ViewModel
   public StringProperty errorTitleHoursProperty()
   {
     return errorTitleHours;
+  }
+
+  public void assignWorker(Employee employee){
+    assignedEmployeeIDs.add(employee.getWorkingNumber());
+  }
+  public EmployeeList getWorkers() {
+    return workers;
   }
 }

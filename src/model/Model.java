@@ -15,6 +15,8 @@ public interface Model {
 
     void assignWorkerToTask(Integer workingNumber, Long taskID);
     EmployeeList getAllEmployeesAssignedToProject(Long projectId);
+    void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
+    EmployeeList getAllProjectManagers();
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     void saveTask(Task task);

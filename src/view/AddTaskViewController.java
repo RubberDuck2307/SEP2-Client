@@ -1,106 +1,161 @@
 package view;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import model.Employee;
 import model.Priority;
 import model.Task;
 import utility.StringIntegerConverter;
 import viewmodel.AddTaskViewModel;
 import viewmodel.ViewModel;
+import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddTaskViewController implements ViewController
-{
-  @FXML public Button backButton;
-  @FXML public Label nameOfTheProject;
-  @FXML public TextField title;
-  @FXML public Label errorTitleMessage;
-  @FXML public DatePicker deadline;
-  @FXML public TextArea description;
-  @FXML public ChoiceBox priority;
-  @FXML public TextField estimatedHours;
-  @FXML public TextField tags;
-  @FXML public HBox hBoxForTags;
-  @FXML public Button createTaskButton;
-  //TODO steal from Cosmin
-  @FXML public TableView workersTable;
-  @FXML public TableColumn tableNumber;
-  @FXML public TableColumn tableName;
-  @FXML public TableColumn checkButton;
-  @FXML public Button assignWorkersButton;
-  @FXML public Button addTag;
-  @FXML public Label errorTitleHours;
-  private Region root;
-  private AddTaskViewModel viewModel;
-  private ViewHandler viewHandler;
-  private int counter;
-  private ArrayList<CheckBox> checkboxes;
-  private int hoursAsInteger;
-  @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
-      Region root)
-  {
-    this.root = root;
-    this.viewHandler = viewHandler;
-    this.viewModel = (AddTaskViewModel) viewModel;
-    this.viewModel.load();
-    setChoiceBox();
-    this.counter = 0;
-    this.checkboxes = new ArrayList<>();
-    addTag();
-    bindEverything();
-    errorTitleHours.setText(null);
-    this.viewModel.load();
-  }
+public class AddTaskViewController implements ViewController {
+    @FXML
+    public Button backButton;
+    @FXML
+    public Label nameOfTheProject;
+    @FXML
+    public TextField title;
+    @FXML
+    public Label errorTitleMessage;
+    @FXML
+    public DatePicker deadline;
+    @FXML
+    public TextArea description;
+    @FXML
+    public ChoiceBox priority;
+    @FXML
+    public TextField estimatedHours;
+    @FXML
+    public TextField tags;
+    @FXML
+    public HBox hBoxForTags;
+    @FXML
+    public Button createTaskButton;
+    @FXML
+    public TableView<WorkersWithCheckboxTable> workersTable;
+    @FXML
+    public TableColumn<WorkersWithCheckboxTable, String> numberColumn;
+    @FXML
+    public TableColumn<WorkersWithCheckboxTable, String> nameColumn;
+    @FXML
+    public TableColumn<WorkersWithCheckboxTable, CheckBox> checkBoxColumn;
+    @FXML
+    public Button addTag;
+    @FXML
+    public Label errorTitleHours;
+    private Region root;
+    private AddTaskViewModel viewModel;
+    private ViewHandler viewHandler;
+    private int counter;
+    private ArrayList<CheckBox> checkboxes;
+    private ObservableList<WorkersWithCheckboxTable> workersTableList = FXCollections.observableArrayList();
+    private int hoursAsInteger;
 
-  @Override public Region getRoot()
-  {
-    return root;
-  }
-  public void bindEverything(){
-    nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
-    errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
-    errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
-    title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-    estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
-    deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
-    description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
-    tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
-  }
+    @Override
+    public void init(ViewHandler viewHandler, ViewModel viewModel,
+                     Region root) {
+        this.root = root;
+        this.viewHandler = viewHandler;
+        this.viewModel = (AddTaskViewModel) viewModel;
+        this.viewModel.load();
+        setChoiceBox();
+        this.counter = 0;
+        this.checkboxes = new ArrayList<>();
+        addTag();
+        bindEverything();
 
-  public void addTag(){
-    addTag.setOnAction(e -> {
-      if(tags.getText()!=null){
+        numberColumn.setCellValueFactory(
+                cellData -> cellData.getValue().getNumberProperty());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox"
+        );
 
-        CheckBox checkBox = new CheckBox(tags.getText());
-        checkBox.setSelected(true);
-        checkBox.setStyle("-fx-padding: 10px 5px 10px 5px; ");
-        checkboxes.add(counter,checkBox);
-        //checkBox.setId(counter + "");
-        counter++;
-        hBoxForTags.getChildren().add(checkBox);
-        tags.setText(null);
-      }
-    });
-  }
 
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
-  }
-  public void createtask(){
-    (viewModel).add();
-    viewHandler.openView("projects");
-  }
-  public void setChoiceBox(){
-    priority.getItems().add(Priority.HIGH);
-    priority.getItems().add(Priority.MEDIUM);
-    priority.getItems().add(Priority.LOW);
-    priority.setValue(Priority.HIGH);
-  }
+        checkBoxColumn.setCellValueFactory(checkbox);
+        checkBoxColumn.setStyle("-fx-alignment: CENTER;");
+
+
+        this.viewModel.load();
+        fillInWorkerTable();
+        workersTable.setItems(workersTableList);
+        errorTitleHours.setText(null);
+    }
+
+    @Override
+    public Region getRoot() {
+        return root;
+    }
+
+    public void bindEverything() {
+        nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
+        errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
+        errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
+        title.textProperty().bindBidirectional(this.viewModel.titleProperty());
+        estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+        deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
+        description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
+        tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
+    }
+
+    public void addTag() {
+        addTag.setOnAction(e -> {
+            if (tags.getText() != null) {
+
+                CheckBox checkBox = new CheckBox(tags.getText());
+                checkBox.setSelected(true);
+                checkBox.setStyle("-fx-padding: 10px 5px 10px 5px; ");
+                checkboxes.add(counter, checkBox);
+                //checkBox.setId(counter + "");
+                counter++;
+                hBoxForTags.getChildren().add(checkBox);
+                tags.setText(null);
+            }
+        });
+    }
+
+    private void fillInWorkerTable() {
+        for (int i = 0; i < viewModel.getWorkers().size(); i++) {
+            Employee employee = viewModel.getWorkers().get(i);
+            workersTableList.add(new WorkersWithCheckboxTable(employee));
+            CheckBox checkBox = new CheckBox(" ");
+            checkBox.setId("checklist");
+            checkBox.setOnAction(e -> {
+                assignWorker(employee);
+            });
+            checkBox.setSelected(false);
+            workersTableList.get(i).setCheckbox(checkBox);
+        }
+    }
+
+    private void assignWorker(Employee employee){
+        viewModel.assignWorker(employee);
+    }
+    public void openProjects() {
+        viewHandler.openView("projects");
+    }
+
+    public void createtask() {
+        (viewModel).add();
+        viewHandler.openView("projects");
+    }
+
+    public void setChoiceBox() {
+        priority.getItems().add(Priority.HIGH);
+        priority.getItems().add(Priority.MEDIUM);
+        priority.getItems().add(Priority.LOW);
+        priority.setValue(Priority.HIGH);
+    }
 
 }
