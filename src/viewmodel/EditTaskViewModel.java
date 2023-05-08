@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import model.*;
+import util.Validator;
 import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
@@ -27,6 +28,9 @@ public class EditTaskViewModel implements ViewModel
   private StringProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
+  private StringProperty errorPriorityMessage;
+  private StringProperty errorDeadlineMessage;
+  private Validator validator;
 
 
 
@@ -45,6 +49,9 @@ public class EditTaskViewModel implements ViewModel
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
     this.status = new SimpleObjectProperty<>();
+    this.validator = new Validator();
+    this.errorDeadlineMessage = new SimpleStringProperty();
+    this.errorPriorityMessage = new SimpleStringProperty();
   }
   public void load()
   {
@@ -67,20 +74,14 @@ public class EditTaskViewModel implements ViewModel
   {
     return nameOfTheProject;
   }
-  public void add(){
+  public boolean add(){
+    errorTitleHours.setValue(null);
+    errorDeadlineMessage.setValue(null);
+    errorTitleMessage.setValue(null);
+    errorPriorityMessage.setValue(null);
     Project project = viewState.getProject();
     Task task1 = viewState.getTask();
     boolean valid = true;
-    if (title.getValue().trim().isEmpty() || title.getValue().trim().length() <= 1)
-    {
-      valid = false;
-      errorTitleMessage.setValue("Name cannot be empty!");
-    }
-
-    if (deadline.toString().equals(""))
-    {
-      deadline.setValue(task1.getDeadline());
-    }
 
     if (Objects.equals(priority.getValue(), null))
     {
@@ -90,30 +91,38 @@ public class EditTaskViewModel implements ViewModel
     {
       status.setValue(task1.getStatus());
     }
-    if (Objects.equals(estimatedHours.getValue().trim(), ""))
+    try
     {
-      estimatedHoursInt = 0;
+      validator.validateTitle(title);
     }
-    if (!Objects.equals(estimatedHours.getValue(), ""))
+    catch (Exception e)
     {
-      try{
-        estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
-      }
-      catch (NumberFormatException ex){
+      valid = false;
+      errorTitleMessage.setValue("Title can not be empty.");
+    }
+    try
+    {
+      validator.validateEstimatedTimer(getEstimatedHours());
+    }
+    catch (Exception e)
+    {
+      valid = false;
+      errorTitleHours.setValue(e.getMessage());
+    }
+    if(deadline!=null){
+      if (deadline.getValue().isAfter(project.getDeadline())){
         valid = false;
-        errorTitleHours.setValue("Please insert only numbers");
+        errorDeadlineMessage.setValue("Deadline of the task can not be later than deadline of the project.");
       }
     }
-
     if (valid)
     {
-      //todo display date and fix choice selectors and validation
       Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(),
           project.getId(), LocalDate.now());
       System.out.println("Bobek: " + task2.toString());
       model.updateTask(task2);
     }
-
+    return valid;
   }
 
   public StringProperty nameOfTheProjectProperty()
@@ -132,7 +141,30 @@ public class EditTaskViewModel implements ViewModel
     return errorTitleMessage;
   }
 
+  public String getEstimatedHours()
+  {
+    return estimatedHours.get();
+  }
 
+  public String getErrorPriorityMessage()
+  {
+    return errorPriorityMessage.get();
+  }
+
+  public StringProperty errorPriorityMessageProperty()
+  {
+    return errorPriorityMessage;
+  }
+
+  public String getErrorDeadlineMessage()
+  {
+    return errorDeadlineMessage.get();
+  }
+
+  public StringProperty errorDeadlineMessageProperty()
+  {
+    return errorDeadlineMessage;
+  }
 
   public ObjectProperty<String> statusProperty()
   {
