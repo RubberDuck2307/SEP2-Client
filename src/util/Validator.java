@@ -139,7 +139,7 @@ public class Validator
     
     public void validateEstimatedTimer(String estimatedTime)
     {
-        String patterns = "^[0-9]$";
+        String patterns = "^( )?[0-9]*$";
         Pattern pattern = Pattern.compile(patterns);
         if(estimatedTime!=null && !estimatedTime.isEmpty()){
             Matcher matcher = pattern.matcher(estimatedTime.trim());
