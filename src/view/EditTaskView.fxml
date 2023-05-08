@@ -190,6 +190,7 @@
                                                     </VBox.margin>
                                                 </Label>
                                                 <DatePicker fx:id="deadline" />
+                                    <Label fx:id="errorDeadlineMessage" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                                 <Label prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Description">
                                                     <padding>
                                                         <Insets top="15.0" />
@@ -211,6 +212,7 @@
                                                                 <Insets top="20.0" />
                                                             </VBox.margin>
                                                         </HBox>
+                                          <Label fx:id="errorPriorityMessage" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                           <HBox layoutX="10.0" layoutY="30.0" prefHeight="35.0" prefWidth="495.0">
                                              <children>
                                                 <Label prefHeight="20.0" prefWidth="65.0" styleClass="labels-form" text="Status">

@@ -37,6 +37,8 @@ public class EditTaskViewController implements ViewController
   @FXML public Button addTag;
   @FXML public Label errorTitleHours;
   public ChoiceBox<String> status;
+  public Label errorPriorityMessage;
+  public Label errorDeadlineMessage;
   private Region root;
   private EditTaskViewModel viewModel;
   private ViewHandler viewHandler;
@@ -65,6 +67,8 @@ public class EditTaskViewController implements ViewController
     return root;
   }
   public void bindEverything(){
+    errorDeadlineMessage.textProperty().bindBidirectional(this.viewModel.errorDeadlineMessageProperty());
+    errorPriorityMessage.textProperty().bindBidirectional(this.viewModel.errorPriorityMessageProperty());
     nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
     errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
     errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
@@ -102,8 +106,10 @@ public class EditTaskViewController implements ViewController
     viewHandler.openView("projects");
   }
   public void createtask(){
-      (viewModel).add();
-      viewHandler.openView("projects");
+    if(viewModel.add()){
+      viewHandler.openView("tasks");
+    }
+
   }
   public void setChoiceBox(){
     priority.getItems().add(Priority.HIGH.name());
