@@ -24,6 +24,7 @@ public class ProjectsViewModel implements ViewModel
     private ProjectList projectList;
     private ObservableList<ProjectManagersTable> projectManagersTables;
     private ViewState viewState;
+    private BooleanProperty selectedProject;
     public ProjectsViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
         this.model = model;
@@ -31,10 +32,11 @@ public class ProjectsViewModel implements ViewModel
         descriptionProperty = new SimpleStringProperty();
         projectList = new ProjectList();
         projectManagersTables = FXCollections.observableArrayList();
-
+        selectedProject = new SimpleBooleanProperty();
     }
 
     public void load(){
+        selectedProject.set(false);
         projectList = model.getAllProjectsByWorkingNumber(1);
     }
 
@@ -64,9 +66,17 @@ public class ProjectsViewModel implements ViewModel
         {
             projectManagersTables.add(new ProjectManagersTable(employeeList.get(i)));
         }
+        selectedProject.set(true);
     }
 
     public ProjectList getProjectList() {
         return projectList;
+    }
+    public boolean isSelectedProject() {
+        return selectedProject.get();
+    }
+
+    public BooleanProperty selectedProjectProperty() {
+        return selectedProject;
     }
 }

@@ -15,6 +15,7 @@ import viewmodel.TaskView.WorkersTable;
 public class TasksViewController implements ViewController
 {
 
+  @FXML private Button assignWorkerButton;
   @FXML private Label projectName;
   @FXML private Label taskName;
   @FXML private TextArea taskDescription;
@@ -81,6 +82,11 @@ public class TasksViewController implements ViewController
     PropertyValueFactory<TasksTable, Button> button = new PropertyValueFactory("btton");
     edit.setCellValueFactory(button);
     edit.setStyle("-fx-alignment: CENTER;");
+
+    assignWorkerButton.setVisible(false);
+    this.viewModel.isTaskSelectedProperty().addListener((observable, oldValue, newValue) -> {
+      assignWorkerButton.setVisible(newValue);
+    });
 
     taskTables = FXCollections.observableArrayList();
     for (int i = 0; i < this.viewModel.getTasks().size(); i++) {

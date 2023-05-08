@@ -25,12 +25,12 @@ public class TasksViewModel implements ViewModel
   private ObservableList<Task> tasks;
   private ObservableList<TasksTable> tasksTables;
   private ObservableList<CommentsTable> commentsTables;
-  //workers
   private ObservableList<WorkersTable> workersTables;
   private StringProperty name;
   private IntegerProperty number;
   private StringProperty position;
   private ViewState viewState;
+  private BooleanProperty isTaskSelected;
 
   public TasksViewModel(Model model, ViewState viewState)
   {
@@ -50,10 +50,12 @@ public class TasksViewModel implements ViewModel
     this.name = new SimpleStringProperty();
     this.position = new SimpleStringProperty();
     this.number = new SimpleIntegerProperty();
+    this.isTaskSelected = new SimpleBooleanProperty();
   }
 
   public void load()
   {
+    isTaskSelected.set(false);
     System.out.println("load");
     Project project = viewState.getProject();
     taskList = model.getAllTasksOfProject(project.getId());
@@ -160,5 +162,18 @@ public class TasksViewModel implements ViewModel
     {
       workersTables.add(new WorkersTable(employeeList.get(i)));
     }
+    isTaskSelected.set(true);
+  }
+
+  public boolean isIsTaskSelected() {
+    return isTaskSelected.get();
+  }
+
+  public BooleanProperty isTaskSelectedProperty() {
+    return isTaskSelected;
+  }
+
+  public void setIsTaskSelected(boolean isTaskSelected) {
+    this.isTaskSelected.set(isTaskSelected);
   }
 }

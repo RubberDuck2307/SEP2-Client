@@ -76,7 +76,9 @@ public class ProjectsViewController implements ViewController
             });
             projectsTables.get(i).setBtton(button1);
         }
-        
+        this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
+
+        }));
         
         projectTable.setItems(projectsTables);
         employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
