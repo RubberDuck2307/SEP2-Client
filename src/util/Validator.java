@@ -111,7 +111,7 @@ public class Validator
     
     public void validateDeadline(LocalDate deadline)
     {
-        if (!deadline.isAfter(LocalDate.now()))
+        if (deadline!=null && !deadline.isAfter(LocalDate.now()))
         {
             throw new RuntimeException("Deadline has to be in the future");
         }
@@ -125,13 +125,13 @@ public class Validator
         }
     }
     
-    public void validateTitle(StringProperty title)
+    public void validateTitle(String title)
     {
-        if (title.getValue().trim().isEmpty())
+        if (title==null || title.trim().isEmpty())
         {
             throw new RuntimeException("Title cannot be empty!");
         }
-        else if (title.getValue().trim().length() <= 1)
+        else if (title.trim().length() == 1)
         {
             throw new RuntimeException("Title has to be longer than one character!");
         }

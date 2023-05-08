@@ -12,10 +12,10 @@ import viewmodel.ViewModel;
 public class AddProjectViewController implements ViewController
 {
   @FXML private TextField title;
-
+  @FXML private Label titleE;
   @FXML private DatePicker deadline;
+  @FXML private Label deadlineE;
   @FXML private TextArea description;
-  @FXML private Label errorLabel;
   private Region root;
   private AddProjectViewModel viewModel;
   private ViewHandler viewHandler;
@@ -30,7 +30,8 @@ public class AddProjectViewController implements ViewController
     title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
     description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
     deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
-    errorLabel.textProperty().bind(this.viewModel.getErrorProperty());
+    titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
+    deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
   }
 
   public Region getRoot()
@@ -40,9 +41,9 @@ public class AddProjectViewController implements ViewController
 
   @FXML public void createButtonPressed()
   {
-
-    viewModel.createButtonPressed();
-
+    if(viewModel.addProject()){
+      viewHandler.openView("projects");
+    }
   }
   @FXML public void backButtonPressed()
   {
