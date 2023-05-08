@@ -111,6 +111,9 @@ public class EditTaskViewController implements ViewController
     }
 
   }
+  public void backButtonClick(){
+    viewHandler.openLastWindow();
+  }
   public void setChoiceBox(){
     priority.getItems().add(Priority.HIGH.name());
     priority.getItems().add(Priority.MEDIUM.name());

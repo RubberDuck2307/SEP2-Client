@@ -93,7 +93,7 @@ public class EditTaskViewModel implements ViewModel
     }
     try
     {
-      validator.validateTitle(title);
+      validator.validateTitle(title.getValue());
     }
     catch (Exception e)
     {
