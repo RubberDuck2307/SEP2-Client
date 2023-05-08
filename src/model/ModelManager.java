@@ -68,6 +68,9 @@ public class ModelManager implements Model {
         return client.getEmployeesOfTask(taskId);
     }
 
+    public void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID){
+        client.unassignEmployeesFromTask(employeeWorkingNumbers, TaskID);
+    }
     @Override public Long saveTask(Task task)
     {
        return client.saveTask(task);

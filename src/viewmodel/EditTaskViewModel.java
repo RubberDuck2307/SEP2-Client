@@ -48,7 +48,7 @@ public class EditTaskViewModel implements ViewModel
     this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
     this.priority = new SimpleObjectProperty<>();
-    this.estimatedHours = new SimpleIntegerProperty()Property();
+    this.estimatedHours = new SimpleIntegerProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
     this.status = new SimpleObjectProperty<>();
@@ -114,7 +114,7 @@ public class EditTaskViewModel implements ViewModel
     }
     try
     {
-      validator.validateEstimatedTimer(getEstimatedHours());
+      validator.validateEstimatedTimer(getEstimatedHours().toString());
     }
     catch (Exception e)
     {
