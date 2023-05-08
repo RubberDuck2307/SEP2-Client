@@ -48,7 +48,7 @@ public class CreateUserProfileViewModel implements ViewModel
         boolean valid = true;
         try
         {
-            validator.validateFirstName(firstName);
+            validator.validateFirstName(firstName.getValue());
             firstNameValue.setValue(true);
             firstNameE.setValue("✓");
         }
@@ -60,7 +60,7 @@ public class CreateUserProfileViewModel implements ViewModel
         }
         try
         {
-            validator.validateLastName(lastName);
+            validator.validateLastName(lastName.getValue());
             lastNameValue.setValue(true);
             lastNameE.setValue("✓");
         }
