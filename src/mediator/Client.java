@@ -128,11 +128,11 @@ public class Client implements ClientInterface {
         }
     }
 
-    @Override public void saveTask(Task task)
+    @Override public Long saveTask(Task task)
     {
         try
         {
-            model.saveTask(task);
+           return model.saveTask(task);
         }
         catch (RemoteException e)
         {

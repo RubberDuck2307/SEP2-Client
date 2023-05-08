@@ -19,7 +19,7 @@ public interface ClientInterface {
 
     void saveProject(Project project);
 
-    void saveTask(Task task);
+    Long saveTask(Task task);
     
     Integer saveEmployee(Employee employee, String password);
 

@@ -68,9 +68,9 @@ public class ModelManager implements Model {
         return client.getEmployeesOfTask(taskId);
     }
 
-    @Override public void saveTask(Task task)
+    @Override public Long saveTask(Task task)
     {
-        client.saveTask(task);
+       return client.saveTask(task);
     }
 
     @Override public void updateTask(Task task)

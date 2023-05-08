@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import model.*;
+import util.Validator;
 import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
@@ -116,8 +117,8 @@ public class AddTaskViewModel implements ViewModel
       Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO",
           project.getId(), LocalDate.now());
       System.out.println("Bobek: " + task2.toString());
-      model.saveTask(task2);
-      model.assignEmployeesToTask(assignedEmployeeIDs, viewState.getProject().getId());
+      Long id = model.saveTask(task2);
+      model.assignEmployeesToTask(assignedEmployeeIDs, id.longValue());
     }
     return valid;
   }

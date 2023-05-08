@@ -141,7 +141,7 @@ public class Validator
     {
         String patterns = "^[0-9]$";
         Pattern pattern = Pattern.compile(patterns);
-        if(estimatedTime!=null){
+        if(estimatedTime!=null && !estimatedTime.isEmpty()){
             Matcher matcher = pattern.matcher(estimatedTime.trim());
             if (!matcher.matches())
             {

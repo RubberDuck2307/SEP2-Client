@@ -19,7 +19,7 @@ public interface Model {
     EmployeeList getAllProjectManagers();
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
-    void saveTask(Task task);
+    Long saveTask(Task task);
     
     Integer saveEmployee(Employee employee, String password);
     void updateTask(Task task);

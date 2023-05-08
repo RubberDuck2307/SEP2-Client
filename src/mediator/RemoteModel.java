@@ -12,7 +12,7 @@ public interface RemoteModel extends Remote {
     TaskList getAllTasksOfProject(Long id) throws RemoteException;
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber) throws RemoteException;
 
-    void saveTask(Task task) throws RemoteException;
+    Long saveTask(Task task) throws RemoteException;
 
     void saveProject(Project project)throws RemoteException;
 
