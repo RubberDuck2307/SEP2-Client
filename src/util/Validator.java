@@ -116,6 +116,13 @@ public class Validator
             throw new RuntimeException("Deadline has to be in the future");
         }
     }
+    public void validateTaskDeadline(LocalDate deadlineOfTheTask, LocalDate deadlineOfTheProject)
+    {
+        if (deadlineOfTheTask.isAfter(deadlineOfTheProject))
+        {
+            throw new RuntimeException("Deadline of the task can not be after the deadline of the project");
+        }
+    }
     
     public void validateChoiceBox(String choiceBox)
     {

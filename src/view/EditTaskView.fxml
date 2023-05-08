@@ -189,7 +189,16 @@
                                                         <Insets top="10.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <DatePicker fx:id="deadline" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="495.0">
+                                       <children>
+                                                      <DatePicker fx:id="deadline" />
+                                          <Button fx:id="resetDeadline" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#resetDeadlineClick" prefHeight="27.0" prefWidth="97.0" styleClass="add-tag-button" text="Reset deadline">
+                                             <HBox.margin>
+                                                <Insets left="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                     <Label fx:id="errorDeadlineMessage" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                                 <Label prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Description">
                                                     <padding>

@@ -1,6 +1,7 @@
 package view;
 
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -58,6 +59,7 @@ public class EditTaskViewController implements ViewController
     this.checkboxes = new ArrayList<>();
     addTag();
     bindEverything();
+    deadline.setEditable(false);
 
     ((EditTaskViewModel) viewModel).load();
   }
@@ -73,8 +75,8 @@ public class EditTaskViewController implements ViewController
     errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
     errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-    estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
-    //Bindings.bindBidirectional(estimatedHours.textProperty(),( viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
+    //estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+    Bindings.bindBidirectional(estimatedHours.textProperty(),( viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
     deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
     status.valueProperty().bindBidirectional(this.viewModel.statusProperty());
     priority.valueProperty().bindBidirectional(this.viewModel.priorityProperty());
@@ -124,4 +126,10 @@ public class EditTaskViewController implements ViewController
     status.getItems().add("IN PROGRESS");
   }
 
+  public void resetDeadlineClick(ActionEvent actionEvent)
+  {
+    this.deadline.getEditor().clear();
+    this.deadline.setEditable(true);
+    deadline.setValue(null);
+  }
 }
