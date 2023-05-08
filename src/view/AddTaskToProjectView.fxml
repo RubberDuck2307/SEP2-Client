@@ -190,6 +190,7 @@
                                                     </VBox.margin>
                                                 </Label>
                                                 <DatePicker fx:id="deadline" />
+                                    <Label fx:id="errorDeadlineMessage" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                                 <Label prefHeight="18.0" prefWidth="112.0" styleClass="labels-form" text="Description">
                                                     <padding>
                                                         <Insets top="15.0" />
@@ -211,6 +212,7 @@
                                                                 <Insets top="20.0" />
                                                             </VBox.margin>
                                                         </HBox>
+                                          <Label fx:id="errorPriorityMessage" prefHeight="18.0" prefWidth="497.0" styleClass="error-message" text="Error message" />
                                                     </children>
                                                 </VBox>
                                                 <VBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="372.0" prefHeight="33.0" prefWidth="495.0">
@@ -270,7 +272,7 @@
                                             <children>
                                                 <HBox layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="539.0">
                                                     <children>
-                                                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="479.0" styleClass="heading-2" text="ASSIGN MANAGERS">
+                                                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="479.0" styleClass="heading-2" text="ASSIGN WORKERS">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" top="10.0" />
                                                             </HBox.margin>

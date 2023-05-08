@@ -22,7 +22,7 @@ public class AddTaskViewController implements ViewController
   @FXML public Label errorTitleMessage;
   @FXML public DatePicker deadline;
   @FXML public TextArea description;
-  @FXML public ChoiceBox priority;
+  @FXML public ChoiceBox<String> priority;
   @FXML public TextField estimatedHours;
   @FXML public TextField tags;
   @FXML public HBox hBoxForTags;
@@ -35,6 +35,8 @@ public class AddTaskViewController implements ViewController
   @FXML public Button assignWorkersButton;
   @FXML public Button addTag;
   @FXML public Label errorTitleHours;
+  public Label errorDeadlineMessage;
+  public Label errorPriorityMessage;
   private Region root;
   private AddTaskViewModel viewModel;
   private ViewHandler viewHandler;
@@ -53,8 +55,6 @@ public class AddTaskViewController implements ViewController
     this.checkboxes = new ArrayList<>();
     addTag();
     bindEverything();
-    errorTitleHours.setText(null);
-    errorTitleMessage.setText(null);
     this.viewModel.load();
   }
 
@@ -65,12 +65,15 @@ public class AddTaskViewController implements ViewController
   public void bindEverything(){
     nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
     errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
+    errorDeadlineMessage.textProperty().bindBidirectional(this.viewModel.errorDeadlineMessageProperty());
     errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
+    errorPriorityMessage.textProperty().bindBidirectional(this.viewModel.errorPriorityMessageProperty());
     title.textProperty().bindBidirectional(this.viewModel.titleProperty());
     estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
     deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
     description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
     tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
+    priority.valueProperty().bindBidirectional(this.viewModel.priorityProperty());
   }
 
   public void addTag(){
@@ -103,10 +106,10 @@ public class AddTaskViewController implements ViewController
     viewHandler.openView("tasks");
   }
   public void setChoiceBox(){
-    priority.getItems().add(Priority.HIGH);
-    priority.getItems().add(Priority.MEDIUM);
-    priority.getItems().add(Priority.LOW);
-    priority.setValue(Priority.HIGH);
+    priority.getItems().add("HIGH");
+    priority.getItems().add("MEDIUM");
+    priority.getItems().add("LOW");
+    priority.setValue("HIGH");
   }
 
 }
