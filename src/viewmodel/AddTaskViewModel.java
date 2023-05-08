@@ -99,7 +99,7 @@ public class AddTaskViewModel implements ViewModel
       valid = false;
       errorTitleHours.setValue(e.getMessage());
     }
-    if(deadline!=null){
+    if(deadline.getValue() !=null){
       if (deadline.getValue().isAfter(project.getDeadline())){
         valid = false;
         errorDeadlineMessage.setValue("Deadline of the task can not be later than deadline of the project.");

@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProjectsViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProjectsViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -238,7 +238,7 @@
                                                 </HBox>
                                                 <HBox disable="true" layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="539.0">
                                                     <children>
-                                                        <TextArea fx:id="descriptionArea" editable="false" prefHeight="193.0" prefWidth="540.0" promptText="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." styleClass="normal-text">
+                                                        <TextArea fx:id="descriptionArea" editable="false" prefHeight="193.0" prefWidth="540.0" styleClass="normal-text">
                                                             <HBox.margin>
                                                                 <Insets left="10.0" />
                                                             </HBox.margin>

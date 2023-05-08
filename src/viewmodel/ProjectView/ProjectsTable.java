@@ -70,7 +70,10 @@ public class ProjectsTable
   }
 
   public void setDeadline(LocalDate deadline) {
-    this.deadline.set(deadline.toString());
+    if (deadline == null)
+      this.deadline.set("");
+    else
+      this.deadline.set(deadline.toString());
   }
 
   public ObservableValue<String> getTitleValue()

@@ -20,7 +20,9 @@ public class AddProjectViewController implements ViewController {
     @FXML
     private TextArea description;
     @FXML
-    private Label errorLabel;
+    private Label titleE;
+    @FXML
+    private Label deadlineE;
     @FXML
     public TableView<WorkersWithCheckboxTable> managersTable;
     @FXML
@@ -54,7 +56,6 @@ public class AddProjectViewController implements ViewController {
         title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
         description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
         deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
-        errorLabel.textProperty().bind(this.viewModel.getErrorProperty());
         for (int i = 0; i < this.viewModel.getManagers().size(); i++) {
             Employee employee = this.viewModel.getManagers().get(i);
             workersWithCheckboxTables.add(new WorkersWithCheckboxTable(employee));
@@ -68,31 +69,31 @@ public class AddProjectViewController implements ViewController {
         }
 
         managersTable.setItems(workersWithCheckboxTables);
+
+        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
+        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
     }
-    titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
-    deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
-  }
 
 
     public Region getRoot() {
         return root;
     }
 
-  @FXML public void createButtonPressed()
-  {
-    if(viewModel.addProject()){
-      viewHandler.openView("projects");
+    @FXML
+    public void createButtonPressed() {
+        if (viewModel.addProject()) {
+            viewHandler.openView("projects");
+        }
     }
-  }
-  @FXML public void backButtonPressed()
-  {
-    viewHandler.openLastWindow();
-  }
+
+    @FXML
+    public void backButtonPressed() {
+        viewHandler.openLastWindow();
+    }
+
     private void assignEmployee(Employee employee) {
 
     }
-
-
 
 
 }
