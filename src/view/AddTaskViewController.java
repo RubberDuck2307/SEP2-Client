@@ -1,21 +1,15 @@
 package view;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import model.Employee;
 import model.Priority;
 import model.Task;
 import utility.StringIntegerConverter;
 import viewmodel.AddTaskViewModel;
 import viewmodel.ViewModel;
-import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -93,21 +87,24 @@ public class AddTaskViewController implements ViewController {
         errorTitleHours.setText(null);
     }
 
-    @Override
-    public Region getRoot() {
-        return root;
-    }
 
-    public void bindEverything() {
-        nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
-        errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
-        errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
-        title.textProperty().bindBidirectional(this.viewModel.titleProperty());
-        estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
-        deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
-        description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
-        tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
-    }
+  @Override public Region getRoot()
+  {
+    return root;
+  }
+  public void bindEverything(){
+    nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
+    errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
+    errorDeadlineMessage.textProperty().bindBidirectional(this.viewModel.errorDeadlineMessageProperty());
+    errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
+    errorPriorityMessage.textProperty().bindBidirectional(this.viewModel.errorPriorityMessageProperty());
+    title.textProperty().bindBidirectional(this.viewModel.titleProperty());
+    estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+    deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
+    description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
+    tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
+    priority.valueProperty().bindBidirectional(this.viewModel.priorityProperty());
+  }
 
     public void addTag() {
         addTag.setOnAction(e -> {
@@ -146,16 +143,22 @@ public class AddTaskViewController implements ViewController {
         viewHandler.openView("projects");
     }
 
-    public void createtask() {
-        (viewModel).add();
-        viewHandler.openView("projects");
+
+
+  public void createtask(){
+    if(viewModel.add()){
+      viewHandler.openView("tasks");
     }
 
-    public void setChoiceBox() {
-        priority.getItems().add(Priority.HIGH);
-        priority.getItems().add(Priority.MEDIUM);
-        priority.getItems().add(Priority.LOW);
-        priority.setValue(Priority.HIGH);
-    }
+  }
+  public void backButton(){
+    viewHandler.openView("tasks");
+  }
+  public void setChoiceBox(){
+    priority.getItems().add("HIGH");
+    priority.getItems().add("MEDIUM");
+    priority.getItems().add("LOW");
+    priority.setValue("HIGH");
+  }
 
 }

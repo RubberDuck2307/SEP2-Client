@@ -19,13 +19,16 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty nameOfTheProject;
   private StringProperty title;
   private StringProperty errorTitleMessage;
+  private StringProperty errorPriorityMessage;
   private StringProperty errorTitleHours;
+  private StringProperty errorDeadlineMessage;
   private ObjectProperty<LocalDate> deadline;
   private StringProperty description;
-  private StringProperty priority;
+  private ObjectProperty<String> priority;
   private StringProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
+  private Validator validator;
   private EmployeeList workers;
   private ArrayList<Integer> assignedEmployeeIDs;
 
@@ -40,10 +43,13 @@ public class AddTaskViewModel implements ViewModel
     LocalDate localDate = LocalDate.now();
     this.deadline = new SimpleObjectProperty<>(localDate);
     this.description = new SimpleStringProperty();
-    this.priority = new SimpleStringProperty();
+    this.priority = new SimpleObjectProperty<>();
     this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
+    this.errorDeadlineMessage = new SimpleStringProperty();
+    this.errorPriorityMessage = new SimpleStringProperty();
+    this.validator = new Validator();
     this.workers = new EmployeeList();
     this.assignedEmployeeIDs = new ArrayList<>();
   }
@@ -54,55 +60,66 @@ public class AddTaskViewModel implements ViewModel
     deadline.setValue(project.getDeadline());
     workers = model.getEmployeesAssignedToManager(4);
     assignedEmployeeIDs.clear();
+    errorTitleHours.setValue(null);
+    errorDeadlineMessage.setValue(null);
+    errorTitleMessage.setValue(null);
+    errorPriorityMessage.setValue(null);
+    title.setValue("");
+    priority.setValue(null);
+    description.setValue("");
+    estimatedHours.setValue(null);
   }
   public StringProperty getNameOfTheProject()
   {
     return nameOfTheProject;
   }
-  public void add(){
+  public boolean add(){
+    errorTitleHours.setValue(null);
+    errorDeadlineMessage.setValue(null);
+    errorTitleMessage.setValue(null);
+    errorPriorityMessage.setValue(null);
     Project project = viewState.getProject();
     boolean valid = true;
-    if (title.getValue().trim().isEmpty() || title.getValue().trim().length() <= 1)
+    try
+    {
+      validator.validateTitle(title);
+    }
+    catch (Exception e)
     {
       valid = false;
-      errorTitleMessage.setValue("Name cannot be empty!");
+      errorTitleMessage.setValue("Title can not be empty.");
     }
-
-    if (deadline.toString().equals(""))
+    try
     {
-      deadline.setValue(project.getDeadline());
+      validator.validateEstimatedTimer(getEstimatedHours());
     }
-    if (Objects.equals(priority.getValue(), null))
+    catch (Exception e)
     {
-      priority.setValue("HIGH");
+      valid = false;
+      errorTitleHours.setValue(e.getMessage());
     }
-
-
-    if (Objects.equals(estimatedHours.getValue().trim(), ""))
-    {
-      estimatedHoursInt = 0;
-    }
-    if (!Objects.equals(estimatedHours.getValue(), ""))
-    {
-      try{
-        estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
-      }
-      catch (NumberFormatException ex){
+    if(deadline!=null){
+      if (deadline.getValue().isAfter(project.getDeadline())){
         valid = false;
-        errorTitleHours.setValue("Please insert only numbers");
+        errorDeadlineMessage.setValue("Deadline of the task can not be later than deadline of the project.");
       }
+    }
+    if (priority.getValue()==null){
+      valid = false;
+      errorPriorityMessage.setValue("The priority needs to be set.");
     }
 
     if (valid)
     {
-      //todo display date and fix choice selectors and validation
+      //TODO validate priority!!
+
       Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO",
           project.getId(), LocalDate.now());
       System.out.println("Bobek: " + task2.toString());
       model.saveTask(task2);
       model.assignEmployeesToTask(assignedEmployeeIDs, viewState.getProject().getId());
     }
-
+    return valid;
   }
 
   public StringProperty nameOfTheProjectProperty()
@@ -115,6 +132,17 @@ public class AddTaskViewModel implements ViewModel
     return title;
   }
 
+
+
+  public StringProperty errorPriorityMessageProperty()
+  {
+    return errorPriorityMessage;
+  }
+
+  public StringProperty errorDeadlineMessageProperty()
+  {
+    return errorDeadlineMessage;
+  }
 
   public StringProperty errorTitleMessageProperty()
   {
@@ -135,7 +163,7 @@ public class AddTaskViewModel implements ViewModel
   }
 
 
-  public StringProperty priorityProperty()
+  public ObjectProperty priorityProperty()
   {
     return priority;
   }
@@ -152,6 +180,10 @@ public class AddTaskViewModel implements ViewModel
     return tags;
   }
 
+  public String getEstimatedHours()
+  {
+    return estimatedHours.get();
+  }
 
   public StringProperty errorTitleHoursProperty()
   {

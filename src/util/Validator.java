@@ -12,37 +12,37 @@ import java.util.regex.Pattern;
 
 public class Validator
 {
-    public void validateFirstName(StringProperty firstName)
+    public void validateFirstName(String firstName)
     {
-        if (firstName.getValue().trim().isEmpty())
+        if (firstName.trim().isEmpty())
         {
             throw new RuntimeException("First name cannot be empty!");
         }
-        else if (firstName.getValue().trim().length() <= 1)
+        else if (firstName.trim().length() == 1)
         {
             throw new RuntimeException("First name has to be longer than one character!");
         }
     }
     
-    public void validateLastName(StringProperty lastName)
+    public void validateLastName(String lastName)
     {
-        if (lastName.getValue().trim().isEmpty())
+        if (lastName.trim().isEmpty())
         {
             throw new RuntimeException("Last name cannot be empty!");
         }
-        else if (lastName.getValue().trim().length() <= 1)
+        else if (lastName.trim().length() == 1)
         {
             throw new RuntimeException("Last name has to be longer than one character!");
         }
     }
     
-    public void validateName(StringProperty name)
+    public void validateName(String name)
     {
-        if (name.getValue().trim().isEmpty())
+        if (name.trim().isEmpty())
         {
             throw new RuntimeException("Name cannot be empty!");
         }
-        else if (name.getValue().trim().length() <= 1)
+        else if (name.trim().length() == 1)
         {
             throw new RuntimeException("Name has to be longer than one character!");
         }
@@ -141,10 +141,12 @@ public class Validator
     {
         String patterns = "^[0-9]$";
         Pattern pattern = Pattern.compile(patterns);
-        Matcher matcher = pattern.matcher(estimatedTime.trim());
-        if (!matcher.matches())
-        {
-            throw new RuntimeException("Estimated time cannot contain letters!");
+        if(estimatedTime!=null){
+            Matcher matcher = pattern.matcher(estimatedTime.trim());
+            if (!matcher.matches())
+            {
+                throw new RuntimeException("Estimated time cannot contain letters!");
+            }
         }
     }
 }

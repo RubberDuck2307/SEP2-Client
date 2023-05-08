@@ -85,6 +85,18 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+    
+    @Override public Integer saveEmployee(Employee employee, String password)
+    {
+        try
+        {
+            return model.saveEmployee(employee,password);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) {
