@@ -141,10 +141,13 @@ public class Validator
     {
         String patterns = "^[0-9]$";
         Pattern pattern = Pattern.compile(patterns);
-        Matcher matcher = pattern.matcher(estimatedTime.trim());
-        if (!matcher.matches())
-        {
-            throw new RuntimeException("Estimated time cannot contain letters!");
+        if(estimatedTime!=null){
+            Matcher matcher = pattern.matcher(estimatedTime.trim());
+            if (!matcher.matches())
+            {
+                throw new RuntimeException("Estimated time cannot contain letters!");
+            }
         }
+
     }
 }

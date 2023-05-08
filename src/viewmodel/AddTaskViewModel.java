@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import model.*;
+import util.Validator;
 import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
@@ -26,6 +27,7 @@ public class AddTaskViewModel implements ViewModel
   private StringProperty estimatedHours;
   private StringProperty tags;
   private int estimatedHoursInt;
+  private Validator validator;
 
 
   public AddTaskViewModel(Model model, ViewState viewState)
@@ -42,6 +44,9 @@ public class AddTaskViewModel implements ViewModel
     this.estimatedHours = new SimpleStringProperty();
     this.tags = new SimpleStringProperty();
     this.errorTitleHours = new SimpleStringProperty();
+    this.validator = new Validator();
+
+
 
   }
   public void load()
@@ -49,54 +54,41 @@ public class AddTaskViewModel implements ViewModel
     Project project = viewState.getProject();
     nameOfTheProject.setValue(project.getName());
     deadline.setValue(project.getDeadline());
+
   }
   public StringProperty getNameOfTheProject()
   {
     return nameOfTheProject;
   }
-  public void add(){
+  public boolean add(){
     Project project = viewState.getProject();
     boolean valid = true;
-    if (title.getValue().trim().isEmpty() || title.getValue().trim().length() <= 1)
+    try
+    {
+      validator.validateTitle(title);
+    }
+    catch (Exception e)
     {
       valid = false;
-      errorTitleMessage.setValue("Name cannot be empty!");
+      errorTitleMessage.setValue("Title can not be empty");
     }
-
-    if (deadline.toString().equals(""))
+    try
     {
-      deadline.setValue(project.getDeadline());
+      validator.validateEstimatedTimer(getEstimatedHours());
     }
-    if (Objects.equals(priority.getValue(), null))
+    catch (Exception e)
     {
-      priority.setValue("HIGH");
+      valid = false;
+      errorTitleHours.setValue(e.getMessage());
     }
-
-
-    if (Objects.equals(estimatedHours.getValue().trim(), ""))
-    {
-      estimatedHoursInt = 0;
-    }
-    if (!Objects.equals(estimatedHours.getValue(), ""))
-    {
-      try{
-        estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
-      }
-      catch (NumberFormatException ex){
-        valid = false;
-        errorTitleHours.setValue("Please insert only numbers");
-      }
-    }
-
     if (valid)
     {
-      //todo display date and fix choice selectors and validation
       Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO",
           project.getId(), LocalDate.now());
       System.out.println("Bobek: " + task2.toString());
       model.saveTask(task2);
     }
-
+    return valid;
   }
 
   public StringProperty nameOfTheProjectProperty()
@@ -146,6 +138,10 @@ public class AddTaskViewModel implements ViewModel
     return tags;
   }
 
+  public String getEstimatedHours()
+  {
+    return estimatedHours.get();
+  }
 
   public StringProperty errorTitleHoursProperty()
   {

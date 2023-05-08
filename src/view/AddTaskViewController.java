@@ -54,6 +54,7 @@ public class AddTaskViewController implements ViewController
     addTag();
     bindEverything();
     errorTitleHours.setText(null);
+    errorTitleMessage.setText(null);
     this.viewModel.load();
   }
 
@@ -93,8 +94,13 @@ public class AddTaskViewController implements ViewController
     viewHandler.openView("projects");
   }
   public void createtask(){
-    (viewModel).add();
-    viewHandler.openView("projects");
+    if(viewModel.add()){
+      viewHandler.openView("tasks");
+    }
+
+  }
+  public void backButton(){
+    viewHandler.openView("tasks");
   }
   public void setChoiceBox(){
     priority.getItems().add(Priority.HIGH);

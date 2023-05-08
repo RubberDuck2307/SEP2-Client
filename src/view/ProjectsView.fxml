@@ -213,11 +213,6 @@
                                         </HBox>
                                     </children>
                                 </VBox>
-                        <ScrollBar orientation="VERTICAL" prefHeight="317.0" prefWidth="14.0">
-                           <HBox.margin>
-                              <Insets top="110.0" />
-                           </HBox.margin>
-                        </ScrollBar>
                             </children>
                             <padding>
                                 <Insets left="20.0" right="20.0" />
@@ -284,11 +279,6 @@
                                                 </TableView>
                                             </children>
                                         </VBox>
-                              <ScrollBar orientation="VERTICAL">
-                                 <HBox.margin>
-                                    <Insets top="70.0" />
-                                 </HBox.margin>
-                              </ScrollBar>
                                     </children>
                                 </HBox>
                             </children>
