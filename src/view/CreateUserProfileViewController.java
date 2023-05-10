@@ -1,5 +1,9 @@
 package view;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -45,6 +49,16 @@ public class CreateUserProfileViewController implements ViewController
     public Label dobErrorL;
     @FXML
     public TextField jobTitleL;
+    @FXML
+    public RadioButton genderMale;
+    @FXML
+    public RadioButton genderFemale;
+    @FXML
+    public ToggleGroup gender;
+    @FXML
+    public RadioButton selectedButton;
+    @FXML
+    public BooleanProperty value;
     
     private Region root;
     private CreateUserProfileViewModel viewModel;
@@ -158,6 +172,14 @@ public class CreateUserProfileViewController implements ViewController
                 dobErrorL.setTextFill(Color.RED);
             }
         });
+        value = new SimpleBooleanProperty(true);
+        this.value.bindBidirectional(this.viewModel.genderProperty());
+    }
+    
+    public void radioButtons()
+    {
+        System.out.println(genderMale.isSelected());
+        value.setValue(genderMale.isSelected());
     }
     
     @Override
