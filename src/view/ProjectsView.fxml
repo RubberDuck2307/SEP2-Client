@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProjectsViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ProjectsViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -54,7 +54,7 @@
                      </padding>
                         </HBox>
 
-                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" styleClass="menu-active">
+                        <HBox fx:id="projectHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" styleClass="menu-active">
                             <children>
                                 <SVGPath content="M11.0748 3.25583C11.4141 2.42845 12.5859 2.42845 12.9252 3.25583L14.6493 7.45955C14.793 7.80979 15.1221 8.04889 15.4995 8.07727L20.0303 8.41798C20.922 8.48504 21.2841 9.59942 20.6021 10.1778L17.1369 13.1166C16.8482 13.3614 16.7225 13.7483 16.8122 14.1161L17.8882 18.5304C18.1 19.3992 17.152 20.0879 16.3912 19.618L12.5255 17.2305C12.2034 17.0316 11.7966 17.0316 11.4745 17.2305L7.60881 19.618C6.84796 20.0879 5.90001 19.3992 6.1118 18.5304L7.18785 14.1161C7.2775 13.7483 7.1518 13.3614 6.86309 13.1166L3.3979 10.1778C2.71588 9.59942 3.07796 8.48504 3.96971 8.41798L8.50046 8.07727C8.87794 8.04889 9.20704 7.80979 9.35068 7.45955L11.0748 3.25583Z" strokeWidth="0.0" styleClass="side-menu-icon-project-active" />
 
@@ -73,7 +73,7 @@
                         <Insets left="30.0" />
                      </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openCreateUserProfiles" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
+                        <HBox fx:id="workersHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openCreateUserProfiles" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
                             <children>
                                 <SVGPath content="M11 4C11 5.65685 9.65685 7 8 7C6.34315 7 5 5.65685 5 4C5 2.34315 6.34315 1 8 1C9.65685 1 11 2.34315 11 4Z M1 16.5C1 12.9101 3.91015 10 7.5 10H8.5C12.0899 10 15 12.9101 15 16.5V17C15 17.5523 14.5523 18 14 18H2C1.44772 18 1 17.5523 1 17V16.5Z" stroke="#0D6EFD" styleClass="side-menu-icon-projects" />
                                 <ImageView>
@@ -112,7 +112,7 @@
                                  <children>
                                     <HBox prefHeight="67.0" prefWidth="100.0">
                                        <children>
-                                          <Label alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                          <Label fx:id="nameLabel" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font></Label>
@@ -120,7 +120,7 @@
                                     </HBox>
                                     <HBox prefHeight="59.0" prefWidth="90.0">
                                        <children>
-                                          <Label alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                          <Label fx:id="numberLabel" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -148,13 +148,9 @@
                             </opaqueInsets>
                             <children>
                                 <Label prefHeight="66.0" prefWidth="167.0" styleClass="heading" text="PROJECTS" />
-                        <Button maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#openAddProject" prefHeight="53.0" prefWidth="57.0" styleClass="button-add" textFill="TRANSPARENT">
+                        <Button fx:id="addProjectButton" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#openAddProject" prefHeight="53.0" prefWidth="57.0" styleClass="button-add" textFill="TRANSPARENT">
                            <HBox.margin>
                               <Insets right="20.0" top="8.0" />
-                           </HBox.margin></Button>
-                        <Button id="hoo" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="57.0" styleClass="button-edit">
-                           <HBox.margin>
-                              <Insets top="8.0" />
                            </HBox.margin></Button>
                             </children>
                             <VBox.margin>

@@ -28,6 +28,7 @@ public interface ClientInterface {
 
 
     Employee login(UserProfile userProfile);
+
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);

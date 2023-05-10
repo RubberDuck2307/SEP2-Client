@@ -26,6 +26,7 @@ public class LoginViewModel implements  ViewModel{
             return true;
         }
         catch (Exception e){
+            e.printStackTrace();
             errorProperty.set("Wrong working number or password");
             return false;
         }

@@ -19,6 +19,10 @@ import static javafx.application.Platform.runLater;
 public class ProjectsViewModel implements ViewModel
 {
     private Model model;
+
+    private StringProperty userName;
+    private StringProperty userNumber;
+    private ObjectProperty<Employee> employeeProperty;
     private StringProperty titleProperty;
     private StringProperty descriptionProperty;
     private ProjectList projectList;
@@ -33,11 +37,17 @@ public class ProjectsViewModel implements ViewModel
         projectList = new ProjectList();
         projectManagersTables = FXCollections.observableArrayList();
         selectedProject = new SimpleBooleanProperty();
+        employeeProperty = new SimpleObjectProperty<>();
+        userName = new SimpleStringProperty();
+        userNumber = new SimpleStringProperty();
     }
 
     public void load(){
         selectedProject.set(false);
         projectList = model.getAllProjectsByWorkingNumber(1);
+        employeeProperty.set(model.getUser());
+        userName.set(model.getUser().getName());
+        userNumber.set(model.getUser().getWorkingNumber().toString());
     }
 
     public StringProperty getTitleProperty() {
@@ -76,7 +86,32 @@ public class ProjectsViewModel implements ViewModel
         return selectedProject.get();
     }
 
+    public Employee getEmployeeProperty() {
+        return employeeProperty.get();
+    }
+
+    public ObjectProperty<Employee> employeePropertyProperty() {
+        return employeeProperty;
+    }
+
     public BooleanProperty selectedProjectProperty() {
         return selectedProject;
+
+    }
+
+    public String getUserName() {
+        return userName.get();
+    }
+
+    public StringProperty userNameProperty() {
+        return userName;
+    }
+
+    public String getUserNumber() {
+        return userNumber.get();
+    }
+
+    public StringProperty userNumberProperty() {
+        return userNumber;
     }
 }
