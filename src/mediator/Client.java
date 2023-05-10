@@ -39,6 +39,16 @@ public class Client implements ClientInterface {
     }
 
     @Override
+    public Employee login(UserProfile userProfile) {
+        try {
+            return model.login(userProfile);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
     public EmployeeList getEmployeesOfTask(Long taskId) {
         try {
             return model.getEmployeesOfTask(taskId);

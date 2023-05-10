@@ -25,6 +25,7 @@ public interface ClientInterface {
 
     void assignWorkerToTask(Integer workingNumber, Long taskID);
 
+    Employee login(UserProfile userProfile);
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);

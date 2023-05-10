@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class ModelManager implements Model {
 
+    private Employee user;
     private ClientInterface client;
 
     public ModelManager(ClientInterface client) {
@@ -34,6 +35,14 @@ public class ModelManager implements Model {
     @Override
     public void removeWorkerFromTask(Integer workingNumber, Long taskID) {
         client.removeWorkerFromTask(workingNumber, taskID);
+    }
+
+    @Override
+    public Employee login(UserProfile userProfile) {
+        Employee employee = client.login(userProfile);
+        this.user = employee;
+        System.out.println(employee);
+        return employee;
     }
 
     @Override public void assignWorkerToTask(Integer workingNumber,
@@ -84,5 +93,9 @@ public class ModelManager implements Model {
     @Override public Integer saveEmployee(Employee employee, String password)
     {
         return client.saveEmployee(employee,password);
+    }
+
+    public Employee getUser() {
+        return user;
     }
 }
