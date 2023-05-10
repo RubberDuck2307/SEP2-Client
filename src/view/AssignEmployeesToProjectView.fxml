@@ -110,7 +110,7 @@
                                             <children>
                                                 <HBox prefHeight="67.0" prefWidth="100.0">
                                                     <children>
-                                                        <Label alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                                        <Label fx:id="nameLabel" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
                                                             <font>
                                                                 <Font name="System Bold" size="12.0" />
                                                             </font></Label>
@@ -118,7 +118,7 @@
                                                 </HBox>
                                                 <HBox prefHeight="59.0" prefWidth="90.0">
                                                     <children>
-                                                        <Label alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                        <Label fx:id="numberLabel" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -155,7 +155,7 @@
                                                 <Insets left="10.0" top="20.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="1044.0" styleClass="heading" text="ASSIGN WORKERS" textAlignment="CENTER" />
+                                        <Label fx:id="headlineLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="1044.0" styleClass="heading" text="ASSIGN WORKERS" textAlignment="CENTER" />
                                     </children>
                                 </HBox>
                                 <HBox layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="1098.0">
@@ -177,15 +177,7 @@
                                     <children>
                                         <VBox prefHeight="634.0" prefWidth="1060.0">
                                             <children>
-                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="539.0">
-                                                    <children>
-                                                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="1101.0" styleClass="heading-2" text="ASSIGN WORKERS">
-                                                            <HBox.margin>
-                                                                <Insets left="20.0" top="10.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                    </children>
-                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="539.0" />
                                                 <HBox alignment="TOP_CENTER" prefHeight="27.0" prefWidth="443.0">
                                                     <children>
                                                     <Label alignment="CENTER" prefHeight="20.0" prefWidth="77.0" styleClass="labels-form" text="Filter by:" textAlignment="CENTER" />
