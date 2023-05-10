@@ -83,5 +83,9 @@ public class AssignEmployeesToProjectViewController implements ViewController
   {
     return root;
   }
+  public void openWorkersView()
+  {
+    viewHandler.openView("workers");
+  }
 
 }

@@ -45,4 +45,9 @@ public class ViewState
   {
     this.task = task;
   }
+
+  public void setEmployee(Employee employee)
+  {
+    this.employee = employee;
+  }
 }

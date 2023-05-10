@@ -106,6 +106,11 @@ public class ModelManager implements Model {
         return client.getAllEmployees();
     }
 
+    @Override public Employee getEmployeeByWorkingNumber(int workingNumber)
+    {
+        return client.getEmployeeByWorkingNumber(workingNumber);
+    }
+
     @Override public Integer saveEmployee(Employee employee, String password)
     {
         return client.saveEmployee(employee,password);

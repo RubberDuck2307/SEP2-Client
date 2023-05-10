@@ -29,4 +29,5 @@ public interface Model{
     Integer saveEmployee(Employee employee, String password);
     void updateTask(Task task);
     EmployeeList getAllEmployees();
+    Employee getEmployeeByWorkingNumber(int workingNumber);
 }

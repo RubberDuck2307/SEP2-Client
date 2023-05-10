@@ -184,14 +184,8 @@
                                                    <children>
                                                       <VBox prefHeight="51.0" prefWidth="193.0">
                                                          <children>
-                                                            <Label styleClass="heading-of-label" text="First name" />
-                                                            <Label fx:id="managerFirstName" text="Anna" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox prefHeight="200.0" prefWidth="100.0">
-                                                         <children>
-                                                            <Label styleClass="heading-of-label" text="Last name" />
-                                                            <Label fx:id="managerLastName" text="Andrlová" />
+                                                            <Label styleClass="heading-of-label" text="Name" />
+                                                            <Label fx:id="managerName" text="Anna" />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -265,7 +259,7 @@
                                                 <Insets bottom="10.0" />
                                              </padding>
                                           </Label>
-                                                      <TableView fx:id="currentProjectsTable" onMousePressed="#projectTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                                      <TableView fx:id="currentProjectsTable"  prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                           <columns>
                                                               <TableColumn fx:id="projectTitle" prefWidth="254.3999618291855" text="Title" />
                                                               <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="107.99996948242188" text="Deadline" />

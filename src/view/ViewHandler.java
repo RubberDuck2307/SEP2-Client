@@ -75,6 +75,10 @@ public class ViewHandler
         root = loadViewController(viewModelFactory.getWorkersViewModel(),"WorkersView.fxml");
         break;
       }
+      case "projectManagerPage":{
+        root = loadViewController(viewModelFactory.getProjectManagerProfileViewModel(),"ProjectManagerProfileView.fxml");
+        break;
+      }
       default:{
         throw new IllegalArgumentException("Unknown id: " + id);
       }

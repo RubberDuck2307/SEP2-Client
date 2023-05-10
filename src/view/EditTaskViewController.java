@@ -196,4 +196,8 @@ public class EditTaskViewController implements ViewController {
         this.deadline.setEditable(true);
         deadline.setValue(null);
     }
+    public void openWorkersView()
+    {
+        viewHandler.openView("workers");
+    }
 }

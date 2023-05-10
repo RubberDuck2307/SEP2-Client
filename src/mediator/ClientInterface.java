@@ -33,4 +33,5 @@ public interface ClientInterface {
     String hello();
     void updateTask(Task task);
     EmployeeList getAllEmployees();
+    Employee getEmployeeByWorkingNumber(int workingNumber);
 }
