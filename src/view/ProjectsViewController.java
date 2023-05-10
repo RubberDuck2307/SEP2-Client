@@ -95,7 +95,6 @@ public class ProjectsViewController implements ViewController {
             projectsTables.get(i).setBtton(button1);
         }
         assignButton.setVisible(false);
-        setWindow(((ProjectsViewModel) viewModel).getEmployeeProperty().getRole());
         this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
             if (((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
                 assignButton.setVisible(newValue);

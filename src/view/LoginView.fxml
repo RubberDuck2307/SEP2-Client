@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="704.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <padding>
@@ -63,7 +63,7 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <PasswordField fx:id="passwordField" styleClass="text-fields" />
+                        <PasswordField fx:id="passwordField" onAction="#login" styleClass="text-fields" />
                         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="400.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="60.0" prefWidth="325.0">

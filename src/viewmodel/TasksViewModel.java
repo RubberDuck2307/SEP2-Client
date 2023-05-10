@@ -16,12 +16,15 @@ public class TasksViewModel implements ViewModel
 {
   private Model model;
   //tasks
+  private StringProperty employeeName;
+  private StringProperty employeeWorkingNumber;
   private TaskList taskList;
   private EmployeeList employeeList;
   private StringProperty error;
   private StringProperty projectName;
   private StringProperty taskName;
   private StringProperty taskDescription;
+  private ObjectProperty<Employee> employee;
   private ObservableList<Task> tasks;
   private ObservableList<TasksTable> tasksTables;
   private ObservableList<CommentsTable> commentsTables;
@@ -36,6 +39,9 @@ public class TasksViewModel implements ViewModel
   {
     this.error = new SimpleStringProperty();
     this.model = model;
+    this.employeeName=new SimpleStringProperty();
+    this.employeeWorkingNumber=new SimpleStringProperty();
+    this.employee=new SimpleObjectProperty<>();
     this.tasks = FXCollections.observableArrayList();
     this.viewState = viewState;
     this.taskList = new TaskList();
@@ -58,6 +64,9 @@ public class TasksViewModel implements ViewModel
     isTaskSelected.set(false);
     System.out.println("load");
     Project project = viewState.getProject();
+    employee.setValue(model.getUser());
+    employeeName.setValue(model.getUser().getName());
+    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
     taskList = model.getAllTasksOfProject(project.getId());
     taskName.setValue("Description");
     projectName.setValue(project.getName());
@@ -75,6 +84,26 @@ public class TasksViewModel implements ViewModel
   public ObservableList<TasksTable> getAll()
   {
     return tasksTables;
+  }
+
+  public ObjectProperty<Employee> employeeProperty()
+  {
+    return employee;
+  }
+
+  public Employee getEmployee()
+  {
+    return employee.get();
+  }
+
+  public StringProperty getEmployeeName()
+  {
+    return employeeName;
+  }
+
+  public StringProperty getEmployeeWorkingNumber()
+  {
+    return employeeWorkingNumber;
   }
 
   public ObservableList<WorkersTable> getWorkersTables(){return workersTables;}
