@@ -52,4 +52,5 @@ public class LoginViewController implements ViewController {
             viewHandler.openView("projects");
         }
     }
+
 }

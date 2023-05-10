@@ -20,7 +20,7 @@ public class WorkersViewModel implements ViewModel
   private IntegerProperty number;
   private StringProperty email;
   private EmployeeList employeeList;
-  //TODO do I need a view state??
+
   public WorkersViewModel(Model model, ViewState viewState)
   {
     this.model = model;
@@ -33,6 +33,7 @@ public class WorkersViewModel implements ViewModel
   }
   public void load()
   {
+
     employeeList = model.getAllEmployees();
     workersTables.clear();
     for (int i = 0; i < employeeList.size(); i++)
@@ -41,5 +42,12 @@ public class WorkersViewModel implements ViewModel
     }
 
   }
+  public void chooseWorker(int workingNumber)
+  {
+    Employee employee = model.getEmployeeByWorkingNumber(workingNumber);
+    viewState.setEmployee(employee);
+    workersTables.clear();
+  }
+
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
 }

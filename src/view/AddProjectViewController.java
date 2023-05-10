@@ -98,6 +98,10 @@ public class AddProjectViewController implements ViewController {
     private void assignEmployee(Employee employee) {
 
     }
+    public void openWorkersView()
+    {
+        viewHandler.openView("workers");
+    }
 
 
 }

@@ -30,4 +30,5 @@ public interface Model{
     void updateTask(Task task);
     EmployeeList getAllEmployees();
     void setUser(Employee user);
+    Employee getEmployeeByWorkingNumber(int workingNumber);
 }

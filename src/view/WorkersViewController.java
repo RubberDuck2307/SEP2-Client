@@ -49,15 +49,30 @@ public class WorkersViewController implements ViewController
   {
     return root;
   }
-  public void openProjects(MouseEvent mouseEvent)
+  public void workerTableClick()
   {
+    if (workerTable.getSelectionModel().getSelectedItem() != null) {
+      viewModel.chooseWorker(
+          workerTable.getSelectionModel().getSelectedItem().getNumber());
+      viewHandler.openView("projectManagerPage");
+    }
+  }
+  public void projectButtonTableClick() {
+
+  }
+  public void openProjects()
+  {
+    viewHandler.openView("projects");
   }
 
-  public void createNewProfile(ActionEvent actionEvent)
+  public void createNewProfile()
   {
+    viewHandler.openView("createUserProfile");
   }
 
-  public void workerTableClick(MouseEvent mouseEvent)
+
+  public void openWorkersView()
   {
+    viewHandler.openView("workers");
   }
 }

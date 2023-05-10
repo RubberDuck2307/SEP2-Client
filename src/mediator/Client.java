@@ -217,4 +217,16 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override public Employee getEmployeeByWorkingNumber(int workingNumber)
+    {
+        try
+        {
+            return model.getEmployeeByWorkingNumber(workingNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }

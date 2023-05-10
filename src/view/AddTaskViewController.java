@@ -174,5 +174,9 @@ public class AddTaskViewController implements ViewController {
     priority.getItems().add("LOW");
     priority.setValue("HIGH");
   }
+  public void openWorkersView()
+  {
+    viewHandler.openView("workers");
+  }
 
 }

@@ -227,4 +227,8 @@ public class CreateUserProfileViewController implements ViewController
         roleL.getItems().add("Worker");
         roleL.setValue("HR");
     }
+    public void openWorkersView()
+    {
+        viewHandler.openView("workers");
+    }
 }
