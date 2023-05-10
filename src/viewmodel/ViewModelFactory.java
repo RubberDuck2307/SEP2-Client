@@ -10,6 +10,7 @@ public class ViewModelFactory
   private TasksViewModel tasksViewModel;
   private ProjectsViewModel projectsViewModel;
   private AssignWorkersToTaskViewModel assignWorkersToTaskViewModel;
+  private AssignEmployeesToProjectViewModel assignEmployeesToProjectViewModel;
   private EditTaskViewModel editTaskViewModel;
   private AddTaskViewModel addTaskViewModel;
   private CreateUserProfileViewModel createUserProfileViewModel;
@@ -24,6 +25,7 @@ public class ViewModelFactory
     this.addTaskViewModel = new AddTaskViewModel(model, viewState);
     this.editTaskViewModel = new EditTaskViewModel(model, viewState);
     this.assignWorkersToTaskViewModel = new AssignWorkersToTaskViewModel(model, viewState);
+    this.assignEmployeesToProjectViewModel = new AssignEmployeesToProjectViewModel(model, viewState);
     this.addProjectViewModel = new AddProjectViewModel(model, viewState);
     this.createUserProfileViewModel = new CreateUserProfileViewModel(model, viewState);
   }
@@ -46,6 +48,11 @@ public class ViewModelFactory
   public AssignWorkersToTaskViewModel getAssignWorkersToTaskViewModel()
   {
     return assignWorkersToTaskViewModel;
+  }
+
+  public AssignEmployeesToProjectViewModel getAssignWorkersToProjectViewModel()
+  {
+    return assignEmployeesToProjectViewModel;
   }
 
   public AddTaskViewModel getAddTaskViewModel()

@@ -95,6 +95,12 @@ public class ProjectsViewController implements ViewController
             viewModel.setProject(projectTable.getSelectionModel().getSelectedItem().getId());
         }
     }
+
+    @FXML
+    public void assign()
+    {
+        viewHandler.openView("assignWorkersToProject");
+    }
     
     public void projectButtonTableClick(Long index)
     {

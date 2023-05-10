@@ -52,6 +52,9 @@ public class ViewHandler
       case "assignWorkersToTask":{
         root = loadViewController( viewModelFactory.getAssignWorkersToTaskViewModel() ,"AssignWorkersToTaskView.fxml");
         break;}
+      case "assignWorkersToProject":{
+        root = loadViewController( viewModelFactory.getAssignWorkersToProjectViewModel() ,"AssignEmployeesToProjectView.fxml");
+        break;}
       case "addTask":{
         root = loadViewController( viewModelFactory.getAddTaskViewModel() ,"AddTaskToProjectView.fxml");
         break;}

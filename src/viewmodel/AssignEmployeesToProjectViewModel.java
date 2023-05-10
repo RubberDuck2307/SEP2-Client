@@ -2,27 +2,27 @@ package viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.*;
+import model.Employee;
+import model.EmployeeList;
+import model.Model;
+import model.Project;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AssignWorkersToTaskViewModel implements ViewModel {
+public class AssignEmployeesToProjectViewModel implements ViewModel {
     private ViewState viewState;
     private Model model;
     private StringProperty projectName;
     private EmployeeList employeesOfManager;
-    private EmployeeList employeesOfTask;
+    private EmployeeList employeesOfProject;
     private ArrayList<Employee> asigneeList;
     private ObservableList<Employee> employees;
 
-    public AssignWorkersToTaskViewModel(Model model, ViewState viewState) {
+    public AssignEmployeesToProjectViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
         this.model = model;
-        employeesOfTask = new EmployeeList();
+        employeesOfProject = new EmployeeList();
         employeesOfManager = new EmployeeList();
         projectName = new SimpleStringProperty();
     }
@@ -30,27 +30,27 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
     public void load() {
         Project project = viewState.getProject();
         projectName.set(project.getName());
-        //TODO change employees of manager to fit the current project manager
+        //TODO change employees of manager to fit the current main/project manager
         employeesOfManager = model.getEmployeesAssignedToManager(4);
-        employeesOfTask = model.getEmployeesOfTask(viewState.getTask().getId());
+        employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
 
     }
 
     public boolean isAssigned(Employee employee) {
-        if (employeesOfTask.containsByWorkingNumber(employee.getWorkingNumber())) {
+        if (employeesOfProject.containsByWorkingNumber(employee.getWorkingNumber())) {
             return true;
         }
         return false;
     }
 
     public void assignEmployee(Employee employee) {
-        if (!employeesOfTask.containsByWorkingNumber(employee.getWorkingNumber())) {
-            model.assignWorkerToTask(employee.getWorkingNumber(), viewState.getTask().getId());
-            employeesOfTask.addEmployee(employee);
+        if (!employeesOfProject.containsByWorkingNumber(employee.getWorkingNumber())) {
+            model.assignEmployeeToProject(employee.getWorkingNumber(), viewState.getProject().getId());
+            employeesOfProject.addEmployee(employee);
         }
         else {
-          model.removeWorkerFromTask(employee.getWorkingNumber(), viewState.getTask().getId());
-          employeesOfTask.removeByWorkingNumber(employee.getWorkingNumber());
+          model.removeEmployeeFromProject(employee.getWorkingNumber(), viewState.getProject().getId());
+          employeesOfProject.removeByWorkingNumber(employee.getWorkingNumber());
         }
     }
 
@@ -67,7 +67,7 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         return employeesOfManager;
     }
 
-    public EmployeeList getEmployeesOfTask() {
-        return employeesOfTask;
+    public EmployeeList getEmployeesOfProject() {
+        return employeesOfProject;
     }
 }

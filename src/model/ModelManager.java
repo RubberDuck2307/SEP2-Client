@@ -52,6 +52,17 @@ public class ModelManager implements Model {
         client.assignEmployeesToTask(employeeWorkingNumbers, TaskID);
     }
 
+    @Override public void assignEmployeeToProject(Integer workingNumber,
+        Long projectID)
+    {
+        client.assignEmployeeToProject(workingNumber, projectID);
+    }
+
+    @Override public void removeEmployeeFromProject(Integer workingNumber,
+        Long projectID)
+    {
+        client.removeEmployeeFromProject(workingNumber, projectID);
+    }
 
     @Override public EmployeeList getAllProjectManagers()
     {
