@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddTaskViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddTaskViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -112,7 +112,7 @@
                                             <children>
                                                 <HBox prefHeight="67.0" prefWidth="100.0">
                                                     <children>
-                                                        <Label alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                                        <Label fx:id="nameL" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
                                                             <font>
                                                                 <Font name="System Bold" size="12.0" />
                                                             </font>
@@ -121,7 +121,7 @@
                                                 </HBox>
                                                 <HBox prefHeight="59.0" prefWidth="90.0">
                                                     <children>
-                                                        <Label alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                        <Label fx:id="workingNumberL" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                                     </children>
                                                 </HBox>
                                             </children>

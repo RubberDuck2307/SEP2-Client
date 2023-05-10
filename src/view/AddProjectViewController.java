@@ -13,6 +13,10 @@ import viewmodel.WorkersWithCheckboxTable;
 
 public class AddProjectViewController implements ViewController {
     @FXML
+    public Label nameL;
+    @FXML
+    public Label workingNumberL;
+    @FXML
     private TextField title;
 
     @FXML
@@ -67,11 +71,11 @@ public class AddProjectViewController implements ViewController {
             checkBox.setSelected(false);
             workersWithCheckboxTables.get(i).setCheckbox(checkBox);
         }
-
         managersTable.setItems(workersWithCheckboxTables);
-
         titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
         deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
+        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
+        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
     }
 
 

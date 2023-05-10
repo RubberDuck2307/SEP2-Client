@@ -18,6 +18,7 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
     private EmployeeList employeesOfTask;
     private ArrayList<Employee> asigneeList;
     private ObservableList<Employee> employees;
+    private StringProperty name, workingNumber;
 
     public AssignWorkersToTaskViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
@@ -25,6 +26,8 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         employeesOfTask = new EmployeeList();
         employeesOfManager = new EmployeeList();
         projectName = new SimpleStringProperty();
+        name = new SimpleStringProperty();
+        workingNumber = new SimpleStringProperty();
     }
 
     public void load() {
@@ -69,5 +72,21 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
 
     public EmployeeList getEmployeesOfTask() {
         return employeesOfTask;
+    }
+    public String getName()
+    {
+        return name.get();
+    }
+    public StringProperty nameProperty()
+    {
+        return name;
+    }
+    public String getWorkingNumber()
+    {
+        return workingNumber.get();
+    }
+    public StringProperty workingNumberProperty()
+    {
+        return workingNumber;
     }
 }

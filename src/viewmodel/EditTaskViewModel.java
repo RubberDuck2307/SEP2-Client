@@ -34,7 +34,7 @@ public class EditTaskViewModel implements ViewModel
   private EmployeeList employees;
   private EmployeeList originalAssignedEmployees;
   private EmployeeList assignedEmployees;
-
+  private StringProperty name, workingNumber;
 
 
   public EditTaskViewModel(Model model, ViewState viewState)
@@ -58,6 +58,8 @@ public class EditTaskViewModel implements ViewModel
     employees = new EmployeeList();
     assignedEmployees = new EmployeeList();
     originalAssignedEmployees = new EmployeeList();
+    name = new SimpleStringProperty();
+    workingNumber = new SimpleStringProperty();
   }
   public void load()
   {
@@ -256,4 +258,20 @@ public class EditTaskViewModel implements ViewModel
     public StringProperty errorTitleHoursProperty() {
         return errorTitleHours;
     }
+  public String getName()
+  {
+    return name.get();
+  }
+  public StringProperty nameProperty()
+  {
+    return name;
+  }
+  public String getWorkingNumber()
+  {
+    return workingNumber.get();
+  }
+  public StringProperty workingNumberProperty()
+  {
+    return workingNumber;
+  }
 }

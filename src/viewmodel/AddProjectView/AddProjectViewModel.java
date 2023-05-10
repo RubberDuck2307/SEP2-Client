@@ -13,7 +13,8 @@ import viewmodel.ViewState;
 
 import java.time.LocalDate;
 
-public class AddProjectViewModel implements ViewModel {
+public class AddProjectViewModel implements ViewModel
+{
     private Validator validator;
     private StringProperty titleProperty;
     private StringProperty titleEProperty;
@@ -27,11 +28,13 @@ public class AddProjectViewModel implements ViewModel {
     private StringProperty errorProperty;
     private EmployeeList managers;
     private EmployeeList assignedManagers;
-
+    private StringProperty name;
+    private StringProperty workingNumber;
     private ViewState viewState;
     private Model model;
-
-    public AddProjectViewModel(Model model, ViewState viewState) {
+    
+    public AddProjectViewModel(Model model, ViewState viewState)
+    {
         this.model = model;
         this.viewState = viewState;
         this.titleProperty = new SimpleStringProperty();
@@ -42,36 +45,49 @@ public class AddProjectViewModel implements ViewModel {
         managers = new EmployeeList();
         this.validator = new Validator();
         employeesList = new EmployeeList();
+        this.name = new SimpleStringProperty();
+        this.workingNumber = new SimpleStringProperty();
         assignManagersObservableList = FXCollections.observableArrayList();
         employees = FXCollections.observableArrayList();
     }
-
-    public void load() {
+    
+    public void load()
+    {
         managers = model.getAllProjectManagers();
+        name.setValue(this.model.getUser().getName());
+        workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
     }
-
-    public void createButtonPressed() {
+    
+    public void createButtonPressed()
+    {
         model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
     }
-
-    public void reset() {
+    
+    public void reset()
+    {
         titleProperty.setValue("");
         descriptionProperty.setValue("");
         deadlineProperty.setValue(null);
     }
-
-
-    public boolean addProject() {
+    
+    public boolean addProject()
+    {
         Boolean valid = true;
-        try {
+        try
+        {
             validator.validateTitle(titleProperty.getValue());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             valid = false;
             titleEProperty.setValue(e.getMessage());
         }
-        try {
+        try
+        {
             validator.validateDeadline(deadlineProperty.get());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             valid = false;
             deadlineEProperty.setValue(e.getMessage());
         }
@@ -79,28 +95,51 @@ public class AddProjectViewModel implements ViewModel {
             model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
         return valid;
     }
-
-    public StringProperty getTitleProperty() {
+    
+    public StringProperty getTitleProperty()
+    {
         return titleProperty;
     }
-
-    public StringProperty getDescriptionProperty() {
+    
+    public StringProperty getDescriptionProperty()
+    {
         return descriptionProperty;
     }
-
-    public StringProperty getTitleErrorProperty() {
+    
+    public StringProperty getTitleErrorProperty()
+    {
         return titleEProperty;
     }
-
-    public StringProperty getDeadlineErrorProperty() {
+    
+    public StringProperty getDeadlineErrorProperty()
+    {
         return deadlineEProperty;
     }
-
-    public SimpleObjectProperty<LocalDate> getDeadlineProperty() {
+    
+    public SimpleObjectProperty<LocalDate> getDeadlineProperty()
+    {
         return deadlineProperty;
     }
-
-    public EmployeeList getManagers() {
+    
+    public EmployeeList getManagers()
+    {
         return managers;
+    }
+    
+    public String getName()
+    {
+        return name.get();
+    }
+    public StringProperty nameProperty()
+    {
+        return name;
+    }
+    public String getWorkingNumber()
+    {
+        return workingNumber.get();
+    }
+    public StringProperty workingNumberProperty()
+    {
+        return workingNumber;
     }
 }

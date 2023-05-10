@@ -2,8 +2,6 @@ package view;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -59,6 +57,10 @@ public class CreateUserProfileViewController implements ViewController
     public RadioButton selectedButton;
     @FXML
     public BooleanProperty value;
+    @FXML
+    public Label workingNumberL;
+    @FXML
+    public Label nameL;
     
     private Region root;
     private CreateUserProfileViewModel viewModel;
@@ -95,6 +97,22 @@ public class CreateUserProfileViewController implements ViewController
         dobErrorL.textProperty().bindBidirectional(this.viewModel.dobEProperty());
         roleL.valueProperty().bindBidirectional(this.viewModel.roleProperty());
         roleL.setValue("");
+        colorLabels();
+        value = new SimpleBooleanProperty(true);
+        this.value.bindBidirectional(this.viewModel.genderProperty());
+        this.nameL.textProperty().bind(this.viewModel.nameProperty());
+        this.workingNumberL.textProperty().bind(this.viewModel.workingNumberFProperty());
+        this.viewModel.load();
+    }
+    
+    public void radioButtons()
+    {
+        System.out.println(genderMale.isSelected());
+        value.setValue(genderMale.isSelected());
+    }
+    
+    private void colorLabels()
+    {
         this.viewModel.firstNameValueProperty().addListener(e ->
         {
             if (this.viewModel.getFirstNameValue())
@@ -172,14 +190,6 @@ public class CreateUserProfileViewController implements ViewController
                 dobErrorL.setTextFill(Color.RED);
             }
         });
-        value = new SimpleBooleanProperty(true);
-        this.value.bindBidirectional(this.viewModel.genderProperty());
-    }
-    
-    public void radioButtons()
-    {
-        System.out.println(genderMale.isSelected());
-        value.setValue(genderMale.isSelected());
     }
     
     @Override

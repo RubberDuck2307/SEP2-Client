@@ -58,6 +58,8 @@ public class AddTaskViewController implements ViewController {
     public Button addTag;
     @FXML
     public Label errorTitleHours;
+    public Label nameL;
+    public Label workingNumberL;
     private Region root;
     private AddTaskViewModel viewModel;
     private ViewHandler viewHandler;
@@ -94,6 +96,9 @@ public class AddTaskViewController implements ViewController {
         fillInWorkerTable();
         workersTable.setItems(workersTableList);
         errorTitleHours.setText(null);
+        
+        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
+        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
     }
 
 
