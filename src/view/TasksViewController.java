@@ -139,4 +139,9 @@ public class TasksViewController implements ViewController
   {
     viewHandler.openView("editTask");
   }
+
+  public void openWorkersView()
+  {
+    viewHandler.openView("workers");
+  }
 }

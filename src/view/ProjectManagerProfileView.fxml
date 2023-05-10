@@ -150,7 +150,7 @@
                                     <children>
                               <HBox layoutX="10.0" layoutY="183.0" prefHeight="1.0" prefWidth="1039.0">
                                  <children>
-                                    <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#backButton" prefHeight="26.0" prefWidth="27.0" styleClass="go-back">
+                                    <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#goBackButton" prefHeight="26.0" prefWidth="27.0" styleClass="go-back">
                                        <HBox.margin>
                                           <Insets right="20.0" top="7.0" />
                                        </HBox.margin>
@@ -265,7 +265,7 @@
                                                 <Insets bottom="10.0" />
                                              </padding>
                                           </Label>
-                                                      <TableView fx:id="currentProjectsTable" onMousePressed="#workerTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                                      <TableView fx:id="currentProjectsTable" onMousePressed="#projectTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                           <columns>
                                                               <TableColumn fx:id="projectTitle" prefWidth="254.3999618291855" text="Title" />
                                                               <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="107.99996948242188" text="Deadline" />
@@ -281,7 +281,7 @@
                                                 <Insets bottom="10.0" />
                                              </padding>
                                           </Label>
-                                          <TableView fx:id="assignWorkersTable" onMousePressed="#workerTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                          <TableView fx:id="assignWorkersTable" onMousePressed="#assignedWorkerTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                              <columns>
                                                 <TableColumn fx:id="workerNumber" prefWidth="109.60009920597076" text="Number" />
                                                 <TableColumn fx:id="workerName" minWidth="0.0" prefWidth="177.60002899169922" text="Name" />
