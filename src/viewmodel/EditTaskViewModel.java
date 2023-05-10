@@ -65,8 +65,10 @@ public class EditTaskViewModel implements ViewModel
     assignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
     employees = model.getEmployeesAssignedToManager(4);
     Project project = viewState.getProject();
+
     nameOfTheProject.setValue(project.getName());
     Task task = viewState.getTask();
+    deadline.setValue(task.getDeadline());
     status.setValue(task.getStatus());
     priority.setValue(task.getPriority());
     title.setValue(task.getName());
