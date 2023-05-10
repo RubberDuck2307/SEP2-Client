@@ -64,6 +64,12 @@ public class ViewHandler
         root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(),"CreateUserProfileView.fxml");
         break;
       }
+      case "notes":{
+        root = loadViewController(
+            viewModelFactory.getNotesViewModel(), "NotesView.fxml"
+        );
+        break;
+      }
       default:{
         throw new IllegalArgumentException("Unknown id: " + id);
       }

@@ -14,6 +14,7 @@ public class ViewModelFactory
   private AddTaskViewModel addTaskViewModel;
   private CreateUserProfileViewModel createUserProfileViewModel;
   private AddProjectViewModel addProjectViewModel;
+  private NotesViewModel notesViewModel;
   private ViewState viewState;
   public ViewModelFactory(Model model)
   {
@@ -26,6 +27,7 @@ public class ViewModelFactory
     this.assignWorkersToTaskViewModel = new AssignWorkersToTaskViewModel(model, viewState);
     this.addProjectViewModel = new AddProjectViewModel(model, viewState);
     this.createUserProfileViewModel = new CreateUserProfileViewModel(model, viewState);
+    this.notesViewModel = new NotesViewModel(model, viewState);
   }
 
   public Model getModel()
@@ -66,5 +68,10 @@ public class ViewModelFactory
   public CreateUserProfileViewModel getCreateUserProfileViewModel()
   {
     return createUserProfileViewModel;
+  }
+
+  public NotesViewModel getNotesViewModel()
+  {
+    return notesViewModel;
   }
 }

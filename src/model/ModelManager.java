@@ -80,7 +80,12 @@ public class ModelManager implements Model {
     {
         client.updateTask(task);
     }
-    
+
+    @Override public NoteList getAllNotesSavedByUser(Integer workingNumber)
+    {
+        return client.getAllNotesSavedByUser(workingNumber);
+    }
+
     @Override public Integer saveEmployee(Employee employee, String password)
     {
         return client.saveEmployee(employee,password);

@@ -170,4 +170,13 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override public NoteList getAllNotesSavedByUser(Integer workingNumber)
+    {
+        try {
+            return model.getAllNotesSavedByUser(workingNumber);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

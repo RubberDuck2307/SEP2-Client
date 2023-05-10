@@ -24,4 +24,5 @@ public interface Model {
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Integer saveEmployee(Employee employee, String password);
     void updateTask(Task task);
+    NoteList getAllNotesSavedByUser(Integer workingNumber);
 }
