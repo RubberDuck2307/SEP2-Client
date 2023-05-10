@@ -6,8 +6,10 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -260,10 +262,25 @@
                                                 <Insets />
                                              </HBox.margin>
                                           </Label>
-                                          <DatePicker fx:id="dobL" prefHeight="32.0" prefWidth="278.0" />
-                                          <Label fx:id="dobErrorL" prefHeight="30.0" prefWidth="287.0" styleClass="error-message" text="! this field can not be empty">
+                                          <DatePicker fx:id="dobL" prefHeight="32.0" prefWidth="100.0" />
+                                          <Label prefHeight="30.0" prefWidth="55.0" styleClass="labels-form" text="Gender">
                                              <HBox.margin>
                                                 <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <RadioButton fx:id="genderMale" mnemonicParsing="false" onMouseClicked="#radioButtons" prefHeight="32.0" prefWidth="55.0" selected="true" styleClass="label" text="Male">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="gender" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="genderFemale" mnemonicParsing="false" onMouseClicked="#radioButtons" prefHeight="32.0" prefWidth="65.0" text="Female" toggleGroup="$gender">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <Label fx:id="dobErrorL" prefHeight="30.0" prefWidth="287.0" styleClass="error-message" text="! this field can not be empty">
+                                             <HBox.margin>
+                                                <Insets left="2.0" />
                                              </HBox.margin>
                                           </Label>
                                        </children>

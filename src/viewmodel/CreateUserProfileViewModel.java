@@ -35,6 +35,7 @@ public class CreateUserProfileViewModel implements ViewModel
     private BooleanProperty dobValue;
     private StringProperty jobTitle;
     private Integer workingNumber;
+    private BooleanProperty gender;
     
     CreateUserProfileViewModel(Model model, ViewState viewState)
     {
@@ -139,25 +140,22 @@ public class CreateUserProfileViewModel implements ViewModel
     
     private void add()
     {
-        EmployeeRole selectedRole;
-        switch (role.getValue())
+        EmployeeRole selectedRole = switch (role.getValue())
         {
-            case "Main Manager":
-                selectedRole = EmployeeRole.MAIN_MANAGER;
-                break;
-            case "Project Manager":
-                selectedRole = EmployeeRole.PROJECT_MANAGER;
-                break;
-            case "Worker":
-                selectedRole = EmployeeRole.WORKER;
-                break;
-            case "HR":
-                selectedRole = EmployeeRole.HR;
-                break;
-            default:
-                throw new RuntimeException("No role matches");
+            case "Main Manager" -> EmployeeRole.MAIN_MANAGER;
+            case "Project Manager" -> EmployeeRole.PROJECT_MANAGER;
+            case "Worker" -> EmployeeRole.WORKER;
+            case "HR" -> EmployeeRole.HR;
+            default -> throw new RuntimeException("No role matches");
+        };
+        String genderChar = "";
+        if (gender.get())
+        {
+            genderChar = "M";
         }
-        Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), "F", selectedRole, email.getValue());
+        else genderChar = "F";
+        System.out.println(genderChar);
+        Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
         workingNumber = model.saveEmployee(employee, password.getValue());
     }
     
@@ -179,6 +177,7 @@ public class CreateUserProfileViewModel implements ViewModel
         this.dob = new SimpleObjectProperty<>(localDate);
         this.dobE = new SimpleStringProperty("");
         this.jobTitle = new SimpleStringProperty("");
+        this.gender = new SimpleBooleanProperty(true);
         this.validator = new Validator();
         this.firstNameValue = new SimpleBooleanProperty(false);
         this.lastNameValue = new SimpleBooleanProperty(false);
@@ -422,6 +421,15 @@ public class CreateUserProfileViewModel implements ViewModel
     public Integer getWorkingNumber()
     {
         return workingNumber;
+    }
+    
+    public boolean isGender()
+    {
+        return gender.get();
+    }
+    public BooleanProperty genderProperty()
+    {
+        return gender;
     }
     
 }
