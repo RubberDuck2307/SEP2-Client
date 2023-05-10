@@ -33,7 +33,7 @@ public class WorkersViewModel implements ViewModel
   }
   public void load()
   {
-    employeeList = model.getAllEmployeesAssignedToProject(1L);
+    employeeList = model.getAllEmployees();
     workersTables.clear();
     for (int i = 0; i < employeeList.size(); i++)
     {

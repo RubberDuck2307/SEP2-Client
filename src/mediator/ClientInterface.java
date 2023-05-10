@@ -28,4 +28,5 @@ public interface ClientInterface {
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);
+    EmployeeList getAllEmployees();
 }
