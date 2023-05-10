@@ -2,6 +2,7 @@ package viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.Employee;
 import model.Model;
 import model.UserProfile;
 
@@ -20,16 +21,38 @@ public class LoginViewModel implements  ViewModel{
     }
 
     public boolean login(){
+        Employee employee;
+        UserProfile userProfile;
         try {
-            model.login(new UserProfile(Integer.parseInt(workingNumberProperty.get()), passwordProperty.get()));
+            userProfile = new UserProfile(Integer.parseInt(workingNumberProperty.get()), passwordProperty.get());
             errorProperty.set("");
-            return true;
+        }
+        catch (Exception e){
+            errorProperty.set("Invalid input");
+            return false;
+        }
+
+
+        try {
+            employee = model.login(userProfile);
+            errorProperty.set("");
         }
         catch (Exception e){
             e.printStackTrace();
+            errorProperty.set("Server is not working");
+            return false;
+        }
+
+if(employee == null){
             errorProperty.set("Wrong working number or password");
             return false;
         }
+        else{
+            errorProperty.set("");
+            model.setUser(employee);
+            return true;
+        }
+
     }
 
 

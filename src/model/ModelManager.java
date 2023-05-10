@@ -40,8 +40,6 @@ public class ModelManager implements Model {
     @Override
     public Employee login(UserProfile userProfile) {
         Employee employee = client.login(userProfile);
-        this.user = employee;
-        System.out.println(employee);
         return employee;
     }
 
@@ -109,6 +107,10 @@ public class ModelManager implements Model {
     @Override public Integer saveEmployee(Employee employee, String password)
     {
         return client.saveEmployee(employee,password);
+    }
+
+    public void setUser(Employee user) {
+        this.user = user;
     }
 
     public Employee getUser() {
