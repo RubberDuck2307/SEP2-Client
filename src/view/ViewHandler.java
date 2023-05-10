@@ -71,6 +71,10 @@ public class ViewHandler
         root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(),"CreateUserProfileView.fxml");
         break;
       }
+      case "workers":{
+        root = loadViewController(viewModelFactory.getWorkersViewModel(),"WorkersView.fxml");
+        break;
+      }
       default:{
         throw new IllegalArgumentException("Unknown id: " + id);
       }

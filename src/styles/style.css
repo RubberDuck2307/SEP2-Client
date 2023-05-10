@@ -520,5 +520,22 @@
     -fx-background-color: #0D6EFD;
 }
 
+.personal-info-box{
+-fx-border-color: #B7BBC0;
+-fx-border-radius: 20px;
+-fx-padding:20px;
+-fx-border-width: 1px;
+}
+.heading-4{
+-fx-font-family: "SF Pro Display";
+-fx-font-size: 15px;
+-fx-font-weight: 700;
+}
+.heading-of-label{
+-fx-font-family: "SF Pro Display";
+-fx-font-size: 11px;
+-fx-font-weight: 700;
+}
+
 
 

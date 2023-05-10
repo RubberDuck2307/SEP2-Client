@@ -205,4 +205,16 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override public EmployeeList getAllEmployees()
+    {
+        try
+        {
+            return model.getAllEmployees();
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }
