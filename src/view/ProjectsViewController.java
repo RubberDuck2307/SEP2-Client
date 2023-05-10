@@ -15,7 +15,7 @@ import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
 
 public class ProjectsViewController implements ViewController {
-    public TableColumn<ProjectsTable, Button> delete;
+    public TableColumn<ProjectsTable, Button> open;
     //public TableColumn<ProjectsTable, Button> openTask;
     public TableColumn edit;
     @FXML
@@ -72,8 +72,8 @@ public class ProjectsViewController implements ViewController {
         employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
 
         PropertyValueFactory<ProjectsTable, Button> button = new PropertyValueFactory("btton");
-        delete.setCellValueFactory(button);
-        delete.setStyle("-fx-alignment: CENTER;");
+        open.setCellValueFactory(button);
+        open.setStyle("-fx-alignment: CENTER;");
 
         this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
             setWindow(((Employee) newValue).getRole());
@@ -131,7 +131,7 @@ public class ProjectsViewController implements ViewController {
             case WORKER -> {
                 addProjectButton.setVisible(false);
                 assignButton.setVisible(false);
-                delete.setVisible(false);
+                open.setVisible(true);
                 edit.setVisible(false);
                 projectHBox.setVisible(true);
                 projectHBox.setManaged(true);
@@ -143,14 +143,14 @@ public class ProjectsViewController implements ViewController {
             }
             case PROJECT_MANAGER -> {
                 addProjectButton.setVisible(true);
-                delete.setVisible(true);
+                open.setVisible(true);
                 edit.setVisible(true);
                 projectHBox.setVisible(true);
                 projectHBox.setManaged(true);
             }
             case MAIN_MANAGER -> {
                 addProjectButton.setVisible(true);
-                delete.setVisible(true);
+                open.setVisible(true);
                 edit.setVisible(true);
                 projectHBox.setVisible(true);
                 projectHBox.setManaged(true);
