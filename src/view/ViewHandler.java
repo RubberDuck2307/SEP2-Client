@@ -26,13 +26,13 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
     currentScene = new Scene(new Region());
     lastPageId = "";
-    currentPageId = "projects";
+    currentPageId = "login";
   }
 
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("projects");
+    openView("login");
   }
 
   public void openView(String id)
@@ -40,6 +40,10 @@ public class ViewHandler
     Region root = null;
     switch (id)
     {
+      case "login": {
+        root = loadViewController(viewModelFactory.getLoginViewModel(), "LoginView.fxml");
+        break;
+      }
       case "projects":{
         root = loadViewController(viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
         break;}

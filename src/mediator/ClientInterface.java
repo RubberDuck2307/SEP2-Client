@@ -27,6 +27,7 @@ public interface ClientInterface {
     Integer saveEmployee(Employee employee, String password);
 
 
+    Employee login(UserProfile userProfile);
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);

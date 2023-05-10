@@ -6,7 +6,6 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Client implements ClientInterface {
@@ -46,6 +45,16 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Employee login(UserProfile userProfile) {
+        try {
+            return model.login(userProfile);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public EmployeeList getEmployeesOfTask(Long taskId) {
@@ -107,8 +116,6 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
-
-
 
     @Override
     public EmployeeList getAllProjectManagers() {
