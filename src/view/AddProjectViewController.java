@@ -102,6 +102,4 @@ public class AddProjectViewController implements ViewController {
     {
         viewHandler.openView("workers");
     }
-
-
 }

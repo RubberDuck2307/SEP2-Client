@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AssignEmployeesToProjectViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AssignEmployeesToProjectViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -71,7 +71,7 @@
                                 <Insets left="30.0" />
                             </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openWorkersView" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
                             <children>
                                 <SVGPath content="M11 4C11 5.65685 9.65685 7 8 7C6.34315 7 5 5.65685 5 4C5 2.34315 6.34315 1 8 1C9.65685 1 11 2.34315 11 4Z M1 16.5C1 12.9101 3.91015 10 7.5 10H8.5C12.0899 10 15 12.9101 15 16.5V17C15 17.5523 14.5523 18 14 18H2C1.44772 18 1 17.5523 1 17V16.5Z" stroke="#0D6EFD" styleClass="side-menu-icon-projects" />
                                 <ImageView>
