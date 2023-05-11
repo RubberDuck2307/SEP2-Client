@@ -95,8 +95,8 @@ public class EditTaskViewController implements ViewController
         ((EditTaskViewModel) viewModel).load();
         fillInWorkerTable();
         deadline.setEditable(false);
-        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
+        nameL.textProperty().bind(this.viewModel.nameProperty());
+        workingNumberL.textProperty().bind(this.viewModel.workingNumberProperty());
     }
     
     @Override

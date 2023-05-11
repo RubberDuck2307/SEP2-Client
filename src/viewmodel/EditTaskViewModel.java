@@ -78,6 +78,8 @@ public class EditTaskViewModel implements ViewModel
     estimatedHours.setValue(task.getEstimatedTime());
     errorTitleMessage.setValue("");
     errorTitleHours.setValue("");
+    name.setValue(model.getUser().getName());
+    workingNumber.setValue(model.getUser().getWorkingNumber().toString());
   }
   public void setPriority(){
     Task task = viewState.getTask();
