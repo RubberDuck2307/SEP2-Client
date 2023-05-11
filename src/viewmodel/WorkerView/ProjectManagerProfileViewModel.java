@@ -1,22 +1,26 @@
 package viewmodel.WorkerView;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Employee;
-import model.EmployeeList;
-import model.Model;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import model.*;
+import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
+
+import java.util.ArrayList;
 
 public class ProjectManagerProfileViewModel implements ViewModel
 {
   private Model model;
   private ViewState viewState;
+  private ObjectProperty<Employee> employee;
+  private StringProperty employeeName;
+  private StringProperty employeeWorkingNumber;
   private StringProperty managerName;
   private StringProperty managerRole;
   private StringProperty managerDateOfBirth;
@@ -29,8 +33,16 @@ public class ProjectManagerProfileViewModel implements ViewModel
   private StringProperty email;
   private EmployeeList employeeList;
 
+  private ObservableList<ProjectsTable> currentProjectsTable;
+  private StringProperty projectTitle;
+  private StringProperty projectDeadline;
+  private ProjectList projectList;
+
   public ProjectManagerProfileViewModel(Model model, ViewState viewState)
   {
+    this.employeeName=new SimpleStringProperty();
+    this.employeeWorkingNumber=new SimpleStringProperty();
+    this.employee=new SimpleObjectProperty<>();
     this.model = model;
     this.viewState = viewState;
     this.workersTables = FXCollections.observableArrayList();
@@ -44,13 +56,16 @@ public class ProjectManagerProfileViewModel implements ViewModel
     this.managerPhoneNumber = new SimpleStringProperty();
     this.managerEmail = new SimpleStringProperty();
 
-
-
-
-
+    this.currentProjectsTable = FXCollections.observableArrayList();
+    this.projectDeadline = new SimpleStringProperty();
+    this.projectTitle = new SimpleStringProperty();
   }
   public void load()
   {
+    employee.setValue(model.getUser());
+    employeeName.setValue(model.getUser().getName());
+    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
+
     Employee employee = viewState.getEmployee();
     managerName.setValue(employee.getName());
     managerEmail.setValue(employee.getEmail());
@@ -58,18 +73,23 @@ public class ProjectManagerProfileViewModel implements ViewModel
     managerRole.setValue(employee.getRole().toString());
     managerDateOfBirth.setValue(employee.getDob().toString());
 
-    //System.out.println("we get there and this is employee" + employee);
 
-    //TODO change later
-    employeeList = model.getAllEmployees();
+    projectList = model.getAllProjectsByWorkingNumber(employee.getWorkingNumber());
+    employeeList = model.getEmployeesAssignedToManager(employee.getWorkingNumber());
     workersTables.clear();
     for (int i = 0; i < employeeList.size(); i++)
     {
       workersTables.add(new viewmodel.WorkerView.WorkersTable(employeeList.getEmployee(i)));
     }
+    currentProjectsTable.clear();
+    for (int i = 0; i < projectList.size(); i++)
+    {
+      currentProjectsTable.add(new ProjectsTable(projectList.get(i)));
+    }
 
   }
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
+  public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
 
   public String getManagerName()
   {
@@ -119,5 +139,17 @@ public class ProjectManagerProfileViewModel implements ViewModel
   public StringProperty managerEmailProperty()
   {
     return managerEmail;
+  }
+  public boolean displayAddButton(){
+    return employee.getValue().getRole() == EmployeeRole.HR;
+  }
+  public StringProperty getEmployeeName()
+  {
+    return employeeName;
+  }
+
+  public StringProperty getEmployeeWorkingNumber()
+  {
+    return employeeWorkingNumber;
   }
 }
