@@ -1,6 +1,5 @@
 package view;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,15 +9,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
-import model.Priority;
-import model.Task;
-import utility.StringIntegerConverter;
 import viewmodel.AddTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class AddTaskViewController implements ViewController
 {

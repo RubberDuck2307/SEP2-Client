@@ -12,15 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.Priority;
-import model.Project;
-import model.Task;
-import utility.StringIntegerConverter;
+import util.StringIntegerConverter;
 import viewmodel.EditTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class EditTaskViewController implements ViewController
 {
