@@ -1,12 +1,12 @@
 package viewmodel;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -16,9 +16,10 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
     private StringProperty projectName;
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfTask;
-    private ArrayList<Employee> asigneeList;
-    private ObservableList<Employee> employees;
-    private StringProperty name, workingNumber;
+    private EmployeeList employeesOfProject;
+    private ObjectProperty<Employee> user;
+    private StringProperty userName;
+    private StringProperty userNumber;
 
     public AssignWorkersToTaskViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
@@ -26,21 +27,30 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         employeesOfTask = new EmployeeList();
         employeesOfManager = new EmployeeList();
         projectName = new SimpleStringProperty();
-        name = new SimpleStringProperty();
-        workingNumber = new SimpleStringProperty();
+        user= new SimpleObjectProperty<>();
+        userName = new SimpleStringProperty();
+        userNumber = new SimpleStringProperty();
     }
 
     public void load() {
+        user.set(model.getUser());
         Project project = viewState.getProject();
         projectName.set(project.getName());
-        //TODO change employees of manager to fit the current project manager
-        employeesOfManager = model.getEmployeesAssignedToManager(4);
-        employeesOfTask = model.getEmployeesOfTask(viewState.getTask().getId());
-
+        employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
+        employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
+        for(int i=0;i<employeesOfManager.size();i++)
+        {
+            if(employeesOfProject.containsByWorkingNumber(employeesOfManager.getEmployee(i).getWorkingNumber()))
+            {
+                employeesOfTask.addEmployee(employeesOfManager.getEmployee(i));
+            }
+        }
+        userName.set(user.get().getName());
+        userNumber.set(user.get().getWorkingNumber().toString());
     }
 
     public boolean isAssigned(Employee employee) {
-        if (employeesOfTask.containsByWorkingNumber(employee.getWorkingNumber())) {
+        if (model.getEmployeesOfTask(viewState.getTask().getId()).containsByWorkingNumber(employee.getWorkingNumber())) {
             return true;
         }
         return false;
@@ -57,11 +67,6 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         }
     }
 
-
-    public ObservableList<Employee> getEmployees() {
-        return employees;
-    }
-
     public StringProperty getProjectName() {
         return projectName;
     }
@@ -73,20 +78,20 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
     public EmployeeList getEmployeesOfTask() {
         return employeesOfTask;
     }
-    public String getName()
+    public String getUserName()
     {
-        return name.get();
+        return userName.get();
     }
-    public StringProperty nameProperty()
+    public StringProperty userNameProperty()
     {
-        return name;
+        return userName;
     }
-    public String getWorkingNumber()
+    public String getUserNumber()
     {
-        return workingNumber.get();
+        return userNumber.get();
     }
-    public StringProperty workingNumberProperty()
+    public StringProperty userNumberProperty()
     {
-        return workingNumber;
+        return userNumber;
     }
 }

@@ -37,7 +37,6 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
         Project project = viewState.getProject();
         projectName.set(project.getName());
         if (user.get().getRole().equals(EmployeeRole.PROJECT_MANAGER)){
-            System.out.println("Project manager");
             employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
         }
         else if (user.get().getRole().equals(EmployeeRole.MAIN_MANAGER)){
