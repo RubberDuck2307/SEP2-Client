@@ -40,7 +40,7 @@ public class AssignWorkersToTaskViewController implements ViewController
         this.viewHandler = viewHandler;
         this.viewModel = (AssignWorkersToTaskViewModel) viewModel;
         this.viewModel.load();
-        projectName.textProperty().bindBidirectional(this.viewModel.getProjectName());
+        projectName.textProperty().bindBidirectional(this.viewModel.getTaskName());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty());
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
@@ -48,9 +48,9 @@ public class AssignWorkersToTaskViewController implements ViewController
         checkboxColumn.setStyle("-fx-alignment: CENTER;");
         avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         ObservableList<WorkersWithCheckboxTable> workerTable = FXCollections.observableArrayList();
-        for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++)
+        for (int i = 0; i < this.viewModel.getEmployeesOfTask().size(); i++)
         {
-            Employee employee = this.viewModel.getEmployeesOfManager().get(i);
+            Employee employee = this.viewModel.getEmployeesOfTask().get(i);
             workerTable.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");
