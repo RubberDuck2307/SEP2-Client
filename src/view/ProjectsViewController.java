@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
@@ -18,6 +19,7 @@ public class ProjectsViewController implements ViewController {
     public TableColumn<ProjectsTable, Button> open;
     //public TableColumn<ProjectsTable, Button> openTask;
     public TableColumn edit;
+    @FXML public ImageView avatarPic;
     @FXML
     private Label nameLabel;
     @FXML
@@ -57,7 +59,7 @@ public class ProjectsViewController implements ViewController {
         this.root = root;
         this.viewHandler = viewHandler;
         this.viewModel = (ProjectsViewModel) viewModel;
-
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         titleLabel.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
         descriptionArea.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
         nameLabel.textProperty().bindBidirectional(this.viewModel.userNameProperty());

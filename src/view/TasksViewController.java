@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -20,6 +21,7 @@ public class TasksViewController implements ViewController
   @FXML private Label employeeWorkingNumber;
 
   @FXML private HBox taskHBox;
+  @FXML public ImageView avatarPic;
   @FXML private Button assignWorkerButton;
   @FXML private Button addButton;
   @FXML private Label projectName;
@@ -57,7 +59,7 @@ public class TasksViewController implements ViewController
     this.viewModel = (TasksViewModel) viewModel;
     commentsTable.setVisible(false);
     workersTable.setVisible(false);
-
+    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
     employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
     employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
     projectName.textProperty().bind(this.viewModel.projectNameProperty());

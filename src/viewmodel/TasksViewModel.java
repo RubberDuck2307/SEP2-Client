@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import model.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
@@ -11,12 +12,15 @@ import viewmodel.TaskView.WorkersTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TasksViewModel implements ViewModel
 {
   private Model model;
   //tasks
   private StringProperty employeeName;
+  private ObjectProperty<Employee> employee;
+  private ObjectProperty<Image> avatarPic;
   private StringProperty employeeWorkingNumber;
   private TaskList taskList;
   private EmployeeList employeeList;
@@ -24,7 +28,7 @@ public class TasksViewModel implements ViewModel
   private StringProperty projectName;
   private StringProperty taskName;
   private StringProperty taskDescription;
-  private ObjectProperty<Employee> employee;
+
   private ObservableList<Task> tasks;
   private ObservableList<TasksTable> tasksTables;
   private ObservableList<CommentsTable> commentsTables;
@@ -38,6 +42,7 @@ public class TasksViewModel implements ViewModel
   public TasksViewModel(Model model, ViewState viewState)
   {
     this.error = new SimpleStringProperty();
+    this.avatarPic=new SimpleObjectProperty<>();
     this.model = model;
     this.employeeName=new SimpleStringProperty();
     this.employeeWorkingNumber=new SimpleStringProperty();
@@ -64,6 +69,7 @@ public class TasksViewModel implements ViewModel
     isTaskSelected.set(false);
     Project project = viewState.getProject();
     employee.setValue(model.getUser());
+    setAvatarPicture();
     employeeName.setValue(model.getUser().getName());
     employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
     taskList = model.getAllTasksOfProject(project.getId());
@@ -203,5 +209,20 @@ public class TasksViewModel implements ViewModel
 
   public void setIsTaskSelected(boolean isTaskSelected) {
     this.isTaskSelected.set(isTaskSelected);
+  }
+  public ObjectProperty<Image> avatarPicProperty()
+  {
+    return avatarPic;
+  }
+  public boolean isWoman(){
+    return Objects.equals(employee.getValue().getGender(), "F");
+  }
+  public void setAvatarPicture(){
+    if(isWoman()){
+      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+    }
+    else{
+      avatarPic.setValue(new Image("/icons/man-avatar.png"));
+    }
   }
 }

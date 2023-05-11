@@ -3,6 +3,7 @@ package viewmodel.AddProjectView;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import model.Employee;
 import model.EmployeeList;
 import model.Model;
@@ -12,10 +13,13 @@ import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class AddProjectViewModel implements ViewModel
 {
     private Validator validator;
+    private ObjectProperty<Image> avatarPic;
+    private ObjectProperty<Employee> employee;
     private StringProperty titleProperty;
     private StringProperty titleEProperty;
     private SimpleObjectProperty<LocalDate> deadlineProperty;
@@ -37,11 +41,13 @@ public class AddProjectViewModel implements ViewModel
     {
         this.model = model;
         this.viewState = viewState;
+        this.employee=new SimpleObjectProperty<>();
         this.titleProperty = new SimpleStringProperty();
         this.descriptionProperty = new SimpleStringProperty();
         this.titleEProperty = new SimpleStringProperty();
         this.deadlineEProperty = new SimpleStringProperty();
         this.deadlineProperty = new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
         managers = new EmployeeList();
         this.validator = new Validator();
         employeesList = new EmployeeList();
@@ -53,6 +59,8 @@ public class AddProjectViewModel implements ViewModel
     
     public void load()
     {
+        employee.setValue(model.getUser());
+        setAvatarPicture();
         managers = model.getAllProjectManagers();
         name.setValue(this.model.getUser().getName());
         workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
@@ -141,5 +149,20 @@ public class AddProjectViewModel implements ViewModel
     public StringProperty workingNumberProperty()
     {
         return workingNumber;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
     }
 }

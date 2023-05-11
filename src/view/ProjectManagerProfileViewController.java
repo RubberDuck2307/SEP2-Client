@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
@@ -14,6 +15,9 @@ import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
 import viewmodel.WorkerView.WorkersViewModel;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class ProjectManagerProfileViewController implements ViewController
 {
@@ -38,6 +42,7 @@ public class ProjectManagerProfileViewController implements ViewController
   @FXML public TableColumn <viewmodel.WorkerView.WorkersTable, String> workerEmail;
   @FXML public Label employeeName;
   @FXML public Label employeeWorkingNumber;
+  @FXML public ImageView avatarPicture;
 
   private Region root;
   private ProjectManagerProfileViewModel viewModel;
@@ -51,6 +56,8 @@ public class ProjectManagerProfileViewController implements ViewController
     this.viewModel = (ProjectManagerProfileViewModel) viewModel;
     this.viewModel.load();
     employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
+
+    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
     employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
     managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
     managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
@@ -70,6 +77,10 @@ public class ProjectManagerProfileViewController implements ViewController
     projectTitle.setCellValueFactory(
         cellData -> cellData.getValue().titleProperty());
     currentProjectsTable.setItems(((ProjectManagerProfileViewModel) viewModel).getCurrentProjectsTableTable());
+    if(((ProjectManagerProfileViewModel) viewModel).isProjectManagerWoman()){
+        avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
+        //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
+    }
   }
 
   @Override public Region getRoot()

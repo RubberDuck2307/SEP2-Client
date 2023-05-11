@@ -5,13 +5,17 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AssignEmployeesToProjectViewModel implements ViewModel {
     private ViewState viewState;
     private Model model;
+    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Image> avatarPic;
     private StringProperty userName;
     private StringProperty userNumber;
     private StringProperty projectName;
@@ -30,9 +34,13 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
         user = new SimpleObjectProperty<>();
         userName = new SimpleStringProperty();
         userNumber = new SimpleStringProperty();
+        this.employee=new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
     }
 
     public void load() {
+        employee.setValue(model.getUser());
+        setAvatarPicture();
         user.set(model.getUser());
         Project project = viewState.getProject();
         projectName.set(project.getName());
@@ -104,5 +112,20 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
 
     public StringProperty userNumberProperty() {
         return userNumber;
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
     }
 }

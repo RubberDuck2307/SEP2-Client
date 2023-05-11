@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import model.Employee;
 import viewmodel.AssignWorkersToTaskViewModel;
@@ -16,8 +17,10 @@ public class AssignWorkersToTaskViewController implements ViewController
     
     public Label nameL;
     public Label workingNumberL;
+    @FXML public ImageView avatarPic;
     @FXML
     private TableView<WorkersWithCheckboxTable> workersTable;
+
     @FXML
     private TableColumn<WorkersWithCheckboxTable, String> numberColumn;
     @FXML
@@ -43,6 +46,7 @@ public class AssignWorkersToTaskViewController implements ViewController
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
         checkboxColumn.setCellValueFactory(checkbox);
         checkboxColumn.setStyle("-fx-alignment: CENTER;");
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         ObservableList<WorkersWithCheckboxTable> workerTable = FXCollections.observableArrayList();
         for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++)
         {

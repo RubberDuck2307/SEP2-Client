@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import viewmodel.CreateUserProfileViewModel;
@@ -25,6 +26,7 @@ public class CreateUserProfileViewController implements ViewController
     public TextField lastNameL;
     @FXML
     public Label lastNameErrorL;
+    @FXML public ImageView avatarPic;
     @FXML
     public TextField emailL;
     @FXML
@@ -82,6 +84,7 @@ public class CreateUserProfileViewController implements ViewController
         this.roleErrorL.setText(null);
         this.phoneNumberErrorL.setText(null);
         this.passwordErrorL.setText(null);
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         firstNameL.textProperty().bindBidirectional(this.viewModel.firstNameProperty());
         firstNameErrorL.textProperty().bindBidirectional(this.viewModel.firstNameEProperty());
         lastNameL.textProperty().bindBidirectional(this.viewModel.lastNameProperty());

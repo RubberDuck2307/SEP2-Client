@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import model.*;
 import viewmodel.TaskView.TasksTable;
@@ -13,11 +14,14 @@ import viewmodel.ViewState;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static javafx.application.Platform.runLater;
 
 public class ProjectsViewModel implements ViewModel
 {
+    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Image> avatarPic;
     private Model model;
 
     private StringProperty userName;
@@ -32,6 +36,8 @@ public class ProjectsViewModel implements ViewModel
     public ProjectsViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
         this.model = model;
+        this.employee=new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
         titleProperty = new SimpleStringProperty();
         descriptionProperty = new SimpleStringProperty();
         projectList = new ProjectList();
@@ -43,6 +49,8 @@ public class ProjectsViewModel implements ViewModel
     }
 
     public void load(){
+        employee.setValue(model.getUser());
+        setAvatarPicture();
         selectedProject.set(false);
         projectList = model.getAllProjectsByWorkingNumber(1);
         employeeProperty.set(model.getUser());
@@ -113,5 +121,20 @@ public class ProjectsViewModel implements ViewModel
 
     public StringProperty userNumberProperty() {
         return userNumber;
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
     }
 }

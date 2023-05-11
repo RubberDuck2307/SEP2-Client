@@ -92,9 +92,9 @@
                             <children>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="118.0" prefWidth="45.0">
                                     <children>
-                                        <ImageView fitHeight="47.0" fitWidth="47.0">
+                                        <ImageView fx:id="avatarPic" fitHeight="47.0" fitWidth="47.0">
                                             <image>
-                                                <Image url="@../icons/Blue - Light.png" />
+                                                <Image url="@../icons/man-avatar.png" />
                                             </image>
                                             <HBox.margin>
                                                 <Insets left="20.0" />
@@ -156,9 +156,9 @@
                                        </HBox.margin>
                                     </Button>
                                             <Label prefHeight="46.0" prefWidth="431.0" styleClass="heading" text="PROJECT MANAGER PROFILE" />
-                                    <ImageView fx:id="avatarPic" fitHeight="35.0" fitWidth="35.0">
+                                    <ImageView fx:id="avatarPicture" fitHeight="35.0" fitWidth="35.0">
                                        <image>
-                                          <Image url="@../icons/Blue - Light.png" />
+                                          <Image url="@../icons/man-avatar.png" />
                                        </image>
                                        <HBox.margin>
                                           <Insets top="4.0" />

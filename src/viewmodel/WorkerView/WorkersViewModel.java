@@ -3,18 +3,21 @@ package viewmodel.WorkerView;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import model.*;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WorkersViewModel implements ViewModel
 {
   private StringProperty employeeName;
   private StringProperty employeeWorkingNumber;
   private ObjectProperty<Employee> employee;
+  private ObjectProperty<Image> avatarPic;
   private Model model;
   private ViewState viewState;
   private ObservableList<WorkersTable> workersTables;
@@ -36,10 +39,12 @@ public class WorkersViewModel implements ViewModel
     this.role = new SimpleStringProperty();
     this.number = new SimpleIntegerProperty();
     this.email = new SimpleStringProperty();
+    this.avatarPic=new SimpleObjectProperty<>();
   }
   public void load()
   {
     employee.setValue(model.getUser());
+    setAvatarPicture();
     employeeName.setValue(model.getUser().getName());
     employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
     employeeList = model.getAllEmployees();
@@ -78,5 +83,20 @@ public class WorkersViewModel implements ViewModel
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
   public boolean displayAddButton(){
     return employee.getValue().getRole() == EmployeeRole.HR;
+  }
+  public ObjectProperty<Image> avatarPicProperty()
+  {
+    return avatarPic;
+  }
+  public boolean isWoman(){
+    return Objects.equals(employee.getValue().getGender(), "F");
+  }
+  public void setAvatarPicture(){
+    if(isWoman()){
+      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+    }
+    else{
+      avatarPic.setValue(new Image("/icons/man-avatar.png"));
+    }
   }
 }

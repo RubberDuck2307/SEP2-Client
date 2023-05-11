@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import model.Employee;
 import viewmodel.AddProjectView.AddProjectViewModel;
@@ -16,7 +17,8 @@ public class AddProjectViewController implements ViewController {
     public Label nameL;
     @FXML
     public Label workingNumberL;
-    @FXML
+  @FXML public ImageView avatarPic;
+  @FXML
     private TextField title;
 
     @FXML
@@ -56,7 +58,7 @@ public class AddProjectViewController implements ViewController {
         );
         checkBoxColumn.setCellValueFactory(checkbox);
         checkBoxColumn.setStyle("-fx-alignment: CENTER;");
-
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
         description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
         deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());

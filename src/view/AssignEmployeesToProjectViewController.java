@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
@@ -18,6 +19,7 @@ import viewmodel.WorkersWithCheckboxTable;
 public class AssignEmployeesToProjectViewController implements ViewController {
     @FXML
     private Label headlineLabel;
+    @FXML public ImageView avatarPic;
     @FXML
     private TableView<WorkersWithCheckboxTable> workersTable;
     @FXML
@@ -49,7 +51,7 @@ public class AssignEmployeesToProjectViewController implements ViewController {
         numberLabel.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
         projectName.textProperty()
                 .bindBidirectional(this.viewModel.getProjectName());
-
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
 
         nameColumn.setCellValueFactory(
                 cellData -> cellData.getValue().getNameProperty());

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
@@ -29,6 +30,7 @@ public class EditTaskViewController implements ViewController
     public Label nameOfTheProject;
     @FXML
     public TextField title;
+    @FXML public ImageView avatarPic;
     @FXML
     public Label errorTitleMessage;
     @FXML
@@ -85,6 +87,7 @@ public class EditTaskViewController implements ViewController
         setChoiceBox();
         this.counter = 0;
         this.checkboxes = new ArrayList<>();
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");

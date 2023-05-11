@@ -1,15 +1,19 @@
 package viewmodel;
 
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
 import model.Model;
 import model.*;
 import util.Validator;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class CreateUserProfileViewModel implements ViewModel
 {
     private Validator validator;
+    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Image> avatarPic;
     private Model model;
     private ViewState viewState;
     private StringProperty firstName;
@@ -70,9 +74,13 @@ public class CreateUserProfileViewModel implements ViewModel
         this.phoneNumberValue = new SimpleBooleanProperty();
         this.passwordValue = new SimpleBooleanProperty();
         this.dobValue = new SimpleBooleanProperty();
+        this.employee=new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
     }
     public void load()
     {
+        employee.setValue(model.getUser());
+        setAvatarPicture();
         LocalDate localDate = LocalDate.now();
         this.dob.setValue(localDate);
         this.name.setValue(model.getUser().getName());
@@ -477,6 +485,21 @@ public class CreateUserProfileViewModel implements ViewModel
     public StringProperty workingNumberFProperty()
     {
         return workingNumberF;
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
     }
 }
 

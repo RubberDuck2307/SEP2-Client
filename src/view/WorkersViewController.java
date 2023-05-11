@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import viewmodel.TaskView.TasksTable;
@@ -17,6 +18,7 @@ import viewmodel.WorkerView.WorkersViewModel;
 
 public class WorkersViewController implements ViewController
 {
+  @FXML public ImageView avatarPic;
   @FXML public TableView<viewmodel.WorkerView.WorkersTable> workerTable;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> name;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> role;
@@ -39,6 +41,7 @@ public class WorkersViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (WorkersViewModel) viewModel;
     this.viewModel.load();
+    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
     name.setCellValueFactory(
         cellData -> cellData.getValue().getNameProperty());
     workingNumber.setCellValueFactory(
