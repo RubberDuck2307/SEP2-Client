@@ -118,7 +118,7 @@
                                                 </HBox>
                                                 <HBox prefHeight="59.0" prefWidth="90.0">
                                                     <children>
-                                                        <Label fx:id="WorkingNumberL" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                        <Label fx:id="workingNumberL" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                                     </children>
                                                 </HBox>
                                             </children>

@@ -58,8 +58,8 @@ public class AssignWorkersToTaskViewController implements ViewController
             workerTable.get(i).setCheckbox(checkBox);
         }
         workersTable.setItems(workerTable);
-        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
+        nameL.textProperty().bindBidirectional(this.viewModel.userNameProperty());
+        workingNumberL.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
     }
     
     public void assignEmployee(Employee employee)
