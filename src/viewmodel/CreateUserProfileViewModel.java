@@ -500,5 +500,13 @@ public class CreateUserProfileViewModel implements ViewModel
             avatarPic.setValue(new Image("/icons/man-avatar.png"));
         }
     }
+
+    public Employee getEmployee() {
+        return employee.get();
+    }
+
+    public ObjectProperty<Employee> employeeProperty() {
+        return employee;
+    }
 }
 
