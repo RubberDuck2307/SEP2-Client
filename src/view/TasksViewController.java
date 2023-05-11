@@ -94,10 +94,10 @@ public class TasksViewController implements ViewController
       setWindow(newValue.getRole());
     });
     this.viewModel.load();
-
+    setWindow(this.viewModel.getEmployee().getRole());
     assignWorkerButton.setVisible(false);
     this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
-      if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
+      if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
         assignWorkerButton.setVisible(newValue);
       }
     }));

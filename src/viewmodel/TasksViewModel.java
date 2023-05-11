@@ -62,7 +62,6 @@ public class TasksViewModel implements ViewModel
   public void load()
   {
     isTaskSelected.set(false);
-    System.out.println("load");
     Project project = viewState.getProject();
     employee.setValue(model.getUser());
     employeeName.setValue(model.getUser().getName());

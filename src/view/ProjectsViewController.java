@@ -80,7 +80,7 @@ public class ProjectsViewController implements ViewController {
         });
 
         this.viewModel.load();
-
+        setWindow(this.viewModel.getEmployeeProperty().getRole());
         projectsTables = FXCollections.observableArrayList();
         for (int i = 0; i < this.viewModel.getProjectList().size(); i++) {
             projectsTables.add(new ProjectsTable(this.viewModel.getProjectList().get(i)));
@@ -138,6 +138,11 @@ public class ProjectsViewController implements ViewController {
             case HR -> {
                 projectHBox.setVisible(false);
                 projectHBox.setManaged(false);
+                addProjectButton.setVisible(false);
+                assignButton.setVisible(false);
+                open.setVisible(false);
+                edit.setVisible(false);
+
 
             }
             case PROJECT_MANAGER -> {
