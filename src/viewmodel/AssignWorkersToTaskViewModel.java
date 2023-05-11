@@ -49,9 +49,9 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         for(int i=0;i<employeesOfManager.size();i++)
         {
-            if(employeesOfProject.containsByWorkingNumber(employeesOfManager.getEmployee(i).getWorkingNumber()))
+            if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
             {
-                employeesOfTask.addEmployee(employeesOfManager.getEmployee(i));
+                employeesOfTask.addEmployee(employeesOfManager.get(i));
             }
         }
         userName.set(user.get().getName());

@@ -2,22 +2,68 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
 
+/**
+ * A class representing a task
+ * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
+ * @version 1.0 - May 2023
+ */
 public class Task implements Serializable {
+    /**
+     * The id of the task.
+     */
     private Long id;
+    /**
+     * The name of the task.
+     */
     private String name;
+    /**
+     * The description of the task.
+     */
     private String description;
+    /**
+     * The deadline of the task.
+     */
     private LocalDate deadline;
+    /**
+     * The estimated time of the task.
+     */
     private Integer estimatedTime;
+    /**
+     * The priority of the task.
+     */
     private String priority;
+    /**
+     * The status of the task.
+     */
     private String status;
+    /**
+     * The id of the project the task belongs to.
+     */
     private Long projectId;
+    /**
+     * The starting date of the task.
+     */
     private LocalDate startingDate;
+    /**
+     * The list of employees working on the task.
+     */
 
     private EmployeeList workers;
 
+    /**
+     * 10-argument constructor for the class Task.
+     * @param id
+     * @param name
+     * @param description
+     * @param deadline
+     * @param estimatedTime
+     * @param priority
+     * @param status
+     * @param projectId
+     * @param startingDate
+     * @param workers
+     */
     public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate, EmployeeList workers) {
         this.id = id;
         this.name = name;
@@ -31,6 +77,17 @@ public class Task implements Serializable {
         this.workers = workers;
     }
 
+    /**
+     * 8-argument constructor for the class Task, does not set the id and workers are set to new EmployeeList.
+     * @param name
+     * @param description
+     * @param deadline
+     * @param estimatedTime
+     * @param priority
+     * @param status
+     * @param projectId
+     * @param startingDate
+     */
     public Task(String name, String description, LocalDate deadline, Integer estimatedTime, String priority, String status, Long projectId, LocalDate startingDate) {
         this.name = name;
         this.description = description;
@@ -43,6 +100,18 @@ public class Task implements Serializable {
         workers = new EmployeeList();
     }
 
+    /**
+     * 9-argument constructor for the class Task, workers are set to new EmployeeList.
+     * @param id
+     * @param name
+     * @param description
+     * @param deadline
+     * @param estimatedTime
+     * @param priority
+     * @param status
+     * @param projectId
+     * @param startingDate
+     */
     public Task(Long id, String name, String description, LocalDate deadline, int estimatedTime, String priority, String status, Long projectId, LocalDate startingDate) {
         this.id = id;
         this.name = name;
@@ -53,6 +122,7 @@ public class Task implements Serializable {
         this.status = status;
         this.projectId = projectId;
         this.startingDate = startingDate;
+        workers = new EmployeeList();
     }
 
     public Long getId() {

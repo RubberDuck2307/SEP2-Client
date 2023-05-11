@@ -85,7 +85,7 @@ public class ProjectManagerProfileViewModel implements ViewModel
     workersTables.clear();
     for (int i = 0; i < employeeList.size(); i++)
     {
-      workersTables.add(new viewmodel.WorkerView.WorkersTable(employeeList.getEmployee(i)));
+      workersTables.add(new viewmodel.WorkerView.WorkersTable(employeeList.get(i)));
     }
     currentProjectsTable.clear();
     for (int i = 0; i < projectList.size(); i++)

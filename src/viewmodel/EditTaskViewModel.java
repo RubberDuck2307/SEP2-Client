@@ -158,7 +158,7 @@ public class EditTaskViewModel implements ViewModel
         for (int i = 0; i < assignedEmployees.size(); i++) {
 
           if (!originalAssignedEmployees.containsByWorkingNumber(assignedEmployees.get(i).getWorkingNumber())) {
-            addedEmployees.add(assignedEmployees.getEmployee(i).getWorkingNumber());
+            addedEmployees.add(assignedEmployees.get(i).getWorkingNumber());
           }
         }
         for (int i = 0; i < originalAssignedEmployees.size(); i++) {
