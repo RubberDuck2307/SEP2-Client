@@ -167,7 +167,10 @@ public class AddTaskViewController implements ViewController
     }
 
   }
-
+  public void openHome()
+  {
+    viewHandler.openView("home");
+  }
   public void backButton()
   {
     viewHandler.openView("tasks");

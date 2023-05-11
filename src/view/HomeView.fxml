@@ -90,7 +90,7 @@
                             <children>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="118.0" prefWidth="45.0">
                                     <children>
-                                        <ImageView fitHeight="47.0" fitWidth="47.0">
+                                        <ImageView fx:id="avatarPic" fitHeight="47.0" fitWidth="47.0">
                                             <image>
                                                 <Image url="@../icons/Blue - Light.png" />
                                             </image>

@@ -52,6 +52,9 @@ public class ProjectsViewModel implements ViewModel
         employee.setValue(model.getUser());
         setAvatarPicture();
         selectedProject.set(false);
+        projectManagersTables.clear();
+        descriptionProperty.setValue("Select a task to see the description.");
+        titleProperty.setValue("Description");
         projectList = model.getAllProjectsByWorkingNumber(1);
         employeeProperty.set(model.getUser());
         userName.set(model.getUser().getName());

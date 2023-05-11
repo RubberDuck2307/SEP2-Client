@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -20,6 +21,7 @@ public class HomeViewController implements ViewController
     @FXML
     private HBox projectHBox;
     private Region root;
+    @FXML public ImageView avatarPic;
     private HomeViewModel viewModel;
     private ViewHandler viewHandler;
     @Override
@@ -29,6 +31,7 @@ public class HomeViewController implements ViewController
         this.viewHandler = viewHandler;
         this.viewModel = (HomeViewModel) viewModel;
         this.viewModel.load();
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         nameL.textProperty().bind(this.viewModel.nameProperty());
         workingNumberL.textProperty().bind(this.viewModel.workingNumberProperty());
         this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {

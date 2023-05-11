@@ -104,4 +104,8 @@ public class AddProjectViewController implements ViewController {
     {
         viewHandler.openView("workers");
     }
+  public void openHome()
+  {
+    viewHandler.openView("home");
+  }
 }

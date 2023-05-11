@@ -211,4 +211,8 @@ public class EditTaskViewController implements ViewController
     {
         viewHandler.openView("workers");
     }
+    public void openHome()
+    {
+        viewHandler.openView("home");
+    }
 }

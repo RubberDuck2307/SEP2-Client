@@ -91,4 +91,8 @@ public class WorkersViewController implements ViewController
   {
     viewHandler.openView("workers");
   }
+  public void openHome()
+  {
+    viewHandler.openView("home");
+  }
 }

@@ -149,7 +149,7 @@ public class ProjectsViewController implements ViewController {
 
             }
             case PROJECT_MANAGER -> {
-                addProjectButton.setVisible(true);
+                addProjectButton.setVisible(false);
                 open.setVisible(true);
                 edit.setVisible(true);
                 projectHBox.setVisible(true);
@@ -179,11 +179,6 @@ public class ProjectsViewController implements ViewController {
         viewHandler.openView("tasks");
     }
 
-    @FXML
-    public void openCreateUserProfiles() {
-        //TODO delete later
-        viewHandler.openView("workers");
-    }
 
     public void openWorkers(MouseEvent mouseEvent)
     {

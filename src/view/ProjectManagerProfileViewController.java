@@ -105,5 +105,9 @@ public class ProjectManagerProfileViewController implements ViewController
   {
     viewHandler.openLastWindow();
   }
+  public void openHome()
+  {
+    viewHandler.openView("home");
+  }
 
 }

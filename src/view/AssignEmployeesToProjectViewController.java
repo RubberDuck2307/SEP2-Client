@@ -116,5 +116,9 @@ public class AssignEmployeesToProjectViewController implements ViewController {
   {
     viewHandler.openView("workers");
   }
+    public void openHome()
+    {
+        viewHandler.openView("home");
+    }
 
 }
