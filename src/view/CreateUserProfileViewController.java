@@ -213,7 +213,7 @@ public class CreateUserProfileViewController implements ViewController
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK)
             {
-                openProjects();
+                openHome();
             }
         }
     }

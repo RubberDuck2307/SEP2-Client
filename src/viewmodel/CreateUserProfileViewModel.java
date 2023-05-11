@@ -99,7 +99,6 @@ public class CreateUserProfileViewModel implements ViewModel
         this.passwordE.setValue("");
         this.dobE.setValue("");
         this.jobTitle.setValue("");
-        this.dob = new SimpleObjectProperty<>();
         this.gender.setValue(true);
         this.firstNameValue.setValue(false);
         this.lastNameValue.setValue(false);
