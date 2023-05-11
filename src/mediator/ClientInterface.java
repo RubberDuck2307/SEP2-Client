@@ -28,5 +28,5 @@ public interface ClientInterface {
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);
-    NoteList getAllNotesSavedByUser(Integer workingNumber);
+    NoteList getAllNotesSavedByEmployee(Integer workingNumber);
 }

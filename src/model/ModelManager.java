@@ -81,9 +81,9 @@ public class ModelManager implements Model {
         client.updateTask(task);
     }
 
-    @Override public NoteList getAllNotesSavedByUser(Integer workingNumber)
+    @Override public NoteList getAllNotesSavedByEmployee(Integer workingNumber)
     {
-        return client.getAllNotesSavedByUser(workingNumber);
+        return client.getAllNotesSavedByEmployee(workingNumber);
     }
 
     @Override public Integer saveEmployee(Employee employee, String password)

@@ -20,9 +20,8 @@ public interface Model {
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
-
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Integer saveEmployee(Employee employee, String password);
     void updateTask(Task task);
-    NoteList getAllNotesSavedByUser(Integer workingNumber);
+    NoteList getAllNotesSavedByEmployee(Integer workingNumber);
 }

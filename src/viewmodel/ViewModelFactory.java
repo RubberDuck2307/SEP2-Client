@@ -2,6 +2,7 @@ package viewmodel;
 
 import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
+import viewmodel.NotesView.NotesViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
 
 public class ViewModelFactory

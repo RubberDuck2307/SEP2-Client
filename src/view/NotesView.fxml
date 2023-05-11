@@ -11,7 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
+<?import viewmodel.NotesView.NoteCell?>
 
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <SplitPane fx:id="window" dividerPositions="0.24686691863934748" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="932.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NotesViewController">
    <items>
       <HBox minWidth="-Infinity" prefHeight="764.0" prefWidth="214.0" style="-fx-border-radius: 10px;" styleClass="side-box">
@@ -167,7 +171,14 @@
                                           <Insets left="10.0" right="10.0" />
                                        </VBox.margin>
                                        <children>
-                                          <ListView id="notesList" prefHeight="574.0" prefWidth="658.0" />
+                                          <ListView fx:id="notesList" xmlns:fx="http://javafx.com/fxml/1" id="notesList" prefHeight="574.0" prefWidth="658.0" >
+                                             <cellFactory>
+                                                <NoteCell />
+                                             </cellFactory>
+                                             <cellFactory>
+                                                <ListView fx:factory="cellFactory" xmlns="http://javafx.com/javafx/17" />
+                                             </cellFactory>
+                                          </ListView>
                                        </children>
                                     </HBox>
                                     <VBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="696.0">
