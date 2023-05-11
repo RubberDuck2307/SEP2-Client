@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -178,14 +179,19 @@ public class ProjectsViewController implements ViewController {
         viewHandler.openView("tasks");
     }
 
-
     @FXML
     public void openCreateUserProfiles() {
         //TODO delete later
         viewHandler.openView("workers");
     }
-    public void openWorkersView()
+
+    public void openWorkers(MouseEvent mouseEvent)
     {
         viewHandler.openView("workers");
+    }
+
+    public void openHome()
+    {
+        viewHandler.openView("home");
     }
 }

@@ -43,7 +43,7 @@
 
                                     </image>
                                 </ImageView>
-                        <Label styleClass="side-menu-text" text="HOME">
+                        <Label onMousePressed="#openHome" styleClass="side-menu-text" text="HOME">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -81,7 +81,7 @@
 
                                     </image>
                                 </ImageView>
-                                <Label styleClass="side-menu-text" text="WORKERS">
+                                <Label onMousePressed="#openWorkers" styleClass="side-menu-text" text="WORKERS">
                                     <HBox.margin>
                                         <Insets left="10.0" />
                                     </HBox.margin>
