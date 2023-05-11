@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.HomeViewController">
+    <items>
+        <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
+            <children>
+                <VBox prefHeight="767.0" prefWidth="255.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="187.0" prefWidth="239.0">
+                            <children>
+
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../icons/COMPANYLOGO.png" />
+                                    </image>
+
+                                </ImageView>
+
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" styleClass="menu-active">
+                            <children>
+                                <SVGPath content="M20 8.76017V15.5967C20 17.4377 18.5076 18.93 16.6667 18.93H15.4444C14.8922 18.93 14.4444 18.4823 14.4444 17.93V17.7078C14.4444 17.1555 14.8922 16.7078 15.4444 16.7078H16.6667C17.2803 16.7078 17.7778 16.2104 17.7778 15.5967V8.76017C17.7778 8.41409 17.6165 8.08778 17.3416 7.87755L10.6749 2.77951C10.2765 2.47486 9.72345 2.47485 9.32506 2.77951L2.65839 7.87755C2.38348 8.08777 2.22222 8.41409 2.22222 8.76017V15.5967C2.22222 16.2104 2.71968 16.7078 3.33333 16.7078H4.55556C5.10784 16.7078 5.55556 17.1555 5.55556 17.7078V17.93C5.55556 18.4823 5.10784 18.93 4.55556 18.93H3.33333C1.49239 18.93 0 17.4377 0 15.5967V8.76017C0 7.72193 0.48377 6.74299 1.3085 6.11231L7.97517 1.01427C9.17036 0.100302 10.8297 0.100308 12.0248 1.01427L18.6915 6.11231C19.5162 6.74299 20 7.72194 20 8.76017ZM9.88889 9.15228H10.1111C11.768 9.15228 13.1111 10.4954 13.1111 12.1523V15.7078C13.1111 17.3647 11.768 18.7078 10.1111 18.7078H9.88889C8.23204 18.7078 6.88889 17.3647 6.88889 15.7078V12.1523C6.88889 10.4954 8.23204 9.15228 9.88889 9.15228ZM11.1111 12.1523C11.1111 11.6 10.6634 11.1523 10.1111 11.1523H9.88889C9.3366 11.1523 8.88889 11.6 8.88889 12.1523V15.7078C8.88889 16.2601 9.3366 16.7078 9.88889 16.7078H10.1111C10.6634 16.7078 11.1111 16.2601 11.1111 15.7078V12.1523Z" styleClass="side-menu-icon-home-active" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="side-menu-text-active" text="HOME">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </HBox>
+
+                        <HBox fx:id="projectHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <SVGPath content="M11.0748 3.25583C11.4141 2.42845 12.5859 2.42845 12.9252 3.25583L14.6493 7.45955C14.793 7.80979 15.1221 8.04889 15.4995 8.07727L20.0303 8.41798C20.922 8.48504 21.2841 9.59942 20.6021 10.1778L17.1369 13.1166C16.8482 13.3614 16.7225 13.7483 16.8122 14.1161L17.8882 18.5304C18.1 19.3992 17.152 20.0879 16.3912 19.618L12.5255 17.2305C12.2034 17.0316 11.7966 17.0316 11.4745 17.2305L7.60881 19.618C6.84796 20.0879 5.90001 19.3992 6.1118 18.5304L7.18785 14.1161C7.2775 13.7483 7.1518 13.3614 6.86309 13.1166L3.3979 10.1778C2.71588 9.59942 3.07796 8.48504 3.96971 8.41798L8.50046 8.07727C8.87794 8.04889 9.20704 7.80979 9.35068 7.45955L11.0748 3.25583Z" onMousePressed="#openProjects" strokeWidth="0.0" styleClass="side-menu-icon-workers" />
+
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label onMousePressed="#openProjects" styleClass="side-menu-text" text="PROJECTS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
+                            <children>
+                                <SVGPath content="M11 4C11 5.65685 9.65685 7 8 7C6.34315 7 5 5.65685 5 4C5 2.34315 6.34315 1 8 1C9.65685 1 11 2.34315 11 4Z M1 16.5C1 12.9101 3.91015 10 7.5 10H8.5C12.0899 10 15 12.9101 15 16.5V17C15 17.5523 14.5523 18 14 18H2C1.44772 18 1 17.5523 1 17V16.5Z" stroke="#0D6EFD" styleClass="side-menu-icon-projects" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label onMousePressed="#openWorkers" styleClass="side-menu-text" text="WORKERS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="260.0" prefWidth="239.0" />
+                        <HBox layoutX="10.0" layoutY="310.0" prefHeight="137.0" prefWidth="239.0">
+                            <children>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="118.0" prefWidth="45.0">
+                                    <children>
+                                        <ImageView fitHeight="47.0" fitWidth="47.0">
+                                            <image>
+                                                <Image url="@../icons/Blue - Light.png" />
+                                            </image>
+                                            <HBox.margin>
+                                                <Insets left="20.0" />
+                                            </HBox.margin>
+                                        </ImageView>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="74.0" prefWidth="128.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <HBox prefHeight="67.0" prefWidth="100.0">
+                                                    <children>
+                                                        <Label fx:id="nameL" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                                            <font>
+                                                                <Font name="System Bold" size="12.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="59.0" prefWidth="90.0">
+                                                    <children>
+                                                        <Label fx:id="workingNumberL" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="10.0" minWidth="-Infinity" prefHeight="225.0" prefWidth="1119.0">
+            <children>
+                <VBox prefHeight="751.0" prefWidth="1118.0">
+                    <children>
+                        <VBox>
+                            <VBox.margin>
+                                <Insets left="20.0" top="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <HBox prefHeight="41.0" prefWidth="1098.0">
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <children>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="1044.0" styleClass="heading" text="HOME" textAlignment="CENTER" />
+                                    </children>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="1098.0">
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="678.0" prefWidth="1118.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="50.0" prefWidth="100.0" styleClass="create-button" text="Log Out" />
+                     </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </items>
+</SplitPane>

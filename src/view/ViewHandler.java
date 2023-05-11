@@ -79,6 +79,10 @@ public class ViewHandler
         root = loadViewController(viewModelFactory.getProjectManagerProfileViewModel(),"ProjectManagerProfileView.fxml");
         break;
       }
+      case "home":{
+        root = loadViewController(viewModelFactory.getHomeViewModel(),"HomeView.fxml");
+        break;
+      }
       default:{
         throw new IllegalArgumentException("Unknown id: " + id);
       }

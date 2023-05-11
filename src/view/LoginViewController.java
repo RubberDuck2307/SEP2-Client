@@ -29,9 +29,8 @@ public class LoginViewController implements ViewController {
         this.viewHandler = viewHandler;
         this.viewModel = (LoginViewModel) viewModel;
         this.root = root;
-
         bind();
-
+      this.viewModel.load();
 
     }
 
@@ -49,7 +48,7 @@ public class LoginViewController implements ViewController {
     @FXML
     private void login() {
         if (viewModel.login()){
-            viewHandler.openView("projects");
+            viewHandler.openView("home");
         }
     }
 

@@ -273,7 +273,15 @@
 
 
 
-}.side-menu-icon-projects{
+}
+.side-menu-icon-home-active{
+    -size: 24;
+    -fx-fill: #0D6EFD; /* set the fill color */
+
+
+
+}
+.side-menu-icon-projects{
     -size: 24;
     -fx-fill: white; /* set the fill color */
     -fx-stroke: #B7BBC0; /* set the stroke color */
