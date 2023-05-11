@@ -9,7 +9,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import model.Employee;
+import model.EmployeeRole;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
@@ -23,6 +26,8 @@ public class ProjectManagerProfileViewController implements ViewController
 {
   @FXML public Button backButton;
   @FXML public ImageView avatarPic;
+  @FXML
+  private HBox projectHBox;
   @FXML public Label managerName;
   @FXML public Label managerRole;
   @FXML public Label managerDateOfBirth;
@@ -81,6 +86,10 @@ public class ProjectManagerProfileViewController implements ViewController
         avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
         //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
     }
+    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
+      setWindow(((Employee) newValue).getRole());
+    });
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   @Override public Region getRoot()
@@ -108,6 +117,28 @@ public class ProjectManagerProfileViewController implements ViewController
   public void openHome()
   {
     viewHandler.openView("home");
+  }
+  private void setWindow(EmployeeRole employeeRole) {
+    switch (employeeRole) {
+      case WORKER -> {
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+      }
+      case HR -> {
+        projectHBox.setVisible(false);
+        projectHBox.setManaged(false);
+      }
+      case PROJECT_MANAGER -> {
+
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+      }
+      case MAIN_MANAGER -> {
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+      }
+    }
+
   }
 
 }

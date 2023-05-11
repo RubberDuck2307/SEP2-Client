@@ -79,6 +79,12 @@ public class WorkersViewModel implements ViewModel
   {
     return employeeWorkingNumber;
   }
+  public ObjectProperty<Employee> employeePropertyProperty() {
+    return employee;
+  }
+  public Employee getEmployeeProperty() {
+    return employee.get();
+  }
 
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
   public boolean displayAddButton(){

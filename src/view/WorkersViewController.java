@@ -9,7 +9,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import model.Employee;
+import model.EmployeeRole;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
 import viewmodel.TasksViewModel;
@@ -24,6 +27,8 @@ public class WorkersViewController implements ViewController
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> role;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workingNumber;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> email;
+  @FXML
+  private HBox projectHBox;
   @FXML public Button createNewProfileButton;
   @FXML public Label employeeName;
   @FXML public Label employeeWorkingNumber;
@@ -57,6 +62,10 @@ public class WorkersViewController implements ViewController
     }
     employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
     employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
+    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
+      setWindow(((Employee) newValue).getRole());
+    });
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   @Override public Region getRoot()
@@ -94,5 +103,27 @@ public class WorkersViewController implements ViewController
   public void openHome()
   {
     viewHandler.openView("home");
+  }
+  private void setWindow(EmployeeRole employeeRole) {
+    switch (employeeRole) {
+      case WORKER -> {
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+      }
+      case HR -> {
+        projectHBox.setVisible(false);
+        projectHBox.setManaged(false);
+      }
+      case PROJECT_MANAGER -> {
+
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+      }
+      case MAIN_MANAGER -> {
+        projectHBox.setVisible(true);
+        projectHBox.setManaged(true);
+      }
+    }
+
   }
 }

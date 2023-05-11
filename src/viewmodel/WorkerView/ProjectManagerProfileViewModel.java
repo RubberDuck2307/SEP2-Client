@@ -160,6 +160,12 @@ public class ProjectManagerProfileViewModel implements ViewModel
   {
     return employeeWorkingNumber;
   }
+  public ObjectProperty<Employee> employeePropertyProperty() {
+    return employee;
+  }
+  public Employee getEmployeeProperty() {
+    return employee.get();
+  }
 
 
 
