@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
@@ -24,10 +25,10 @@ public class ProjectManagerProfileViewController implements ViewController
   @FXML public Label managerPhoneNumber;
   @FXML public Label managerEmail;
   /*current project*/
-  @FXML public TableView currentProjectsTable;
-  @FXML public TableColumn projectTitle;
-  @FXML public TableColumn projectDeadline;
-  @FXML public TableColumn projectPriority;
+  @FXML public TableView<ProjectsTable> currentProjectsTable;
+  @FXML public TableColumn<ProjectsTable, String> projectTitle;
+  @FXML public TableColumn<ProjectsTable, String> projectDeadline;
+
 
 
   /*assigned workers*/
@@ -35,6 +36,8 @@ public class ProjectManagerProfileViewController implements ViewController
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workerNumber;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workerName;
   @FXML public TableColumn <viewmodel.WorkerView.WorkersTable, String> workerEmail;
+  @FXML public Label employeeName;
+  @FXML public Label employeeWorkingNumber;
 
   private Region root;
   private ProjectManagerProfileViewModel viewModel;
@@ -47,6 +50,8 @@ public class ProjectManagerProfileViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (ProjectManagerProfileViewModel) viewModel;
     this.viewModel.load();
+    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
+    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
     managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
     managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
     managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
@@ -59,6 +64,12 @@ public class ProjectManagerProfileViewController implements ViewController
     workerEmail.setCellValueFactory(
         cellData -> cellData.getValue().getEmailProperty());
     assignWorkersTable.setItems(((ProjectManagerProfileViewModel) viewModel).getWorkersTable());
+
+    projectDeadline.setCellValueFactory(
+        cellData -> cellData.getValue().deadlineProperty());
+    projectTitle.setCellValueFactory(
+        cellData -> cellData.getValue().titleProperty());
+    currentProjectsTable.setItems(((ProjectManagerProfileViewModel) viewModel).getCurrentProjectsTableTable());
   }
 
   @Override public Region getRoot()

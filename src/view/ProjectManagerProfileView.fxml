@@ -108,7 +108,7 @@
                                             <children>
                                                 <HBox prefHeight="67.0" prefWidth="100.0">
                                                     <children>
-                                                        <Label alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                                        <Label fx:id="employeeName" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
                                                             <font>
                                                                 <Font name="System Bold" size="12.0" />
                                                             </font></Label>
@@ -116,7 +116,7 @@
                                                 </HBox>
                                                 <HBox prefHeight="59.0" prefWidth="90.0">
                                                     <children>
-                                                        <Label alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                        <Label fx:id="employeeWorkingNumber" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -259,11 +259,10 @@
                                                 <Insets bottom="10.0" />
                                              </padding>
                                           </Label>
-                                                      <TableView fx:id="currentProjectsTable"  prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                                      <TableView fx:id="currentProjectsTable" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                           <columns>
-                                                              <TableColumn fx:id="projectTitle" prefWidth="254.3999618291855" text="Title" />
-                                                              <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="107.99996948242188" text="Deadline" />
-                                                              <TableColumn fx:id="projectPriority" minWidth="0.0" prefWidth="106.40005493164062" text="Priority" />
+                                                              <TableColumn fx:id="projectTitle" prefWidth="310.40002286434174" text="Title" />
+                                                              <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="170.39999389648438" text="Deadline" />
                                                           </columns>
                                                       </TableView>
                                        </children>

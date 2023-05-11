@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class WorkersViewModel implements ViewModel
 {
+  private StringProperty employeeName;
+  private StringProperty employeeWorkingNumber;
+  private ObjectProperty<Employee> employee;
   private Model model;
   private ViewState viewState;
   private ObservableList<WorkersTable> workersTables;
@@ -23,6 +26,9 @@ public class WorkersViewModel implements ViewModel
 
   public WorkersViewModel(Model model, ViewState viewState)
   {
+    this.employeeName=new SimpleStringProperty();
+    this.employeeWorkingNumber=new SimpleStringProperty();
+    this.employee=new SimpleObjectProperty<>();
     this.model = model;
     this.viewState = viewState;
     this.workersTables = FXCollections.observableArrayList();
@@ -33,7 +39,9 @@ public class WorkersViewModel implements ViewModel
   }
   public void load()
   {
-
+    employee.setValue(model.getUser());
+    employeeName.setValue(model.getUser().getName());
+    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
     employeeList = model.getAllEmployees();
     workersTables.clear();
     for (int i = 0; i < employeeList.size(); i++)
@@ -48,6 +56,27 @@ public class WorkersViewModel implements ViewModel
     viewState.setEmployee(employee);
     workersTables.clear();
   }
+  public boolean isMainManager(int workingNumber){
+    Employee employee = model.getEmployeeByWorkingNumber(workingNumber);
+    return employee.getRole() == EmployeeRole.PROJECT_MANAGER;
+  }
+
+  public StringProperty getEmployeeName()
+  {
+    return employeeName;
+  }
+
+
+
+
+
+  public StringProperty getEmployeeWorkingNumber()
+  {
+    return employeeWorkingNumber;
+  }
 
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
+  public boolean displayAddButton(){
+    return employee.getValue().getRole() == EmployeeRole.HR;
+  }
 }

@@ -3,6 +3,8 @@ package view;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +22,9 @@ public class WorkersViewController implements ViewController
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> role;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workingNumber;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> email;
+  @FXML public Button createNewProfileButton;
+  @FXML public Label employeeName;
+  @FXML public Label employeeWorkingNumber;
 
   private Region root;
   private WorkersViewModel viewModel;
@@ -43,6 +48,12 @@ public class WorkersViewController implements ViewController
     role.setCellValueFactory(
         cellData -> cellData.getValue().getRoleProperty());
     workerTable.setItems(((WorkersViewModel) viewModel).getWorkersTable());
+    createNewProfileButton.setVisible(false);
+    if(((WorkersViewModel) viewModel).displayAddButton()){
+      createNewProfileButton.setVisible(true);
+    }
+    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
+    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
   }
 
   @Override public Region getRoot()
@@ -52,9 +63,11 @@ public class WorkersViewController implements ViewController
   public void workerTableClick()
   {
     if (workerTable.getSelectionModel().getSelectedItem() != null) {
-      viewModel.chooseWorker(
-          workerTable.getSelectionModel().getSelectedItem().getNumber());
-      viewHandler.openView("projectManagerPage");
+      if(viewModel.isMainManager(workerTable.getSelectionModel().getSelectedItem().getNumber())){
+        viewModel.chooseWorker(
+            workerTable.getSelectionModel().getSelectedItem().getNumber());
+        viewHandler.openView("projectManagerPage");
+      }
     }
   }
   public void projectButtonTableClick() {

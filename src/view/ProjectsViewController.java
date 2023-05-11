@@ -175,7 +175,7 @@ public class ProjectsViewController implements ViewController {
     @FXML
     public void openCreateUserProfiles() {
         //TODO delete later
-        viewHandler.openView("projectManagerPage");
+        viewHandler.openView("workers");
     }
     public void openWorkersView()
     {
