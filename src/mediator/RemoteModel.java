@@ -15,11 +15,13 @@ public interface RemoteModel extends Remote {
     Long saveTask(Task task) throws RemoteException;
 
     void saveProject(Project project)throws RemoteException;
+    ProjectList getAllProjects() throws RemoteException;
+    void assignWorkerToTask(Integer workingNumber, Long taskID) throws RemoteException;
 
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     EmployeeList getEmployeesAssignedToManager(int managerNumber) throws RemoteException;
     Employee login(UserProfile userProfile) throws RemoteException;
-    void assignWorkerToTask(Integer workingNumber, Long taskID) throws RemoteException;
+
     void removeWorkerFromTask(Integer workingNumber, Long taskID) throws RemoteException;
     void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     Integer saveEmployee(Employee employee, String password) throws RemoteException;
@@ -31,6 +33,7 @@ public interface RemoteModel extends Remote {
     void removeWorkerFromManager(int managerNumber, int workerNumber) throws RemoteException;
 
     EmployeeList getAllProjectManagers() throws RemoteException;
+    Task getTask(Long projectId) throws RemoteException;
     EmployeeList getAllWorkers() throws RemoteException;
 
     EmployeeList getAllEmployeesAssignedToProject(Long projectId) throws RemoteException;

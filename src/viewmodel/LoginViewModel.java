@@ -14,13 +14,13 @@ public class LoginViewModel implements  ViewModel{
     private Model model;
 
     public LoginViewModel(Model model) {
-        this.passwordProperty = new SimpleStringProperty();
-        this.workingNumberProperty = new SimpleStringProperty();
-        this.errorProperty = new SimpleStringProperty();
+        this.passwordProperty = new SimpleStringProperty("");
+        this.workingNumberProperty = new SimpleStringProperty("");
+        this.errorProperty = new SimpleStringProperty("");
         this.model = model;
     }
     
-    public void load()
+    public void reset()
     {
         this.passwordProperty.setValue("");
         this.workingNumberProperty.setValue("");

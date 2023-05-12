@@ -87,8 +87,26 @@ public class ProjectsViewController implements ViewController {
         });
 
         this.viewModel.load();
+
         setWindow(this.viewModel.getEmployeeProperty().getRole());
+
         projectsTables = FXCollections.observableArrayList();
+        fillInProjectsTable();
+
+        assignButton.setVisible(false);
+        this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
+            if (((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
+                assignButton.setVisible(newValue);
+            }
+        }));
+
+        projectTable.setItems(projectsTables);
+        employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
+
+    }
+
+    private void fillInProjectsTable(){
+        projectsTables.clear();
         for (int i = 0; i < this.viewModel.getProjectList().size(); i++) {
             projectsTables.add(new ProjectsTable(this.viewModel.getProjectList().get(i)));
             Button button1 = new Button(" ");
@@ -185,7 +203,10 @@ public class ProjectsViewController implements ViewController {
 
     @Override
     public void reset() {
-
+        assignButton.setVisible(false);
+        setWindow(viewModel.getEmployeeProperty().getRole());
+        viewModel.reset();
+        fillInProjectsTable();
     }
 
     @FXML
@@ -206,9 +227,5 @@ public class ProjectsViewController implements ViewController {
     public void openHome()
     {
         viewHandler.openView("home");
-    }
-    public void openEditProject()
-    {
-        viewHandler.openView("editProject");
     }
 }

@@ -119,6 +119,8 @@ public class TasksViewController implements ViewController
     taskTable.setItems(taskTables);
 
   }
+
+
   public void taskButtonTableClick(Long index){
     taskTable.getSelectionModel().select(index.intValue());
     taskTableClick();
@@ -169,6 +171,7 @@ public class TasksViewController implements ViewController
   @Override
   public void reset() {
 
+    setWindow(viewModel.getEmployee().getRole());
   }
 
   @FXML public void assignWorker(){

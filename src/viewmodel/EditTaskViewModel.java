@@ -60,8 +60,8 @@ public class EditTaskViewModel implements ViewModel
     this.errorTitleHours = new SimpleStringProperty();
     this.status = new SimpleObjectProperty<>();
     this.validator = new Validator();
-    this.errorDeadlineMessage = new SimpleStringProperty();
-    this.errorPriorityMessage = new SimpleStringProperty();
+    this.errorDeadlineMessage = new SimpleStringProperty("");
+    this.errorPriorityMessage = new SimpleStringProperty("");
     employees = new EmployeeList();
     employeesOfManager = new EmployeeList();
     employeesOfProject = new EmployeeList();
@@ -83,9 +83,7 @@ public class EditTaskViewModel implements ViewModel
     {
       if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
       {
-        System.out.println(employeesOfManager.get(i).getWorkingNumber());
         employees.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
-        System.out.println(employees);
       }
     }
     //employees = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
@@ -99,14 +97,17 @@ public class EditTaskViewModel implements ViewModel
     title.setValue(task.getName());
     description.setValue(task.getDescription());
     estimatedHours.setValue(task.getEstimatedTime());
-    errorTitleMessage.setValue("");
-    errorTitleHours.setValue("");
     name.setValue(model.getUser().getName());
     workingNumber.setValue(model.getUser().getWorkingNumber().toString());
   }
   public void setPriority(){
     Task task = viewState.getTask();
     priority.setValue(task.getPriority());
+  }
+  public void reset(){
+    errorTitleMessage.setValue("");
+    errorTitleHours.setValue("");
+    load();
   }
   public StringProperty getNameOfTheProject()
   {

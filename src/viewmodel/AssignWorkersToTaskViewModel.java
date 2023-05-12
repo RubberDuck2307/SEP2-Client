@@ -37,6 +37,9 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         userNumber = new SimpleStringProperty();
     }
 
+    public void reset(){
+        load();
+    }
     public void load() {
         employee.setValue(model.getUser());
         setAvatarPicture();
@@ -51,9 +54,7 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
         {
             if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
             {
-                System.out.println(employeesOfManager.get(i).getWorkingNumber());
                 employeesOfTask.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
-                System.out.println(employeesOfTask);
             }
         }
         userName.set(user.get().getName());
@@ -62,7 +63,6 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
 
     public boolean isAssigned(Employee employee) {
         EmployeeList assignedEmployees=model.getEmployeesOfTask(viewState.getTask().getId());
-        System.out.println("******** "+assignedEmployees);
         if (assignedEmployees.containsByWorkingNumber(employee.getWorkingNumber())) {
             return true;
         }

@@ -107,7 +107,8 @@ public class EditTaskViewController implements ViewController
 
     @Override
     public void reset() {
-
+        viewModel.reset();
+        fillInWorkerTable();
     }
 
     public void bindEverything()
@@ -129,6 +130,7 @@ public class EditTaskViewController implements ViewController
     
     private void fillInWorkerTable()
     {
+        workersTableList.clear();
         for (int i = 0; i < viewModel.getEmployees().size(); i++)
         {
             //System.out.println(viewModel.getEmployees().get(i).getName());

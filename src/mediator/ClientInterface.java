@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public interface ClientInterface {
 
     TaskList getAllTasksOfProject(Long id) ;
-
+    ProjectList getAllProjects();
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
     void assignWorkerToTask(Integer workingNumber, Long taskID);
     EmployeeList getEmployeesAssignedToManager(int managerNumber);
@@ -30,7 +30,7 @@ public interface ClientInterface {
 
 
     Integer saveEmployee(Employee employee, String password);
-
+    Task getTask(Long projectId);
 
     Employee login(UserProfile userProfile);
 
