@@ -87,6 +87,11 @@ public class WorkersViewController implements ViewController
             workerTable.getSelectionModel().getSelectedItem().getNumber());
         viewHandler.openView("projectManagerPage");
       }
+      else if(viewModel.isWorker(workerTable.getSelectionModel().getSelectedItem().getNumber())){
+        viewModel.chooseWorker(
+            workerTable.getSelectionModel().getSelectedItem().getNumber());
+        viewHandler.openView("workerProfile");
+      }
       else{
         viewModel.chooseWorker(
             workerTable.getSelectionModel().getSelectedItem().getNumber());

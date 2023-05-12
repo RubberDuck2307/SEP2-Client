@@ -271,9 +271,8 @@
                                                         </Label>
                                                         <TableView fx:id="currentProjectsTable" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                             <columns>
-                                                                <TableColumn fx:id="projectTitle" prefWidth="175.2000106573105" text="Title" />
-                                                                <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="122.40008544921875" text="Deadline" />
-                                                <TableColumn fx:id="projectManager" minWidth="0.0" prefWidth="187.19998168945312" text="Manager" />
+                                                                <TableColumn fx:id="projectTitle" prefWidth="340.0000594854355" text="Title" />
+                                                                <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="140.80001831054688" text="Deadline" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
@@ -285,11 +284,11 @@
                                                                 <Insets bottom="10.0" />
                                                             </padding>
                                                         </Label>
-                                                        <TableView fx:id="taskTable" onMousePressed="#assignedWorkerTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                                        <TableView fx:id="taskTable" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                             <columns>
                                                                 <TableColumn fx:id="taskTitle" prefWidth="109.60009920597076" text="Title" />
-                                                                <TableColumn fx:id="taskStatus" minWidth="0.0" prefWidth="177.60002899169922" text="Status" />
-                                                                <TableColumn fx:id="taskProjectName" minWidth="0.0" prefWidth="199.2000732421875" text="Project name" />
+                                                                <TableColumn fx:id="taskStatus" minWidth="0.0" prefWidth="119.99993133544922" text="Status" />
+                                                                <TableColumn fx:id="taskProjectName" minWidth="0.0" prefWidth="251.9998779296875" text="Project name" />
                                                             </columns>
                                                         </TableView>
                                                     </children>

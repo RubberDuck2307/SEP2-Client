@@ -34,4 +34,6 @@ public interface ClientInterface {
     void updateTask(Task task);
     EmployeeList getAllEmployees();
     Employee getEmployeeByWorkingNumber(int workingNumber);
+    Project getProjectById(long projectId);
+  TaskList getAllTasksByUserId(Integer workingNumber);
 }
