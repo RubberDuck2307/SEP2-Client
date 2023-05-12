@@ -20,7 +20,7 @@ import viewmodel.ViewModel;
 public class ProjectsViewController implements ViewController {
     public TableColumn<ProjectsTable, Button> open;
     //public TableColumn<ProjectsTable, Button> openTask;
-    public TableColumn edit;
+    public TableColumn<ProjectsTable, Button> edit;
     @FXML public ImageView avatarPic;
     @FXML
     private Label nameLabel;
@@ -78,6 +78,9 @@ public class ProjectsViewController implements ViewController {
         PropertyValueFactory<ProjectsTable, Button> button = new PropertyValueFactory("btton");
         open.setCellValueFactory(button);
         open.setStyle("-fx-alignment: CENTER;");
+        PropertyValueFactory<ProjectsTable, Button> buttonEdit = new PropertyValueFactory("buttonEdit");
+        edit.setCellValueFactory(buttonEdit);
+        edit.setStyle("-fx-alignment: CENTER;");
 
         this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
             setWindow(((Employee) newValue).getRole());
@@ -89,15 +92,24 @@ public class ProjectsViewController implements ViewController {
         for (int i = 0; i < this.viewModel.getProjectList().size(); i++) {
             projectsTables.add(new ProjectsTable(this.viewModel.getProjectList().get(i)));
             Button button1 = new Button(" ");
+            Button button2 = new Button(" ");
             button1.setId("showTasks");
+            button2.setId("editProject");
             Long index = (long) i;
             button1.setOnAction(e ->
             {
                 projectButtonTableClick(index);
                 viewHandler.openView("tasks");
             });
+            button2.setOnAction(e ->
+            {
+                projectButtonTableClick(index);
+                viewHandler.openView("editProject");
+            });
             projectsTables.get(i).setBtton(button1);
+            projectsTables.get(i).setBtton(button2);
         }
+       
         assignButton.setVisible(false);
         this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
             if (((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
