@@ -94,6 +94,18 @@ public class ModelManager implements Model {
        return client.saveTask(task);
     }
 
+    @Override public void assignWorkerToManager(int managerNumber,
+        int workerNumber)
+    {
+        client.assignWorkerToManager(managerNumber, workerNumber);
+    }
+
+    @Override public void removeWorkerFromManager(int managerNumber,
+        int workerNumber)
+    {
+        client.removeWorkerFromManager(managerNumber, workerNumber);
+    }
+
     @Override public void updateTask(Task task)
     {
         client.updateTask(task);

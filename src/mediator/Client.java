@@ -186,6 +186,32 @@ public class Client implements ClientInterface {
         }
     }
 
+    @Override public void assignWorkerToManager(int managerNumber,
+        int workerNumber)
+    {
+        try
+        {
+            model.assignWorkerToManager(managerNumber, workerNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void removeWorkerFromManager(int managerNumber,
+        int workerNumber)
+    {
+        try
+        {
+            model.removeWorkerFromManager(managerNumber, workerNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String hello(){
         try {
             return model.hello();
