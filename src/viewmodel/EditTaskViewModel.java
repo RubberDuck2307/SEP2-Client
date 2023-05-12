@@ -35,6 +35,8 @@ public class EditTaskViewModel implements ViewModel
   private StringProperty errorDeadlineMessage;
   private Validator validator;
   private EmployeeList employees;
+  private EmployeeList employeesOfManager;
+  private EmployeeList employeesOfProject;
   private EmployeeList originalAssignedEmployees;
   private EmployeeList assignedEmployees;
   private StringProperty name, workingNumber;
@@ -61,6 +63,8 @@ public class EditTaskViewModel implements ViewModel
     this.errorDeadlineMessage = new SimpleStringProperty();
     this.errorPriorityMessage = new SimpleStringProperty();
     employees = new EmployeeList();
+    employeesOfManager = new EmployeeList();
+    employeesOfProject = new EmployeeList();
     assignedEmployees = new EmployeeList();
     originalAssignedEmployees = new EmployeeList();
     name = new SimpleStringProperty();
@@ -72,7 +76,19 @@ public class EditTaskViewModel implements ViewModel
     setAvatarPicture();
     originalAssignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
     assignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
-    employees = model.getEmployeesAssignedToManager(4);
+    employeesOfManager = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
+    employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
+    employees = new EmployeeList();
+    for(int i=0;i<employeesOfManager.size();i++)
+    {
+      if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
+      {
+        System.out.println(employeesOfManager.get(i).getWorkingNumber());
+        employees.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
+        System.out.println(employees);
+      }
+    }
+    //employees = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
     Project project = viewState.getProject();
 
     nameOfTheProject.setValue(project.getName());
