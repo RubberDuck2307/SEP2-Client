@@ -4,7 +4,6 @@ import model.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RemoteModel extends Remote {
@@ -29,15 +28,20 @@ public interface RemoteModel extends Remote {
 
     void assignEmployeeToProject(Integer workingNumber, Long projectID) throws RemoteException;
     void removeEmployeeFromProject(Integer workingNumber, Long projectID) throws RemoteException;
+
+    void assignWorkerToManager(int managerNumber, int workerNumber) throws RemoteException;
+    void removeWorkerFromManager(int managerNumber, int workerNumber) throws RemoteException;
+
     EmployeeList getAllProjectManagers() throws RemoteException;
     Task getTask(Long projectId) throws RemoteException;
+    EmployeeList getAllWorkers() throws RemoteException;
+
     EmployeeList getAllEmployeesAssignedToProject(Long projectId) throws RemoteException;
     void updateProject(Project project) throws RemoteException;
     String hello() throws RemoteException;
 
-    EmployeeList getEmployeesOfTask(Long taskId) throws RemoteException;
     void updateTask(Task task) throws RemoteException;
-
+    EmployeeList getEmployeesOfTask(Long taskId) throws RemoteException;
+    Employee getEmployeeByWorkingNumber(int workingNumber) throws RemoteException;
     EmployeeList getAllEmployees() throws RemoteException;
-    Employee getEmployeeByWorkingNumber(int workingNumber) throws RemoteException;;
 }

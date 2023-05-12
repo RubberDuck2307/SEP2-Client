@@ -24,6 +24,10 @@ public interface Model{
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
     Task getTask(Long projectId);
+
+    void assignWorkerToManager(int managerNumber, int workerNumber);
+    void removeWorkerFromManager(int managerNumber, int workerNumber);
+
     Employee getUser();
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Integer saveEmployee(Employee employee, String password);

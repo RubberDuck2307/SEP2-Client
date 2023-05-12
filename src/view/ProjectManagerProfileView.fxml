@@ -236,7 +236,7 @@
                                                       <VBox prefHeight="51.0" prefWidth="272.0">
                                                          <children>
                                                             <Label styleClass="heading-of-label" text="E-mail" />
-                                                            <Label fx:id="managerEmail" text="dfac kxxq@gmail.com" />
+                                                            <Label fx:id="managerEmail" text="dfackxxq@gmail.com" />
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -254,11 +254,15 @@
                                             <children>
                                     <VBox>
                                        <children>
-                                          <Label styleClass="heading-4" text="CURRENT PROJECTS">
-                                             <padding>
-                                                <Insets bottom="10.0" />
-                                             </padding>
-                                          </Label>
+                                          <HBox>
+                                             <children>
+                                                <Label styleClass="heading-4" text="CURRENT PROJECTS">
+                                                   <padding>
+                                                      <Insets bottom="10.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                                       <TableView fx:id="currentProjectsTable" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                           <columns>
                                                               <TableColumn fx:id="projectTitle" prefWidth="310.40002286434174" text="Title" />
@@ -269,11 +273,28 @@
                                     </VBox>
                                     <VBox layoutX="10.0" layoutY="10.0">
                                        <children>
-                                          <Label styleClass="heading-4" text="ASSIGNED WORKERS">
-                                             <padding>
-                                                <Insets bottom="10.0" />
-                                             </padding>
-                                          </Label>
+                                          <HBox>
+                                             <children>
+                                                <HBox>
+                                                   <children>
+                                                      <Label prefHeight="32.0" prefWidth="244.0" styleClass="heading-4" text="ASSIGNED WORKERS">
+                                                         <padding>
+                                                            <Insets bottom="10.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="TOP_RIGHT" prefHeight="32.0" prefWidth="261.0">
+                                                   <children>
+                                                       <Button fx:id="assignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#assign" prefHeight="56.0" prefWidth="144.0" styleClass="button-blue" text="Assign">
+                                                           <HBox.margin>
+                                                               <Insets />
+                                                           </HBox.margin>
+                                                       </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
                                           <TableView fx:id="assignWorkersTable" onMousePressed="#assignedWorkerTableClick" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                              <columns>
                                                 <TableColumn fx:id="workerNumber" prefWidth="109.60009920597076" text="Number" />

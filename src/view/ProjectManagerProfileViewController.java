@@ -24,30 +24,32 @@ import java.io.FileNotFoundException;
 
 public class ProjectManagerProfileViewController implements ViewController
 {
-  @FXML public Button backButton;
-  @FXML public ImageView avatarPic;
+  @FXML private Button backButton;
+  @FXML private ImageView avatarPic;
   @FXML
   private HBox projectHBox;
-  @FXML public Label managerName;
-  @FXML public Label managerRole;
-  @FXML public Label managerDateOfBirth;
-  @FXML public Label managerPhoneNumber;
-  @FXML public Label managerEmail;
+  @FXML private Label managerName;
+  @FXML private Label managerRole;
+  @FXML private Label managerDateOfBirth;
+  @FXML private Label managerPhoneNumber;
+  @FXML private Label managerEmail;
   /*current project*/
-  @FXML public TableView<ProjectsTable> currentProjectsTable;
-  @FXML public TableColumn<ProjectsTable, String> projectTitle;
-  @FXML public TableColumn<ProjectsTable, String> projectDeadline;
+  @FXML private TableView<ProjectsTable> currentProjectsTable;
+  @FXML private TableColumn<ProjectsTable, String> projectTitle;
+  @FXML private TableColumn<ProjectsTable, String> projectDeadline;
 
 
 
   /*assigned workers*/
-  @FXML public TableView<viewmodel.WorkerView.WorkersTable> assignWorkersTable;
-  @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workerNumber;
-  @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workerName;
-  @FXML public TableColumn <viewmodel.WorkerView.WorkersTable, String> workerEmail;
-  @FXML public Label employeeName;
-  @FXML public Label employeeWorkingNumber;
-  @FXML public ImageView avatarPicture;
+  @FXML private TableView<viewmodel.WorkerView.WorkersTable> assignWorkersTable;
+  @FXML private TableColumn<viewmodel.WorkerView.WorkersTable, String> workerNumber;
+  @FXML private TableColumn<viewmodel.WorkerView.WorkersTable, String> workerName;
+  @FXML private TableColumn <viewmodel.WorkerView.WorkersTable, String> workerEmail;
+  @FXML private Button assignButton;
+
+  @FXML private Label employeeName;
+  @FXML private Label employeeWorkingNumber;
+  @FXML private ImageView avatarPicture;
 
   private Region root;
   private ProjectManagerProfileViewModel viewModel;
@@ -129,22 +131,28 @@ public class ProjectManagerProfileViewController implements ViewController
       case WORKER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
+        assignButton.setVisible(false);
       }
       case HR -> {
         projectHBox.setVisible(false);
         projectHBox.setManaged(false);
+        assignButton.setVisible(false);
       }
       case PROJECT_MANAGER -> {
-
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
+        assignButton.setVisible(false);
       }
       case MAIN_MANAGER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
+        assignButton.setVisible(true);
       }
     }
 
   }
 
+  @FXML public void assign(){
+    viewHandler.openView("assignWorkersToProjectManager");
+  }
 }

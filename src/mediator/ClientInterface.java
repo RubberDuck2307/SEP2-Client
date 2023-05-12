@@ -17,12 +17,17 @@ public interface ClientInterface {
     EmployeeList getAllEmployeesAssignedToProject(Long projectId);
     void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     EmployeeList getAllProjectManagers();
+    EmployeeList getAllWorkers();
 
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     void saveProject(Project project);
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Long saveTask(Task task);
+
+    void assignWorkerToManager(int managerNumber, int workerNumber);
+    void removeWorkerFromManager(int managerNumber, int workerNumber);
+
 
     Integer saveEmployee(Employee employee, String password);
     Task getTask(Long projectId);

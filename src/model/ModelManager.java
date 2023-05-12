@@ -79,9 +79,14 @@ public class ModelManager implements Model {
         return client.getAllProjectManagers();
     }
 
-    @Override
-    public void saveProject(Project project) {
+    @Override public void saveProject(Project project)
+    {
         client.saveProject(project);
+    }
+
+    @Override public EmployeeList getAllWorkers()
+    {
+        return client.getAllWorkers();
     }
 
     @Override
@@ -98,8 +103,20 @@ public class ModelManager implements Model {
         return client.saveTask(task);
     }
 
-    @Override
-    public void updateTask(Task task) {
+    @Override public void assignWorkerToManager(int managerNumber,
+        int workerNumber)
+    {
+        client.assignWorkerToManager(managerNumber, workerNumber);
+    }
+
+    @Override public void removeWorkerFromManager(int managerNumber,
+        int workerNumber)
+    {
+        client.removeWorkerFromManager(managerNumber, workerNumber);
+    }
+
+    @Override public void updateTask(Task task)
+    {
         client.updateTask(task);
     }
 
