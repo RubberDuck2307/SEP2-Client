@@ -76,6 +76,11 @@ public class ModelManager implements Model {
         return client.getAllProjectManagers();
     }
 
+    @Override public EmployeeList getAllWorkers()
+    {
+        return client.getAllWorkers();
+    }
+
     @Override public void saveProject(Project project)
     {
         client.saveProject(project);
