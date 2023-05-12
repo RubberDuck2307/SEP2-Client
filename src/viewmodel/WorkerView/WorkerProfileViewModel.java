@@ -9,6 +9,7 @@ import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class WorkerProfileViewModel implements ViewModel
@@ -40,6 +41,7 @@ public class WorkerProfileViewModel implements ViewModel
   private StringProperty workerPhoneNumber;
 
   private StringProperty workerEmail;
+  private StringProperty workerManagers;
   public WorkerProfileViewModel(Model model, ViewState viewState)
   {
     this.employeeName=new SimpleStringProperty();
@@ -55,6 +57,7 @@ public class WorkerProfileViewModel implements ViewModel
     this.workerDateOfBirth = new SimpleStringProperty();
     this.workerPhoneNumber = new SimpleStringProperty();
     this.workerEmail = new SimpleStringProperty();
+    this.workerManagers = new SimpleStringProperty();
 
     this.currentProjectsTable = FXCollections.observableArrayList();
     this.projectDeadline = new SimpleStringProperty();
@@ -79,7 +82,23 @@ public class WorkerProfileViewModel implements ViewModel
     workerPhoneNumber.setValue(employee.getPhoneNumber());
     workerRole.setValue(employee.getRole().toString());
     workerDateOfBirth.setValue(employee.getDob().toString());
+    EmployeeList managersList = model.getAllWorkersManagersByWorkerWorkingNumber(employee.getWorkingNumber());
+    String managers = "";
+    for(int i = 0; i<managersList.size(); i++){
+      if(i==0){
+        managers = managersList.get(i).getName();
+      }
+      else{
+        managers = managers + ", " + managersList.get(i).getName();
+      }
 
+    }
+    if(Objects.equals(managers, "")){
+      workerManagers.setValue("This worker is not assigned to any manager.");
+    }
+    else{
+      workerManagers.setValue(managers);
+    }
     projectList = model.getAllProjectsByWorkingNumber(employee.getWorkingNumber());
     currentProjectsTable.clear();
     for (int i = 0; i < projectList.size(); i++)
@@ -101,6 +120,16 @@ public class WorkerProfileViewModel implements ViewModel
   public String getWorkerName()
   {
     return workerName.get();
+  }
+
+  public String getWorkerManagers()
+  {
+    return workerManagers.get();
+  }
+
+  public StringProperty workerManagersProperty()
+  {
+    return workerManagers;
   }
 
   public StringProperty workerNameProperty()

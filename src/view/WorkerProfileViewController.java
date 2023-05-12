@@ -68,6 +68,7 @@ public class WorkerProfileViewController implements ViewController
         .bindBidirectional(this.viewModel.workerRoleProperty());
     workerPhoneNumber.textProperty()
         .bindBidirectional(this.viewModel.workerPhoneNumberProperty());
+    workerManagers.textProperty().bindBidirectional(this.viewModel.workerManagersProperty());
 
     projectDeadline.setCellValueFactory(
         cellData -> cellData.getValue().deadlineProperty());
