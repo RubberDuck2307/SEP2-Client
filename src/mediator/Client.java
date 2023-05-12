@@ -126,6 +126,18 @@ public class Client implements ClientInterface {
         }
     }
 
+    @Override public EmployeeList getAllWorkers()
+    {
+        try
+        {
+            return model.getAllWorkers();
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override public void assignEmployeeToProject(Integer workingNumber,
         Long projectID)
     {

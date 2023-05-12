@@ -20,6 +20,8 @@ public interface Model{
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     EmployeeList getAllProjectManagers();
+    EmployeeList getAllWorkers();
+
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);

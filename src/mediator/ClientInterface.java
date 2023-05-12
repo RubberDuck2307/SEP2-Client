@@ -17,6 +17,7 @@ public interface ClientInterface {
     EmployeeList getAllEmployeesAssignedToProject(Long projectId);
     void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     EmployeeList getAllProjectManagers();
+    EmployeeList getAllWorkers();
 
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);

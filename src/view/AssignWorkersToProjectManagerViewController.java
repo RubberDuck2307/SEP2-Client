@@ -51,9 +51,9 @@ public class AssignWorkersToProjectManagerViewController implements ViewControll
         checkboxColumn.setStyle("-fx-alignment: CENTER;");
         avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         ObservableList<WorkersWithCheckboxTable> workerTable = FXCollections.observableArrayList();
-        for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++)
+        for (int i = 0; i < this.viewModel.getEmployees().size(); i++)
         {
-            Employee employee = this.viewModel.getEmployeesOfManager().get(i);
+            Employee employee = this.viewModel.getEmployees().get(i);
             workerTable.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");

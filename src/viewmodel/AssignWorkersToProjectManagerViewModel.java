@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import model.Employee;
 import model.EmployeeList;
 import model.Model;
-import model.Project;
 
 import java.util.Objects;
 
@@ -17,9 +16,10 @@ public class AssignWorkersToProjectManagerViewModel implements ViewModel {
     private Model model;
     private StringProperty employeeName;
 
-    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Employee> connectedEmployee;
     private ObjectProperty<Image> avatarPic;
     private EmployeeList employeesOfManager;
+    private EmployeeList employees;
     private ObjectProperty<Employee> user;
     private StringProperty userName;
     private StringProperty userNumber;
@@ -27,9 +27,10 @@ public class AssignWorkersToProjectManagerViewModel implements ViewModel {
     public AssignWorkersToProjectManagerViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
         this.model = model;
-        this.employee=new SimpleObjectProperty<>();
+        this.connectedEmployee =new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
         employeesOfManager = new EmployeeList();
+        employees = new EmployeeList();
         employeeName = new SimpleStringProperty();
         user= new SimpleObjectProperty<>();
         userName = new SimpleStringProperty();
@@ -37,23 +38,22 @@ public class AssignWorkersToProjectManagerViewModel implements ViewModel {
     }
 
     public void load() {
-
+        employeesOfManager=model.getEmployeesAssignedToManager(viewState.getEmployee().getWorkingNumber());
+        employees = model.getAllWorkers();
     }
 
     public void reset(){
-        employee.setValue(model.getUser());
+        connectedEmployee.setValue(model.getUser());
         setAvatarPicture();
         employeeName.set(viewState.getEmployee().getName());
         user.set(model.getUser());
-        System.out.println(model.getUser().toString());
-        employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
+        //System.out.println(model.getUser().toString());
         userName.set(user.get().getName());
         userNumber.set(user.get().getWorkingNumber().toString());
         load();
     }
     public boolean isAssigned(Employee employee) {
-        EmployeeList assignedEmployees=model.getEmployeesOfTask(viewState.getTask().getId());
-        if (assignedEmployees.containsByWorkingNumber(employee.getWorkingNumber())) {
+        if (employeesOfManager.containsByWorkingNumber(employee.getWorkingNumber())) {
             return true;
         }
         return false;
@@ -61,11 +61,11 @@ public class AssignWorkersToProjectManagerViewModel implements ViewModel {
 
     public void assignEmployee(Employee employee) {
         if (!employeesOfManager.containsByWorkingNumber(employee.getWorkingNumber())) {
-            model.assignWorkerToManager(employee.getWorkingNumber(), viewState.getEmployee().getWorkingNumber());
+            model.assignWorkerToManager(viewState.getEmployee().getWorkingNumber(), employee.getWorkingNumber());
             employeesOfManager.addEmployee(employee);
         }
         else {
-          model.removeWorkerFromManager(employee.getWorkingNumber(), viewState.getEmployee().getWorkingNumber());
+          model.removeWorkerFromManager(viewState.getEmployee().getWorkingNumber(), employee.getWorkingNumber());
           employeesOfManager.removeByWorkingNumber(employee.getWorkingNumber());
         }
     }
@@ -77,6 +77,12 @@ public class AssignWorkersToProjectManagerViewModel implements ViewModel {
     public EmployeeList getEmployeesOfManager() {
         return employeesOfManager;
     }
+
+    public EmployeeList getEmployees()
+    {
+        return employees;
+    }
+
     public String getUserName()
     {
         return userName.get();
@@ -98,7 +104,7 @@ public class AssignWorkersToProjectManagerViewModel implements ViewModel {
         return avatarPic;
     }
     public boolean isWoman(){
-        return Objects.equals(employee.getValue().getGender(), "F");
+        return Objects.equals(connectedEmployee.getValue().getGender(), "F");
     }
     public void setAvatarPicture(){
         if(isWoman()){
