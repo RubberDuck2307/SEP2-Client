@@ -166,6 +166,11 @@ public class TasksViewController implements ViewController
     return root;
   }
 
+  @Override
+  public void reset() {
+
+  }
+
   @FXML public void assignWorker(){
     viewHandler.openView("assignWorkersToTask");
   }
