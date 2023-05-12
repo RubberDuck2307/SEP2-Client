@@ -131,7 +131,7 @@ public class EditTaskViewController implements ViewController
     {
         for (int i = 0; i < viewModel.getEmployees().size(); i++)
         {
-            System.out.println(viewModel.getEmployees().get(i).getName());
+            //System.out.println(viewModel.getEmployees().get(i).getName());
             Employee employee = viewModel.getEmployees().get(i);
             workersTableList.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
