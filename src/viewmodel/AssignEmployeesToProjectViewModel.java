@@ -21,8 +21,6 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
     private StringProperty projectName;
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfProject;
-    private ArrayList<Employee> asigneeList;
-    private ObservableList<Employee> employees;
     private ObjectProperty<Employee> user;
 
     public AssignEmployeesToProjectViewModel(Model model, ViewState viewState) {
@@ -30,13 +28,17 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
         this.model = model;
         employeesOfProject = new EmployeeList();
         employeesOfManager = new EmployeeList();
-        projectName = new SimpleStringProperty();
+        projectName = new SimpleStringProperty("");
         user = new SimpleObjectProperty<>();
-        userName = new SimpleStringProperty();
-        userNumber = new SimpleStringProperty();
+        userName = new SimpleStringProperty("");
+        userNumber = new SimpleStringProperty("");
         this.employee=new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
     }
+    public void reset(){
+        load();
+    }
+
 
     public void load() {
         employee.setValue(model.getUser());
@@ -44,6 +46,7 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
         user.set(model.getUser());
         Project project = viewState.getProject();
         projectName.set(project.getName());
+
         if (user.get().getRole().equals(EmployeeRole.PROJECT_MANAGER)){
             employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
         }
@@ -74,9 +77,6 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
     }
 
 
-    public ObservableList<Employee> getEmployees() {
-        return employees;
-    }
 
     public StringProperty getProjectName() {
         return projectName;

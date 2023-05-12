@@ -88,6 +88,9 @@ public class AddTaskViewController implements ViewController
 
   @Override
   public void reset() {
+    viewModel.reset();
+    fillInWorkerTable();
+    priority.setValue("");
 
   }
 
@@ -135,6 +138,7 @@ public class AddTaskViewController implements ViewController
 
   private void fillInWorkerTable()
   {
+    workersTableList.clear();
     for (int i = 0; i < viewModel.getWorkers().size(); i++)
     {
       Employee employee = viewModel.getWorkers().get(i);

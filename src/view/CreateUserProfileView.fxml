@@ -152,7 +152,7 @@
                                         <Insets />
                                     </opaqueInsets>
                                     <children>
-                                        <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
+                                        <Button fx:id="backButton" alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
                                             <HBox.margin>
                                                 <Insets left="10.0" top="20.0" />
                                             </HBox.margin>

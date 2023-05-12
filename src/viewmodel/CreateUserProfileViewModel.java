@@ -47,8 +47,8 @@ public class CreateUserProfileViewModel implements ViewModel
     {
         this.model = model;
         this.viewState = viewState;
-        this.name = new SimpleStringProperty();
-        this.workingNumberF = new SimpleStringProperty();
+        this.name = new SimpleStringProperty("");
+        this.workingNumberF = new SimpleStringProperty("");
         
         this.firstName = new SimpleStringProperty("");
         this.firstNameE = new SimpleStringProperty("");
@@ -65,27 +65,20 @@ public class CreateUserProfileViewModel implements ViewModel
         this.dob = new SimpleObjectProperty<>();
         this.dobE = new SimpleStringProperty("");
         this.jobTitle = new SimpleStringProperty("");
-        this.gender = new SimpleBooleanProperty();
+        this.gender = new SimpleBooleanProperty(false);
         this.validator = new Validator();
-        this.firstNameValue = new SimpleBooleanProperty();
-        this.lastNameValue = new SimpleBooleanProperty();
-        this.emailValue = new SimpleBooleanProperty();
-        this.roleValue = new SimpleBooleanProperty();
-        this.phoneNumberValue = new SimpleBooleanProperty();
-        this.passwordValue = new SimpleBooleanProperty();
-        this.dobValue = new SimpleBooleanProperty();
+        this.firstNameValue = new SimpleBooleanProperty(false);
+        this.lastNameValue = new SimpleBooleanProperty(false);
+        this.emailValue = new SimpleBooleanProperty(false);
+        this.roleValue = new SimpleBooleanProperty(false);
+        this.phoneNumberValue = new SimpleBooleanProperty(false);
+        this.passwordValue = new SimpleBooleanProperty(false);
+        this.dobValue = new SimpleBooleanProperty(false);
         this.employee=new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
     }
-    public void load()
-    {
-        employee.setValue(model.getUser());
-        setAvatarPicture();
-        LocalDate localDate = LocalDate.now();
-        this.dob.setValue(localDate);
-        this.name.setValue(model.getUser().getName());
-        this.workingNumberF.setValue(model.getUser().getWorkingNumber().toString());
-        System.out.println(model.getUser().getWorkingNumber().toString());
+
+    public void reset(){
         this.firstName.setValue("");
         this.firstNameE.setValue("");
         this.lastName.setValue("");
@@ -107,6 +100,17 @@ public class CreateUserProfileViewModel implements ViewModel
         this.phoneNumberValue.setValue(false);
         this.passwordValue.setValue(false);
         this.dobValue.setValue(false);
+        load();
+
+    }
+    public void load()
+    {
+        employee.setValue(model.getUser());
+        setAvatarPicture();
+        LocalDate localDate = LocalDate.now();
+        this.dob.setValue(localDate);
+        this.name.setValue(model.getUser().getName());
+        this.workingNumberF.setValue(model.getUser().getWorkingNumber().toString());
     }
     
     public boolean createUserProfile()

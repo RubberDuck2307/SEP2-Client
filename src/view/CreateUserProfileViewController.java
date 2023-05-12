@@ -20,53 +20,48 @@ import static model.EmployeeRole.*;
 public class CreateUserProfileViewController implements ViewController {
 
     @FXML
-    public Button backButton;
+    private Button backButton;
     @FXML
-    public TextField firstNameL;
+    private TextField firstNameL;
     @FXML
-    public Label firstNameErrorL;
+    private Label firstNameErrorL;
     @FXML
-    public TextField lastNameL;
+    private TextField lastNameL;
     @FXML
-    public Label lastNameErrorL;
+    private Label lastNameErrorL;
     @FXML
-    public ImageView avatarPic;
+    private ImageView avatarPic;
     @FXML
-    public TextField emailL;
+    private TextField emailL;
     @FXML
-    public Label emailErrorL;
+    private Label emailErrorL;
     @FXML
-    public ChoiceBox<String> roleL;
+    private ChoiceBox<String> roleL;
     @FXML
-    public Label roleErrorL;
+    private Label roleErrorL;
     @FXML
-    public TextField phoneNumberL;
+    private TextField phoneNumberL;
     @FXML
-    public Label phoneNumberErrorL;
+    private Label phoneNumberErrorL;
     @FXML
-    public PasswordField passwordL;
+    private PasswordField passwordL;
     @FXML
-    public Label passwordErrorL;
+    private Label passwordErrorL;
     @FXML
-    public DatePicker dobL;
+    private DatePicker dobL;
     @FXML
-    public Label dobErrorL;
+    private Label dobErrorL;
     @FXML
-    public TextField jobTitleL;
+    private RadioButton genderMale;
     @FXML
-    public RadioButton genderMale;
+    private RadioButton genderFemale;
+
     @FXML
-    public RadioButton genderFemale;
+    private BooleanProperty value;
     @FXML
-    public ToggleGroup gender;
+    private Label workingNumberL;
     @FXML
-    public RadioButton selectedButton;
-    @FXML
-    public BooleanProperty value;
-    @FXML
-    public Label workingNumberL;
-    @FXML
-    public Label nameL;
+    private Label nameL;
 
     private Region root;
     private CreateUserProfileViewModel viewModel;
@@ -115,7 +110,6 @@ public class CreateUserProfileViewController implements ViewController {
     }
 
     public void radioButtons() {
-        System.out.println(genderMale.isSelected());
         value.setValue(genderMale.isSelected());
     }
 
@@ -186,7 +180,10 @@ public class CreateUserProfileViewController implements ViewController {
 
     @Override
     public void reset() {
-
+        viewModel.reset();
+        genderFemale.setSelected(false);
+        genderMale.setSelected(true);
+        roleL.setValue("");
     }
 
     private void setWindow(EmployeeRole employeeRole) {
@@ -235,6 +232,9 @@ public class CreateUserProfileViewController implements ViewController {
         roleL.setValue("HR");
     }
 
+    public void backButtonClick(){
+        viewHandler.openLastWindow();
+    }
     public void openWorkersView() {
         viewHandler.openView("workers");
     }

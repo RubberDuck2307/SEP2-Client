@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface Model{
 
     TaskList getAllTasksOfProject(Long id) ;
-
+    ProjectList getAllProjects();
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
     EmployeeList getEmployeesAssignedToManager(int managerNumber);
@@ -23,7 +23,7 @@ public interface Model{
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
-
+    Task getTask(Long projectId);
     Employee getUser();
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Integer saveEmployee(Employee employee, String password);
