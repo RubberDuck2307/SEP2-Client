@@ -65,6 +65,11 @@ public class ProjectManagerProfileViewModel implements ViewModel
     this.projectDeadline = new SimpleStringProperty();
     this.projectTitle = new SimpleStringProperty();
   }
+
+
+  public void reset(){
+      load();
+  }
   public void load()
   {
     employee.setValue(model.getUser());

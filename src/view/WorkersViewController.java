@@ -75,7 +75,8 @@ public class WorkersViewController implements ViewController
 
   @Override
   public void reset() {
-
+    viewModel.reset();
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   public void workerTableClick()

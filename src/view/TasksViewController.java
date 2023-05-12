@@ -105,6 +105,13 @@ public class TasksViewController implements ViewController
     }));
 
     taskTables = FXCollections.observableArrayList();
+    fillInTasksTable();
+    taskTable.setItems(taskTables);
+
+  }
+
+  private void fillInTasksTable(){
+    taskTables.clear();
     for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
       taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
       Button button1 = new Button("");
@@ -116,10 +123,7 @@ public class TasksViewController implements ViewController
       });
       taskTables.get(i).setBtton(button1);
     }
-    taskTable.setItems(taskTables);
-
   }
-
 
   public void taskButtonTableClick(Long index){
     taskTable.getSelectionModel().select(index.intValue());
@@ -170,7 +174,8 @@ public class TasksViewController implements ViewController
 
   @Override
   public void reset() {
-
+    viewModel.reset();
+    fillInTasksTable();
     setWindow(viewModel.getEmployee().getRole());
   }
 
