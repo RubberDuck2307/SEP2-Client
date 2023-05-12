@@ -65,6 +65,10 @@ public class WorkersViewModel implements ViewModel
     Employee employee = model.getEmployeeByWorkingNumber(workingNumber);
     return employee.getRole() == EmployeeRole.PROJECT_MANAGER;
   }
+  public boolean isWorker(int workingNumber){
+    Employee employee = model.getEmployeeByWorkingNumber(workingNumber);
+    return employee.getRole() == EmployeeRole.WORKER;
+  }
 
   public StringProperty getEmployeeName()
   {

@@ -255,4 +255,28 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override public Project getProjectById(long projectId)
+    {
+        try
+        {
+            return model.getProjectById(projectId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public TaskList getAllTasksByUserId(Integer workingNumber)
+    {
+        try
+        {
+            return model.getAllTasksByUserId(workingNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }

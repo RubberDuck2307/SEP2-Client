@@ -41,6 +41,14 @@ public class ViewHandler {
                 root = loadViewController(viewModelFactory.getLoginViewModel(), "LoginView.fxml");
                 break;
             }
+            case "hrAndMainManagerProfile": {
+                root = loadViewController(viewModelFactory.getHrAndMainManagerProfileViewModel(), "HrAndMainManagerProfileView.fxml");
+                break;
+            }
+            case "workerProfile": {
+                root = loadViewController(viewModelFactory.getWorkerProfileViewModel(), "WorkerProfileView.fxml");
+                break;
+            }
             case "projects": {
                 root = loadViewController(viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
                 break;
