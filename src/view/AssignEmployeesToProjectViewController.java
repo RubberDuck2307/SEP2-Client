@@ -37,6 +37,7 @@ public class AssignEmployeesToProjectViewController implements ViewController {
     private Region root;
     private AssignEmployeesToProjectViewModel viewModel;
     private ViewHandler viewHandler;
+    private  ObservableList<WorkersWithCheckboxTable> workerTableColumns;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -62,28 +63,31 @@ public class AssignEmployeesToProjectViewController implements ViewController {
         );
         checkboxColumn.setCellValueFactory(checkbox);
         checkboxColumn.setStyle("-fx-alignment: CENTER;");
+        workerTableColumns = FXCollections.observableArrayList();
+        fillInTable();
 
-
-        ObservableList<WorkersWithCheckboxTable> workerTable = FXCollections.observableArrayList();
-        for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++) {
-            Employee employee = this.viewModel.getEmployeesOfManager().get(i);
-            workerTable.add(new WorkersWithCheckboxTable(employee));
-            CheckBox checkBox = new CheckBox(" ");
-            checkBox.setId("checklist");
-            checkBox.setOnAction(e -> {
-                assignEmployee(employee);
-            });
-            checkBox.setSelected(this.viewModel.isAssigned(employee));
-            workerTable.get(i).setCheckbox(checkBox);
-        }
-
-        workersTable.setItems(workerTable);
+        workersTable.setItems(workerTableColumns);
 
         setWindow(this.viewModel.getUser().getRole());
 
         this.viewModel.userProperty().addListener((observable, oldValue, newValue) -> {
             setWindow((newValue).getRole());
         });
+    }
+
+    private void fillInTable(){
+        workerTableColumns.clear();
+        for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++) {
+            Employee employee = this.viewModel.getEmployeesOfManager().get(i);
+            workerTableColumns.add(new WorkersWithCheckboxTable(employee));
+            CheckBox checkBox = new CheckBox(" ");
+            checkBox.setId("checklist");
+            checkBox.setOnAction(e -> {
+                assignEmployee(employee);
+            });
+            checkBox.setSelected(this.viewModel.isAssigned(employee));
+            workerTableColumns.get(i).setCheckbox(checkBox);
+        }
     }
 
     public void assignEmployee(Employee employee) {
@@ -114,7 +118,9 @@ public class AssignEmployeesToProjectViewController implements ViewController {
 
     @Override
     public void reset() {
-
+        viewModel.reset();
+        fillInTable();
+        setWindow(viewModel.getUser().getRole());
     }
 
     public void openWorkersView()

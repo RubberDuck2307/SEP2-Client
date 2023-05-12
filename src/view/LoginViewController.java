@@ -30,7 +30,6 @@ public class LoginViewController implements ViewController {
         this.viewModel = (LoginViewModel) viewModel;
         this.root = root;
         bind();
-      this.viewModel.load();
 
     }
 
@@ -47,7 +46,7 @@ public class LoginViewController implements ViewController {
 
     @Override
     public void reset() {
-
+        viewModel.reset();
     }
 
     @FXML

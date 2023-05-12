@@ -38,24 +38,34 @@ public class ProjectsViewModel implements ViewModel
         this.model = model;
         this.employee=new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
-        titleProperty = new SimpleStringProperty();
-        descriptionProperty = new SimpleStringProperty();
+        titleProperty = new SimpleStringProperty("Description");
+        descriptionProperty = new SimpleStringProperty("Select a project to see the description.");
         projectList = new ProjectList();
         projectManagersTables = FXCollections.observableArrayList();
-        selectedProject = new SimpleBooleanProperty();
+        selectedProject = new SimpleBooleanProperty(false);
         employeeProperty = new SimpleObjectProperty<>();
         userName = new SimpleStringProperty();
         userNumber = new SimpleStringProperty();
     }
 
+    public void reset(){
+        descriptionProperty.setValue("Select a project to see the description.");
+        titleProperty.setValue("Description");
+        selectedProject.set(false);
+        projectManagersTables.clear();
+        load();
+    }
     public void load(){
         employee.setValue(model.getUser());
         setAvatarPicture();
-        selectedProject.set(false);
-        projectManagersTables.clear();
-        descriptionProperty.setValue("Select a task to see the description.");
-        titleProperty.setValue("Description");
-        projectList = model.getAllProjectsByWorkingNumber(1);
+        if (model.getUser().getRole().equals(EmployeeRole.PROJECT_MANAGER))
+        {
+            projectList = model.getAllProjectsByWorkingNumber(model.getUser().getWorkingNumber());
+        }
+        else
+        {
+            projectList = model.getAllProjects();
+        }
         employeeProperty.set(model.getUser());
         userName.set(model.getUser().getName());
         userNumber.set(model.getUser().getWorkingNumber().toString());

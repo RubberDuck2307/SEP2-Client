@@ -101,7 +101,8 @@ public class ProjectManagerProfileViewController implements ViewController
 
   @Override
   public void reset() {
-
+    viewModel.reset();
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   public void openWorkersView()

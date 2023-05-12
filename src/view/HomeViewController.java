@@ -48,7 +48,8 @@ public class HomeViewController implements ViewController
 
     @Override
     public void reset() {
-
+        this.viewModel.reset();
+        setWindow(this.viewModel.getEmployeeProperty().getRole());
     }
 
     public void openProjects()

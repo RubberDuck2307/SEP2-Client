@@ -44,23 +44,22 @@ public class AddTaskViewModel implements ViewModel
         this.avatarPic=new SimpleObjectProperty<>();
         this.model = model;
         this.viewState = viewState;
-        this.nameOfTheProject = new SimpleStringProperty();
-        this.title = new SimpleStringProperty();
-        this.errorTitleMessage = new SimpleStringProperty();
-        LocalDate localDate = LocalDate.now();
-        this.deadline = new SimpleObjectProperty<>(localDate);
-        this.description = new SimpleStringProperty();
-        this.priority = new SimpleObjectProperty<>();
-        this.estimatedHours = new SimpleStringProperty();
-        this.tags = new SimpleStringProperty();
-        this.errorTitleHours = new SimpleStringProperty();
-        this.errorDeadlineMessage = new SimpleStringProperty();
-        this.errorPriorityMessage = new SimpleStringProperty();
+        this.nameOfTheProject = new SimpleStringProperty("");
+        this.title = new SimpleStringProperty("");
+        this.errorTitleMessage = new SimpleStringProperty("");
+        this.deadline = new SimpleObjectProperty<>(LocalDate.now());
+        this.description = new SimpleStringProperty("");
+        this.priority = new SimpleObjectProperty<>(null);
+        this.estimatedHours = new SimpleStringProperty("");
+        this.tags = new SimpleStringProperty("");
+        this.errorTitleHours = new SimpleStringProperty("");
+        this.errorDeadlineMessage = new SimpleStringProperty("");
+        this.errorPriorityMessage = new SimpleStringProperty("");
         this.validator = new Validator();
         this.workers = new EmployeeList();
         this.assignedEmployeeIDs = new ArrayList<>();
-        this.name = new SimpleStringProperty();
-        this.workingNumber = new SimpleStringProperty();
+        this.name = new SimpleStringProperty("");
+        this.workingNumber = new SimpleStringProperty("");
     }
     public void load()
     {
@@ -71,16 +70,21 @@ public class AddTaskViewModel implements ViewModel
         deadline.setValue(project.getDeadline());
         workers = model.getEmployeesAssignedToManager(4);
         assignedEmployeeIDs.clear();
-        errorTitleHours.setValue(null);
-        errorDeadlineMessage.setValue(null);
-        errorTitleMessage.setValue(null);
-        errorPriorityMessage.setValue(null);
+        name.setValue(model.getUser().getName());
+        workingNumber.setValue(model.getUser().getWorkingNumber().toString());
+    }
+
+    public void reset(){
+        errorTitleHours.setValue("");
+        errorDeadlineMessage.setValue("");
+        errorTitleMessage.setValue("");
+        errorPriorityMessage.setValue("");
         title.setValue("");
         priority.setValue(null);
         description.setValue("");
-        estimatedHours.setValue(null);
-        name.setValue(model.getUser().getName());
-        workingNumber.setValue(model.getUser().getWorkingNumber().toString());
+        estimatedHours.setValue("");
+        load();
+
     }
     public StringProperty getNameOfTheProject()
     {

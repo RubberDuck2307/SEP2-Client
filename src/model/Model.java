@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public interface Model{
 
     TaskList getAllTasksOfProject(Long id) ;
+    ProjectList getAllProjects();
+
+    EmployeeList getAllWorkers();
 
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
@@ -20,11 +23,10 @@ public interface Model{
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     EmployeeList getAllProjectManagers();
-    EmployeeList getAllWorkers();
-
     void saveProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
+    Task getTask(Long projectId);
 
     void assignWorkerToManager(int managerNumber, int workerNumber);
     void removeWorkerFromManager(int managerNumber, int workerNumber);

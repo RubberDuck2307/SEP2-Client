@@ -27,6 +27,11 @@ public class HomeViewModel implements ViewModel
         employeeProperty = new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
     }
+
+    public void reset()
+    {
+        load();
+    }
     public void load()
     {
         employeeProperty.set(model.getUser());

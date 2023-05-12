@@ -14,9 +14,10 @@ import viewmodel.WorkersWithCheckboxTable;
 
 public class AssignWorkersToTaskViewController implements ViewController
 {
-    
-    public Label nameL;
-    public Label workingNumberL;
+    @FXML
+    private Label nameL;
+    @FXML
+    private Label workingNumberL;
     @FXML public ImageView avatarPic;
     @FXML
     private TableView<WorkersWithCheckboxTable> workersTable;
@@ -28,10 +29,11 @@ public class AssignWorkersToTaskViewController implements ViewController
     @FXML
     private Label projectName;
     @FXML
-    public TableColumn<WorkersWithCheckboxTable, CheckBox> checkboxColumn;
+    private TableColumn<WorkersWithCheckboxTable, CheckBox> checkboxColumn;
     private Region root;
     private AssignWorkersToTaskViewModel viewModel;
     private ViewHandler viewHandler;
+    private ObservableList<WorkersWithCheckboxTable> workerTableColumns = FXCollections.observableArrayList();
     
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
@@ -47,11 +49,19 @@ public class AssignWorkersToTaskViewController implements ViewController
         checkboxColumn.setCellValueFactory(checkbox);
         checkboxColumn.setStyle("-fx-alignment: CENTER;");
         avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-        ObservableList<WorkersWithCheckboxTable> workerTable = FXCollections.observableArrayList();
+        workerTableColumns = FXCollections.observableArrayList();
+        fillInTable();
+        workersTable.setItems(workerTableColumns);
+        nameL.textProperty().bindBidirectional(this.viewModel.userNameProperty());
+        workingNumberL.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
+    }
+
+    private void fillInTable(){
+        workerTableColumns.clear();
         for (int i = 0; i < this.viewModel.getEmployeesOfTask().size(); i++)
         {
             Employee employee = this.viewModel.getEmployeesOfTask().get(i);
-            workerTable.add(new WorkersWithCheckboxTable(employee));
+            workerTableColumns.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");
             checkBox.setOnAction(e ->
@@ -59,11 +69,8 @@ public class AssignWorkersToTaskViewController implements ViewController
                 assignEmployee(employee);
             });
             checkBox.setSelected(this.viewModel.isAssigned(employee));
-            workerTable.get(i).setCheckbox(checkBox);
+            workerTableColumns.get(i).setCheckbox(checkBox);
         }
-        workersTable.setItems(workerTable);
-        nameL.textProperty().bindBidirectional(this.viewModel.userNameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
     }
     
     public void assignEmployee(Employee employee)
@@ -90,7 +97,8 @@ public class AssignWorkersToTaskViewController implements ViewController
 
     @Override
     public void reset() {
-
+        viewModel.reset();
+        fillInTable();
     }
 
     public void openWorkersView()

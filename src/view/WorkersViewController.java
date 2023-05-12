@@ -75,13 +75,13 @@ public class WorkersViewController implements ViewController
 
   @Override
   public void reset() {
-    viewModel.load();
+    viewModel.reset();
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   public void workerTableClick()
   {
     if (workerTable.getSelectionModel().getSelectedItem() != null) {
-
       if(viewModel.isMainManager(workerTable.getSelectionModel().getSelectedItem().getNumber())){
         viewModel.chooseWorker(
             workerTable.getSelectionModel().getSelectedItem().getNumber());
