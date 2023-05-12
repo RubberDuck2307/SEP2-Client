@@ -75,21 +75,24 @@ public class WorkersViewController implements ViewController
 
   @Override
   public void reset() {
-
+    viewModel.load();
   }
 
   public void workerTableClick()
   {
     if (workerTable.getSelectionModel().getSelectedItem() != null) {
+
       if(viewModel.isMainManager(workerTable.getSelectionModel().getSelectedItem().getNumber())){
         viewModel.chooseWorker(
             workerTable.getSelectionModel().getSelectedItem().getNumber());
         viewHandler.openView("projectManagerPage");
       }
+      else{
+        viewModel.chooseWorker(
+            workerTable.getSelectionModel().getSelectedItem().getNumber());
+        viewHandler.openView("hrAndMainManagerProfile");
+      }
     }
-  }
-  public void projectButtonTableClick() {
-
   }
   public void openProjects()
   {
