@@ -8,6 +8,9 @@ public interface Model{
 
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
+
+    EmployeeList getAllWorkers();
+
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
     EmployeeList getEmployeesAssignedToManager(int managerNumber);
