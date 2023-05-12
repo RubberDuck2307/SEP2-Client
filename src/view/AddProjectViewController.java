@@ -17,8 +17,9 @@ public class AddProjectViewController implements ViewController {
     public Label nameL;
     @FXML
     public Label workingNumberL;
-  @FXML public ImageView avatarPic;
-  @FXML
+    @FXML
+    public ImageView avatarPic;
+    @FXML
     private TextField title;
 
     @FXML
@@ -80,6 +81,14 @@ public class AddProjectViewController implements ViewController {
         workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
     }
 
+    @Override
+    public void reset() {
+        viewModel.reset();
+
+        for (int i = 0; i < workersWithCheckboxTables.size(); i++) {
+            workersWithCheckboxTables.get(i).getCheckbox().setSelected(false);
+        }
+    }
 
     public Region getRoot() {
         return root;
@@ -100,12 +109,13 @@ public class AddProjectViewController implements ViewController {
     private void assignEmployee(Employee employee) {
 
     }
-    public void openWorkersView()
-    {
+
+    public void openWorkersView() {
         viewHandler.openView("workers");
     }
-  public void openHome()
-  {
-    viewHandler.openView("home");
-  }
+
+    public void openHome() {
+        viewHandler.openView("home");
+    }
+
 }

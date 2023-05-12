@@ -45,6 +45,12 @@ public class HomeViewController implements ViewController
     {
         return root;
     }
+
+    @Override
+    public void reset() {
+
+    }
+
     public void openProjects()
     {
         viewHandler.openView("projects");

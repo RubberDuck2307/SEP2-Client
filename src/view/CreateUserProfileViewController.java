@@ -184,6 +184,11 @@ public class CreateUserProfileViewController implements ViewController {
         return root;
     }
 
+    @Override
+    public void reset() {
+
+    }
+
     private void setWindow(EmployeeRole employeeRole) {
         switch (employeeRole) {
             case WORKER -> {

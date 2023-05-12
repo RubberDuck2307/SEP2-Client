@@ -87,6 +87,12 @@ public class AssignWorkersToTaskViewController implements ViewController
     {
         return root;
     }
+
+    @Override
+    public void reset() {
+
+    }
+
     public void openWorkersView()
     {
         viewHandler.openView("workers");

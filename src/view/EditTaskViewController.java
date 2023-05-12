@@ -104,7 +104,12 @@ public class EditTaskViewController implements ViewController
     {
         return root;
     }
-    
+
+    @Override
+    public void reset() {
+
+    }
+
     public void bindEverything()
     {
         errorDeadlineMessage.textProperty().bindBidirectional(this.viewModel.errorDeadlineMessageProperty());

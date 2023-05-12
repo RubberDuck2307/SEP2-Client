@@ -76,6 +76,8 @@ public class AddProjectViewModel implements ViewModel
         titleProperty.setValue("");
         descriptionProperty.setValue("");
         deadlineProperty.setValue(null);
+
+        load();
     }
     
     public boolean addProject()

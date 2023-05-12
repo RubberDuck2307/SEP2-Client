@@ -112,7 +112,12 @@ public class AssignEmployeesToProjectViewController implements ViewController {
         return root;
     }
 
-  public void openWorkersView()
+    @Override
+    public void reset() {
+
+    }
+
+    public void openWorkersView()
   {
     viewHandler.openView("workers");
   }
