@@ -24,6 +24,10 @@ public interface ClientInterface {
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Long saveTask(Task task);
 
+    void assignWorkerToManager(int managerNumber, int workerNumber);
+    void removeWorkerFromManager(int managerNumber, int workerNumber);
+
+
     Integer saveEmployee(Employee employee, String password);
 
 
