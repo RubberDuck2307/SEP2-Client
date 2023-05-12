@@ -170,6 +170,11 @@ public class ProjectsViewController implements ViewController {
         return root;
     }
 
+    @Override
+    public void reset() {
+
+    }
+
     @FXML
     public void openAddProject() {
         viewHandler.openView("addProject");

@@ -45,6 +45,11 @@ public class LoginViewController implements ViewController {
         return root;
     }
 
+    @Override
+    public void reset() {
+
+    }
+
     @FXML
     private void login() {
         if (viewModel.login()){

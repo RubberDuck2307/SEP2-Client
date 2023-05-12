@@ -86,6 +86,11 @@ public class AddTaskViewController implements ViewController
     return root;
   }
 
+  @Override
+  public void reset() {
+
+  }
+
   public void bindEverything()
   {
     nameOfTheProject.textProperty()

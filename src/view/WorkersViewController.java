@@ -72,6 +72,12 @@ public class WorkersViewController implements ViewController
   {
     return root;
   }
+
+  @Override
+  public void reset() {
+
+  }
+
   public void workerTableClick()
   {
     if (workerTable.getSelectionModel().getSelectedItem() != null) {
