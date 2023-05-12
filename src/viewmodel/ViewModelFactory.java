@@ -22,6 +22,7 @@ public class ViewModelFactory
     private LoginViewModel loginViewModel;
     private ProjectManagerProfileViewModel projectManagerProfileViewModel;
     private HomeViewModel homeViewModel;
+    private EditProjectViewModel editProjectViewModel;
     public ViewModelFactory(Model model)
     {
         this.model = model;
@@ -38,6 +39,7 @@ public class ViewModelFactory
         this.workersViewModel = new WorkersViewModel(model, viewState);
         this.projectManagerProfileViewModel = new ProjectManagerProfileViewModel(model, viewState);
         this.homeViewModel = new HomeViewModel(model, viewState);
+        this.editProjectViewModel = new EditProjectViewModel(model, viewState);
     }
     
     public Model getModel()
@@ -102,5 +104,9 @@ public class ViewModelFactory
     public HomeViewModel getHomeViewModel()
     {
         return homeViewModel;
+    }
+    public EditProjectViewModel getEditProjectViewModel()
+    {
+        return editProjectViewModel;
     }
 }
