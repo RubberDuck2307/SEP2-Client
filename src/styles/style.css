@@ -519,6 +519,47 @@
 .scroll-bar:horizontal .thumb {
     -fx-background-color: #0D6EFD;
 }
+.scroll-pane{
+  -fx-background-color: white;
+}
+
+.note-vbox{
+  -fx-background-color: white;
+}
+
+.note-title-box{
+  -fx-border-color: transparent;
+  -fx-background-radius: 8;
+  -fx-border-radius: 7;
+  -fx-border-width: 3;
+  -fx-border-image-source: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 5%, transparent 90%, transparent);
+  -fx-border-image-slice: 1;
+  -fx-border-image-width: 7;
+  -fx-border-image-insets: 3;
+  -fx-background-color: #bbdefb;
+}
+
+
+#my-text-area {
+
+}
+
+
+.note-container {
+  -fx-background-color: white;
+  -fx-border-color: #e0e0e0;
+  -fx-border-radius: 10;
+  -fx-border-width: 2;
+  -fx-border-image-source: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 5%, transparent 90%, transparent);
+  -fx-border-image-slice: 1;
+  -fx-border-image-width: 10;
+  -fx-border-image-insets: 0;
+  -fx-background-radius: 2;
+  -fx-padding: 3;
+  -fx-margin: 10;
+}
+
+
 
 
 

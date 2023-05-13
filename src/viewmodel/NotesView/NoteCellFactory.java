@@ -16,5 +16,10 @@ public class NoteCellFactory implements Callback<ListView<Note>, ListCell<Note>>
   public ListCell<Note> call(ListView<Note> param) {
     return viewModel.getNoteCell();
   }
+  public static NoteCellFactory getInstance(NotesViewModel viewModel) {
+    return new NoteCellFactory(viewModel);
+  }
+
+
 }
 

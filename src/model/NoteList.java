@@ -1,18 +1,21 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class NoteList
 {
-  private ArrayList<Note> notesList;
+  private ObservableList<Note> notesList;
 
   public NoteList(ArrayList<Note> notesList)
   {
-    this.notesList = notesList;
+    this.notesList = FXCollections.observableArrayList(notesList);
   }
   public NoteList()
   {
-    this.notesList = new ArrayList<>();
+    this.notesList = FXCollections.observableArrayList();
   }
   public void addNote(Note note)
   {
@@ -27,7 +30,7 @@ public class NoteList
     return notesList.size();
   }
 
-  public ArrayList<Note> getAllNotes() {
+  public ObservableList<Note> getAllNotes() {
     return notesList;
   }
 
@@ -43,8 +46,5 @@ public class NoteList
     return "NotesList{" +
         "notesList=" + notesList +
         '}';
-  }
-  public Note get(int i) {
-    return notesList.get(i);
   }
 }

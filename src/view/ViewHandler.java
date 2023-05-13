@@ -26,13 +26,13 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
     currentScene = new Scene(new Region());
     lastPageId = "";
-    currentPageId = "projects";
+    currentPageId = "notes";
   }
 
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("projects");
+    openView("notes");
   }
 
   public void openView(String id)
