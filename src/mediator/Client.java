@@ -39,6 +39,34 @@ public class Client implements ClientInterface {
     }
 
     @Override
+    public void removeWorkerFromTask(Integer workingNumber, Long taskID) {
+        try {
+            model.removeWorkerFromTask(workingNumber, taskID);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Employee login(UserProfile userProfile) {
+        try {
+            return model.login(userProfile);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Task getTask(Long projectId){
+        try
+        {
+            return model.getTask(projectId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public EmployeeList getEmployeesOfTask(Long taskId) {
         try {
             return model.getEmployeesOfTask(taskId);
@@ -51,6 +79,15 @@ public class Client implements ClientInterface {
     public ProjectList getAllProjectsByWorkingNumber(Integer workingNumber){
         try {
             return model.getAllProjectsByWorkingNumber(workingNumber);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public ProjectList getAllProjects(){
+        try {
+            return model.getAllProjects();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -117,6 +154,44 @@ public class Client implements ClientInterface {
         }
     }
 
+    @Override public EmployeeList getAllWorkers()
+    {
+        try
+        {
+            return model.getAllWorkers();
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void assignEmployeeToProject(Integer workingNumber,
+        Long projectID)
+    {
+        try
+        {
+            model.assignEmployeeToProject(workingNumber, projectID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void removeEmployeeFromProject(Integer workingNumber,
+        Long projectID)
+    {
+        try
+        {
+            model.removeEmployeeFromProject(workingNumber, projectID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override public void saveProject(Project project)
     {
         try
@@ -151,6 +226,32 @@ public class Client implements ClientInterface {
         }
     }
 
+    @Override public void assignWorkerToManager(int managerNumber,
+        int workerNumber)
+    {
+        try
+        {
+            model.assignWorkerToManager(managerNumber, workerNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void removeWorkerFromManager(int managerNumber,
+        int workerNumber)
+    {
+        try
+        {
+            model.removeWorkerFromManager(managerNumber, workerNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String hello(){
         try {
             return model.hello();
@@ -176,6 +277,67 @@ public class Client implements ClientInterface {
         try {
             return model.getAllNotesSavedByEmployee(workingNumber);
         } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public EmployeeList getAllEmployees()
+    {
+        try
+        {
+            return model.getAllEmployees();
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public Employee getEmployeeByWorkingNumber(int workingNumber)
+    {
+        try
+        {
+            return model.getEmployeeByWorkingNumber(workingNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public Project getProjectById(long projectId)
+    {
+        try
+        {
+            return model.getProjectById(projectId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public TaskList getAllTasksByUserId(Integer workingNumber)
+    {
+        try
+        {
+            return model.getAllTasksByUserId(workingNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public EmployeeList getAllWorkersManagersByWorkerWorkingNumber(
+        Integer workingNumber)
+    {
+        try
+        {
+            return model.getAllWorkersManagersByWorkerWorkingNumber(workingNumber);
+        }
+        catch (RemoteException e)
+        {
             throw new RuntimeException(e);
         }
     }

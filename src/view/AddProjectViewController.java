@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import model.Employee;
 import viewmodel.AddProjectView.AddProjectViewModel;
@@ -12,6 +13,12 @@ import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
 public class AddProjectViewController implements ViewController {
+    @FXML
+    private Label nameL;
+    @FXML
+    private Label workingNumberL;
+    @FXML
+    private ImageView avatarPic;
     @FXML
     private TextField title;
 
@@ -24,7 +31,7 @@ public class AddProjectViewController implements ViewController {
     @FXML
     private Label deadlineE;
     @FXML
-    public TableView<WorkersWithCheckboxTable> managersTable;
+    private TableView<WorkersWithCheckboxTable> managersTable;
     @FXML
     private TableColumn<WorkersWithCheckboxTable, String> numberColumn;
     @FXML
@@ -50,12 +57,23 @@ public class AddProjectViewController implements ViewController {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox"
         );
+
         checkBoxColumn.setCellValueFactory(checkbox);
         checkBoxColumn.setStyle("-fx-alignment: CENTER;");
-
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
         description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
         deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
+        managersTable.setItems(workersWithCheckboxTables);
+        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
+        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
+        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
+        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
+        fillInTable();
+    }
+
+    private void fillInTable(){
+        workersWithCheckboxTables.clear();
         for (int i = 0; i < this.viewModel.getManagers().size(); i++) {
             Employee employee = this.viewModel.getManagers().get(i);
             workersWithCheckboxTables.add(new WorkersWithCheckboxTable(employee));
@@ -67,13 +85,13 @@ public class AddProjectViewController implements ViewController {
             checkBox.setSelected(false);
             workersWithCheckboxTables.get(i).setCheckbox(checkBox);
         }
-
-        managersTable.setItems(workersWithCheckboxTables);
-
-        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
-        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
     }
 
+    @Override
+    public void reset() {
+        viewModel.reset();
+        fillInTable();
+    }
 
     public Region getRoot() {
         return root;
@@ -95,5 +113,12 @@ public class AddProjectViewController implements ViewController {
 
     }
 
+    public void openWorkersView() {
+        viewHandler.openView("workers");
+    }
+
+    public void openHome() {
+        viewHandler.openView("home");
+    }
 
 }

@@ -1,65 +1,87 @@
 package viewmodel;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import model.*;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class AssignWorkersToTaskViewModel implements ViewModel {
     private ViewState viewState;
     private Model model;
-    private StringProperty projectName;
+    private StringProperty taskName;
+
+    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Image> avatarPic;
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfTask;
-    private ArrayList<Employee> asigneeList;
-    private ObservableList<Employee> employees;
+    private EmployeeList newEmployeesOfTask;
+    private EmployeeList employeesOfProject;
+    private ObjectProperty<Employee> user;
+    private StringProperty userName;
+    private StringProperty userNumber;
 
     public AssignWorkersToTaskViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
         this.model = model;
+        this.employee=new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
         employeesOfTask = new EmployeeList();
         employeesOfManager = new EmployeeList();
-        projectName = new SimpleStringProperty();
+        taskName = new SimpleStringProperty();
+        user= new SimpleObjectProperty<>();
+        userName = new SimpleStringProperty();
+        userNumber = new SimpleStringProperty();
     }
 
+    public void reset(){
+        load();
+    }
     public void load() {
+        employee.setValue(model.getUser());
+        setAvatarPicture();
+        user.set(model.getUser());
         Project project = viewState.getProject();
-        projectName.set(project.getName());
-        employeesOfManager = model.getEmployeesAssignedToManager(4);
-        employeesOfTask = model.getEmployeesOfTask(viewState.getTask().getId());
-
+        taskName.set(viewState.getTask().getName());
+        employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
+        employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
+        employeesOfTask = new EmployeeList();
+        newEmployeesOfTask = model.getEmployeesOfTask(viewState.getTask().getId());
+        for(int i=0;i<employeesOfManager.size();i++)
+        {
+            if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
+            {
+                employeesOfTask.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
+            }
+        }
+        userName.set(user.get().getName());
+        userNumber.set(user.get().getWorkingNumber().toString());
     }
 
     public boolean isAssigned(Employee employee) {
-        if (employeesOfTask.containsByWorkingNumber(employee.getWorkingNumber())) {
+        EmployeeList assignedEmployees=model.getEmployeesOfTask(viewState.getTask().getId());
+        if (assignedEmployees.containsByWorkingNumber(employee.getWorkingNumber())) {
             return true;
         }
         return false;
     }
 
     public void assignEmployee(Employee employee) {
-        if (!employeesOfTask.containsByWorkingNumber(employee.getWorkingNumber())) {
+        if (!newEmployeesOfTask.containsByWorkingNumber(employee.getWorkingNumber())) {
             model.assignWorkerToTask(employee.getWorkingNumber(), viewState.getTask().getId());
-            employeesOfTask.addEmployee(employee);
+            newEmployeesOfTask.addEmployee(employee);
         }
         else {
           model.removeWorkerFromTask(employee.getWorkingNumber(), viewState.getTask().getId());
-          employeesOfTask.removeByWorkingNumber(employee.getWorkingNumber());
+          newEmployeesOfTask.removeByWorkingNumber(employee.getWorkingNumber());
         }
     }
 
-
-    public ObservableList<Employee> getEmployees() {
-        return employees;
-    }
-
-    public StringProperty getProjectName() {
-        return projectName;
+    public StringProperty getTaskName() {
+        return taskName;
     }
 
     public EmployeeList getEmployeesOfManager() {
@@ -68,5 +90,36 @@ public class AssignWorkersToTaskViewModel implements ViewModel {
 
     public EmployeeList getEmployeesOfTask() {
         return employeesOfTask;
+    }
+    public String getUserName()
+    {
+        return userName.get();
+    }
+    public StringProperty userNameProperty()
+    {
+        return userName;
+    }
+    public String getUserNumber()
+    {
+        return userNumber.get();
+    }
+    public StringProperty userNumberProperty()
+    {
+        return userNumber;
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
     }
 }

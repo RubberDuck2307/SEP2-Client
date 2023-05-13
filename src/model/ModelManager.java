@@ -3,12 +3,11 @@ package model;
 
 import mediator.ClientInterface;
 
-import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelManager implements Model {
 
+    private Employee user;
     private ClientInterface client;
 
     public ModelManager(ClientInterface client) {
@@ -25,9 +24,14 @@ public class ModelManager implements Model {
         return client.getAllProjectsByWorkingNumber(workingNumber);
     }
 
-    @Override public EmployeeList getEmployeesAssignedToManager(
-        int managerNumber)
-    {
+    @Override
+    public ProjectList getAllProjects(){
+        return client.getAllProjects();
+    }
+
+    @Override
+    public EmployeeList getEmployeesAssignedToManager(
+            int managerNumber) {
         return client.getEmployeesAssignedToManager(managerNumber);
     }
 
@@ -36,9 +40,15 @@ public class ModelManager implements Model {
         client.removeWorkerFromTask(workingNumber, taskID);
     }
 
-    @Override public void assignWorkerToTask(Integer workingNumber,
-        Long taskID)
-    {
+    @Override
+    public Employee login(UserProfile userProfile) {
+        Employee employee = client.login(userProfile);
+        return employee;
+    }
+
+    @Override
+    public void assignWorkerToTask(Integer workingNumber,
+                                   Long taskID) {
         client.assignWorkerToTask(workingNumber, taskID);
     }
 
@@ -52,9 +62,20 @@ public class ModelManager implements Model {
         client.assignEmployeesToTask(employeeWorkingNumbers, TaskID);
     }
 
+    @Override
+    public void assignEmployeeToProject(Integer workingNumber,
+                                        Long projectID) {
+        client.assignEmployeeToProject(workingNumber, projectID);
+    }
 
-    @Override public EmployeeList getAllProjectManagers()
-    {
+    @Override
+    public void removeEmployeeFromProject(Integer workingNumber,
+                                          Long projectID) {
+        client.removeEmployeeFromProject(workingNumber, projectID);
+    }
+
+    @Override
+    public EmployeeList getAllProjectManagers() {
         return client.getAllProjectManagers();
     }
 
@@ -63,17 +84,35 @@ public class ModelManager implements Model {
         client.saveProject(project);
     }
 
+    @Override public EmployeeList getAllWorkers()
+    {
+        return client.getAllWorkers();
+    }
+
     @Override
     public EmployeeList getEmployeesOfTask(Long taskId) {
         return client.getEmployeesOfTask(taskId);
     }
 
-    public void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID){
+    public void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) {
         client.unassignEmployeesFromTask(employeeWorkingNumbers, TaskID);
     }
-    @Override public Long saveTask(Task task)
+
+    @Override
+    public Long saveTask(Task task) {
+        return client.saveTask(task);
+    }
+
+    @Override public void assignWorkerToManager(int managerNumber,
+        int workerNumber)
     {
-       return client.saveTask(task);
+        client.assignWorkerToManager(managerNumber, workerNumber);
+    }
+
+    @Override public void removeWorkerFromManager(int managerNumber,
+        int workerNumber)
+    {
+        client.removeWorkerFromManager(managerNumber, workerNumber);
     }
 
     @Override public void updateTask(Task task)
@@ -86,8 +125,49 @@ public class ModelManager implements Model {
         return client.getAllNotesSavedByEmployee(workingNumber);
     }
 
+
+    @Override
+    public Task getTask(Long projectId) {
+        return client.getTask(projectId);
+    }
+
+    @Override
+    public EmployeeList getAllEmployees() {
+        return client.getAllEmployees();
+    }
+
+    @Override
+    public Employee getEmployeeByWorkingNumber(int workingNumber) {
+        return client.getEmployeeByWorkingNumber(workingNumber);
+    }
+
+    @Override public Project getProjectById(long projectId)
+    {
+        return client.getProjectById(projectId);
+    }
+
+    @Override public TaskList getAllTasksByUserId(Integer workingNumber)
+    {
+        return client.getAllTasksByUserId(workingNumber);
+    }
+
+    @Override public EmployeeList getAllWorkersManagersByWorkerWorkingNumber(
+        Integer workingNumber)
+    {
+        return client.getAllWorkersManagersByWorkerWorkingNumber(workingNumber);
+    }
+
     @Override public Integer saveEmployee(Employee employee, String password)
     {
-        return client.saveEmployee(employee,password);
+        return client.saveEmployee(employee, password);
+    }
+
+
+    public void setUser(Employee user) {
+        this.user = user;
+    }
+
+    public Employee getUser() {
+        return user;
     }
 }

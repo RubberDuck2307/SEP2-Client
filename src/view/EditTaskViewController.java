@@ -7,27 +7,27 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.Priority;
-import model.Project;
-import model.Task;
-import utility.StringIntegerConverter;
+import util.StringIntegerConverter;
 import viewmodel.EditTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class EditTaskViewController implements ViewController {
+public class EditTaskViewController implements ViewController
+{
     @FXML
     public Button backButton;
     @FXML
     public Label nameOfTheProject;
     @FXML
     public TextField title;
+    @FXML public ImageView avatarPic;
     @FXML
     public Label errorTitleMessage;
     @FXML
@@ -62,6 +62,8 @@ public class EditTaskViewController implements ViewController {
     public ChoiceBox<String> status;
     public Label errorPriorityMessage;
     public Label errorDeadlineMessage;
+    public Label nameL;
+    public Label workingNumberL;
     private Region root;
     private EditTaskViewModel viewModel;
     private ViewHandler viewHandler;
@@ -69,11 +71,10 @@ public class EditTaskViewController implements ViewController {
     private ArrayList<CheckBox> checkboxes;
     private int hoursAsInteger;
     private ObservableList<WorkersWithCheckboxTable> workersTableList;
-
-
+    
     @Override
-    public void init(ViewHandler viewHandler, ViewModel viewModel,
-                     Region root) {
+    public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
+    {
         workersTableList = FXCollections.observableArrayList();
         this.root = root;
         this.viewHandler = viewHandler;
@@ -83,33 +84,35 @@ public class EditTaskViewController implements ViewController {
         setChoiceBox();
         this.counter = 0;
         this.checkboxes = new ArrayList<>();
-
-        numberColumn.setCellValueFactory(
-                cellData -> cellData.getValue().getNumberProperty());
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+        numberColumn.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox"
-        );
-
-
+        PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
         checkBoxColumn.setCellValueFactory(checkbox);
         checkBoxColumn.setStyle("-fx-alignment: CENTER;");
-
-
         addTag();
         bindEverything();
-
         ((EditTaskViewModel) viewModel).load();
-
         fillInWorkerTable();
         deadline.setEditable(false);
+        nameL.textProperty().bind(this.viewModel.nameProperty());
+        workingNumberL.textProperty().bind(this.viewModel.workingNumberProperty());
     }
-
+    
     @Override
-    public Region getRoot() {
+    public Region getRoot()
+    {
         return root;
     }
 
-    public void bindEverything() {
+    @Override
+    public void reset() {
+        viewModel.reset();
+        fillInWorkerTable();
+    }
+
+    public void bindEverything()
+    {
         errorDeadlineMessage.textProperty().bindBidirectional(this.viewModel.errorDeadlineMessageProperty());
         errorPriorityMessage.textProperty().bindBidirectional(this.viewModel.errorPriorityMessageProperty());
         nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
@@ -124,15 +127,19 @@ public class EditTaskViewController implements ViewController {
         description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
         tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
     }
-
-    private void fillInWorkerTable() {
-        for (int i = 0; i < viewModel.getEmployees().size(); i++) {
-            System.out.println(viewModel.getEmployees().get(i).getName());
+    
+    private void fillInWorkerTable()
+    {
+        workersTableList.clear();
+        for (int i = 0; i < viewModel.getEmployees().size(); i++)
+        {
+            //System.out.println(viewModel.getEmployees().get(i).getName());
             Employee employee = viewModel.getEmployees().get(i);
             workersTableList.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");
-            checkBox.setOnAction(e -> {
+            checkBox.setOnAction(e ->
+            {
                 switchWorker(employee);
                 checkBox.setSelected(viewModel.isEmployeeAssigned(employee));
             });
@@ -141,11 +148,13 @@ public class EditTaskViewController implements ViewController {
         }
         workersTable.setItems(workersTableList);
     }
-
-    public void addTag() {
-        addTag.setOnAction(e -> {
-            if (tags.getText() != null) {
-
+    
+    public void addTag()
+    {
+        addTag.setOnAction(e ->
+        {
+            if (tags.getText() != null)
+            {
                 CheckBox checkBox = new CheckBox(tags.getText());
                 checkBox.setSelected(true);
                 checkBox.setStyle("-fx-padding: 10px 5px 10px 5px; ");
@@ -157,43 +166,57 @@ public class EditTaskViewController implements ViewController {
             }
         });
     }
-
-    public void switchWorker(Employee employee) {
+    
+    public void switchWorker(Employee employee)
+    {
         viewModel.switchWorker(employee);
     }
-
-    public void setPriority() {
+    
+    public void setPriority()
+    {
         viewModel.setPriority();
     }
-
-    public void openProjects() {
+    
+    public void openProjects()
+    {
         viewHandler.openView("projects");
     }
-
-    public void createtask() {
-        if (viewModel.add()) {
+    
+    public void createtask()
+    {
+        if (viewModel.add())
+        {
             viewHandler.openView("tasks");
         }
-
     }
-
-    public void backButtonClick() {
+    
+    public void backButtonClick()
+    {
         viewHandler.openLastWindow();
     }
-
-    public void setChoiceBox() {
+    
+    public void setChoiceBox()
+    {
         priority.getItems().add(Priority.HIGH.name());
         priority.getItems().add(Priority.MEDIUM.name());
         priority.getItems().add(Priority.LOW.name());
-
         status.getItems().add("TO DO");
         status.getItems().add("DONE");
         status.getItems().add("IN PROGRESS");
     }
-
-    public void resetDeadlineClick(ActionEvent actionEvent) {
+    
+    public void resetDeadlineClick(ActionEvent actionEvent)
+    {
         this.deadline.getEditor().clear();
         this.deadline.setEditable(true);
         deadline.setValue(null);
+    }
+    public void openWorkersView()
+    {
+        viewHandler.openView("workers");
+    }
+    public void openHome()
+    {
+        viewHandler.openView("home");
     }
 }

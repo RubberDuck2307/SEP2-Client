@@ -5,8 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import model.EmployeeRole;
 import viewmodel.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
@@ -14,8 +17,13 @@ import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewController implements ViewController
 {
+  @FXML private Label employeeName;
+  @FXML private Label employeeWorkingNumber;
 
+  @FXML private HBox taskHBox;
+  @FXML public ImageView avatarPic;
   @FXML private Button assignWorkerButton;
+  @FXML private Button addButton;
   @FXML private Label projectName;
   @FXML private Label taskName;
   @FXML private TextArea taskDescription;
@@ -49,16 +57,17 @@ public class TasksViewController implements ViewController
     this.root = root;
     this.viewHandler = viewHandler;
     this.viewModel = (TasksViewModel) viewModel;
-    this.viewModel.load();
     commentsTable.setVisible(false);
     workersTable.setVisible(false);
+    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
+    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
     projectName.textProperty().bind(this.viewModel.projectNameProperty());
     taskName.textProperty().bind(this.viewModel.taskNameProperty());
     taskDescription.textProperty()
         .bind(this.viewModel.taskDescriptionProperty());
 
     //buttonColumn.setCellFactory(buttonColumn.forTableColumn());
-
 
 
     // task table
@@ -83,12 +92,26 @@ public class TasksViewController implements ViewController
     edit.setCellValueFactory(button);
     edit.setStyle("-fx-alignment: CENTER;");
 
-    assignWorkerButton.setVisible(false);
-    this.viewModel.isTaskSelectedProperty().addListener((observable, oldValue, newValue) -> {
-      assignWorkerButton.setVisible(newValue);
+    this.viewModel.employeeProperty().addListener((observable, oldValue, newValue) -> {
+      setWindow(newValue.getRole());
     });
+    this.viewModel.load();
+    setWindow(this.viewModel.getEmployee().getRole());
+    assignWorkerButton.setVisible(false);
+    this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
+      if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
+        assignWorkerButton.setVisible(newValue);
+      }
+    }));
 
     taskTables = FXCollections.observableArrayList();
+    fillInTasksTable();
+    taskTable.setItems(taskTables);
+
+  }
+
+  private void fillInTasksTable(){
+    taskTables.clear();
     for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
       taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
       Button button1 = new Button("");
@@ -100,9 +123,8 @@ public class TasksViewController implements ViewController
       });
       taskTables.get(i).setBtton(button1);
     }
-    taskTable.setItems(taskTables);
-
   }
+
   public void taskButtonTableClick(Long index){
     taskTable.getSelectionModel().select(index.intValue());
     taskTableClick();
@@ -116,10 +138,45 @@ public class TasksViewController implements ViewController
     }
   }
 
+  public void setWindow(EmployeeRole employeeRole){
+    switch (employeeRole){
+      case HR -> {
+        edit.setVisible(false);
+        addButton.setVisible(false);
+        taskHBox.setVisible(false);
+        taskHBox.setManaged(false);
+      }
+      case MAIN_MANAGER -> {
+        edit.setVisible(false);
+        addButton.setVisible(false);
+        taskHBox.setVisible(true);
+        taskHBox.setManaged(true);
+      }
+      case PROJECT_MANAGER -> {
+        edit.setVisible(true);
+        addButton.setVisible(true);
+        taskHBox.setVisible(true);
+        taskHBox.setManaged(true);
+      }
+      case WORKER -> {
+        edit.setVisible(false);
+        addButton.setVisible(false);
+        taskHBox.setVisible(true);
+        taskHBox.setManaged(true);
+      }
+    }
+  }
 
   @Override public Region getRoot()
   {
     return root;
+  }
+
+  @Override
+  public void reset() {
+    viewModel.reset();
+    fillInTasksTable();
+    setWindow(viewModel.getEmployee().getRole());
   }
 
   @FXML public void assignWorker(){
@@ -138,5 +195,14 @@ public class TasksViewController implements ViewController
   public void editTask()
   {
     viewHandler.openView("editTask");
+  }
+
+  public void openWorkersView()
+  {
+    viewHandler.openView("workers");
+  }
+  public void openHome()
+  {
+    viewHandler.openView("home");
   }
 }

@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import model.*;
 import viewmodel.TaskView.TasksTable;
@@ -13,12 +14,19 @@ import viewmodel.ViewState;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static javafx.application.Platform.runLater;
 
 public class ProjectsViewModel implements ViewModel
 {
+    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Image> avatarPic;
     private Model model;
+
+    private StringProperty userName;
+    private StringProperty userNumber;
+    private ObjectProperty<Employee> employeeProperty;
     private StringProperty titleProperty;
     private StringProperty descriptionProperty;
     private ProjectList projectList;
@@ -28,16 +36,39 @@ public class ProjectsViewModel implements ViewModel
     public ProjectsViewModel(Model model, ViewState viewState) {
         this.viewState = viewState;
         this.model = model;
-        titleProperty = new SimpleStringProperty();
-        descriptionProperty = new SimpleStringProperty();
+        this.employee=new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
+        titleProperty = new SimpleStringProperty("Description");
+        descriptionProperty = new SimpleStringProperty("Select a project to see the description.");
         projectList = new ProjectList();
         projectManagersTables = FXCollections.observableArrayList();
-        selectedProject = new SimpleBooleanProperty();
+        selectedProject = new SimpleBooleanProperty(false);
+        employeeProperty = new SimpleObjectProperty<>();
+        userName = new SimpleStringProperty();
+        userNumber = new SimpleStringProperty();
     }
 
-    public void load(){
+    public void reset(){
+        descriptionProperty.setValue("Select a project to see the description.");
+        titleProperty.setValue("Description");
         selectedProject.set(false);
-        projectList = model.getAllProjectsByWorkingNumber(1);
+        projectManagersTables.clear();
+        load();
+    }
+    public void load(){
+        employee.setValue(model.getUser());
+        setAvatarPicture();
+        if (model.getUser().getRole().equals(EmployeeRole.PROJECT_MANAGER))
+        {
+            projectList = model.getAllProjectsByWorkingNumber(model.getUser().getWorkingNumber());
+        }
+        else
+        {
+            projectList = model.getAllProjects();
+        }
+        employeeProperty.set(model.getUser());
+        userName.set(model.getUser().getName());
+        userNumber.set(model.getUser().getWorkingNumber().toString());
     }
 
     public StringProperty getTitleProperty() {
@@ -76,7 +107,47 @@ public class ProjectsViewModel implements ViewModel
         return selectedProject.get();
     }
 
+    public Employee getEmployeeProperty() {
+        return employeeProperty.get();
+    }
+
+    public ObjectProperty<Employee> employeePropertyProperty() {
+        return employeeProperty;
+    }
+
     public BooleanProperty selectedProjectProperty() {
         return selectedProject;
+
+    }
+
+    public String getUserName() {
+        return userName.get();
+    }
+
+    public StringProperty userNameProperty() {
+        return userName;
+    }
+
+    public String getUserNumber() {
+        return userNumber.get();
+    }
+
+    public StringProperty userNumberProperty() {
+        return userNumber;
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
     }
 }

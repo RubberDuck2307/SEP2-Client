@@ -1,15 +1,19 @@
 package viewmodel;
 
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
 import model.Model;
 import model.*;
 import util.Validator;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class CreateUserProfileViewModel implements ViewModel
 {
     private Validator validator;
+    private ObjectProperty<Employee> employee;
+    private ObjectProperty<Image> avatarPic;
     private Model model;
     private ViewState viewState;
     private StringProperty firstName;
@@ -35,12 +39,78 @@ public class CreateUserProfileViewModel implements ViewModel
     private BooleanProperty dobValue;
     private StringProperty jobTitle;
     private Integer workingNumber;
+    private BooleanProperty gender;
+    private StringProperty name;
+    private StringProperty workingNumberF;
     
     CreateUserProfileViewModel(Model model, ViewState viewState)
     {
         this.model = model;
         this.viewState = viewState;
+        this.name = new SimpleStringProperty("");
+        this.workingNumberF = new SimpleStringProperty("");
+        
+        this.firstName = new SimpleStringProperty("");
+        this.firstNameE = new SimpleStringProperty("");
+        this.lastName = new SimpleStringProperty("");
+        this.lastNameE = new SimpleStringProperty("");
+        this.email = new SimpleStringProperty("");
+        this.emailE = new SimpleStringProperty("");
+        this.role = new SimpleObjectProperty<>();
+        this.roleE = new SimpleStringProperty("");
+        this.phoneNumber = new SimpleStringProperty("");
+        this.phoneNumberE = new SimpleStringProperty("");
+        this.password = new SimpleStringProperty("");
+        this.passwordE = new SimpleStringProperty("");
+        this.dob = new SimpleObjectProperty<>();
+        this.dobE = new SimpleStringProperty("");
+        this.jobTitle = new SimpleStringProperty("");
+        this.gender = new SimpleBooleanProperty(false);
+        this.validator = new Validator();
+        this.firstNameValue = new SimpleBooleanProperty(false);
+        this.lastNameValue = new SimpleBooleanProperty(false);
+        this.emailValue = new SimpleBooleanProperty(false);
+        this.roleValue = new SimpleBooleanProperty(false);
+        this.phoneNumberValue = new SimpleBooleanProperty(false);
+        this.passwordValue = new SimpleBooleanProperty(false);
+        this.dobValue = new SimpleBooleanProperty(false);
+        this.employee=new SimpleObjectProperty<>();
+        this.avatarPic=new SimpleObjectProperty<>();
+    }
+
+    public void reset(){
+        this.firstName.setValue("");
+        this.firstNameE.setValue("");
+        this.lastName.setValue("");
+        this.lastNameE.setValue("");
+        this.email.setValue("");
+        this.emailE.setValue("");
+        this.roleE.setValue("");
+        this.phoneNumber.setValue("");
+        this.phoneNumberE.setValue("");
+        this.password.setValue("");
+        this.passwordE.setValue("");
+        this.dobE.setValue("");
+        this.jobTitle.setValue("");
+        this.gender.setValue(true);
+        this.firstNameValue.setValue(false);
+        this.lastNameValue.setValue(false);
+        this.emailValue.setValue(false);
+        this.roleValue.setValue(false);
+        this.phoneNumberValue.setValue(false);
+        this.passwordValue.setValue(false);
+        this.dobValue.setValue(false);
         load();
+
+    }
+    public void load()
+    {
+        employee.setValue(model.getUser());
+        setAvatarPicture();
+        LocalDate localDate = LocalDate.now();
+        this.dob.setValue(localDate);
+        this.name.setValue(model.getUser().getName());
+        this.workingNumberF.setValue(model.getUser().getWorkingNumber().toString());
     }
     
     public boolean createUserProfile()
@@ -139,55 +209,25 @@ public class CreateUserProfileViewModel implements ViewModel
     
     private void add()
     {
-        EmployeeRole selectedRole;
-        switch (role.getValue())
+        EmployeeRole selectedRole = switch (role.getValue())
         {
-            case "Main Manager":
-                selectedRole = EmployeeRole.MAIN_MANAGER;
-                break;
-            case "Project Manager":
-                selectedRole = EmployeeRole.PROJECT_MANAGER;
-                break;
-            case "Worker":
-                selectedRole = EmployeeRole.WORKER;
-                break;
-            case "HR":
-                selectedRole = EmployeeRole.HR;
-                break;
-            default:
-                throw new RuntimeException("No role matches");
+            case "Main Manager" -> EmployeeRole.MAIN_MANAGER;
+            case "Project Manager" -> EmployeeRole.PROJECT_MANAGER;
+            case "Worker" -> EmployeeRole.WORKER;
+            case "HR" -> EmployeeRole.HR;
+            default -> throw new RuntimeException("No role matches");
+        };
+        String genderChar = "";
+        if (gender.get())
+        {
+            genderChar = "M";
         }
-        Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), "F", selectedRole, email.getValue());
+        else genderChar = "F";
+        System.out.println(genderChar);
+        Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
         workingNumber = model.saveEmployee(employee, password.getValue());
     }
     
-    public void load()
-    {
-        this.firstName = new SimpleStringProperty("");
-        this.firstNameE = new SimpleStringProperty("");
-        this.lastName = new SimpleStringProperty("");
-        this.lastNameE = new SimpleStringProperty("");
-        this.email = new SimpleStringProperty("");
-        this.emailE = new SimpleStringProperty("");
-        this.role = new SimpleObjectProperty<>();
-        this.roleE = new SimpleStringProperty("");
-        this.phoneNumber = new SimpleStringProperty("");
-        this.phoneNumberE = new SimpleStringProperty("");
-        this.password = new SimpleStringProperty("");
-        this.passwordE = new SimpleStringProperty("");
-        LocalDate localDate = LocalDate.now();
-        this.dob = new SimpleObjectProperty<>(localDate);
-        this.dobE = new SimpleStringProperty("");
-        this.jobTitle = new SimpleStringProperty("");
-        this.validator = new Validator();
-        this.firstNameValue = new SimpleBooleanProperty(false);
-        this.lastNameValue = new SimpleBooleanProperty(false);
-        this.emailValue = new SimpleBooleanProperty(false);
-        this.roleValue = new SimpleBooleanProperty(false);
-        this.phoneNumberValue = new SimpleBooleanProperty(false);
-        this.passwordValue = new SimpleBooleanProperty(false);
-        this.dobValue = new SimpleBooleanProperty(false);
-    }
     
     public String getFirstName()
     {
@@ -424,5 +464,53 @@ public class CreateUserProfileViewModel implements ViewModel
         return workingNumber;
     }
     
+    public boolean isGender()
+    {
+        return gender.get();
+    }
+    public BooleanProperty genderProperty()
+    {
+        return gender;
+    }
+    
+    public String getName()
+    {
+        return name.get();
+    }
+    public StringProperty nameProperty()
+    {
+        return name;
+    }
+    public String getWorkingNumberF()
+    {
+        return workingNumberF.get();
+    }
+    public StringProperty workingNumberFProperty()
+    {
+        return workingNumberF;
+    }
+    public ObjectProperty<Image> avatarPicProperty()
+    {
+        return avatarPic;
+    }
+    public boolean isWoman(){
+        return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void setAvatarPicture(){
+        if(isWoman()){
+            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+        }
+        else{
+            avatarPic.setValue(new Image("/icons/man-avatar.png"));
+        }
+    }
+
+    public Employee getEmployee() {
+        return employee.get();
+    }
+
+    public ObjectProperty<Employee> employeeProperty() {
+        return employee;
+    }
 }
 

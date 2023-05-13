@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import model.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
@@ -11,17 +12,23 @@ import viewmodel.TaskView.WorkersTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TasksViewModel implements ViewModel
 {
   private Model model;
   //tasks
+  private StringProperty employeeName;
+  private ObjectProperty<Employee> employee;
+  private ObjectProperty<Image> avatarPic;
+  private StringProperty employeeWorkingNumber;
   private TaskList taskList;
   private EmployeeList employeeList;
   private StringProperty error;
   private StringProperty projectName;
   private StringProperty taskName;
   private StringProperty taskDescription;
+
   private ObservableList<Task> tasks;
   private ObservableList<TasksTable> tasksTables;
   private ObservableList<CommentsTable> commentsTables;
@@ -35,7 +42,11 @@ public class TasksViewModel implements ViewModel
   public TasksViewModel(Model model, ViewState viewState)
   {
     this.error = new SimpleStringProperty();
+    this.avatarPic=new SimpleObjectProperty<>();
     this.model = model;
+    this.employeeName=new SimpleStringProperty();
+    this.employeeWorkingNumber=new SimpleStringProperty();
+    this.employee=new SimpleObjectProperty<>();
     this.tasks = FXCollections.observableArrayList();
     this.viewState = viewState;
     this.taskList = new TaskList();
@@ -52,18 +63,25 @@ public class TasksViewModel implements ViewModel
     this.number = new SimpleIntegerProperty();
     this.isTaskSelected = new SimpleBooleanProperty();
   }
+  public void reset(){
+    isTaskSelected.set(false);
+    load();
+  }
 
   public void load()
   {
-    isTaskSelected.set(false);
-    System.out.println("load");
     Project project = viewState.getProject();
+    employee.setValue(model.getUser());
+    setAvatarPicture();
+    employeeName.setValue(model.getUser().getName());
+    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
     taskList = model.getAllTasksOfProject(project.getId());
     taskName.setValue("Description");
     projectName.setValue(project.getName());
     taskDescription.setValue("Select a task to see the description and comments");
     tasksTables.clear();
     tasks.clear();
+    workersTables.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
       tasksTables.add(new TasksTable(taskList.getTask(i)));
@@ -75,6 +93,26 @@ public class TasksViewModel implements ViewModel
   public ObservableList<TasksTable> getAll()
   {
     return tasksTables;
+  }
+
+  public ObjectProperty<Employee> employeeProperty()
+  {
+    return employee;
+  }
+
+  public Employee getEmployee()
+  {
+    return employee.get();
+  }
+
+  public StringProperty getEmployeeName()
+  {
+    return employeeName;
+  }
+
+  public StringProperty getEmployeeWorkingNumber()
+  {
+    return employeeWorkingNumber;
   }
 
   public ObservableList<WorkersTable> getWorkersTables(){return workersTables;}
@@ -154,7 +192,6 @@ public class TasksViewModel implements ViewModel
     Task task=taskList.getTaskById(id);
     taskName.setValue(task.getName());
     taskDescription.setValue(task.getDescription());
-    System.out.println(task);
     viewState.setTask(task);
     EmployeeList employeeList = model.getEmployeesOfTask(id);
     workersTables.clear();
@@ -175,5 +212,20 @@ public class TasksViewModel implements ViewModel
 
   public void setIsTaskSelected(boolean isTaskSelected) {
     this.isTaskSelected.set(isTaskSelected);
+  }
+  public ObjectProperty<Image> avatarPicProperty()
+  {
+    return avatarPic;
+  }
+  public boolean isWoman(){
+    return Objects.equals(employee.getValue().getGender(), "F");
+  }
+  public void setAvatarPicture(){
+    if(isWoman()){
+      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+    }
+    else{
+      avatarPic.setValue(new Image("/icons/man-avatar.png"));
+    }
   }
 }
