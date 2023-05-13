@@ -41,7 +41,7 @@
 
                            </image>
                         </ImageView>
-                        <Label id="home" styleClass="side-menu-text" text="HOME">
+                        <Label id="home" onMousePressed="#openHome" styleClass="side-menu-text" text="HOME">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -61,7 +61,7 @@
 
                            </image>
                         </ImageView>
-                        <Label styleClass="side-menu-text" text="PROJECTS">
+                        <Label onMousePressed="#openProjects" styleClass="side-menu-text" text="PROJECTS">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -79,7 +79,7 @@
 
                            </image>
                         </ImageView>
-                        <Label styleClass="side-menu-text" text="WORKERS">
+                        <Label onMousePressed="#openWorkersView" styleClass="side-menu-text" text="WORKERS">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -96,7 +96,7 @@
                            <children>
                               <ImageView fitHeight="47.0" fitWidth="47.0">
                                  <image>
-                                    <Image url="@../icons/Blue - Light.png" />
+                                    <Image url="@../icons/man-avatar.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -110,7 +110,7 @@
                                  <children>
                                     <HBox prefHeight="67.0" prefWidth="100.0">
                                        <children>
-                                          <Label alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                          <Label fx:id="nameLabel" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font></Label>
@@ -118,7 +118,7 @@
                                     </HBox>
                                     <HBox prefHeight="59.0" prefWidth="90.0">
                                        <children>
-                                          <Label alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                          <Label fx:id="numberLabel" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -145,7 +145,7 @@
                         <Insets />
                      </opaqueInsets>
                      <children>
-                        <Button alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
+                        <Button alignment="TOP_LEFT" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="26.0" prefWidth="26.0" styleClass="go-back">
                            <HBox.margin>
                               <Insets left="10.0" top="20.0" />
                            </HBox.margin>
@@ -200,7 +200,10 @@
                                                                         <Color opacity="0.0" />
                                                                      </color>
                                                                   </DropShadow>
-                                                               </effect></TextArea>
+                                                               </effect>
+                                                               <opaqueInsets>
+                                                                  <Insets />
+                                                               </opaqueInsets></TextArea>
                                                          </children>
                                                          <VBox.margin>
                                                             <Insets bottom="5.0" />
@@ -309,7 +312,7 @@
                                     </HBox>
                                     <VBox id="my-text-area" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="630.0">
                                        <children>
-                                          <Button fx:id="createTaskButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addNote" prefHeight="30.0" prefWidth="100.0" styleClass="create-button" text="Add a note" textAlignment="CENTER">
+                                          <Button fx:id="createTaskButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="create-button" text="Add a note" textAlignment="CENTER">
                                              <VBox.margin>
                                                 <Insets right="5.0" />
                                              </VBox.margin>

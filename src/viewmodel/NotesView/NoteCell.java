@@ -1,57 +1,38 @@
 package viewmodel.NotesView;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import model.Note;
 
-public class NoteCell implements Callback<ListView<Note>, ListCell<Note>> {
-  @Override
-  public ListCell<Note> call(ListView<Note> listView) {
-    return new ListCell<>() {
-      private final VBox content;
-      private final Label title;
-      private final ScrollPane noteScrollPane;
-      private final TextArea noteText;
-      private final Label date;
+public class NoteCell {
+  private final VBox noteVBox;
+  private final Label titleLabel;
+  private final Label dateLabel;
+  private final TextArea contentArea;
 
-      {
-        // Init UI components
-        content = new VBox();
-        title = new Label();
-        noteScrollPane = new ScrollPane();
-        noteText = new TextArea();
-        date = new Label();
+  public NoteCell(Note note) {
+    noteVBox = new VBox();
+    noteVBox.getStyleClass().add("note-container");
 
-        // Set up the layout of the cell
-        noteScrollPane.setContent(noteText);
-        noteScrollPane.setPrefHeight(100);
-        noteScrollPane.setFitToWidth(true);
-        content.getChildren().addAll(title, noteScrollPane, date);
-        content.setSpacing(5);
-        noteText.setEditable(false);
-        noteText.setWrapText(true);
-      }
+    HBox titleBox = new HBox();
+    titleBox.getStyleClass().add("note-title-box");
+    titleLabel = new Label(note.getTitle());
+    titleLabel.getStyleClass().add("note-title-label");
+    dateLabel = new Label(note.getCreationDate().toString());
+    dateLabel.getStyleClass().add("note-date-label");
+    titleBox.getChildren().addAll(titleLabel, dateLabel);
 
-      @Override
-      protected void updateItem(Note note, boolean empty) {
-        super.updateItem(note, empty);
+    contentArea = new TextArea(note.getNoteText());
+    contentArea.getStyleClass().add("note-content-area");
+    contentArea.setEditable(false);
+    contentArea.setWrapText(true);
 
-        if (empty || note == null) {
-          setText(null);
-          setGraphic(null);
-        } else {
-          // Set the text of the title and note text fields based on the Note object
-          title.setText(note.getTitle());
-          date.setText(note.getCreationDate().toString());
-          noteText.setText(note.getNoteText());
-          setGraphic(content);
-        }
-      }
-    };
+    noteVBox.getChildren().addAll(titleBox, contentArea);
+  }
+
+  public VBox getNoteVBox() {
+    return noteVBox;
   }
 }
