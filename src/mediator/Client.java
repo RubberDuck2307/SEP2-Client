@@ -39,15 +39,6 @@ public class Client implements ClientInterface {
     }
 
     @Override
-    public void removeWorkerFromTask(Integer workingNumber, Long taskID) {
-        try {
-            model.removeWorkerFromTask(workingNumber, taskID);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public Employee login(UserProfile userProfile) {
         try {
             return model.login(userProfile);
