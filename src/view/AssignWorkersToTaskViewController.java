@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import model.Employee;
+import model.EmployeeRole;
 import viewmodel.AssignWorkersToTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
@@ -107,6 +108,20 @@ public class AssignWorkersToTaskViewController implements ViewController
     }
     public void openHome()
     {
-        viewHandler.openView("home");
+        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
+        switch (role) {
+            case WORKER -> {
+                viewHandler.openView("workerHomePage");
+            }
+            case HR -> {
+                viewHandler.openView("home");
+            }
+            case PROJECT_MANAGER -> {
+                viewHandler.openView("home");
+            }
+            case MAIN_MANAGER -> {
+                viewHandler.openView("home");
+            }
+        }
     }
 }

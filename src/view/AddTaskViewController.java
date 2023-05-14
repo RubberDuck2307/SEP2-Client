@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
+import model.EmployeeRole;
 import viewmodel.AddTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
@@ -173,7 +174,21 @@ public class AddTaskViewController implements ViewController
   }
   public void openHome()
   {
-    viewHandler.openView("home");
+    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
+    switch (role) {
+      case WORKER -> {
+        viewHandler.openView("workerHomePage");
+      }
+      case HR -> {
+        viewHandler.openView("home");
+      }
+      case PROJECT_MANAGER -> {
+        viewHandler.openView("home");
+      }
+      case MAIN_MANAGER -> {
+        viewHandler.openView("home");
+      }
+    }
   }
   public void backButton()
   {

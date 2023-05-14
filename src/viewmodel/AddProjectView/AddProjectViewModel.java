@@ -115,6 +115,9 @@ public class AddProjectViewModel implements ViewModel
     {
         return descriptionProperty;
     }
+    public Employee getEmployeeProperty() {
+        return employee.get();
+    }
     
     public StringProperty getTitleErrorProperty()
     {

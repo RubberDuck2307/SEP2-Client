@@ -1,5 +1,7 @@
 package viewmodel;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Employee;
@@ -11,12 +13,14 @@ public class LoginViewModel implements  ViewModel{
     private StringProperty passwordProperty;
     private StringProperty workingNumberProperty;
     private StringProperty errorProperty;
+    private ObjectProperty<Employee> loggedEmployee;
     private Model model;
 
     public LoginViewModel(Model model) {
         this.passwordProperty = new SimpleStringProperty("");
         this.workingNumberProperty = new SimpleStringProperty("");
         this.errorProperty = new SimpleStringProperty("");
+        this.loggedEmployee = new SimpleObjectProperty<Employee>();
         this.model = model;
     }
     
@@ -56,9 +60,9 @@ if(employee == null){
         else{
             errorProperty.set("");
             model.setUser(employee);
+            loggedEmployee.setValue(model.getUser());
             return true;
         }
-
     }
 
 
@@ -84,6 +88,9 @@ if(employee == null){
 
     public StringProperty errorPropertyProperty() {
         return errorProperty;
+    }
+    public Employee getEmployeeProperty() {
+        return loggedEmployee.get();
     }
 
 

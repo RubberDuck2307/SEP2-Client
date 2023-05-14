@@ -3,10 +3,7 @@ package viewmodel;
 import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
-import viewmodel.WorkerView.HrAndMainManagerProfileViewModel;
-import viewmodel.WorkerView.ProjectManagerProfileViewModel;
-import viewmodel.WorkerView.WorkerProfileViewModel;
-import viewmodel.WorkerView.WorkersViewModel;
+import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
 {
@@ -27,6 +24,7 @@ public class ViewModelFactory
     private HomeViewModel homeViewModel;
     private HrAndMainManagerProfileViewModel hrAndMainManagerProfileViewModel;
     private WorkerProfileViewModel workerProfileViewModel;
+    private WorkerHomeViewModel workerHomeViewModel;
     public ViewModelFactory(Model model)
     {
         this.model = model;
@@ -46,6 +44,7 @@ public class ViewModelFactory
         this.homeViewModel = new HomeViewModel(model, viewState);
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
+        this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
     }
     
     public Model getModel()
@@ -125,5 +124,10 @@ public class ViewModelFactory
     public HomeViewModel getHomeViewModel()
     {
         return homeViewModel;
+    }
+
+    public WorkerHomeViewModel getWorkerHomeViewModel()
+    {
+        return workerHomeViewModel;
     }
 }

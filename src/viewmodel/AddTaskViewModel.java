@@ -149,6 +149,9 @@ public class AddTaskViewModel implements ViewModel
     {
         return nameOfTheProject;
     }
+    public Employee getEmployeeProperty() {
+        return employee.get();
+    }
     
     public StringProperty titleProperty()
     {
