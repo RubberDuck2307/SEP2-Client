@@ -26,6 +26,7 @@ public class WorkersViewModel implements ViewModel
   private IntegerProperty number;
   private StringProperty email;
   private EmployeeList employeeList;
+  private ObservableList<Employee> employees;
 
   public WorkersViewModel(Model model, ViewState viewState)
   {
@@ -35,6 +36,7 @@ public class WorkersViewModel implements ViewModel
     this.model = model;
     this.viewState = viewState;
     this.workersTables = FXCollections.observableArrayList();
+    this.employees = FXCollections.observableArrayList();
     this.name = new SimpleStringProperty();
     this.role = new SimpleStringProperty();
     this.number = new SimpleIntegerProperty();
@@ -53,9 +55,11 @@ public class WorkersViewModel implements ViewModel
     employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
     employeeList = model.getAllEmployees();
     workersTables.clear();
+    employees.clear();
     for (int i = 0; i < employeeList.size(); i++)
     {
       workersTables.add(new viewmodel.WorkerView.WorkersTable(employeeList.get(i)));
+      employees.add(employeeList.get(i));
     }
 
   }
@@ -95,6 +99,10 @@ public class WorkersViewModel implements ViewModel
   }
 
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
+  public ObservableList<Employee> getEmployeess()
+  {
+    return employees;
+  }
   public boolean displayAddButton(){
     return employee.getValue().getRole() == EmployeeRole.HR;
   }

@@ -8,90 +8,106 @@ import model.Employee;
 import model.Model;
 import model.UserProfile;
 
-public class LoginViewModel implements  ViewModel{
+public class LoginViewModel implements ViewModel
+{
 
-    private StringProperty passwordProperty;
-    private StringProperty workingNumberProperty;
-    private StringProperty errorProperty;
-    private ObjectProperty<Employee> loggedEmployee;
-    private Model model;
+  private StringProperty passwordProperty;
+  private StringProperty workingNumberProperty;
+  private StringProperty errorProperty;
+  private ObjectProperty<Employee> loggedEmployee;
+  private Model model;
 
-    public LoginViewModel(Model model) {
-        this.passwordProperty = new SimpleStringProperty("");
-        this.workingNumberProperty = new SimpleStringProperty("");
-        this.errorProperty = new SimpleStringProperty("");
-        this.loggedEmployee = new SimpleObjectProperty<Employee>();
-        this.model = model;
-    }
-    
-    public void reset()
+  public LoginViewModel(Model model)
+  {
+    this.passwordProperty = new SimpleStringProperty("");
+    this.workingNumberProperty = new SimpleStringProperty("");
+    this.errorProperty = new SimpleStringProperty("");
+    this.loggedEmployee = new SimpleObjectProperty<Employee>();
+    this.model = model;
+  }
+
+  public void reset()
+  {
+    this.passwordProperty.setValue("");
+    this.workingNumberProperty.setValue("");
+  }
+
+  public boolean login()
+  {
+    Employee employee;
+    UserProfile userProfile;
+    try
     {
-        this.passwordProperty.setValue("");
-        this.workingNumberProperty.setValue("");
+      userProfile = new UserProfile(
+          Integer.parseInt(workingNumberProperty.get()),
+          passwordProperty.get());
+      errorProperty.set("");
+    }
+    catch (Exception e)
+    {
+      errorProperty.set("Invalid input");
+      return false;
     }
 
-    public boolean login(){
-        Employee employee;
-        UserProfile userProfile;
-        try {
-            userProfile = new UserProfile(Integer.parseInt(workingNumberProperty.get()), passwordProperty.get());
-            errorProperty.set("");
-        }
-        catch (Exception e){
-            errorProperty.set("Invalid input");
-            return false;
-        }
-
-
-        try {
-            employee = model.login(userProfile);
-            errorProperty.set("");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            errorProperty.set("Server is not working");
-            return false;
-        }
-
-if(employee == null){
-            errorProperty.set("Wrong working number or password");
-            return false;
-        }
-        else{
-            errorProperty.set("");
-            model.setUser(employee);
-            loggedEmployee.setValue(model.getUser());
-            return true;
-        }
+    try
+    {
+      employee = model.login(userProfile);
+      errorProperty.set("");
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+      errorProperty.set("Server is not working");
+      return false;
     }
 
-
-    public String getPasswordProperty() {
-        return passwordProperty.get();
+    if (employee == null)
+    {
+      errorProperty.set("Wrong working number or password");
+      return false;
     }
-
-    public StringProperty passwordPropertyProperty() {
-        return passwordProperty;
+    else
+    {
+      errorProperty.set("");
+      model.setUser(employee);
+      loggedEmployee.setValue(model.getUser());
+      return true;
     }
+  }
 
-    public String getWorkingNumberProperty() {
-        return workingNumberProperty.get();
-    }
+  public String getPasswordProperty()
+  {
+    return passwordProperty.get();
+  }
 
-    public StringProperty workingNumberPropertyProperty() {
-        return workingNumberProperty;
-    }
+  public StringProperty passwordPropertyProperty()
+  {
+    return passwordProperty;
+  }
 
-    public String getErrorProperty() {
-        return errorProperty.get();
-    }
+  public String getWorkingNumberProperty()
+  {
+    return workingNumberProperty.get();
+  }
 
-    public StringProperty errorPropertyProperty() {
-        return errorProperty;
-    }
-    public Employee getEmployeeProperty() {
-        return loggedEmployee.get();
-    }
+  public StringProperty workingNumberPropertyProperty()
+  {
+    return workingNumberProperty;
+  }
 
+  public String getErrorProperty()
+  {
+    return errorProperty.get();
+  }
+
+  public StringProperty errorPropertyProperty()
+  {
+    return errorProperty;
+  }
+
+  public Employee getEmployeeProperty()
+  {
+    return loggedEmployee.get();
+  }
 
 }
