@@ -72,4 +72,6 @@ public interface RemoteModel extends Remote
     TaskList getAllTasksByUserId(Integer workingNumber) throws RemoteException;
     
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
+    void updateEmployee(Employee employee) throws RemoteException;
+    void changePassword(Employee employee, String password) throws RemoteException;
 }

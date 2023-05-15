@@ -57,10 +57,7 @@ public class HrAndMainManagerProfileViewController implements ViewController
     managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
     managerRole.textProperty().bindBidirectional(this.viewModel.managerRoleProperty());
     managerPhoneNumber.textProperty().bindBidirectional(this.viewModel.managerPhoneNumberProperty());
-    if(((HrAndMainManagerProfileViewModel) viewModel).isProjectManagerWoman()){
-      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
-      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
-    }
+    isWoman();
     this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
       setWindow(((Employee) newValue).getRole());
     });
@@ -74,6 +71,7 @@ public class HrAndMainManagerProfileViewController implements ViewController
 
   @Override public void reset()
   {
+    isWoman();
 viewModel.load();
   }
 
@@ -107,6 +105,16 @@ viewModel.load();
       case MAIN_MANAGER -> {
         viewHandler.openView("home");
       }
+    }
+  }
+  public void isWoman(){
+    if (((HrAndMainManagerProfileViewModel) viewModel).isProjectManagerWoman())
+    {
+      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
+      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
+    }
+    else{
+      avatarPicture.setImage(new Image("/icons/man-avatar.png"));
     }
   }
   private void setWindow(EmployeeRole employeeRole) {

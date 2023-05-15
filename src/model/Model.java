@@ -48,4 +48,6 @@ public interface Model{
     void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id);
     
     void dismissEmployeesFromProject(ArrayList<Integer> removedEmployees, Long id);
+    void updateEmployee(Employee employee);
+    void changePassword(Employee employee, String password);
 }

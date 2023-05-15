@@ -44,9 +44,7 @@ public class WorkersViewModel implements ViewModel
     this.avatarPic=new SimpleObjectProperty<>();
   }
 
-  public void reset(){
-    load();
-  }
+
   public void load()
   {
     employee.setValue(model.getUser());

@@ -101,12 +101,6 @@ public class ModelManager implements Model
     }
     
     @Override
-    public void updateProject(Project project)
-    {
-        client.updateProject(project);
-    }
-    
-    @Override
     public EmployeeList getAllWorkers()
     {
         return client.getAllWorkers();
@@ -191,6 +185,21 @@ public class ModelManager implements Model
     public void dismissEmployeesFromProject(ArrayList<Integer> removedEmployees, Long id)
     {
         client.dismissEmployeesFromProject(removedEmployees, id);
+    }
+    
+    @Override
+    public Integer saveEmployee(Employee employee, String password)
+    
+    @Override
+    public void updateEmployee(Employee employee)
+    {
+        client.updateEmployee(employee);
+    }
+    
+    @Override
+    public void changePassword(Employee employee, String password)
+    {
+        client.changePassword(employee, password);
     }
     
     @Override

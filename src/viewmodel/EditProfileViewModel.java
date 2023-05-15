@@ -218,7 +218,7 @@ public boolean editPassword()
   private void editPasswordInDBS()
   {
     workingNumber = viewState.getEmployee().getWorkingNumber();
-    //model.changePassword(employee, password.getValue());
+    model.changePassword(viewState.getEmployee(), password.getValue());
   }
 
   private void add()
@@ -240,7 +240,7 @@ public boolean editPassword()
     System.out.println(genderChar);
     workingNumber = viewState.getEmployee().getWorkingNumber();
     Employee employee = new Employee(workingNumber, firstName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
-    //model.updateEmployee(employee);
+    model.updateEmployee(employee);
   }
 
 

@@ -17,6 +17,7 @@ import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
+import viewmodel.WorkerView.WorkerProfileViewModel;
 import viewmodel.WorkerView.WorkersViewModel;
 
 import java.io.FileInputStream;
@@ -84,14 +85,21 @@ public class ProjectManagerProfileViewController implements ViewController
     projectTitle.setCellValueFactory(
         cellData -> cellData.getValue().titleProperty());
     currentProjectsTable.setItems(((ProjectManagerProfileViewModel) viewModel).getCurrentProjectsTableTable());
-    if(((ProjectManagerProfileViewModel) viewModel).isProjectManagerWoman()){
-        avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
-        //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
-    }
+    isWoman();
     this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
       setWindow(((Employee) newValue).getRole());
     });
     setWindow(this.viewModel.getEmployeeProperty().getRole());
+  }
+  public void isWoman(){
+    if (((ProjectManagerProfileViewModel) viewModel).isProjectManagerWoman())
+    {
+      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
+      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
+    }
+    else{
+      avatarPicture.setImage(new Image("/icons/man-avatar.png"));
+    }
   }
 
   @Override public Region getRoot()
@@ -101,6 +109,7 @@ public class ProjectManagerProfileViewController implements ViewController
 
   @Override
   public void reset() {
+    isWoman();
     viewModel.reset();
     setWindow(this.viewModel.getEmployeeProperty().getRole());
   }

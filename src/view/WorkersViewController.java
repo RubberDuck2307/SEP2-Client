@@ -69,6 +69,24 @@ public class WorkersViewController implements ViewController
     edit.setCellValueFactory(button);
     //edit.setStyle("-fx-margin-right: 15px;");
     workersTables = FXCollections.observableArrayList();
+
+    fillInTable();
+    workerTable.setItems(workersTables);
+  }
+
+  @Override public Region getRoot()
+  {
+    return root;
+  }
+
+  @Override
+  public void reset() {
+    viewModel.load();
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
+    fillInTable();
+  }
+
+  private void fillInTable(){
     workersTables.clear();
     for (int i = 0; i < this.viewModel.getWorkersTable().size(); i++) {
       workersTables.add(new WorkersTable(this.viewModel.getEmployeess().get(i)));
@@ -81,18 +99,6 @@ public class WorkersViewController implements ViewController
       });
       workersTables.get(i).setButton(button1);
     }
-    workerTable.setItems(workersTables);
-  }
-
-  @Override public Region getRoot()
-  {
-    return root;
-  }
-
-  @Override
-  public void reset() {
-    viewModel.reset();
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   public void workerTableClick()
@@ -157,19 +163,23 @@ public class WorkersViewController implements ViewController
       case WORKER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
+        edit.setVisible(false);
       }
       case HR -> {
         projectHBox.setVisible(false);
         projectHBox.setManaged(false);
+        edit.setVisible(true);
       }
       case PROJECT_MANAGER -> {
 
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
+        edit.setVisible(false);
       }
       case MAIN_MANAGER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
+        edit.setVisible(false);
       }
     }
 

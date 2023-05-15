@@ -369,4 +369,28 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
+    @Override public void updateEmployee(Employee employee)
+    {
+        try
+        {
+            model.updateEmployee(employee);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void changePassword(Employee employee, String password)
+    {
+        try
+        {
+            model.changePassword(employee,password);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }
