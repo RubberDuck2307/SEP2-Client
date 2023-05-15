@@ -1,14 +1,9 @@
 package viewmodel;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
 import model.*;
 import util.Validator;
-import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,7 +29,9 @@ public class AddTaskViewModel implements ViewModel
     private int estimatedHoursInt;
     private Validator validator;
     private EmployeeList workers;
-    private ArrayList<Integer> assignedEmployeeIDs;
+    private EmployeeList employeesOfManager;
+    private EmployeeList employeesOfProject;
+    private ArrayList<Integer> assignedEmployeeWorkingNumbers;
     private StringProperty name;
     private StringProperty workingNumber;
     
@@ -57,7 +54,7 @@ public class AddTaskViewModel implements ViewModel
         this.errorPriorityMessage = new SimpleStringProperty("");
         this.validator = new Validator();
         this.workers = new EmployeeList();
-        this.assignedEmployeeIDs = new ArrayList<>();
+        this.assignedEmployeeWorkingNumbers = new ArrayList<>();
         this.name = new SimpleStringProperty("");
         this.workingNumber = new SimpleStringProperty("");
     }
@@ -68,8 +65,17 @@ public class AddTaskViewModel implements ViewModel
         Project project = viewState.getProject();
         nameOfTheProject.setValue(project.getName());
         deadline.setValue(project.getDeadline());
-        workers = model.getEmployeesAssignedToManager(4);
-        assignedEmployeeIDs.clear();
+        employeesOfManager = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
+        employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
+        workers = new EmployeeList();
+        for(int i=0;i<employeesOfManager.size();i++)
+        {
+            if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
+            {
+                workers.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
+            }
+        }
+        assignedEmployeeWorkingNumbers.clear();
         name.setValue(model.getUser().getName());
         workingNumber.setValue(model.getUser().getWorkingNumber().toString());
     }
@@ -120,7 +126,7 @@ public class AddTaskViewModel implements ViewModel
         {
             try
             {
-                System.out.println("this is current deadline: " + deadline.getValue());
+                //System.out.println("this is current deadline: " + deadline.getValue());
                 validator.validateTaskDeadline(deadline.getValue(), project.getDeadline());
             }
             catch (Exception e)
@@ -136,11 +142,10 @@ public class AddTaskViewModel implements ViewModel
         }
         if (valid)
         {
-            //TODO validate priority!!
             Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO", project.getId(), LocalDate.now());
-            System.out.println("Bobek: " + task2.toString());
+            //System.out.println("Bobek: " + task2.toString());
             Long id = model.saveTask(task2);
-            model.assignEmployeesToTask(assignedEmployeeIDs, id.longValue());
+            model.assignEmployeesToTask(assignedEmployeeWorkingNumbers, id.longValue());
         }
         return valid;
     }
@@ -210,7 +215,14 @@ public class AddTaskViewModel implements ViewModel
     
     public void assignWorker(Employee employee)
     {
-        assignedEmployeeIDs.add(employee.getWorkingNumber());
+        if (!assignedEmployeeWorkingNumbers.contains(employee.getWorkingNumber()))
+        {
+            assignedEmployeeWorkingNumbers.add(employee.getWorkingNumber());
+        }
+        else
+        {
+            assignedEmployeeWorkingNumbers.remove(employee.getWorkingNumber());
+        }
     }
     public EmployeeList getWorkers()
     {
