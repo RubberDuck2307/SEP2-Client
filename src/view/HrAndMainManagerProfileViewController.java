@@ -16,13 +16,14 @@ import model.EmployeeRole;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
+import viewmodel.WorkerView.HrAndMainManagerProfileViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
 import viewmodel.WorkerView.WorkersViewModel;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ProjectManagerProfileViewController implements ViewController
+public class HrAndMainManagerProfileViewController implements ViewController
 {
   @FXML private Button backButton;
   @FXML private ImageView avatarPic;
@@ -33,26 +34,12 @@ public class ProjectManagerProfileViewController implements ViewController
   @FXML private Label managerDateOfBirth;
   @FXML private Label managerPhoneNumber;
   @FXML private Label managerEmail;
-  /*current project*/
-  @FXML private TableView<ProjectsTable> currentProjectsTable;
-  @FXML private TableColumn<ProjectsTable, String> projectTitle;
-  @FXML private TableColumn<ProjectsTable, String> projectDeadline;
-
-
-
-  /*assigned workers*/
-  @FXML private TableView<viewmodel.WorkerView.WorkersTable> assignWorkersTable;
-  @FXML private TableColumn<viewmodel.WorkerView.WorkersTable, String> workerNumber;
-  @FXML private TableColumn<viewmodel.WorkerView.WorkersTable, String> workerName;
-  @FXML private TableColumn <viewmodel.WorkerView.WorkersTable, String> workerEmail;
-  @FXML private Button assignButton;
-
   @FXML private Label employeeName;
   @FXML private Label employeeWorkingNumber;
   @FXML private ImageView avatarPicture;
 
   private Region root;
-  private ProjectManagerProfileViewModel viewModel;
+  private HrAndMainManagerProfileViewModel viewModel;
   private ViewHandler viewHandler;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -60,10 +47,9 @@ public class ProjectManagerProfileViewController implements ViewController
   {
     this.root = root;
     this.viewHandler = viewHandler;
-    this.viewModel = (ProjectManagerProfileViewModel) viewModel;
+    this.viewModel = (HrAndMainManagerProfileViewModel) viewModel;
     this.viewModel.load();
     employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
-
     avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
     employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
     managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
@@ -71,22 +57,9 @@ public class ProjectManagerProfileViewController implements ViewController
     managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
     managerRole.textProperty().bindBidirectional(this.viewModel.managerRoleProperty());
     managerPhoneNumber.textProperty().bindBidirectional(this.viewModel.managerPhoneNumberProperty());
-    workerName.setCellValueFactory(
-        cellData -> cellData.getValue().getNameProperty());
-    workerNumber.setCellValueFactory(
-        cellData -> cellData.getValue().getNumberProperty());
-    workerEmail.setCellValueFactory(
-        cellData -> cellData.getValue().getEmailProperty());
-    assignWorkersTable.setItems(((ProjectManagerProfileViewModel) viewModel).getWorkersTable());
-
-    projectDeadline.setCellValueFactory(
-        cellData -> cellData.getValue().deadlineProperty());
-    projectTitle.setCellValueFactory(
-        cellData -> cellData.getValue().titleProperty());
-    currentProjectsTable.setItems(((ProjectManagerProfileViewModel) viewModel).getCurrentProjectsTableTable());
-    if(((ProjectManagerProfileViewModel) viewModel).isProjectManagerWoman()){
-        avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
-        //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
+    if(((HrAndMainManagerProfileViewModel) viewModel).isProjectManagerWoman()){
+      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
+      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
     }
     this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
       setWindow(((Employee) newValue).getRole());
@@ -99,10 +72,9 @@ public class ProjectManagerProfileViewController implements ViewController
     return root;
   }
 
-  @Override
-  public void reset() {
-    viewModel.reset();
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
+  @Override public void reset()
+  {
+viewModel.load();
   }
 
   public void openWorkersView()
@@ -114,10 +86,6 @@ public class ProjectManagerProfileViewController implements ViewController
     viewHandler.openView("projects");
   }
 
-
-  public void assignedWorkerTableClick()
-  {
-  }
 
   public void goBackButton()
   {
@@ -146,28 +114,22 @@ public class ProjectManagerProfileViewController implements ViewController
       case WORKER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
-        assignButton.setVisible(false);
       }
       case HR -> {
         projectHBox.setVisible(false);
         projectHBox.setManaged(false);
-        assignButton.setVisible(false);
       }
       case PROJECT_MANAGER -> {
+
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
-        assignButton.setVisible(false);
       }
       case MAIN_MANAGER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
-        assignButton.setVisible(true);
       }
     }
 
   }
 
-  @FXML public void assign(){
-    viewHandler.openView("assignWorkersToProjectManager");
-  }
 }

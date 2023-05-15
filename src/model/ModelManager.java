@@ -135,10 +135,27 @@ public class ModelManager implements Model {
         return client.getEmployeeByWorkingNumber(workingNumber);
     }
 
-    @Override
-    public Integer saveEmployee(Employee employee, String password) {
+    @Override public Project getProjectById(long projectId)
+    {
+        return client.getProjectById(projectId);
+    }
+
+    @Override public TaskList getAllTasksByUserId(Integer workingNumber)
+    {
+        return client.getAllTasksByUserId(workingNumber);
+    }
+
+    @Override public EmployeeList getAllWorkersManagersByWorkerWorkingNumber(
+        Integer workingNumber)
+    {
+        return client.getAllWorkersManagersByWorkerWorkingNumber(workingNumber);
+    }
+
+    @Override public Integer saveEmployee(Employee employee, String password)
+    {
         return client.saveEmployee(employee, password);
     }
+
 
     public void setUser(Employee user) {
         this.user = user;

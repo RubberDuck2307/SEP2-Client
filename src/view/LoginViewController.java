@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import model.EmployeeRole;
 import viewmodel.LoginViewModel;
 import viewmodel.ViewModel;
 
@@ -52,7 +53,21 @@ public class LoginViewController implements ViewController {
     @FXML
     private void login() {
         if (viewModel.login()){
-            viewHandler.openView("home");
+            EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
+            switch (role) {
+                case WORKER -> {
+                    viewHandler.openView("workerHomePage");
+                }
+                case HR -> {
+                    viewHandler.openView("home");
+                }
+                case PROJECT_MANAGER -> {
+                    viewHandler.openView("home");
+                }
+                case MAIN_MANAGER -> {
+                    viewHandler.openView("home");
+                }
+            }
         }
     }
 
