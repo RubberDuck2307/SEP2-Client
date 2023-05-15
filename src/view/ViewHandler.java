@@ -31,7 +31,7 @@ public class ViewHandler {
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        openView("login");
+        openView("notes");
     }
 
     public void openView(String id) {
@@ -96,6 +96,10 @@ public class ViewHandler {
             }
             case "home": {
                 root = loadViewController(viewModelFactory.getHomeViewModel(), "HomeView.fxml");
+                break;
+            }
+            case "notes": {
+                root = loadViewController(viewModelFactory.getNotesViewModel(), "NotesView.fxml");
                 break;
             }
             default: {

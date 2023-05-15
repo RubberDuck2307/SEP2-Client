@@ -12,14 +12,29 @@ public class NoteCellFactory implements Callback<ListView<Note>, ListCell<Note>>
     this.viewModel = viewModel;
   }
 
+  //@Override
+ // public ListCell<Note> call(ListView<Note> param) {
+  ///  return new NoteCell();
+  //}
+ // public static NoteCellFactory getInstance(NotesViewModel viewModel) {
+   // return new NoteCellFactory(viewModel);
+  //}
+
   @Override
   public ListCell<Note> call(ListView<Note> param) {
-    return viewModel.getNoteCell();
+    return new ListCell<>() {
+      @Override
+      protected void updateItem(Note note, boolean empty) {
+        super.updateItem(note, empty);
+        if (empty || note == null) {
+          setText(null);
+          setGraphic(null);
+        } else {
+          setGraphic(new NoteCell(note).getNoteVBox());
+        }
+      }
+    };
   }
-  public static NoteCellFactory getInstance(NotesViewModel viewModel) {
-    return new NoteCellFactory(viewModel);
-  }
-
 
 }
 

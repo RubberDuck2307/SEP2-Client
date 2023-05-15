@@ -79,5 +79,4 @@ public class NotesViewController implements ViewController
   public void openProjects() {
     viewHandler.openView("projects");
   }
-
 }
