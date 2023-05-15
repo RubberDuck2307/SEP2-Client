@@ -23,7 +23,7 @@ public interface ClientInterface {
 
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
-    void saveProject(Project project);
+    Long saveProject(Project project);
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Long saveTask(Task task);
 

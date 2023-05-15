@@ -110,8 +110,8 @@ public class AddProjectViewController implements ViewController {
         viewHandler.openLastWindow();
     }
 
-    private void assignEmployee(Employee employee) {
-
+    public void assignEmployee(Employee employee) {
+        viewModel.assignEmployee(employee);
     }
 
     public void openWorkersView() {

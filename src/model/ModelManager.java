@@ -84,9 +84,9 @@ public class ModelManager implements Model {
         return client.getAllProjectManagers();
     }
 
-    @Override public void saveProject(Project project)
+    @Override public Long saveProject(Project project)
     {
-        client.saveProject(project);
+        return client.saveProject(project);
     }
 
     @Override public EmployeeList getAllWorkers()

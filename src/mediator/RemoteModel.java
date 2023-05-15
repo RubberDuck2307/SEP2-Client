@@ -4,8 +4,6 @@ import model.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RemoteModel extends Remote {
@@ -16,16 +14,18 @@ public interface RemoteModel extends Remote {
 
     Long saveTask(Task task) throws RemoteException;
 
-    void saveProject(Project project)throws RemoteException;
     ProjectList getAllProjects() throws RemoteException;
 
     void changeTaskStatus(Long taskId, String status) throws RemoteException;
-    void assignWorkerToTask(Integer workingNumber, Long taskID) throws RemoteException;
+
+    Long saveProject(Project project)throws RemoteException;
 
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     EmployeeList getEmployeesAssignedToManager(int managerNumber) throws RemoteException;
-    Employee login(UserProfile userProfile) throws RemoteException;
 
+    Task getTask(Long projectId) throws RemoteException;
+    Employee login(UserProfile userProfile) throws RemoteException;
+    void assignWorkerToTask(Integer workingNumber, Long taskID) throws RemoteException;
     void removeWorkerFromTask(Integer workingNumber, Long taskID) throws RemoteException;
     void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     Integer saveEmployee(Employee employee, String password) throws RemoteException;
@@ -37,7 +37,6 @@ public interface RemoteModel extends Remote {
     void removeWorkerFromManager(int managerNumber, int workerNumber) throws RemoteException;
 
     EmployeeList getAllProjectManagers() throws RemoteException;
-    Task getTask(Long projectId) throws RemoteException;
     EmployeeList getAllWorkers() throws RemoteException;
 
     EmployeeList getAllEmployeesAssignedToProject(Long projectId) throws RemoteException;
@@ -49,6 +48,6 @@ public interface RemoteModel extends Remote {
     Employee getEmployeeByWorkingNumber(int workingNumber) throws RemoteException;
     EmployeeList getAllEmployees() throws RemoteException;
     Project getProjectById(long projectId) throws RemoteException;
-  TaskList getAllTasksByUserId(Integer workingNumber) throws RemoteException;
+    TaskList getAllTasksByUserId (Integer workingNumber) throws RemoteException;
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
 }
