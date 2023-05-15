@@ -194,11 +194,11 @@ public class Client implements ClientInterface {
         }
     }
 
-    @Override public void saveProject(Project project)
+    @Override public Long saveProject(Project project)
     {
         try
         {
-            model.saveProject(project);
+            return model.saveProject(project);
         }
         catch (RemoteException e)
         {

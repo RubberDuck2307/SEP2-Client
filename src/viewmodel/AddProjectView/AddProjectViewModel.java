@@ -17,157 +17,181 @@ import java.util.Objects;
 
 public class AddProjectViewModel implements ViewModel
 {
-    private Validator validator;
-    private ObjectProperty<Image> avatarPic;
-    private ObjectProperty<Employee> employee;
-    private StringProperty titleProperty;
-    private StringProperty titleEProperty;
-    private SimpleObjectProperty<LocalDate> deadlineProperty;
-    private StringProperty deadlineEProperty;
-    private StringProperty descriptionProperty;
-    private ObservableList<AssignManagersTable> assignManagersObservableList;
-    private AssignManagersTable assignManagersTable;
-    private EmployeeList employeesList;
-    private ObservableList<Employee> employees;
-    private StringProperty errorProperty;
-    private EmployeeList managers;
-    private EmployeeList assignedManagers;
-    private StringProperty name;
-    private StringProperty workingNumber;
-    private ViewState viewState;
-    private Model model;
-    
-    public AddProjectViewModel(Model model, ViewState viewState)
-    {
-        this.model = model;
-        this.viewState = viewState;
-        this.employee=new SimpleObjectProperty<>();
-        this.titleProperty = new SimpleStringProperty();
-        this.descriptionProperty = new SimpleStringProperty();
-        this.titleEProperty = new SimpleStringProperty();
-        this.deadlineEProperty = new SimpleStringProperty();
-        this.deadlineProperty = new SimpleObjectProperty<>();
-        this.avatarPic=new SimpleObjectProperty<>();
-        managers = new EmployeeList();
-        this.validator = new Validator();
-        employeesList = new EmployeeList();
-        this.name = new SimpleStringProperty();
-        this.workingNumber = new SimpleStringProperty();
-        assignManagersObservableList = FXCollections.observableArrayList();
-        employees = FXCollections.observableArrayList();
-    }
-    
-    public void load()
-    {
-        employee.setValue(model.getUser());
-        setAvatarPicture();
-        managers = model.getAllProjectManagers();
-        name.setValue(this.model.getUser().getName());
-        workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
-    }
-    
-    public void createButtonPressed()
-    {
-        model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
-    }
-    
-    public void reset()
-    {
-        titleProperty.setValue("");
-        descriptionProperty.setValue("");
-        deadlineProperty.setValue(null);
+  private Validator validator;
+  private ObjectProperty<Image> avatarPic;
+  private ObjectProperty<Employee> employee;
+  private StringProperty titleProperty;
+  private StringProperty titleEProperty;
+  private SimpleObjectProperty<LocalDate> deadlineProperty;
+  private StringProperty deadlineEProperty;
+  private StringProperty descriptionProperty;
+  private ObservableList<AssignManagersTable> assignManagersObservableList;
+  private AssignManagersTable assignManagersTable;
+  private StringProperty errorProperty;
+  private EmployeeList managers;
+  private EmployeeList employeesOfProject;
+  private StringProperty name;
+  private StringProperty workingNumber;
+  private ViewState viewState;
+  private Model model;
 
-        load();
-    }
-    
-    public boolean addProject()
+  public AddProjectViewModel(Model model, ViewState viewState)
+  {
+    this.model = model;
+    this.viewState = viewState;
+    this.employee = new SimpleObjectProperty<>();
+    this.titleProperty = new SimpleStringProperty();
+    this.descriptionProperty = new SimpleStringProperty();
+    this.titleEProperty = new SimpleStringProperty();
+    this.deadlineEProperty = new SimpleStringProperty();
+    this.deadlineProperty = new SimpleObjectProperty<>();
+    this.avatarPic = new SimpleObjectProperty<>();
+    managers = new EmployeeList();
+    this.validator = new Validator();
+    employeesOfProject = new EmployeeList();
+    this.name = new SimpleStringProperty();
+    this.workingNumber = new SimpleStringProperty();
+    assignManagersObservableList = FXCollections.observableArrayList();
+  }
+
+  public void load()
+  {
+    employee.setValue(model.getUser());
+    setAvatarPicture();
+    managers = model.getAllProjectManagers();
+    name.setValue(this.model.getUser().getName());
+    workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
+  }
+
+  public void assignEmployee(Employee employee)
+  {
+    if (!employeesOfProject.containsByWorkingNumber(
+        employee.getWorkingNumber()))
     {
-        Boolean valid = true;
-        try
-        {
-            validator.validateTitle(titleProperty.getValue());
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            titleEProperty.setValue(e.getMessage());
-        }
-        try
-        {
-            validator.validateDeadline(deadlineProperty.get());
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            deadlineEProperty.setValue(e.getMessage());
-        }
-        if (valid)
-            model.saveProject(new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get()));
-        return valid;
+      employeesOfProject.addEmployee(employee);
     }
-    
-    public StringProperty getTitleProperty()
+    else
     {
-        return titleProperty;
+      employeesOfProject.removeByWorkingNumber(employee.getWorkingNumber());
     }
-    
-    public StringProperty getDescriptionProperty()
+  }
+
+  public void reset()
+  {
+    titleProperty.setValue("");
+    descriptionProperty.setValue("");
+    deadlineProperty.setValue(null);
+
+    load();
+  }
+
+  public boolean addProject()
+  {
+    Boolean valid = true;
+    try
     {
-        return descriptionProperty;
+      validator.validateTitle(titleProperty.getValue());
     }
-    public Employee getEmployeeProperty() {
-        return employee.get();
-    }
-    
-    public StringProperty getTitleErrorProperty()
+    catch (Exception e)
     {
-        return titleEProperty;
+      valid = false;
+      titleEProperty.setValue(e.getMessage());
     }
-    
-    public StringProperty getDeadlineErrorProperty()
+    try
     {
-        return deadlineEProperty;
+      validator.validateDeadline(deadlineProperty.get());
     }
-    
-    public SimpleObjectProperty<LocalDate> getDeadlineProperty()
+    catch (Exception e)
     {
-        return deadlineProperty;
+      valid = false;
+      deadlineEProperty.setValue(e.getMessage());
     }
-    
-    public EmployeeList getManagers()
+    if (valid)
     {
-        return managers;
+      Project project = new Project(titleProperty.get(), descriptionProperty.get(), deadlineProperty.get());
+      Long ID=model.saveProject(project);
+      for (int i = 0; i < employeesOfProject.size(); i++)
+      {
+        model.assignEmployeeToProject(employeesOfProject.get(i).getWorkingNumber(), ID);
+      }
     }
-    
-    public String getName()
+    return valid;
+  }
+
+  public StringProperty getTitleProperty()
+  {
+    return titleProperty;
+  }
+
+  public StringProperty getDescriptionProperty()
+  {
+    return descriptionProperty;
+  }
+
+  public Employee getEmployeeProperty()
+  {
+    return employee.get();
+  }
+
+  public StringProperty getTitleErrorProperty()
+  {
+    return titleEProperty;
+  }
+
+  public StringProperty getDeadlineErrorProperty()
+  {
+    return deadlineEProperty;
+  }
+
+  public SimpleObjectProperty<LocalDate> getDeadlineProperty()
+  {
+    return deadlineProperty;
+  }
+
+  public EmployeeList getManagers()
+  {
+    return managers;
+  }
+
+  public String getName()
+  {
+    return name.get();
+  }
+
+  public StringProperty nameProperty()
+  {
+    return name;
+  }
+
+  public String getWorkingNumber()
+  {
+    return workingNumber.get();
+  }
+
+  public StringProperty workingNumberProperty()
+  {
+    return workingNumber;
+  }
+
+  public boolean isWoman()
+  {
+    return Objects.equals(employee.getValue().getGender(), "F");
+  }
+
+  public void setAvatarPicture()
+  {
+    if (isWoman())
     {
-        return name.get();
+      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
     }
-    public StringProperty nameProperty()
+    else
     {
-        return name;
+      avatarPic.setValue(new Image("/icons/man-avatar.png"));
     }
-    public String getWorkingNumber()
-    {
-        return workingNumber.get();
-    }
-    public StringProperty workingNumberProperty()
-    {
-        return workingNumber;
-    }
-    public boolean isWoman(){
-        return Objects.equals(employee.getValue().getGender(), "F");
-    }
-    public void setAvatarPicture(){
-        if(isWoman()){
-            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-        }
-        else{
-            avatarPic.setValue(new Image("/icons/man-avatar.png"));
-        }
-    }
-    public ObjectProperty<Image> avatarPicProperty()
-    {
-        return avatarPic;
-    }
+  }
+
+  public ObjectProperty<Image> avatarPicProperty()
+  {
+    return avatarPic;
+  }
 }

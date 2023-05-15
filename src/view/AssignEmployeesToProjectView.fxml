@@ -155,7 +155,7 @@
                                                 <Insets left="10.0" top="20.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Label fx:id="headlineLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="1044.0" styleClass="heading" text="ASSIGN WORKERS" textAlignment="CENTER" />
+                                        <Label fx:id="headlineLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="1044.0" styleClass="heading" text="ASSIGN EMPLOYEES" textAlignment="CENTER" />
                                     </children>
                                 </HBox>
                                 <HBox layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="1098.0">
