@@ -19,6 +19,8 @@ public interface ClientInterface {
     EmployeeList getAllProjectManagers();
     EmployeeList getAllWorkers();
 
+    void changeTaskStatus(Long taskId, String status);
+
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     void saveProject(Project project);

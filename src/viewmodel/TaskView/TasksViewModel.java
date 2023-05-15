@@ -196,6 +196,11 @@ public class TasksViewModel implements ViewModel {
         } else if (!model.getUser().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
             return false;
         }
+        try {
+            model.changeTaskStatus(task.getId(), status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return true;
 
@@ -231,5 +236,10 @@ public class TasksViewModel implements ViewModel {
             avatarPic.setValue(new Image("/icons/man-avatar.png"));
         }
     }
+    public Employee getEmployeeProperty() {
+        return employee.get();
+    }
+
+
 
 }

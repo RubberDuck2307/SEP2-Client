@@ -93,6 +93,17 @@ public class Client implements ClientInterface {
         }
     }
 
+
+    public void changeTaskStatus(Long taskId, String status) {
+        try
+        {
+            model.changeTaskStatus(taskId, status);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
     @Override public EmployeeList getEmployeesAssignedToManager(
         int managerNumber)
     {
