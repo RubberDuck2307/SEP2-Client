@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Button;
 import model.Employee;
 
 public class WorkersTable
@@ -13,6 +14,7 @@ public class WorkersTable
   private StringProperty name;
   private StringProperty email;
   private StringProperty role;
+  private Button button;
   public WorkersTable(Employee employee){
     this.number = new SimpleIntegerProperty(employee.getWorkingNumber());
     this.name = new SimpleStringProperty(employee.getName());
@@ -24,7 +26,15 @@ public class WorkersTable
   {
     return number.get();
   }
+  public Button getButton()
+  {
+    return button;
+  }
 
+  public void setButton(Button button)
+  {
+    this.button = button;
+  }
   public IntegerProperty numberProperty()
   {
     return number;

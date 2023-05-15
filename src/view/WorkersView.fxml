@@ -204,8 +204,9 @@
                                                     <columns>
                                                         <TableColumn fx:id="name" prefWidth="278.39998626708984" text="Name" />
                                                         <TableColumn fx:id="role" minWidth="0.0" prefWidth="235.20001220703125" text="Role" />
-                                                        <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="228.00006103515625" text="Working number" />
-                                                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="292.800048828125" text="E-mail" />
+                                                        <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="208.0" text="Working number" />
+                                                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="192.00006103515625" text="E-mail" />
+                                          <TableColumn fx:id="edit" minWidth="0.0" prefWidth="120.7999267578125" text="Edit" />
                                                     </columns>
                                                 </TableView>
                                             </children>
