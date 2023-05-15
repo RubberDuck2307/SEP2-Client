@@ -112,7 +112,7 @@ public class ProjectsViewController implements ViewController {
             Button button1 = new Button(" ");
             Button button2 = new Button(" ");
             button1.setId("showTasks");
-            button2.setId("editProject");
+            button2.setId("button-edit");
             Long index = (long) i;
             button1.setOnAction(e ->
             {
@@ -125,7 +125,8 @@ public class ProjectsViewController implements ViewController {
                 viewHandler.openView("editProject");
             });
             projectsTables.get(i).setBtton(button1);
-            projectsTables.get(i).setBtton(button2);
+            
+            projectsTables.get(i).setButtonEdit(button2);
         }
        
         assignButton.setVisible(false);
@@ -227,5 +228,9 @@ public class ProjectsViewController implements ViewController {
     public void openHome()
     {
         viewHandler.openView("home");
+    }
+    public void openEditProject()
+    {
+        viewHandler.openView("editProject");
     }
 }
