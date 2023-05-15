@@ -4,6 +4,7 @@ import model.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+
 import java.util.ArrayList;
 
 public interface RemoteModel extends Remote {
@@ -44,4 +45,7 @@ public interface RemoteModel extends Remote {
     EmployeeList getEmployeesOfTask(Long taskId) throws RemoteException;
     Employee getEmployeeByWorkingNumber(int workingNumber) throws RemoteException;
     EmployeeList getAllEmployees() throws RemoteException;
+    Project getProjectById(long projectId) throws RemoteException;
+  TaskList getAllTasksByUserId(Integer workingNumber) throws RemoteException;
+    EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
 }

@@ -75,7 +75,8 @@ public class WorkersViewController implements ViewController
 
   @Override
   public void reset() {
-
+    viewModel.reset();
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
 
   public void workerTableClick()
@@ -86,10 +87,17 @@ public class WorkersViewController implements ViewController
             workerTable.getSelectionModel().getSelectedItem().getNumber());
         viewHandler.openView("projectManagerPage");
       }
+      else if(viewModel.isWorker(workerTable.getSelectionModel().getSelectedItem().getNumber())){
+        viewModel.chooseWorker(
+            workerTable.getSelectionModel().getSelectedItem().getNumber());
+        viewHandler.openView("workerProfile");
+      }
+      else{
+        viewModel.chooseWorker(
+            workerTable.getSelectionModel().getSelectedItem().getNumber());
+        viewHandler.openView("hrAndMainManagerProfile");
+      }
     }
-  }
-  public void projectButtonTableClick() {
-
   }
   public void openProjects()
   {
@@ -108,7 +116,21 @@ public class WorkersViewController implements ViewController
   }
   public void openHome()
   {
-    viewHandler.openView("home");
+    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
+    switch (role) {
+      case WORKER -> {
+        viewHandler.openView("workerHomePage");
+      }
+      case HR -> {
+        viewHandler.openView("home");
+      }
+      case PROJECT_MANAGER -> {
+        viewHandler.openView("home");
+      }
+      case MAIN_MANAGER -> {
+        viewHandler.openView("home");
+      }
+    }
   }
   private void setWindow(EmployeeRole employeeRole) {
     switch (employeeRole) {

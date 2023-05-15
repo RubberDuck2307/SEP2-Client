@@ -544,6 +544,22 @@
 -fx-font-size: 11px;
 -fx-font-weight: 700;
 }
+.log-out-button{
+ -fx-background-color: #007BFF;
+   -fx-text-fill: white;
+   -fx-font-size: 12px;
+   -fx-border-radius: 5px;
+   -fx-background-radius: 5px;
+
+}
+.home-page-heading{
+ -fx-background-color: #E6F2FE;
+   -fx-text-fill: black;
+   -fx-font-size: 12px;
+   -fx-border-radius: 5px;
+   -fx-background-radius: 5px;
+   -fx-border-color: #007BFF;
+}
 
 
 

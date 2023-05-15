@@ -41,6 +41,10 @@ public class WorkersViewModel implements ViewModel
     this.email = new SimpleStringProperty();
     this.avatarPic=new SimpleObjectProperty<>();
   }
+
+  public void reset(){
+    load();
+  }
   public void load()
   {
     employee.setValue(model.getUser());
@@ -64,6 +68,10 @@ public class WorkersViewModel implements ViewModel
   public boolean isMainManager(int workingNumber){
     Employee employee = model.getEmployeeByWorkingNumber(workingNumber);
     return employee.getRole() == EmployeeRole.PROJECT_MANAGER;
+  }
+  public boolean isWorker(int workingNumber){
+    Employee employee = model.getEmployeeByWorkingNumber(workingNumber);
+    return employee.getRole() == EmployeeRole.WORKER;
   }
 
   public StringProperty getEmployeeName()

@@ -63,10 +63,13 @@ public class TasksViewModel implements ViewModel
     this.number = new SimpleIntegerProperty();
     this.isTaskSelected = new SimpleBooleanProperty();
   }
+  public void reset(){
+    isTaskSelected.set(false);
+    load();
+  }
 
   public void load()
   {
-    isTaskSelected.set(false);
     Project project = viewState.getProject();
     employee.setValue(model.getUser());
     setAvatarPicture();
@@ -78,6 +81,7 @@ public class TasksViewModel implements ViewModel
     taskDescription.setValue("Select a task to see the description and comments");
     tasksTables.clear();
     tasks.clear();
+    workersTables.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
       tasksTables.add(new TasksTable(taskList.getTask(i)));
@@ -188,7 +192,6 @@ public class TasksViewModel implements ViewModel
     Task task=taskList.getTaskById(id);
     taskName.setValue(task.getName());
     taskDescription.setValue(task.getDescription());
-    System.out.println(task);
     viewState.setTask(task);
     EmployeeList employeeList = model.getEmployeesOfTask(id);
     workersTables.clear();
@@ -225,4 +228,8 @@ public class TasksViewModel implements ViewModel
       avatarPic.setValue(new Image("/icons/man-avatar.png"));
     }
   }
+  public Employee getEmployeeProperty() {
+    return employee.get();
+  }
+
 }

@@ -17,7 +17,7 @@ import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ProjectManagerProfileViewModel implements ViewModel
+public class HrAndMainManagerProfileViewModel implements ViewModel
 {
   private Model model;
   private ViewState viewState;
@@ -31,18 +31,8 @@ public class ProjectManagerProfileViewModel implements ViewModel
   private StringProperty managerPhoneNumber;
   private StringProperty managerEmail;
 
-  private ObservableList<WorkersTable> workersTables;
-  private StringProperty name;
-  private IntegerProperty number;
-  private StringProperty email;
-  private EmployeeList employeeList;
 
-  private ObservableList<ProjectsTable> currentProjectsTable;
-  private StringProperty projectTitle;
-  private StringProperty projectDeadline;
-  private ProjectList projectList;
-
-  public ProjectManagerProfileViewModel(Model model, ViewState viewState)
+  public HrAndMainManagerProfileViewModel(Model model, ViewState viewState)
   {
     this.employeeName=new SimpleStringProperty();
     this.employeeWorkingNumber=new SimpleStringProperty();
@@ -50,10 +40,6 @@ public class ProjectManagerProfileViewModel implements ViewModel
     this.avatarPic=new SimpleObjectProperty<>();
     this.model = model;
     this.viewState = viewState;
-    this.workersTables = FXCollections.observableArrayList();
-    this.name = new SimpleStringProperty();
-    this.number = new SimpleIntegerProperty();
-    this.email = new SimpleStringProperty();
 
     this.managerName = new SimpleStringProperty();
     this.managerRole = new SimpleStringProperty();
@@ -61,14 +47,6 @@ public class ProjectManagerProfileViewModel implements ViewModel
     this.managerPhoneNumber = new SimpleStringProperty();
     this.managerEmail = new SimpleStringProperty();
 
-    this.currentProjectsTable = FXCollections.observableArrayList();
-    this.projectDeadline = new SimpleStringProperty();
-    this.projectTitle = new SimpleStringProperty();
-  }
-
-
-  public void reset(){
-      load();
   }
   public void load()
   {
@@ -85,22 +63,7 @@ public class ProjectManagerProfileViewModel implements ViewModel
     managerRole.setValue(employee.getRole().toString());
     managerDateOfBirth.setValue(employee.getDob().toString());
 
-    projectList = model.getAllProjectsByWorkingNumber(employee.getWorkingNumber());
-    employeeList = model.getEmployeesAssignedToManager(employee.getWorkingNumber());
-    workersTables.clear();
-    for (int i = 0; i < employeeList.size(); i++)
-    {
-      workersTables.add(new viewmodel.WorkerView.WorkersTable(employeeList.get(i)));
-    }
-    currentProjectsTable.clear();
-    for (int i = 0; i < projectList.size(); i++)
-    {
-      currentProjectsTable.add(new ProjectsTable(projectList.get(i)));
-    }
-
   }
-  public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
-  public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
 
   public String getManagerName()
   {

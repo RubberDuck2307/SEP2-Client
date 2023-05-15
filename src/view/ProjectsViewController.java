@@ -22,6 +22,7 @@ public class ProjectsViewController implements ViewController {
     //public TableColumn<ProjectsTable, Button> openTask;
     public TableColumn<ProjectsTable, Button> edit;
     @FXML public ImageView avatarPic;
+    @FXML private HBox homeButton;
     @FXML
     private Label nameLabel;
     @FXML
@@ -220,14 +221,28 @@ public class ProjectsViewController implements ViewController {
     }
 
 
-    public void openWorkers(MouseEvent mouseEvent)
+    public void openWorkers()
     {
         viewHandler.openView("workers");
     }
 
     public void openHome()
     {
-        viewHandler.openView("home");
+        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
+        switch (role) {
+            case WORKER -> {
+                viewHandler.openView("workerHomePage");
+            }
+            case HR -> {
+                viewHandler.openView("home");
+            }
+            case PROJECT_MANAGER -> {
+                viewHandler.openView("home");
+            }
+            case MAIN_MANAGER -> {
+                viewHandler.openView("home");
+            }
+        }
     }
     public void openEditProject()
     {
