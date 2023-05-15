@@ -51,6 +51,7 @@ public class EditProjectViewModel implements ViewModel
         this.deadlineProperty = new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
         managers = new EmployeeList();
+        assignedManagers = new EmployeeList();
         this.validator = new Validator();
         employeesList = new EmployeeList();
         this.name = new SimpleStringProperty();
@@ -61,6 +62,9 @@ public class EditProjectViewModel implements ViewModel
     
     public void load()
     {
+        titleProperty.setValue(viewState.getProject().getName());
+        deadlineProperty.setValue(viewState.getProject().getDeadline());
+        descriptionProperty.setValue(viewState.getProject().getDescription());
         employee.setValue(model.getUser());
         setAvatarPicture();
         managers = model.getAllProjectManagers();
@@ -100,7 +104,8 @@ public class EditProjectViewModel implements ViewModel
         }
         if (valid)
         {
-        
+        Project project2 = new Project(viewState.getProject().getId(),viewState.getProject().getName(),viewState.getProject().getDescription(),viewState.getProject().getDeadline());
+        model.updateProject(project2);
         }
             //
         return valid;

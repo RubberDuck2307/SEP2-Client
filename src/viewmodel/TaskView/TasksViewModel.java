@@ -1,4 +1,4 @@
-package viewmodel;
+package viewmodel.TaskView;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -9,6 +9,8 @@ import model.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
+import viewmodel.ViewModel;
+import viewmodel.ViewState;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

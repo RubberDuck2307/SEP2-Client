@@ -3,8 +3,8 @@ package viewmodel;
 import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
-import viewmodel.WorkerView.ProjectManagerProfileViewModel;
-import viewmodel.WorkerView.WorkersViewModel;
+import viewmodel.TaskView.TasksViewModel;
+import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
 {

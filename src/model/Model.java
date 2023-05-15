@@ -24,6 +24,7 @@ public interface Model{
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     EmployeeList getAllProjectManagers();
     void saveProject(Project project);
+    void updateProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
     Task getTask(Long projectId);

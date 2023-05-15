@@ -83,6 +83,11 @@ public class ModelManager implements Model {
     {
         client.saveProject(project);
     }
+    
+    @Override public  void updateProject(Project project)
+    {
+        client.updateProject(project);
+    }
 
     @Override public EmployeeList getAllWorkers()
     {

@@ -65,6 +65,17 @@ public class EditProjectViewController implements ViewController
         title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
         description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
         deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
+        managersTable.setItems(workersWithCheckboxTables);
+        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
+        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
+        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
+        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
+        fillInManagerTable();
+    }
+    
+    private void fillInManagerTable()
+    {
+        workersWithCheckboxTables.clear();
         for (int i = 0; i < this.viewModel.getManagers().size(); i++) {
             Employee employee = this.viewModel.getManagers().get(i);
             workersWithCheckboxTables.add(new WorkersWithCheckboxTable(employee));
@@ -73,34 +84,9 @@ public class EditProjectViewController implements ViewController
             checkBox.setOnAction(e -> {
                 assignEmployee(employee);
             });
-            checkBox.setSelected(false);
+            checkBox.setSelected(this.viewModel.isEmployeeAssigned(employee));
             workersWithCheckboxTables.get(i).setCheckbox(checkBox);
         }
-        managersTable.setItems(workersWithCheckboxTables);
-        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
-        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
-        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
-    }
-    
-    private void fillInManagerTable()
-    {
-        for (int i = 0; i < viewModel.getManagers().size(); i++)
-        {
-            //System.out.println(viewModel.getEmployees().get(i).getName());
-            Employee employee = viewModel.getManagers().get(i);
-            workersWithCheckboxTables.add(new WorkersWithCheckboxTable(employee));
-            CheckBox checkBox = new CheckBox(" ");
-            checkBox.setId("checklist");
-            checkBox.setOnAction(e ->
-            {
-                switchWorker(employee);
-                checkBox.setSelected(viewModel.isEmployeeAssigned(employee));
-            });
-            checkBox.setSelected(viewModel.isEmployeeAssigned(employee));
-            workersWithCheckboxTables.get(i).setCheckbox(checkBox);
-        }
-        managersTable.setItems(workersWithCheckboxTables);
     }
     
     @Override

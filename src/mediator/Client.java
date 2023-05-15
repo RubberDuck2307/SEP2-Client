@@ -194,6 +194,18 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+    
+    @Override public void updateProject(Project project)
+    {
+        try
+        {
+            model.updateProject(project);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID){
         try
