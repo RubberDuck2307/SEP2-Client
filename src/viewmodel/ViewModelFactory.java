@@ -3,6 +3,7 @@ package viewmodel;
 import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
+import viewmodel.TaskView.TasksViewModel;
 import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
@@ -25,6 +26,7 @@ public class ViewModelFactory
     private HrAndMainManagerProfileViewModel hrAndMainManagerProfileViewModel;
     private WorkerProfileViewModel workerProfileViewModel;
     private WorkerHomeViewModel workerHomeViewModel;
+    private EditProfileViewModel editProfileViewModel;
     public ViewModelFactory(Model model)
     {
         this.model = model;
@@ -45,6 +47,7 @@ public class ViewModelFactory
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
         this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
+        this.editProfileViewModel = new EditProfileViewModel(model,viewState);
     }
     
     public Model getModel()
@@ -65,6 +68,11 @@ public class ViewModelFactory
     public HrAndMainManagerProfileViewModel getHrAndMainManagerProfileViewModel()
     {
         return hrAndMainManagerProfileViewModel;
+    }
+
+    public EditProfileViewModel getEditProfileViewModel()
+    {
+        return editProfileViewModel;
     }
 
     public TasksViewModel getTasksViewModel()

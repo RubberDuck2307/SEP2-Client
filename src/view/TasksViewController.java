@@ -13,6 +13,7 @@ import model.EmployeeRole;
 import viewmodel.*;
 import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
+import viewmodel.TaskView.TasksViewModel;
 import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewController implements ViewController

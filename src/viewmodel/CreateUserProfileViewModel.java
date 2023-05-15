@@ -227,6 +227,7 @@ public class CreateUserProfileViewModel implements ViewModel
         Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
         workingNumber = model.saveEmployee(employee, password.getValue());
     }
+
     
     
     public String getFirstName()
