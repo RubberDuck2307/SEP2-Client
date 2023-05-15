@@ -52,6 +52,11 @@ public class Task implements Serializable {
     private EmployeeList workers;
 
     /**
+     * The list of tags of the task.
+     */
+    private TagList tags;
+
+    /**
      * 10-argument constructor for the class Task.
      * @param id
      * @param name
@@ -75,6 +80,7 @@ public class Task implements Serializable {
         this.projectId = projectId;
         this.startingDate = startingDate;
         this.workers = workers;
+        this.tags = new TagList();
     }
 
     /**
@@ -98,6 +104,7 @@ public class Task implements Serializable {
         this.projectId = projectId;
         this.startingDate = startingDate;
         workers = new EmployeeList();
+        this.tags = new TagList();
     }
 
     /**
@@ -123,6 +130,7 @@ public class Task implements Serializable {
         this.projectId = projectId;
         this.startingDate = startingDate;
         workers = new EmployeeList();
+        this.tags = new TagList();
     }
 
     public Long getId() {
@@ -220,6 +228,19 @@ public class Task implements Serializable {
         }
         return false;
     }
+
+    public void setEstimatedTime(Integer estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public TagList getTags() {
+        return tags;
+    }
+
+    public void setTags(TagList tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -233,8 +254,7 @@ public class Task implements Serializable {
                 ", projectId=" + projectId +
                 ", startingDate=" + startingDate +
                 ", workers=" + workers +
+                ", tags=" + tags +
                 '}';
     }
-
-
 }
