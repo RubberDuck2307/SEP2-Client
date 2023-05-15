@@ -5,6 +5,7 @@ import model.*;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RemoteModel extends Remote {
@@ -17,6 +18,8 @@ public interface RemoteModel extends Remote {
 
     void saveProject(Project project)throws RemoteException;
     ProjectList getAllProjects() throws RemoteException;
+
+    void changeTaskStatus(Long taskId, String status) throws RemoteException;
     void assignWorkerToTask(Integer workingNumber, Long taskID) throws RemoteException;
 
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;

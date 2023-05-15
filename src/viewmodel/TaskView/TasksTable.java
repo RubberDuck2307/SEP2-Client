@@ -17,6 +17,7 @@ public class TasksTable
     private StringProperty priority;
     private StringProperty status;
     private Button button;
+    private Button statusButton;
     private Long id;
     private StringProperty tags;
     private Button btton;
@@ -110,6 +111,14 @@ public class TasksTable
     public StringProperty tagsProperty()
     {
         return tags;
+    }
+
+    public Button getStatusButton() {
+        return statusButton;
+    }
+
+    public void setStatusButton(Button statusButton) {
+        this.statusButton = statusButton;
     }
 
     public ObservableValue<String> getTitleProperty()

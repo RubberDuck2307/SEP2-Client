@@ -11,6 +11,8 @@ public interface Model{
 
     EmployeeList getAllWorkers();
 
+    void changeTaskStatus(Long taskId, String status);
+
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
     EmployeeList getEmployeesAssignedToManager(int managerNumber);

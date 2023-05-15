@@ -3,6 +3,7 @@ package model;
 
 import mediator.ClientInterface;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelManager implements Model {
@@ -33,6 +34,10 @@ public class ModelManager implements Model {
     public EmployeeList getEmployeesAssignedToManager(
             int managerNumber) {
         return client.getEmployeesAssignedToManager(managerNumber);
+    }
+
+    public void changeTaskStatus(Long taskId, String status){
+        client.changeTaskStatus(taskId, status);
     }
 
     @Override

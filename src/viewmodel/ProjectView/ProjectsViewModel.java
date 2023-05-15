@@ -58,7 +58,7 @@ public class ProjectsViewModel implements ViewModel
     public void load(){
         employee.setValue(model.getUser());
         setAvatarPicture();
-        if (model.getUser().getRole().equals(EmployeeRole.PROJECT_MANAGER))
+        if (model.getUser().getRole().equals(EmployeeRole.PROJECT_MANAGER) || model.getUser().getRole().equals(EmployeeRole.WORKER))
         {
             projectList = model.getAllProjectsByWorkingNumber(model.getUser().getWorkingNumber());
         }

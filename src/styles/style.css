@@ -102,6 +102,24 @@
 
 }
 
+#button-in-progress{
+    -fx-background-color: #a5f3fc ;
+    -size: 70;
+    -fx-background-radius: 70px;
+}
+
+#button-done{
+    -fx-background-color: #bbf7d0;
+    -size: 70;
+    -fx-background-radius: 70px;
+}
+
+#button-todo{
+    -fx-background-color: #fde68a;
+    -size: 70;
+    -fx-background-radius: 70px;
+}
+
 .button-add{
     -fx-background-color: #007BFF ;
 
