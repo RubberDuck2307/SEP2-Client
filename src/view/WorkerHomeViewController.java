@@ -16,21 +16,16 @@ import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
 import viewmodel.WorkerView.TasksTableForWorkerProfile;
+import viewmodel.WorkerView.WorkerHomeViewModel;
 import viewmodel.WorkerView.WorkerProfileViewModel;
 
-public class WorkerProfileViewController implements ViewController
+public class WorkerHomeViewController implements ViewController
 {
   @FXML public HBox projectHBox;
   @FXML public ImageView avatarPic;
   @FXML public Label employeeName;
   @FXML public Label employeeWorkingNumber;
-  @FXML public ImageView avatarPicture;
   @FXML public Label workerName;
-  @FXML public Label workerRole;
-  @FXML public Label workerDateOfBirth;
-  @FXML public Label workerPhoneNumber;
-  @FXML public Label workerEmail;
-  @FXML public Label workerManagers;
 
   @FXML public TableView<ProjectsTable> currentProjectsTable;
   @FXML public TableColumn<ProjectsTable, String> projectTitle;
@@ -41,7 +36,7 @@ public class WorkerProfileViewController implements ViewController
   @FXML public TableColumn <TasksTableForWorkerProfile, String> taskStatus;
   @FXML public TableColumn<TasksTableForWorkerProfile, String>  taskProjectName;
   private Region root;
-  private WorkerProfileViewModel viewModel;
+  private WorkerHomeViewModel viewModel;
   private ViewHandler viewHandler;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -49,33 +44,21 @@ public class WorkerProfileViewController implements ViewController
   {
     this.root = root;
     this.viewHandler = viewHandler;
-    this.viewModel = (WorkerProfileViewModel) viewModel;
+    this.viewModel = (WorkerHomeViewModel) viewModel;
     this.viewModel.load();
     employeeName.textProperty()
         .bindBidirectional(this.viewModel.getEmployeeName());
-    avatarPic.imageProperty()
-        .bindBidirectional(this.viewModel.avatarPicProperty());
     employeeWorkingNumber.textProperty()
         .bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
-
     workerName.textProperty()
         .bindBidirectional(this.viewModel.workerNameProperty());
-    workerEmail.textProperty()
-        .bindBidirectional(this.viewModel.workerEmailProperty());
-    workerDateOfBirth.textProperty()
-        .bindBidirectional(this.viewModel.workerDateOfBirthProperty());
-    workerRole.textProperty()
-        .bindBidirectional(this.viewModel.workerRoleProperty());
-    workerPhoneNumber.textProperty()
-        .bindBidirectional(this.viewModel.workerPhoneNumberProperty());
-    workerManagers.textProperty().bindBidirectional(this.viewModel.workerManagersProperty());
 
     projectDeadline.setCellValueFactory(
         cellData -> cellData.getValue().deadlineProperty());
     projectTitle.setCellValueFactory(
         cellData -> cellData.getValue().titleProperty());
     currentProjectsTable.setItems(
-        ((WorkerProfileViewModel) viewModel).getCurrentProjectsTableTable());
+        ((WorkerHomeViewModel) viewModel).getCurrentProjectsTableTable());
 
 
     taskTitle.setCellValueFactory(
@@ -85,14 +68,8 @@ public class WorkerProfileViewController implements ViewController
     taskProjectName.setCellValueFactory(
         cellData -> cellData.getValue().projectNameProperty());
     taskTable.setItems(
-        ((WorkerProfileViewModel) viewModel).getTaskTable());
+        ((WorkerHomeViewModel) viewModel).getTaskTable());
 
-
-    if (((WorkerProfileViewModel) viewModel).isProjectManagerWoman())
-    {
-      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
-      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
-    }
 
     this.viewModel.employeePropertyProperty()
         .addListener((observable, oldValue, newValue) -> {
@@ -128,21 +105,7 @@ public class WorkerProfileViewController implements ViewController
 
   public void openHome()
   {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
+    viewHandler.openView("home");
   }
 
   private void setWindow(EmployeeRole employeeRole)
@@ -172,5 +135,9 @@ public class WorkerProfileViewController implements ViewController
       }
     }
 
+  }
+  public void logOut()
+  {
+    viewHandler.openView("login");
   }
 }

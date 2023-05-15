@@ -128,4 +128,8 @@ public class AssignEmployeesToProjectViewModel implements ViewModel {
             avatarPic.setValue(new Image("/icons/man-avatar.png"));
         }
     }
+    public Employee getEmployeeProperty() {
+        return employee.get();
+    }
+
 }

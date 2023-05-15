@@ -333,7 +333,11 @@ public class CreateUserProfileViewModel implements ViewModel
     {
         return email.get();
     }
-    
+    public Employee getEmployeeProperty() {
+        return employee.get();
+    }
+
+
     public StringProperty emailProperty()
     {
         return email;

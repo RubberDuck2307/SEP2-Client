@@ -4,10 +4,7 @@ import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.NotesView.NotesViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
-import viewmodel.WorkerView.HrAndMainManagerProfileViewModel;
-import viewmodel.WorkerView.ProjectManagerProfileViewModel;
-import viewmodel.WorkerView.WorkerProfileViewModel;
-import viewmodel.WorkerView.WorkersViewModel;
+import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
 {
@@ -29,6 +26,7 @@ public class ViewModelFactory
     private HrAndMainManagerProfileViewModel hrAndMainManagerProfileViewModel;
     private WorkerProfileViewModel workerProfileViewModel;
     private NotesViewModel notesViewModel;
+    private WorkerHomeViewModel workerHomeViewModel;
     public ViewModelFactory(Model model)
     {
         this.model = model;
@@ -49,13 +47,14 @@ public class ViewModelFactory
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
       this.notesViewModel = new NotesViewModel(model, viewState);
+        this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
     }
-
+    
     public Model getModel()
     {
         return model;
     }
-
+    
     public ProjectsViewModel getProjectsViewModel()
     {
         return projectsViewModel;
@@ -75,22 +74,22 @@ public class ViewModelFactory
     {
         return tasksViewModel;
     }
-
+    
     public ProjectManagerProfileViewModel getProjectManagerProfileViewModel()
     {
         return projectManagerProfileViewModel;
     }
-
+    
     public WorkersViewModel getWorkersViewModel()
     {
         return workersViewModel;
     }
-
+    
     public AssignWorkersToTaskViewModel getAssignWorkersToTaskViewModel()
     {
         return assignWorkersToTaskViewModel;
     }
-
+    
     public AssignEmployeesToProjectViewModel getAssignWorkersToProjectViewModel()
     {
         return assignEmployeesToProjectViewModel;
@@ -105,17 +104,17 @@ public class ViewModelFactory
     {
         return addTaskViewModel;
     }
-
+    
     public EditTaskViewModel getEditTaskViewModel()
     {
         return editTaskViewModel;
     }
-
+    
     public AddProjectViewModel getAddProjectViewModel()
     {
         return addProjectViewModel;
     }
-
+    
     public CreateUserProfileViewModel getCreateUserProfileViewModel()
     {
         return createUserProfileViewModel;
@@ -124,7 +123,7 @@ public class ViewModelFactory
     {
         return loginViewModel;
     }
-
+    
     public HomeViewModel getHomeViewModel()
     {
         return homeViewModel;
@@ -133,4 +132,9 @@ public class ViewModelFactory
   {
     return notesViewModel;
   }
+
+    public WorkerHomeViewModel getWorkerHomeViewModel()
+    {
+        return workerHomeViewModel;
+    }
 }
