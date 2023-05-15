@@ -160,6 +160,7 @@
                         </VBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="678.0" prefWidth="1118.0">
                      <children>
+                        <Button fx:id="notes" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="50.0" prefWidth="100.0" styleClass="create-button" text="Notes" />
                         <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="50.0" prefWidth="100.0" styleClass="create-button" text="Log Out" />
                      </children>
                         </HBox>
