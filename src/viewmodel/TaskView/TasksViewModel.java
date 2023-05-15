@@ -204,9 +204,6 @@ public class TasksViewModel implements ViewModel {
 
         return true;
 
-        // model.changeTaskStatus(task);
-
-
     }
 
     public boolean isIsTaskSelected() {
