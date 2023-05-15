@@ -199,7 +199,7 @@
                                             <children>
                                     <HBox layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="539.0">
                                        <children>
-                                          <Label alignment="CENTER" prefHeight="30.0" prefWidth="479.0" styleClass="heading-2" text="ASSIGN MANAGERS">
+                                          <Label fx:id="headlineLabel" alignment="CENTER" prefHeight="30.0" prefWidth="479.0" styleClass="heading-2" text="ASSIGN MANAGERS">
                                              <HBox.margin>
                                                 <Insets left="20.0" top="10.0" />
                                              </HBox.margin>

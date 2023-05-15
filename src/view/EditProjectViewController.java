@@ -37,6 +37,7 @@ public class EditProjectViewController implements ViewController
     public TextArea description;
     @FXML
     public TableView<WorkersWithCheckboxTable> managersTable;
+    public Label headlineLabel;
     @FXML
     private TableColumn<WorkersWithCheckboxTable, String> numberColumn;
     @FXML
@@ -70,15 +71,16 @@ public class EditProjectViewController implements ViewController
         deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
         nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
         workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
+        headlineLabel.textProperty().bind(this.viewModel.headlineProperty());
         fillInManagerTable();
     }
     
     private void fillInManagerTable()
     {
         workersWithCheckboxTables.clear();
-        for (int i = 0; i < this.viewModel.getManagers().size(); i++)
+        for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++)
         {
-            Employee employee = this.viewModel.getManagers().get(i);
+            Employee employee = this.viewModel.getEmployeesOfManager().get(i);
             workersWithCheckboxTables.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");
@@ -91,6 +93,7 @@ public class EditProjectViewController implements ViewController
         }
     }
     
+    
     @Override
     public Region getRoot()
     {
@@ -99,6 +102,8 @@ public class EditProjectViewController implements ViewController
     @Override
     public void reset()
     {
+        viewModel.reset();
+        fillInManagerTable();
     }
     
     public void switchWorker(Employee employee)

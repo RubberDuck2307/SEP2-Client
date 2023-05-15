@@ -7,10 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
-import model.Employee;
-import model.EmployeeList;
-import model.Model;
-import model.Project;
+import model.*;
 import util.Validator;
 import viewmodel.AddProjectView.AssignManagersTable;
 
@@ -28,11 +25,9 @@ public class EditProjectViewModel implements ViewModel
     private SimpleObjectProperty<LocalDate> deadlineProperty;
     private StringProperty deadlineEProperty;
     private StringProperty descriptionProperty;
-    private ObservableList<AssignManagersTable> assignManagersObservableList;
-    private AssignManagersTable assignManagersTable;
-    private EmployeeList employeesList;
     private ObservableList<Employee> employees;
     private StringProperty errorProperty;
+    private StringProperty headline;
     private EmployeeList managers;
     private EmployeeList assignedManagers;
     private EmployeeList originalAssignedEmployees;
@@ -41,11 +36,17 @@ public class EditProjectViewModel implements ViewModel
     private StringProperty workingNumber;
     private ViewState viewState;
     private Model model;
+    private EmployeeList employeesOfManager;
+    private EmployeeList employeesOfProject;
+    private ObjectProperty<Employee> user;
     
     public EditProjectViewModel(Model model, ViewState viewState)
     {
         this.model = model;
         this.viewState = viewState;
+        user = new SimpleObjectProperty<>();
+        employeesOfProject = new EmployeeList();
+        employeesOfManager = new EmployeeList();
         this.employee = new SimpleObjectProperty<>();
         this.titleProperty = new SimpleStringProperty();
         this.descriptionProperty = new SimpleStringProperty();
@@ -56,24 +57,33 @@ public class EditProjectViewModel implements ViewModel
         managers = new EmployeeList();
         assignedManagers = new EmployeeList();
         this.validator = new Validator();
-        employeesList = new EmployeeList();
         this.name = new SimpleStringProperty();
         this.workingNumber = new SimpleStringProperty();
-        assignManagersObservableList = FXCollections.observableArrayList();
         employees = FXCollections.observableArrayList();
         assignedEmployees = new EmployeeList();
         originalAssignedEmployees = new EmployeeList();
+        headline = new SimpleStringProperty();
     }
     
     public void load()
     {
+        user.setValue(model.getUser());
+        if (user.get().getRole().equals(EmployeeRole.PROJECT_MANAGER))
+        {
+            headline.setValue("ASSIGN WORKERS");
+            employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
+        }
+        else if (user.get().getRole().equals(EmployeeRole.MAIN_MANAGER))
+        {
+            employeesOfManager = model.getAllProjectManagers();
+        }
         titleProperty.setValue(viewState.getProject().getName());
         deadlineProperty.setValue(viewState.getProject().getDeadline());
         descriptionProperty.setValue(viewState.getProject().getDescription());
         employee.setValue(model.getUser());
         setAvatarPicture();
-        originalAssignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
-        assignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
+        originalAssignedEmployees = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
+        assignedEmployees = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         assignedManagers = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         managers = model.getAllProjectManagers();
         name.setValue(this.model.getUser().getName());
@@ -95,7 +105,6 @@ public class EditProjectViewModel implements ViewModel
         try
         {
             validator.validateTitle(titleProperty.getValue());
-            titleProperty.setValue(project1.getName());
         }
         catch (Exception e)
         {
@@ -105,59 +114,67 @@ public class EditProjectViewModel implements ViewModel
         try
         {
             validator.validateDeadline(deadlineProperty.get());
-            deadlineProperty.setValue(project1.getDeadline());
         }
         catch (Exception e)
         {
             valid = false;
             deadlineEProperty.setValue(e.getMessage());
         }
-        descriptionProperty.setValue(project1.getDescription());
         if (valid)
         {
             Project project2 = new Project(project1.getId(), titleProperty.getValue(), descriptionProperty.getValue(), deadlineProperty.getValue());
             model.updateProject(project2);
         }
-        
         ArrayList<Integer> addedEmployees = new ArrayList<>();
         ArrayList<Integer> removedEmployees = new ArrayList<>();
-        
-        if (assignedEmployees.size() != 0) {
-            for (int i = 0; i < assignedEmployees.size(); i++) {
-                
-                if (!originalAssignedEmployees.containsByWorkingNumber(assignedEmployees.get(i).getWorkingNumber())) {
+        System.out.println(assignedEmployees);
+        System.out.println(originalAssignedEmployees);
+        if (assignedEmployees.size() != 0)
+        {
+            for (int i = 0; i < assignedEmployees.size(); i++)
+            {
+                if (!originalAssignedEmployees.containsByWorkingNumber(assignedEmployees.get(i).getWorkingNumber()))
+                {
                     addedEmployees.add(assignedEmployees.get(i).getWorkingNumber());
                 }
             }
-            for (int i = 0; i < originalAssignedEmployees.size(); i++) {
-                if (!assignedEmployees.containsByWorkingNumber(originalAssignedEmployees.get(i).getWorkingNumber())) {
+            for (int i = 0; i < originalAssignedEmployees.size(); i++)
+            {
+                if (!assignedEmployees.containsByWorkingNumber(originalAssignedEmployees.get(i).getWorkingNumber()))
+                {
                     removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
                 }
             }
-        } else {
-            for (int i = 0; i < originalAssignedEmployees.size(); i++) {
+        }
+        else
+        {
+            for (int i = 0; i < originalAssignedEmployees.size(); i++)
+            {
                 removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
             }
         }
-        
-        if (addedEmployees.size() != 0) {
+        if (addedEmployees.size() != 0)
+        {
             model.assignEmployeesToProject(addedEmployees, viewState.getProject().getId());
         }
-        if (removedEmployees.size() != 0) {
+        if (removedEmployees.size() != 0)
+        {
             model.dismissEmployeesFromProject(removedEmployees, viewState.getProject().getId());
         }
+        System.out.println(removedEmployees);
+        System.out.println(addedEmployees);
         return valid;
     }
     
     public void switchWorker(Employee employee)
     {
-        if (assignedManagers.containsByWorkingNumber(employee.getWorkingNumber()))
+        if (assignedEmployees.containsByWorkingNumber(employee.getWorkingNumber()))
         {
-            assignedManagers.removeByWorkingNumber(employee.getWorkingNumber());
+            assignedEmployees.removeByWorkingNumber(employee.getWorkingNumber());
         }
         else
         {
-            assignedManagers.addEmployee(employee);
+            assignedEmployees.addEmployee(employee);
         }
     }
     
@@ -195,7 +212,30 @@ public class EditProjectViewModel implements ViewModel
     {
         return managers;
     }
-    
+    public EmployeeList getEmployeesOfManager()
+    {
+        return employeesOfManager;
+    }
+    public EmployeeList getEmployeesOfProject()
+    {
+        return employeesOfProject;
+    }
+    public Employee getUser()
+    {
+        return user.get();
+    }
+    public ObjectProperty<Employee> userProperty()
+    {
+        return user;
+    }
+    public String getHeadline()
+    {
+        return headline.get();
+    }
+    public StringProperty headlineProperty()
+    {
+        return headline;
+    }
     public String getName()
     {
         return name.get();

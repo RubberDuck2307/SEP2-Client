@@ -30,7 +30,7 @@ public class TasksViewModel implements ViewModel
     private StringProperty projectName;
     private StringProperty taskName;
     private StringProperty taskDescription;
-
+    
     private ObservableList<Task> tasks;
     private ObservableList<TasksTable> tasksTables;
     private ObservableList<CommentsTable> commentsTables;
@@ -238,32 +238,9 @@ public class TasksViewModel implements ViewModel
         }
         isTaskSelected.set(true);
     }
-
-    public boolean changeStatus(String status, Task task) {
-        if (model.getUser().getRole().equals(EmployeeRole.WORKER)) {
-            boolean contains = false;
-            for (int i = 0; i < task.getWorkers().size(); i++) {
-                if (task.getWorkers().get(i).getWorkingNumber().equals(model.getUser().getWorkingNumber())) {
-                    contains = true;
-                }
-            }
-            if (!contains) {
-                return false;
-            }
-        } else if (!model.getUser().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
-            return false;
-        }
-        try {
-            model.changeTaskStatus(task.getId(), status);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return true;
-
-    }
-
-    public boolean isIsTaskSelected() {
+    
+    public boolean isIsTaskSelected()
+    {
         return isTaskSelected.get();
     }
     
