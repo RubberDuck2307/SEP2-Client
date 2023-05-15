@@ -76,6 +76,8 @@ public class EditTaskViewModel implements ViewModel
     setAvatarPicture();
     originalAssignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
     assignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
+    
+    //filtering Table
     employeesOfManager = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
     employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
     employees = new EmployeeList();

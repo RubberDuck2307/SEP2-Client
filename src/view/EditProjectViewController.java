@@ -76,13 +76,15 @@ public class EditProjectViewController implements ViewController
     private void fillInManagerTable()
     {
         workersWithCheckboxTables.clear();
-        for (int i = 0; i < this.viewModel.getManagers().size(); i++) {
+        for (int i = 0; i < this.viewModel.getManagers().size(); i++)
+        {
             Employee employee = this.viewModel.getManagers().get(i);
             workersWithCheckboxTables.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");
-            checkBox.setOnAction(e -> {
-                assignEmployee(employee);
+            checkBox.setOnAction(e ->
+            {
+                switchWorker(employee);
             });
             checkBox.setSelected(this.viewModel.isEmployeeAssigned(employee));
             workersWithCheckboxTables.get(i).setCheckbox(checkBox);
@@ -97,9 +99,7 @@ public class EditProjectViewController implements ViewController
     @Override
     public void reset()
     {
-    
     }
-    
     
     public void switchWorker(Employee employee)
     {
@@ -124,13 +124,10 @@ public class EditProjectViewController implements ViewController
     {
         viewHandler.openLastWindow();
     }
-    
-    private void assignEmployee(Employee employee) {
-    
-    }
     public void saveChangesButtonPressed()
     {
-        if (viewModel.saveProject()) {
+        if (viewModel.saveProject())
+        {
             viewHandler.openView("projects");
         }
     }

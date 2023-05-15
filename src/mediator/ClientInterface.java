@@ -26,23 +26,26 @@ public interface ClientInterface {
     Long saveProject(Project project);
     void updateProject(Project project);
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
+    void dismissEmployeesFromProject(ArrayList<Integer> employeeWorkingNumbers, Long projectID);
+    void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id);
+    
     Long saveTask(Task task);
-
     void assignWorkerToManager(int managerNumber, int workerNumber);
+    
     void removeWorkerFromManager(int managerNumber, int workerNumber);
-
-
+    
     Integer saveEmployee(Employee employee, String password);
+    
     Task getTask(Long projectId);
-
+    
     Employee login(UserProfile userProfile);
-
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);
     EmployeeList getAllEmployees();
     Employee getEmployeeByWorkingNumber(int workingNumber);
     Project getProjectById(long projectId);
-  TaskList getAllTasksByUserId(Integer workingNumber);
+    TaskList getAllTasksByUserId(Integer workingNumber);
+    
   EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
 }

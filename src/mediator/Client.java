@@ -228,6 +228,29 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+    
+    public void dismissEmployeesFromProject(ArrayList<Integer> employeeWorkingNumbers, Long projectID){
+        try
+        {
+            model.dismissEmployeesFromProject(employeeWorkingNumbers, projectID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id)
+    {
+        try
+        {
+            model.assignEmployeesToProject(addedEmployees, id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
     @Override public Long saveTask(Task task)
     {
         try

@@ -15,6 +15,7 @@ import util.Validator;
 import viewmodel.AddProjectView.AssignManagersTable;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class EditProjectViewModel implements ViewModel
@@ -34,6 +35,8 @@ public class EditProjectViewModel implements ViewModel
     private StringProperty errorProperty;
     private EmployeeList managers;
     private EmployeeList assignedManagers;
+    private EmployeeList originalAssignedEmployees;
+    private EmployeeList assignedEmployees;
     private StringProperty name;
     private StringProperty workingNumber;
     private ViewState viewState;
@@ -43,13 +46,13 @@ public class EditProjectViewModel implements ViewModel
     {
         this.model = model;
         this.viewState = viewState;
-        this.employee=new SimpleObjectProperty<>();
+        this.employee = new SimpleObjectProperty<>();
         this.titleProperty = new SimpleStringProperty();
         this.descriptionProperty = new SimpleStringProperty();
         this.titleEProperty = new SimpleStringProperty();
         this.deadlineEProperty = new SimpleStringProperty();
         this.deadlineProperty = new SimpleObjectProperty<>();
-        this.avatarPic=new SimpleObjectProperty<>();
+        this.avatarPic = new SimpleObjectProperty<>();
         managers = new EmployeeList();
         assignedManagers = new EmployeeList();
         this.validator = new Validator();
@@ -58,6 +61,8 @@ public class EditProjectViewModel implements ViewModel
         this.workingNumber = new SimpleStringProperty();
         assignManagersObservableList = FXCollections.observableArrayList();
         employees = FXCollections.observableArrayList();
+        assignedEmployees = new EmployeeList();
+        originalAssignedEmployees = new EmployeeList();
     }
     
     public void load()
@@ -67,6 +72,9 @@ public class EditProjectViewModel implements ViewModel
         descriptionProperty.setValue(viewState.getProject().getDescription());
         employee.setValue(model.getUser());
         setAvatarPicture();
+        originalAssignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
+        assignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
+        assignedManagers = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         managers = model.getAllProjectManagers();
         name.setValue(this.model.getUser().getName());
         workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
@@ -77,16 +85,17 @@ public class EditProjectViewModel implements ViewModel
         titleProperty.setValue("");
         descriptionProperty.setValue("");
         deadlineProperty.setValue(null);
-        
         load();
     }
     
     public boolean saveProject()
     {
+        Project project1 = viewState.getProject();
         Boolean valid = true;
         try
         {
             validator.validateTitle(titleProperty.getValue());
+            titleProperty.setValue(project1.getName());
         }
         catch (Exception e)
         {
@@ -96,30 +105,64 @@ public class EditProjectViewModel implements ViewModel
         try
         {
             validator.validateDeadline(deadlineProperty.get());
+            deadlineProperty.setValue(project1.getDeadline());
         }
         catch (Exception e)
         {
             valid = false;
             deadlineEProperty.setValue(e.getMessage());
         }
+        descriptionProperty.setValue(project1.getDescription());
         if (valid)
         {
-        Project project2 = new Project(viewState.getProject().getId(),viewState.getProject().getName(),viewState.getProject().getDescription(),viewState.getProject().getDeadline());
-        model.updateProject(project2);
+            Project project2 = new Project(project1.getId(), titleProperty.getValue(), descriptionProperty.getValue(), deadlineProperty.getValue());
+            model.updateProject(project2);
         }
-            //
+        
+        ArrayList<Integer> addedEmployees = new ArrayList<>();
+        ArrayList<Integer> removedEmployees = new ArrayList<>();
+        
+        if (assignedEmployees.size() != 0) {
+            for (int i = 0; i < assignedEmployees.size(); i++) {
+                
+                if (!originalAssignedEmployees.containsByWorkingNumber(assignedEmployees.get(i).getWorkingNumber())) {
+                    addedEmployees.add(assignedEmployees.get(i).getWorkingNumber());
+                }
+            }
+            for (int i = 0; i < originalAssignedEmployees.size(); i++) {
+                if (!assignedEmployees.containsByWorkingNumber(originalAssignedEmployees.get(i).getWorkingNumber())) {
+                    removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
+                }
+            }
+        } else {
+            for (int i = 0; i < originalAssignedEmployees.size(); i++) {
+                removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
+            }
+        }
+        
+        if (addedEmployees.size() != 0) {
+            model.assignEmployeesToProject(addedEmployees, viewState.getProject().getId());
+        }
+        if (removedEmployees.size() != 0) {
+            model.dismissEmployeesFromProject(removedEmployees, viewState.getProject().getId());
+        }
         return valid;
     }
     
-    public void switchWorker(Employee employee) {
-        if (assignedManagers.containsByWorkingNumber(employee.getWorkingNumber())) {
+    public void switchWorker(Employee employee)
+    {
+        if (assignedManagers.containsByWorkingNumber(employee.getWorkingNumber()))
+        {
             assignedManagers.removeByWorkingNumber(employee.getWorkingNumber());
-        } else {
+        }
+        else
+        {
             assignedManagers.addEmployee(employee);
         }
     }
     
-    public boolean isEmployeeAssigned(Employee employee) {
+    public boolean isEmployeeAssigned(Employee employee)
+    {
         return assignedManagers.containsByWorkingNumber(employee.getWorkingNumber());
     }
     
@@ -169,14 +212,18 @@ public class EditProjectViewModel implements ViewModel
     {
         return workingNumber;
     }
-    public boolean isWoman(){
+    public boolean isWoman()
+    {
         return Objects.equals(employee.getValue().getGender(), "F");
     }
-    public void setAvatarPicture(){
-        if(isWoman()){
+    public void setAvatarPicture()
+    {
+        if (isWoman())
+        {
             avatarPic.setValue(new Image("/icons/woman-avatar.png"));
         }
-        else{
+        else
+        {
             avatarPic.setValue(new Image("/icons/man-avatar.png"));
         }
     }
