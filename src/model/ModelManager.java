@@ -156,6 +156,16 @@ public class ModelManager implements Model {
         return client.getAllWorkersManagersByWorkerWorkingNumber(workingNumber);
     }
 
+    @Override public void updateEmployee(Employee employee)
+    {
+        client.updateEmployee(employee);
+    }
+
+    @Override public void changePassword(Employee employee, String password)
+    {
+        client.changePassword(employee,password);
+    }
+
     @Override public Integer saveEmployee(Employee employee, String password)
     {
         return client.saveEmployee(employee, password);
