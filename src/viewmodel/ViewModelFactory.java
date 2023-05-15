@@ -4,6 +4,7 @@ import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.NotesView.NotesViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
+import viewmodel.TaskView.TasksViewModel;
 import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
