@@ -87,12 +87,8 @@ public class WorkerProfileViewController implements ViewController
     taskTable.setItems(
         ((WorkerProfileViewModel) viewModel).getTaskTable());
 
+isWoman();
 
-    if (((WorkerProfileViewModel) viewModel).isProjectManagerWoman())
-    {
-      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
-      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
-    }
 
     this.viewModel.employeePropertyProperty()
         .addListener((observable, oldValue, newValue) -> {
@@ -100,6 +96,17 @@ public class WorkerProfileViewController implements ViewController
         });
     setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
+  public void isWoman(){
+    if (((WorkerProfileViewModel) viewModel).isProjectManagerWoman())
+    {
+      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
+      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
+    }
+    else{
+      avatarPicture.setImage(new Image("/icons/man-avatar.png"));
+    }
+  }
+
 
   @Override public Region getRoot()
   {
@@ -108,6 +115,8 @@ public class WorkerProfileViewController implements ViewController
 
   @Override public void reset()
   {
+    isWoman();
+    viewModel.reset();
     viewModel.load();
   }
 
