@@ -3,6 +3,7 @@ package viewmodel;
 import model.Model;
 import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
+import viewmodel.TaskView.TasksViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
 import viewmodel.WorkerView.WorkersViewModel;
 
