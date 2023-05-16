@@ -10,9 +10,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import model.Employee;
 import model.EmployeeRole;
 import model.Priority;
+import model.Tag;
 import util.StringIntegerConverter;
 import viewmodel.EditTaskViewModel;
 import viewmodel.ViewModel;
@@ -58,6 +60,8 @@ public class EditTaskViewController implements ViewController
     public Button assignWorkersButton;
     @FXML
     public Button addTag;
+    @FXML ColorPicker colorPicker;
+    @FXML Label tagsE;
     @FXML
     public Label errorTitleHours;
     public ChoiceBox<String> status;
@@ -91,10 +95,10 @@ public class EditTaskViewController implements ViewController
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
         checkBoxColumn.setCellValueFactory(checkbox);
         checkBoxColumn.setStyle("-fx-alignment: CENTER;");
-        addTag();
         bindEverything();
         ((EditTaskViewModel) viewModel).load();
         fillInWorkerTable();
+        fillInTags();
         deadline.setEditable(false);
         nameL.textProperty().bind(this.viewModel.nameProperty());
         workingNumberL.textProperty().bind(this.viewModel.workingNumberProperty());
@@ -110,6 +114,7 @@ public class EditTaskViewController implements ViewController
     public void reset() {
         viewModel.reset();
         fillInWorkerTable();
+        fillInTags();
     }
 
     public void bindEverything()
@@ -120,6 +125,7 @@ public class EditTaskViewController implements ViewController
         errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
         errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
         title.textProperty().bindBidirectional(this.viewModel.titleProperty());
+        colorPicker.valueProperty().bindBidirectional(this.viewModel.colorProperty());
         //estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
         Bindings.bindBidirectional(estimatedHours.textProperty(), (viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
         deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
@@ -127,6 +133,7 @@ public class EditTaskViewController implements ViewController
         priority.valueProperty().bindBidirectional(this.viewModel.priorityProperty());
         description.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
         tags.textProperty().bindBidirectional(this.viewModel.tagsProperty());
+        tagsE.textProperty().bindBidirectional(this.viewModel.tagsEProperty());
     }
     
     private void fillInWorkerTable()
@@ -149,25 +156,52 @@ public class EditTaskViewController implements ViewController
         }
         workersTable.setItems(workersTableList);
     }
-    
+
     public void addTag()
     {
-        addTag.setOnAction(e ->
+        if(viewModel.addTag())
         {
-            if (tags.getText() != null)
-            {
-                CheckBox checkBox = new CheckBox(tags.getText());
-                checkBox.setSelected(true);
-                checkBox.setStyle("-fx-padding: 10px 5px 10px 5px; ");
-                checkboxes.add(counter, checkBox);
-                //checkBox.setId(counter + "");
-                counter++;
-                hBoxForTags.getChildren().add(checkBox);
-                tags.setText(null);
-            }
-        });
+            fillInTags();
+        }
+        //reset tags \/\/\/
+        tags.setText("");
     }
-    
+
+    private void styleTags(CheckBox checkBox, Tag tag){
+        checkBox.setId("newTags");
+        String colorString = tag.getColor();
+        Color color = Color.web(colorString);
+        String borderColor= color.darker().toString().replace("0x", "#");
+        if(color.getBrightness()<0.7){
+            checkBox.setStyle("-fx-background-color: " + colorString + ";"
+                +"-fx-border-color: " + borderColor + ";"
+                + "-fx-text-fill: white;");
+        }
+        else checkBox.setStyle("-fx-background-color: " + colorString + ";"
+            +"-fx-border-color: " + borderColor + ";");
+    }
+
+    private void fillInTags()
+    {
+        hBoxForTags.getChildren().clear();
+        for (int i = 0; i < viewModel.getTagList().size(); i++)
+        {
+            Tag tag = viewModel.getTagList().get(i);
+            CheckBox checkBox = new CheckBox(tag.getName());
+            styleTags(checkBox, tag);
+            hBoxForTags.getChildren().add(checkBox);
+            checkBox.setOnAction(e -> {
+                switchTag(tag);
+            });
+            checkBox.setSelected(viewModel.isTagAssigned(tag));
+        }
+    }
+
+    private void switchTag(Tag tag)
+    {
+        viewModel.switchTag(tag);
+    }
+
     public void switchWorker(Employee employee)
     {
         viewModel.switchWorker(employee);
@@ -183,7 +217,7 @@ public class EditTaskViewController implements ViewController
         viewHandler.openView("projects");
     }
     
-    public void createtask()
+    public void createTask()
     {
         if (viewModel.add())
         {

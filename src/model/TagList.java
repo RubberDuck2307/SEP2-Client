@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TagList {
+public class TagList implements Serializable
+{
     private ArrayList<Tag> tags;
 
 

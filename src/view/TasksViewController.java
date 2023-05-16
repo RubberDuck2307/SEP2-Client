@@ -9,7 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import model.EmployeeRole;
+import model.Tag;
 import model.Task;
 import viewmodel.*;
 import viewmodel.TaskView.CommentsTable;
@@ -54,13 +56,7 @@ public class TasksViewController implements ViewController {
     private TableColumn<TasksTable, Button> status;
     @FXML
     private TableColumn<TasksTable, String> tags;
-
-    @FXML
-    private TableView<CommentsTable> commentsTable;
-    @FXML
-    private TableColumn<CommentsTable, String> worker;
-    @FXML
-    private TableColumn<CommentsTable, String> comment;
+    @FXML private HBox hBoxForTags;
 
     @FXML
     private TableView<WorkersTable> workersTable;
@@ -82,7 +78,6 @@ public class TasksViewController implements ViewController {
         this.root = root;
         this.viewHandler = viewHandler;
         this.viewModel = (TasksViewModel) viewModel;
-        commentsTable.setVisible(false);
         workersTable.setVisible(false);
         avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
@@ -123,9 +118,12 @@ public class TasksViewController implements ViewController {
         this.viewModel.load();
         setWindow(this.viewModel.getEmployee().getRole());
         assignWorkerButton.setVisible(false);
+        hBoxForTags.setVisible(false);
         this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
             if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
                 assignWorkerButton.setVisible(newValue);
+                hBoxForTags.setVisible(newValue);
+                fillInTags();
             }
         }));
 
@@ -152,6 +150,32 @@ public class TasksViewController implements ViewController {
         }
     }
 
+    private void fillInTags()
+    {
+        hBoxForTags.getChildren().clear();
+        for (int i = 0; i < viewModel.getTagList().size(); i++)
+        {
+            Tag tag = viewModel.getTagList().get(i);
+            Label label = new Label(tag.getName());
+            styleTags(label, tag);
+            hBoxForTags.getChildren().add(label);
+        }
+    }
+
+    private void styleTags(Label label, Tag tag){
+        label.setId("newTags");
+        String colorString = tag.getColor();
+        Color color = Color.web(colorString);
+        String borderColor= color.darker().toString().replace("0x", "#");
+        if(color.getBrightness()<0.7){
+            label.setStyle("-fx-background-color: " + colorString + ";"
+                +"-fx-border-color: " + borderColor + ";"
+                + "-fx-text-fill: white;");
+        }
+        else label.setStyle("-fx-background-color: " + colorString + ";"
+            +"-fx-border-color: " + borderColor + ";");
+    }
+
     private Button createStatusButton(Task task) {
         Button statusButton = new Button(task.getStatus());
         switch (task.getStatus()) {
@@ -164,8 +188,6 @@ public class TasksViewController implements ViewController {
         });
 
         return statusButton;
-
-
     }
 
     public void taskButtonTableClick(Long index) {
@@ -178,7 +200,6 @@ public class TasksViewController implements ViewController {
             viewModel.chooseTask(
                     taskTable.getSelectionModel().getSelectedItem().getId());
             workersTable.setVisible(true);
-            commentsTable.setVisible(true);
         }
     }
 

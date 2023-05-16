@@ -15,6 +15,41 @@ public class ModelManager implements Model {
         this.client = client;
     }
 
+    @Override public Long saveTag(Tag tag)
+    {
+        return client.saveTag(tag);
+    }
+
+    @Override public TagList getAllTags()
+    {
+        return client.getAllTags();
+    }
+
+    @Override public TagList getTagsOfTask(Long taskId)
+    {
+        return client.getTagsOfTask(taskId);
+    }
+
+    @Override public void addTagToTask(Long taskId, Long tagId)
+    {
+        client.addTagToTask(taskId, tagId);
+    }
+
+    @Override public void removeTagFromTask(Long taskId, Long tagId)
+    {
+        client.removeTagFromTask(taskId, tagId);
+    }
+
+    @Override public Tag getTag(Long tagId)
+    {
+        return client.getTag(tagId);
+    }
+
+    @Override public void deleteTag(Long id)
+    {
+        client.deleteTag(id);
+    }
+
     @Override
     public TaskList getAllTasksOfProject(Long id) {
         return client.getAllTasksOfProject(id);

@@ -32,7 +32,7 @@ public class TasksViewModel implements ViewModel {
 
     private ObservableList<Task> tasks;
     private ObservableList<TasksTable> tasksTables;
-    private ObservableList<CommentsTable> commentsTables;
+    private TagList tagList;
     private ObservableList<WorkersTable> workersTables;
     private StringProperty name;
     private IntegerProperty number;
@@ -56,7 +56,6 @@ public class TasksViewModel implements ViewModel {
         this.taskName = new SimpleStringProperty();
         this.taskDescription = new SimpleStringProperty();
         this.tasksTables = FXCollections.observableArrayList();
-        this.commentsTables = FXCollections.observableArrayList();
         this.workersTables = FXCollections.observableArrayList();
         this.name = new SimpleStringProperty();
         this.position = new SimpleStringProperty();
@@ -175,6 +174,7 @@ public class TasksViewModel implements ViewModel {
         taskDescription.setValue(task.getDescription());
         viewState.setTask(task);
         EmployeeList employeeList = model.getEmployeesOfTask(id);
+        tagList = model.getTagsOfTask(id);
         workersTables.clear();
         for (int i = 0; i < employeeList.size(); i++) {
             workersTables.add(new WorkersTable(employeeList.get(i)));
@@ -237,6 +237,8 @@ public class TasksViewModel implements ViewModel {
         return employee.get();
     }
 
-
-
+    public TagList getTagList()
+    {
+        return tagList;
+    }
 }

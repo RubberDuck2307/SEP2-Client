@@ -1,10 +1,13 @@
 package viewmodel;
 
 import javafx.beans.property.*;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import model.*;
 import util.Validator;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -26,6 +29,11 @@ public class AddTaskViewModel implements ViewModel
     private ObjectProperty<String> priority;
     private StringProperty estimatedHours;
     private StringProperty tags;
+    private TagList tagList;
+    private TagList tagListForTask;
+    private ObjectProperty<javafx.scene.paint.Color> color;
+    private StringProperty tagsE;
+
     private int estimatedHoursInt;
     private Validator validator;
     private EmployeeList workers;
@@ -49,6 +57,9 @@ public class AddTaskViewModel implements ViewModel
         this.priority = new SimpleObjectProperty<>(null);
         this.estimatedHours = new SimpleStringProperty("");
         this.tags = new SimpleStringProperty("");
+        this.tagListForTask=new TagList();
+        this.color= new SimpleObjectProperty<>(Color.RED);
+        this.tagsE= new SimpleStringProperty("");
         this.errorTitleHours = new SimpleStringProperty("");
         this.errorDeadlineMessage = new SimpleStringProperty("");
         this.errorPriorityMessage = new SimpleStringProperty("");
@@ -60,6 +71,7 @@ public class AddTaskViewModel implements ViewModel
     }
     public void load()
     {
+        this.tagList= model.getAllTags();
         employee.setValue(model.getUser());
         setAvatarPicture();
         Project project = viewState.getProject();
@@ -81,21 +93,51 @@ public class AddTaskViewModel implements ViewModel
     }
 
     public void reset(){
-        errorTitleHours.setValue("");
-        errorDeadlineMessage.setValue("");
-        errorTitleMessage.setValue("");
-        errorPriorityMessage.setValue("");
+        errorLabelsReset();
         title.setValue("");
         priority.setValue(null);
         description.setValue("");
         estimatedHours.setValue("");
+        tagsE.setValue("");
         load();
+    }
 
+    public void errorLabelsReset(){
+        errorTitleHours.setValue("");
+        errorDeadlineMessage.setValue("");
+        errorTitleMessage.setValue("");
+        errorPriorityMessage.setValue("");
     }
     public StringProperty getNameOfTheProject()
     {
         return nameOfTheProject;
     }
+
+    public StringProperty tagsEProperty()
+    {
+        return tagsE;
+    }
+
+    public boolean addTag(){
+        boolean valid = true;
+        Tag tag=new Tag(tags.getValue() ,color.getValue().toString().replace("0x", "#"));
+        try
+        {
+            validator.validateTag(tag);
+        }
+        catch (Exception e)
+        {
+            tagsE.setValue(e.getMessage());
+            valid=false;
+        }
+        if(valid){
+            Long id=model.saveTag(tag);
+            tag.setId(id);
+            tagList.addTag(tag);
+        }
+        return valid;
+    }
+
     public boolean add()
     {
         errorTitleHours.setValue(null);
@@ -146,10 +188,14 @@ public class AddTaskViewModel implements ViewModel
             //System.out.println("Bobek: " + task2.toString());
             Long id = model.saveTask(task2);
             model.assignEmployeesToTask(assignedEmployeeWorkingNumbers, id.longValue());
+            for(int i=0;i<tagListForTask.size();i++)
+            {
+                model.addTagToTask(id.longValue(), tagListForTask.get(i).getId());
+            }
         }
         return valid;
     }
-    
+
     public StringProperty nameOfTheProjectProperty()
     {
         return nameOfTheProject;
@@ -202,7 +248,17 @@ public class AddTaskViewModel implements ViewModel
     {
         return tags;
     }
-    
+
+    public TagList getTagList()
+    {
+        return tagList;
+    }
+
+    public Property<Color> colorProperty()
+    {
+        return color;
+    }
+
     public String getEstimatedHours()
     {
         return estimatedHours.get();
@@ -212,7 +268,18 @@ public class AddTaskViewModel implements ViewModel
     {
         return errorTitleHours;
     }
-    
+
+    public void switchTag(Tag tag){
+        if (!tagListForTask.containsById(tag))
+        {
+            tagListForTask.addTag(tag);
+        }
+        else
+        {
+            tagListForTask.removeTag(tag);
+        }
+    }
+
     public void assignWorker(Employee employee)
     {
         if (!assignedEmployeeWorkingNumbers.contains(employee.getWorkingNumber()))

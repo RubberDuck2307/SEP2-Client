@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import model.*;
 import util.Validator;
 import viewmodel.TaskView.TasksTable;
@@ -30,6 +31,11 @@ public class EditTaskViewModel implements ViewModel
   private ObjectProperty<String> status;
   private IntegerProperty estimatedHours;
   private StringProperty tags;
+  private TagList tagList;
+  private TagList initialTags;
+  private TagList assignedTags;
+  private ObjectProperty<javafx.scene.paint.Color> color;
+  private StringProperty tagsE;
   private int estimatedHoursInt;
   private StringProperty errorPriorityMessage;
   private StringProperty errorDeadlineMessage;
@@ -57,6 +63,10 @@ public class EditTaskViewModel implements ViewModel
     this.priority = new SimpleObjectProperty<>();
     this.estimatedHours = new SimpleIntegerProperty();
     this.tags = new SimpleStringProperty();
+    this.initialTags=new TagList();
+    this.assignedTags=new TagList();
+    this.color= new SimpleObjectProperty<>(Color.RED);
+    this.tagsE= new SimpleStringProperty("");
     this.errorTitleHours = new SimpleStringProperty();
     this.status = new SimpleObjectProperty<>();
     this.validator = new Validator();
@@ -72,10 +82,32 @@ public class EditTaskViewModel implements ViewModel
   }
   public void load()
   {
+    Task task= viewState.getTask();
+    Long taskID=task.getId();
+    this.tagList= model.getAllTags();
+    initialTags= model.getTagsOfTask(taskID);
+    assignedTags= model.getTagsOfTask(taskID);
+    //System.out.println("assigned tags: "+assignedTags.get(0).getName());
     employee.setValue(model.getUser());
     setAvatarPicture();
-    originalAssignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
-    assignedEmployees = model.getEmployeesOfTask(viewState.getTask().getId());
+    originalAssignedEmployees = model.getEmployeesOfTask(taskID);
+    assignedEmployees = model.getEmployeesOfTask(taskID);
+    mandatoryEmployeeFiltering();
+
+    Project project = viewState.getProject();
+
+    nameOfTheProject.setValue(project.getName());
+    deadline.setValue(task.getDeadline());
+    status.setValue(task.getStatus());
+    priority.setValue(task.getPriority());
+    title.setValue(task.getName());
+    description.setValue(task.getDescription());
+    estimatedHours.setValue(task.getEstimatedTime());
+    name.setValue(model.getUser().getName());
+    workingNumber.setValue(model.getUser().getWorkingNumber().toString());
+  }
+
+  private void mandatoryEmployeeFiltering(){
     employeesOfManager = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
     employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
     employees = new EmployeeList();
@@ -86,28 +118,18 @@ public class EditTaskViewModel implements ViewModel
         employees.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
       }
     }
-    //employees = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
-    Project project = viewState.getProject();
+  }
 
-    nameOfTheProject.setValue(project.getName());
-    Task task = viewState.getTask();
-    deadline.setValue(task.getDeadline());
-    status.setValue(task.getStatus());
-    priority.setValue(task.getPriority());
-    title.setValue(task.getName());
-    description.setValue(task.getDescription());
-    estimatedHours.setValue(task.getEstimatedTime());
-    name.setValue(model.getUser().getName());
-    workingNumber.setValue(model.getUser().getWorkingNumber().toString());
-  }
-  public void setPriority(){
-    Task task = viewState.getTask();
-    priority.setValue(task.getPriority());
-  }
   public void reset(){
     errorTitleMessage.setValue("");
     errorTitleHours.setValue("");
+    tagsE.setValue("");
     load();
+  }
+
+  public void setPriority(){
+    Task task = viewState.getTask();
+    priority.setValue(task.getPriority());
   }
   public StringProperty getNameOfTheProject()
   {
@@ -168,36 +190,76 @@ public class EditTaskViewModel implements ViewModel
       Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(),
           project.getId(), LocalDate.now());
       model.updateTask(task2);
-      ArrayList<Integer> addedEmployees = new ArrayList<>();
-      ArrayList<Integer> removedEmployees = new ArrayList<>();
-
-      if (assignedEmployees.size() != 0) {
-        for (int i = 0; i < assignedEmployees.size(); i++) {
-
-          if (!originalAssignedEmployees.containsByWorkingNumber(assignedEmployees.get(i).getWorkingNumber())) {
-            addedEmployees.add(assignedEmployees.get(i).getWorkingNumber());
-          }
-        }
-        for (int i = 0; i < originalAssignedEmployees.size(); i++) {
-          if (!assignedEmployees.containsByWorkingNumber(originalAssignedEmployees.get(i).getWorkingNumber())) {
-            removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
-          }
-        }
-      } else {
-        for (int i = 0; i < originalAssignedEmployees.size(); i++) {
-          removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
-        }
-      }
-
-      if (addedEmployees.size() != 0) {
-        model.assignEmployeesToTask(addedEmployees, viewState.getTask().getId());
-      }
-      if (removedEmployees.size() != 0) {
-        model.unassignEmployeesFromTask(removedEmployees, viewState.getTask().getId());
-      }
+      assignWorkersFromTable();
+      assignTagsFromTable();
     }
     return valid;
 
+  }
+
+  public void assignTagsFromTable(){
+    ArrayList<Tag> addedTags = new ArrayList<>();
+    ArrayList<Tag> removedTags = new ArrayList<>();
+
+    if (assignedTags.size() != 0) {
+      for (int i = 0; i < assignedTags.size(); i++) {
+
+        if (!initialTags.containsById(assignedTags.get(i))) {
+          addedTags.add(assignedTags.get(i));
+        }
+      }
+      for (int i = 0; i < initialTags.size(); i++) {
+        if (!assignedTags.containsById(initialTags.get(i))) {
+          removedTags.add(initialTags.get(i));
+        }
+      }
+    } else {
+      for (int i = 0; i < initialTags.size(); i++) {
+        removedTags.add(initialTags.get(i));
+      }
+    }
+    Long taskID= viewState.getTask().getId();
+    if (addedTags.size() != 0) {
+      for(Tag tag:addedTags){
+        model.addTagToTask(taskID, tag.getId());
+      }
+    }
+    if (removedTags.size() != 0) {
+      for (Tag tag:removedTags)
+      {
+        model.removeTagFromTask(taskID, tag.getId());
+      }
+    }
+  }
+
+  public void assignWorkersFromTable(){
+    ArrayList<Integer> addedEmployees = new ArrayList<>();
+    ArrayList<Integer> removedEmployees = new ArrayList<>();
+
+    if (assignedEmployees.size() != 0) {
+      for (int i = 0; i < assignedEmployees.size(); i++) {
+
+        if (!originalAssignedEmployees.containsByWorkingNumber(assignedEmployees.get(i).getWorkingNumber())) {
+          addedEmployees.add(assignedEmployees.get(i).getWorkingNumber());
+        }
+      }
+      for (int i = 0; i < originalAssignedEmployees.size(); i++) {
+        if (!assignedEmployees.containsByWorkingNumber(originalAssignedEmployees.get(i).getWorkingNumber())) {
+          removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
+        }
+      }
+    } else {
+      for (int i = 0; i < originalAssignedEmployees.size(); i++) {
+        removedEmployees.add(originalAssignedEmployees.get(i).getWorkingNumber());
+      }
+    }
+
+    if (addedEmployees.size() != 0) {
+      model.assignEmployeesToTask(addedEmployees, viewState.getTask().getId());
+    }
+    if (removedEmployees.size() != 0) {
+      model.unassignEmployeesFromTask(removedEmployees, viewState.getTask().getId());
+    }
   }
 
     public void switchWorker(Employee employee) {
@@ -208,6 +270,21 @@ public class EditTaskViewModel implements ViewModel
         }
 
     }
+
+  public void switchTag(Tag tag){
+    if (!assignedTags.containsById(tag))
+    {
+      assignedTags.addTag(tag);
+    }
+    else
+    {
+      assignedTags.removeTag(tag);
+    }
+  }
+
+  public boolean isTagAssigned(Tag tag){
+    return assignedTags.containsById(tag);
+  }
 
     public boolean isEmployeeAssigned(Employee employee) {
         return assignedEmployees.containsByWorkingNumber(employee.getWorkingNumber());
@@ -281,7 +358,43 @@ public class EditTaskViewModel implements ViewModel
     }
 
 
-    public StringProperty errorTitleHoursProperty() {
+  public StringProperty tagsEProperty()
+  {
+    return tagsE;
+  }
+
+  public boolean addTag(){
+    boolean valid = true;
+    Tag tag=new Tag(tags.getValue() ,color.getValue().toString().replace("0x", "#"));
+    try
+    {
+      validator.validateTag(tag);
+    }
+    catch (Exception e)
+    {
+      tagsE.setValue(e.getMessage());
+      valid=false;
+    }
+    if(valid){
+      Long id=model.saveTag(tag);
+      tag.setId(id);
+      tagList.addTag(tag);
+    }
+    return valid;
+  }
+
+  public TagList getTagList()
+  {
+    return tagList;
+  }
+
+
+  public Property<Color> colorProperty()
+  {
+    return color;
+  }
+
+  public StringProperty errorTitleHoursProperty() {
         return errorTitleHours;
     }
   public String getName()

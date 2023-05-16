@@ -4,9 +4,18 @@ import model.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RemoteModel extends Remote {
+
+    Long saveTag(Tag tag) throws RemoteException;
+    TagList getAllTags() throws RemoteException;
+    TagList getTagsOfTask(Long taskId) throws RemoteException;
+    void addTagToTask(Long taskId, Long tagId) throws RemoteException;
+    void removeTagFromTask(Long taskId, Long tagId) throws RemoteException;
+    Tag getTag(Long tagId) throws RemoteException;
+    void deleteTag(Long id) throws RemoteException;
 
     TaskList getAllTasksOfProject(Long id) throws RemoteException;
 
@@ -21,6 +30,8 @@ public interface RemoteModel extends Remote {
     Long saveProject(Project project)throws RemoteException;
 
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
+    void dismissEmployeesFromProject(ArrayList<Integer> employeeWorkingNumbers, Long projectID) throws RemoteException;
+    void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id) throws RemoteException;
     EmployeeList getEmployeesAssignedToManager(int managerNumber) throws RemoteException;
 
     Task getTask(Long projectId) throws RemoteException;
@@ -50,4 +61,6 @@ public interface RemoteModel extends Remote {
     Project getProjectById(long projectId) throws RemoteException;
     TaskList getAllTasksByUserId (Integer workingNumber) throws RemoteException;
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
+    void updateEmployee(Employee employee) throws RemoteException;
+    void changePassword(Employee employee, String password) throws RemoteException;
 }

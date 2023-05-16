@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TasksViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TasksViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -260,12 +261,12 @@
                                                 </HBox>
                                     <HBox layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="539.0">
                                        <children>
-                                          <Label prefHeight="30.0" prefWidth="411.0" styleClass="heading-2" text="COMMENTS">
+                                          <Label prefHeight="30.0" prefWidth="411.0" styleClass="heading-2" text="TAGS">
                                              <HBox.margin>
                                                 <Insets left="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="135.0" styleClass="button-blue" text="Add comment">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="135.0" styleClass="button-blue" text="Delete tags">
                                              <HBox.margin>
                                                 <Insets top="15.0" />
                                              </HBox.margin>
@@ -274,22 +275,22 @@
                                     </HBox>
                                     <HBox layoutX="10.0" layoutY="116.0" prefHeight="121.0" prefWidth="539.0">
                                        <children>
-                                          <HBox prefHeight="75.0" prefWidth="540.0">
+                                          <VBox>
                                              <children>
-                                                <TableView fx:id="commentsTable" prefHeight="62.0" prefWidth="526.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="worker" prefWidth="93.59997749328613" text="Worker" />
-                                                    <TableColumn fx:id="comment" prefWidth="431.1999984741211" text="Comment" />
-                                                  </columns>
-                                                   <opaqueInsets>
-                                                      <Insets />
-                                                   </opaqueInsets>
-                                                   <HBox.margin>
-                                                      <Insets left="15.0" />
-                                                   </HBox.margin>
-                                                </TableView>
+                                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="540.0">
+                                                   <children>
+                                                       <ScrollPane pannable="true" prefHeight="80.0" prefWidth="526.0" vbarPolicy="NEVER">
+                                                           <content>
+                                                               <HBox fx:id="hBoxForTags" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="60.0" spacing="10.0">
+                                                               <padding>
+                                                                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                                               </padding></HBox>
+                                                           </content>
+                                                       </ScrollPane>
+                                                   </children>
+                                                </HBox>
                                              </children>
-                                          </HBox>
+                                          </VBox>
                                        </children>
                                     </HBox>
                                             </children>
@@ -310,7 +311,7 @@
                                                                 <Insets left="20.0" top="10.0" />
                                                             </HBox.margin>
                                                         </Label>
-                                          <Button fx:id="assignWorkerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#assignWorker" prefHeight="56.0" prefWidth="144.0" styleClass="button-blue" text="Assign worker">
+                                          <Button fx:id="assignWorkerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#assignWorker" prefHeight="56.0" prefWidth="144.0" styleClass="button-blue" text="Assign">
                                              <HBox.margin>
                                                 <Insets top="12.0" />
                                              </HBox.margin>
