@@ -118,6 +118,23 @@ public class Client implements ClientInterface {
     }
 
     @Override
+    public void deleteTag(Long id){
+        try {
+            model.deleteTag(id);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public TagList getAllTags(){
+        try {
+            return model.getAllTags();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
     public EmployeeList getAllEmployeesAssignedToProject(Long projectId) {
         try {
             return model.getAllEmployeesAssignedToProject(projectId);

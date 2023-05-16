@@ -110,6 +110,10 @@ public class ViewHandler {
                 root = loadViewController(viewModelFactory.getEditProjectViewModel(), "EditProjectView.fxml");
                 break;
             }
+            case "deleteTags": {
+                root = loadViewController(viewModelFactory.getDeleteTagsViewModel(), "DeleteTagsView.fxml");
+                break;
+            }
             default: {
                 throw new IllegalArgumentException("Unknown id: " + id);
             }

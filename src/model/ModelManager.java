@@ -39,7 +39,17 @@ public class ModelManager implements Model
     {
         return client.getEmployeesAssignedToManager(managerNumber);
     }
-    
+
+    @Override
+    public TagList getAllTags(){
+        return client.getAllTags();
+    }
+
+    @Override
+    public void deleteTag(Long id) {
+        client.deleteTag(id);
+    }
+
     public void changeTaskStatus(Long taskId, String status)
     {
         client.changeTaskStatus(taskId, status);

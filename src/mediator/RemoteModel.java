@@ -20,7 +20,11 @@ public interface RemoteModel extends Remote
     void changeTaskStatus(Long taskId, String status) throws RemoteException;
     
     Long saveProject(Project project) throws RemoteException;
-    
+
+    TagList getAllTags() throws RemoteException;
+
+    void deleteTag(Long id) throws RemoteException;
+
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     
     void dismissEmployeesFromProject(ArrayList<Integer> employeeWorkingNumbers, Long projectID) throws RemoteException;
