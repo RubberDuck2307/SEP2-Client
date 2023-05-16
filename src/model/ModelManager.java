@@ -99,6 +99,11 @@ public class ModelManager implements Model
     {
         return client.saveProject(project);
     }
+    @Override
+    public void updateProject(Project project)
+    {
+        client.updateProject(project);
+    }
     
     @Override
     public EmployeeList getAllWorkers()
@@ -186,9 +191,6 @@ public class ModelManager implements Model
     {
         client.dismissEmployeesFromProject(removedEmployees, id);
     }
-    
-    @Override
-    public Integer saveEmployee(Employee employee, String password)
     
     @Override
     public void updateEmployee(Employee employee)
