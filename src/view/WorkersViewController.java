@@ -164,22 +164,27 @@ public class WorkersViewController implements ViewController
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
         edit.setVisible(false);
+        createNewProfileButton.setVisible(false);
       }
       case HR -> {
         projectHBox.setVisible(false);
         projectHBox.setManaged(false);
         edit.setVisible(true);
+        createNewProfileButton.setVisible(true);
       }
       case PROJECT_MANAGER -> {
 
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
         edit.setVisible(false);
+        createNewProfileButton.setVisible(false);
       }
       case MAIN_MANAGER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
         edit.setVisible(false);
+
+        createNewProfileButton.setVisible(false);
       }
     }
 
