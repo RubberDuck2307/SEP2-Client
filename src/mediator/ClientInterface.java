@@ -20,9 +20,6 @@ public interface ClientInterface {
 
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
-    TagList getAllTags();
-
-    void deleteTag(Long id);
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
     void assignWorkerToTask(Integer workingNumber, Long taskID);
     EmployeeList getEmployeesAssignedToManager(int managerNumber);

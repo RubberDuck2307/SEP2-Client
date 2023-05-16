@@ -23,9 +23,6 @@ public interface Model{
 
     void changeTaskStatus(Long taskId, String status);
 
-    TagList getAllTags();
-
-    void deleteTag(Long id);
 
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 

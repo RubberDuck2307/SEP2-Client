@@ -188,7 +188,7 @@ public class EditTaskViewModel implements ViewModel
     if (valid)
     {
       Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(),
-          project.getId(), LocalDate.now());
+          project.getId());
       model.updateTask(task2);
       assignWorkersFromTable();
       assignTagsFromTable();
