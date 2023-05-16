@@ -30,17 +30,17 @@ public class TasksViewModel implements ViewModel
     private StringProperty projectName;
     private StringProperty taskName;
     private StringProperty taskDescription;
-    
+
     private ObservableList<Task> tasks;
     private ObservableList<TasksTable> tasksTables;
-    private ObservableList<CommentsTable> commentsTables;
+    private TagList tagList;
     private ObservableList<WorkersTable> workersTables;
     private StringProperty name;
     private IntegerProperty number;
     private StringProperty position;
     private ViewState viewState;
     private BooleanProperty isTaskSelected;
-    
+
     public TasksViewModel(Model model, ViewState viewState)
     {
         this.error = new SimpleStringProperty();
@@ -58,7 +58,6 @@ public class TasksViewModel implements ViewModel
         this.taskName = new SimpleStringProperty();
         this.taskDescription = new SimpleStringProperty();
         this.tasksTables = FXCollections.observableArrayList();
-        this.commentsTables = FXCollections.observableArrayList();
         this.workersTables = FXCollections.observableArrayList();
         this.name = new SimpleStringProperty();
         this.position = new SimpleStringProperty();
@@ -70,7 +69,7 @@ public class TasksViewModel implements ViewModel
         isTaskSelected.set(false);
         load();
     }
-    
+
     public void load()
     {
         Project project = viewState.getProject();
@@ -91,7 +90,7 @@ public class TasksViewModel implements ViewModel
             tasks.add(taskList.getTask(i));
         }
     }
-    
+
     public boolean changeStatus(String status, Task task)
     {
         if (model.getUser().getRole().equals(EmployeeRole.WORKER))
@@ -123,107 +122,107 @@ public class TasksViewModel implements ViewModel
         }
         return true;
     }
-    
+
     public ObservableList<TasksTable> getAll()
     {
         return tasksTables;
     }
-    
+
     public ObjectProperty<Employee> employeeProperty()
     {
         return employee;
     }
-    
+
     public Employee getEmployee()
     {
         return employee.get();
     }
-    
+
     public StringProperty getEmployeeName()
     {
         return employeeName;
     }
-    
+
     public StringProperty getEmployeeWorkingNumber()
     {
         return employeeWorkingNumber;
     }
-    
+
     public ObservableList<WorkersTable> getWorkersTables()
     {
         return workersTables;
     }
-    
+
     public StringProperty getError()
     {
         return error;
     }
-    
+
     public String getProjectName()
     {
         return projectName.get();
     }
-    
+
     public StringProperty projectNameProperty()
     {
         return projectName;
     }
-    
+
     public String getTaskName()
     {
         return taskName.get();
     }
-    
+
     public StringProperty taskNameProperty()
     {
         return taskName;
     }
-    
+
     public String getTaskDescription()
     {
         return taskDescription.get();
     }
-    
+
     public StringProperty taskDescriptionProperty()
     {
         return taskDescription;
     }
-    
+
     public String getName()
     {
         return name.get();
     }
-    
+
     public StringProperty nameProperty()
     {
         return name;
     }
-    
+
     public int getNumber()
     {
         return number.get();
     }
-    
+
     public IntegerProperty numberProperty()
     {
         return number;
     }
-    
+
     public String getPosition()
     {
         return position.get();
     }
-    
+
     public StringProperty positionProperty()
     {
         return position;
     }
-    
+
     public ObservableList<Task> getTasks()
     {
         return tasks;
     }
-    
+
     public void chooseTask(Long id)
     {
         Task task = taskList.getTaskById(id);
@@ -231,6 +230,7 @@ public class TasksViewModel implements ViewModel
         taskDescription.setValue(task.getDescription());
         viewState.setTask(task);
         EmployeeList employeeList = model.getEmployeesOfTask(id);
+        tagList = model.getTagsOfTask(id);
         workersTables.clear();
         for (int i = 0; i < employeeList.size(); i++)
         {
@@ -238,17 +238,17 @@ public class TasksViewModel implements ViewModel
         }
         isTaskSelected.set(true);
     }
-    
+
     public boolean isIsTaskSelected()
     {
         return isTaskSelected.get();
     }
-    
+
     public BooleanProperty isTaskSelectedProperty()
     {
         return isTaskSelected;
     }
-    
+
     public void setIsTaskSelected(boolean isTaskSelected)
     {
         this.isTaskSelected.set(isTaskSelected);
@@ -275,5 +275,10 @@ public class TasksViewModel implements ViewModel
     public Employee getEmployeeProperty()
     {
         return employee.get();
+    }
+
+    public TagList getTagList()
+    {
+        return tagList;
     }
 }

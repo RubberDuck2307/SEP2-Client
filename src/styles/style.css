@@ -251,6 +251,14 @@
 	-fx-background-color: white;
 }
 
+#newTags{
+ -fx-margin: 10px 5px 10px 5px;
+ -fx-padding: 5px 5px 5px 5px;
+ -fx-text-fill: black;
+ -fx-font-size: 12px;
+ -fx-border-radius: 5px;
+ -fx-background-radius: 5px;
+}
 
 
 .add-tag-button{
@@ -260,7 +268,6 @@
    -fx-border-radius: 5px;
    -fx-background-radius: 5px;
    -fx-border-color: #007BFF;
-
 }
 .white-window{
 -fx-background-color:white;

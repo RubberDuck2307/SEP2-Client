@@ -17,6 +17,89 @@ public class Client implements ClientInterface {
         model = (RemoteModel) Naming.lookup("rmi://localhost:1099/Case");
     }
 
+    @Override public Long saveTag(Tag tag)
+    {
+        try
+        {
+            return model.saveTag(tag);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public TagList getAllTags()
+    {
+        try
+        {
+            return model.getAllTags();
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public TagList getTagsOfTask(Long taskId)
+    {
+        try
+        {
+            return model.getTagsOfTask(taskId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void addTagToTask(Long taskId, Long tagId)
+    {
+        try
+        {
+            model.addTagToTask(taskId, tagId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void removeTagFromTask(Long taskId, Long tagId)
+    {
+        try
+        {
+            model.removeTagFromTask(taskId, tagId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public Tag getTag(Long tagId)
+    {
+        try
+        {
+            return model.getTag(tagId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void deleteTag(Long id)
+    {
+        try
+        {
+            model.deleteTag(id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public TaskList getAllTasksOfProject(Long id) {

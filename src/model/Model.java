@@ -6,6 +6,16 @@ import java.util.ArrayList;
 
 public interface Model{
 
+    Long saveTag(Tag tag);
+    TagList getAllTags();
+    TagList getTagsOfTask(Long taskId);
+    void addTagToTask(Long taskId, Long tagId);
+    void removeTagFromTask(Long taskId, Long tagId);
+
+    Tag getTag(Long tagId);
+    void deleteTag(Long id);
+
+
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
 

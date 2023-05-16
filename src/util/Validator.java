@@ -3,6 +3,8 @@ package util;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.paint.Color;
+import model.Tag;
 
 import javax.print.DocFlavor;
 import java.time.LocalDate;
@@ -155,5 +157,39 @@ public class Validator
                 throw new RuntimeException("Estimated time cannot contain letters!");
             }
         }
+    }
+
+    public void validateColor(Color color)
+    {
+        if (color==null)
+        {
+            throw new RuntimeException("Color cannot be empty!");
+        }
+//        if(color.getBrightness()<0.5){
+//            throw new RuntimeException("Color cannot be too dark!");
+//        }
+//        if(color.getSaturation()<0.3){
+//            throw new RuntimeException("Color cannot be too pale!");
+//        }
+    }
+
+    public void validateTag(Tag tag)
+    {
+        if (tag==null)
+        {
+            throw new RuntimeException("Tag cannot be empty!");
+        }
+        if(tag.getName().isEmpty()){
+            throw new RuntimeException("Tag name cannot be empty!");
+        }
+        if(tag.getColor()==null){
+            throw new RuntimeException("Tag color cannot be empty!");
+        }
+        //        if(color.getBrightness()<0.5){
+        //            throw new RuntimeException("Color cannot be too dark!");
+        //        }
+        //        if(color.getSaturation()<0.3){
+        //            throw new RuntimeException("Color cannot be too pale!");
+        //        }
     }
 }
