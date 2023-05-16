@@ -93,7 +93,6 @@ public class EditProjectViewController implements ViewController
         }
     }
     
-    
     @Override
     public Region getRoot()
     {

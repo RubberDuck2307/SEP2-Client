@@ -93,8 +93,10 @@ public class EditProjectViewModel implements ViewModel
     public void reset()
     {
         titleProperty.setValue("");
+        titleEProperty.setValue("");
         descriptionProperty.setValue("");
         deadlineProperty.setValue(null);
+        deadlineEProperty.setValue("");
         load();
     }
     
@@ -110,15 +112,6 @@ public class EditProjectViewModel implements ViewModel
         {
             valid = false;
             titleEProperty.setValue(e.getMessage());
-        }
-        try
-        {
-            validator.validateDeadline(deadlineProperty.get());
-        }
-        catch (Exception e)
-        {
-            valid = false;
-            deadlineEProperty.setValue(e.getMessage());
         }
         if (valid)
         {
