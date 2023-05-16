@@ -168,7 +168,7 @@ public class EditTaskViewModel implements ViewModel
         }
         if (valid)
         {
-            Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(), project.getId(), LocalDate.now());
+            Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(), project.getId());
             model.updateTask(task2);
             ArrayList<Integer> addedEmployees = new ArrayList<>();
             ArrayList<Integer> removedEmployees = new ArrayList<>();

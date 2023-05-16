@@ -142,7 +142,7 @@ public class AddTaskViewModel implements ViewModel
         }
         if (valid)
         {
-            Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO", project.getId(), LocalDate.now());
+            Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO", project.getId());
             //System.out.println("Bobek: " + task2.toString());
             Long id = model.saveTask(task2);
             model.assignEmployeesToTask(assignedEmployeeWorkingNumbers, id.longValue());
