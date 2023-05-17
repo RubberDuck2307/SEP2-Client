@@ -18,6 +18,7 @@ import view.ViewHandler;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
+import viewmodel.WorkerView.ProjectManagerHomeViewModel;
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
 import viewmodel.WorkerView.WorkerProfileViewModel;
 import viewmodel.WorkerView.WorkersViewModel;
@@ -25,9 +26,10 @@ import viewmodel.WorkerView.WorkersViewModel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ProjectManagerProfileViewController implements ViewController
+public class ProjectManagerHomeViewController implements ViewController
 {
-
+  //TODO link and viewhandler
+  @FXML private Label workerName2;
   @FXML private Button backButton;
   @FXML private ImageView avatarPic;
   @FXML
@@ -56,7 +58,7 @@ public class ProjectManagerProfileViewController implements ViewController
   @FXML private ImageView avatarPicture;
 
   private Region root;
-  private ProjectManagerProfileViewModel viewModel;
+  private ProjectManagerHomeViewModel viewModel;
   private ViewHandler viewHandler;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -64,7 +66,7 @@ public class ProjectManagerProfileViewController implements ViewController
   {
     this.root = root;
     this.viewHandler = viewHandler;
-    this.viewModel = (ProjectManagerProfileViewModel) viewModel;
+    this.viewModel = (ProjectManagerHomeViewModel) viewModel;
     this.viewModel.load();
     employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
 
@@ -81,13 +83,15 @@ public class ProjectManagerProfileViewController implements ViewController
         cellData -> cellData.getValue().getNumberProperty());
     workerEmail.setCellValueFactory(
         cellData -> cellData.getValue().getEmailProperty());
-    assignWorkersTable.setItems(((ProjectManagerProfileViewModel) viewModel).getWorkersTable());
+    assignWorkersTable.setItems(((ProjectManagerHomeViewModel) viewModel).getWorkersTable());
 
     projectDeadline.setCellValueFactory(
         cellData -> cellData.getValue().deadlineProperty());
     projectTitle.setCellValueFactory(
         cellData -> cellData.getValue().titleProperty());
-    currentProjectsTable.setItems(((ProjectManagerProfileViewModel) viewModel).getCurrentProjectsTableTable());
+    currentProjectsTable.setItems(((ProjectManagerHomeViewModel) viewModel).getCurrentProjectsTableTable());
+    workerName2.textProperty()
+        .bindBidirectional(this.viewModel.workerName2Property());
     isWoman();
     this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
       setWindow(((Employee) newValue).getRole());
@@ -95,7 +99,7 @@ public class ProjectManagerProfileViewController implements ViewController
     setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
   public void isWoman(){
-    if (((ProjectManagerProfileViewModel) viewModel).isProjectManagerWoman())
+    if (((ProjectManagerHomeViewModel) viewModel).isProjectManagerWoman())
     {
       avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
       //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
@@ -183,5 +187,8 @@ public class ProjectManagerProfileViewController implements ViewController
     viewHandler.openView("assignWorkersToProjectManager");
   }
 
-
+  public void logOut()
+  {
+    viewHandler.openView("login");
+  }
 }
