@@ -27,7 +27,7 @@ public class EditTaskViewController implements ViewController
     @FXML
     public Button backButton;
     @FXML
-    public Label nameOfTheProject;
+    public Label nameOfTheTask;
     @FXML
     public TextField title;
     @FXML public ImageView avatarPic;
@@ -121,7 +121,7 @@ public class EditTaskViewController implements ViewController
     {
         errorDeadlineMessage.textProperty().bindBidirectional(this.viewModel.errorDeadlineMessageProperty());
         errorPriorityMessage.textProperty().bindBidirectional(this.viewModel.errorPriorityMessageProperty());
-        nameOfTheProject.textProperty().bindBidirectional(this.viewModel.getNameOfTheProject());
+        nameOfTheTask.textProperty().bindBidirectional(this.viewModel.getNameOfTheTask());
         errorTitleMessage.textProperty().bindBidirectional(this.viewModel.errorTitleMessageProperty());
         errorTitleHours.textProperty().bindBidirectional(this.viewModel.errorTitleHoursProperty());
         title.textProperty().bindBidirectional(this.viewModel.titleProperty());

@@ -170,7 +170,7 @@
                                         <Insets />
                                     </opaqueInsets>
                                     <children>
-                                        <Label fx:id="nameOfTheProject" alignment="CENTER" prefHeight="20.0" prefWidth="1102.0" styleClass="labels-form" text="Name of project" textAlignment="CENTER" />
+                                        <Label fx:id="nameOfTheTask" alignment="CENTER" prefHeight="20.0" prefWidth="1102.0" styleClass="labels-form" text="Name of project" textAlignment="CENTER" />
                                     </children>
                                 </HBox>
                             </children>
