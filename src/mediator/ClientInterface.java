@@ -10,6 +10,8 @@ public interface ClientInterface {
 
     Long saveTag(Tag tag);
     TagList getAllTags();
+    void logOut();
+    boolean addForgetPasswordNotification(Integer workingNumber);
     TagList getTagsOfTask(Long taskId);
     void addTagToTask(Long taskId, Long tagId);
     void removeTagFromTask(Long taskId, Long tagId);

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.LoginViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.LoginViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="704.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <padding>
@@ -70,7 +70,7 @@
                                  <children>
                                     <Label fx:id="errorLabel" prefHeight="60.0" prefWidth="299.0" text="Error Label" textFill="RED" />
                                  </children></HBox>
-                              <Label prefHeight="20.0" prefWidth="94.0" styleClass="forgot-password-link" text="Forgot password" />
+                              <Label onMouseClicked="#openForgotPassword" prefHeight="20.0" prefWidth="94.0" styleClass="forgot-password-link" text="Forgot password" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="191.0" prefHeight="64.0" prefWidth="400.0">

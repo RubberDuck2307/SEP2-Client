@@ -17,6 +17,7 @@ import viewmodel.WorkerView.*;
 public class ViewModelFactory
 {
     private Model model;
+    private ForgotPasswordViewModel forgotPasswordViewModel;
     private TasksViewModel tasksViewModel;
     private ProjectsViewModel projectsViewModel;
     private AssignWorkersToTaskViewModel assignWorkersToTaskViewModel;
@@ -61,6 +62,7 @@ public class ViewModelFactory
         this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
         this.editProfileViewModel = new EditProfileViewModel(model,viewState);
         this.deleteTagsViewModel = new DeleteTagsViewModel(model);
+        this.forgotPasswordViewModel = new ForgotPasswordViewModel(model);
     }
     
     public Model getModel()
@@ -158,5 +160,9 @@ public class ViewModelFactory
     public WorkerHomeViewModel getWorkerHomeViewModel()
     {
         return workerHomeViewModel;
+    }
+
+    public ForgotPasswordViewModel getForgotPasswordViewModel() {
+        return forgotPasswordViewModel;
     }
 }

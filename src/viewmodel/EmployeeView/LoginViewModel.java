@@ -31,10 +31,10 @@ public class LoginViewModel implements ViewModel
         this.headlineProperty = new SimpleStringProperty("");
         this.loggedEmployee = new SimpleObjectProperty<Employee>();
         this.model = model;
-        headline();
+        setHeadline();
     }
     
-    public void headline()
+    public void setHeadline()
     {
         LocalTime time = LocalTime.now();
         int hour = time.getHour();
@@ -133,6 +133,8 @@ public class LoginViewModel implements ViewModel
     {
         return headlineProperty.get();
     }
+
+
     public StringProperty headlinePropertyProperty()
     {
         return headlineProperty;

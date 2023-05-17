@@ -112,6 +112,10 @@ public class ViewHandler {
                 root = loadViewController(viewModelFactory.getDeleteTagsViewModel(), "FXML/DeleteTagsView.fxml");
                 break;
             }
+            case "forgotPassword":{
+                root = loadViewController(viewModelFactory.getForgotPasswordViewModel(), "FXML/ForgotPasswordView.fxml");
+                break;
+            }
             default: {
                 throw new IllegalArgumentException("Unknown id: " + id);
             }

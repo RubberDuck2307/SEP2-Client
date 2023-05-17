@@ -14,8 +14,8 @@ public interface Model{
 
     Tag getTag(Long tagId);
     void deleteTag(Long id);
-
-
+    void logOut();
+    boolean addForgetPasswordNotification(Integer workingNumber);
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
 

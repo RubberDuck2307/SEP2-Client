@@ -14,12 +14,13 @@ import viewmodel.ViewModel;
 public class LoginViewController implements ViewController
 {
     
-    public Label headline;
+    @FXML
+    private Label headline;
     private ViewHandler viewHandler;
     private LoginViewModel viewModel;
 
     @FXML
-    public TextField workingNumberField;
+    private TextField workingNumberField;
     @FXML
     private PasswordField passwordField;
     @FXML
@@ -72,6 +73,11 @@ public class LoginViewController implements ViewController
                 }
             }
         }
+    }
+
+    @FXML
+    private void openForgotPassword(){
+        viewHandler.openView("forgotPassword");
     }
 
 }
