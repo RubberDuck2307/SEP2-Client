@@ -1,11 +1,14 @@
 package view.ViewControllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -18,17 +21,19 @@ import view.ViewHandler;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
-import viewmodel.WorkerView.ProjectManagerProfileViewModel;
-import viewmodel.WorkerView.WorkerProfileViewModel;
-import viewmodel.WorkerView.WorkersViewModel;
+import viewmodel.WorkerView.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ProjectManagerProfileViewController implements ViewController
+public class ProjectManagerHomeViewController implements ViewController
 {
+  @FXML public TableView<NotificationTable> notificationTable;
+  @FXML public TableColumn<NotificationTable, String> messageNotificationColumn;
+  @FXML public TableColumn<NotificationTable, Button> deleteNotificationColumn;
+  @FXML private ObservableList<NotificationTable> notificationTables;
+  @FXML private Label workerName2;
 
-  @FXML private Button backButton;
   @FXML private ImageView avatarPic;
   @FXML
   private HBox projectHBox;
@@ -49,14 +54,13 @@ public class ProjectManagerProfileViewController implements ViewController
   @FXML private TableColumn<viewmodel.WorkerView.WorkersTable, String> workerNumber;
   @FXML private TableColumn<viewmodel.WorkerView.WorkersTable, String> workerName;
   @FXML private TableColumn <viewmodel.WorkerView.WorkersTable, String> workerEmail;
-  @FXML private Button assignButton;
 
   @FXML private Label employeeName;
   @FXML private Label employeeWorkingNumber;
-  @FXML private ImageView avatarPicture;
+
 
   private Region root;
-  private ProjectManagerProfileViewModel viewModel;
+  private ProjectManagerHomeViewModel viewModel;
   private ViewHandler viewHandler;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -64,7 +68,7 @@ public class ProjectManagerProfileViewController implements ViewController
   {
     this.root = root;
     this.viewHandler = viewHandler;
-    this.viewModel = (ProjectManagerProfileViewModel) viewModel;
+    this.viewModel = (ProjectManagerHomeViewModel) viewModel;
     this.viewModel.load();
     employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
 
@@ -81,28 +85,58 @@ public class ProjectManagerProfileViewController implements ViewController
         cellData -> cellData.getValue().getNumberProperty());
     workerEmail.setCellValueFactory(
         cellData -> cellData.getValue().getEmailProperty());
-    assignWorkersTable.setItems(((ProjectManagerProfileViewModel) viewModel).getWorkersTable());
+    assignWorkersTable.setItems(((ProjectManagerHomeViewModel) viewModel).getWorkersTable());
+
+    messageNotificationColumn.setCellValueFactory(
+        cellData -> cellData.getValue().messageProperty());
+    notificationTable.setItems(((ProjectManagerHomeViewModel) viewModel).getNotificationTable());
 
     projectDeadline.setCellValueFactory(
         cellData -> cellData.getValue().deadlineProperty());
     projectTitle.setCellValueFactory(
         cellData -> cellData.getValue().titleProperty());
-    currentProjectsTable.setItems(((ProjectManagerProfileViewModel) viewModel).getCurrentProjectsTableTable());
-    isWoman();
+    currentProjectsTable.setItems(((ProjectManagerHomeViewModel) viewModel).getCurrentProjectsTableTable());
+    workerName2.textProperty()
+        .bindBidirectional(this.viewModel.workerName2Property());
     this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
       setWindow(((Employee) newValue).getRole());
     });
     setWindow(this.viewModel.getEmployeeProperty().getRole());
+
+
+    PropertyValueFactory<NotificationTable, Button> button = new PropertyValueFactory("button");
+    deleteNotificationColumn.setCellValueFactory(button);
+    deleteNotificationColumn.setStyle("-fx-alignment: CENTER;");
+
+
+    this.viewModel.employeePropertyProperty()
+        .addListener((observable, oldValue, newValue) -> {
+          setWindow(((Employee) newValue).getRole());
+        });
+    setWindow(this.viewModel.getEmployeeProperty().getRole());
+
+    notificationTables = FXCollections.observableArrayList();
+    fillInTasksTable();
+    notificationTable.setItems(notificationTables);
   }
-  public void isWoman(){
-    if (((ProjectManagerProfileViewModel) viewModel).isProjectManagerWoman())
-    {
-      avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
-      //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
+
+  private void fillInTasksTable() {
+    notificationTables.clear();
+    for (int i = 0; i < this.viewModel.getNotificationTable().size(); i++) {
+      notificationTables.add(new NotificationTable(this.viewModel.getNotificationTable().get(i).getMessage()));
+      Button button1 = new Button("");
+      button1.setId("delete-button");
+
+      int index =  i;
+      button1.setOnAction(e -> {
+        delete(viewModel.getNotificationTable().get(index).getMessage());
+      });
+      notificationTables.get(i).setButton(button1);
     }
-    else{
-      avatarPicture.setImage(new Image("/icons/man-avatar.png"));
-    }
+  }
+  private void delete(String message){
+    viewModel.deleteNotification(message);
+    reset();
   }
 
   @Override public Region getRoot()
@@ -112,7 +146,6 @@ public class ProjectManagerProfileViewController implements ViewController
 
   @Override
   public void reset() {
-    isWoman();
     viewModel.reset();
     setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
@@ -158,22 +191,21 @@ public class ProjectManagerProfileViewController implements ViewController
       case WORKER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
-        assignButton.setVisible(false);
       }
       case HR -> {
         projectHBox.setVisible(false);
         projectHBox.setManaged(false);
-        assignButton.setVisible(false);
+
       }
       case PROJECT_MANAGER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
-        assignButton.setVisible(false);
+
       }
       case MAIN_MANAGER -> {
         projectHBox.setVisible(true);
         projectHBox.setManaged(true);
-        assignButton.setVisible(true);
+
       }
     }
 
@@ -183,5 +215,8 @@ public class ProjectManagerProfileViewController implements ViewController
     viewHandler.openView("assignWorkersToProjectManager");
   }
 
-
+  public void logOut()
+  {
+    viewHandler.openView("login");
+  }
 }
