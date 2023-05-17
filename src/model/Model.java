@@ -6,10 +6,23 @@ import java.util.ArrayList;
 
 public interface Model{
 
+    Long saveTag(Tag tag);
+    TagList getAllTags();
+    TagList getTagsOfTask(Long taskId);
+    void addTagToTask(Long taskId, Long tagId);
+    void removeTagFromTask(Long taskId, Long tagId);
+
+    Tag getTag(Long tagId);
+    void deleteTag(Long id);
+
+
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
 
     EmployeeList getAllWorkers();
+
+    void changeTaskStatus(Long taskId, String status);
+
 
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
 
@@ -23,7 +36,8 @@ public interface Model{
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     EmployeeList getAllProjectManagers();
-    void saveProject(Project project);
+    Long saveProject(Project project);
+    void updateProject(Project project);
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
     Task getTask(Long projectId);
@@ -42,4 +56,10 @@ public interface Model{
     Project getProjectById(long projectId);
     TaskList getAllTasksByUserId (Integer workingNumber);
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
+    
+    void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id);
+    
+    void dismissEmployeesFromProject(ArrayList<Integer> removedEmployees, Long id);
+    void updateEmployee(Employee employee);
+    void changePassword(Employee employee, String password);
 }

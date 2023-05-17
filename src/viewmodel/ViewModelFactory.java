@@ -1,10 +1,18 @@
 package viewmodel;
 
 import model.Model;
-import viewmodel.AddProjectView.AddProjectViewModel;
 import viewmodel.NotesView.NotesViewModel;
+import viewmodel.EmployeeView.*;
+import viewmodel.ProjectView.AddProjectViewModel;
+import viewmodel.ProjectView.EditProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
+import viewmodel.TagsView.DeleteTagsViewModel;
+import viewmodel.TaskView.AddTaskViewModel;
+import viewmodel.TaskView.EditTaskViewModel;
 import viewmodel.TaskView.TasksViewModel;
+
+import viewmodel.WorkerView.ProjectManagerProfileViewModel;
+import viewmodel.WorkerView.WorkersViewModel;
 import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
@@ -24,10 +32,14 @@ public class ViewModelFactory
     private LoginViewModel loginViewModel;
     private ProjectManagerProfileViewModel projectManagerProfileViewModel;
     private HomeViewModel homeViewModel;
+    private EditProjectViewModel editProjectViewModel;
     private HrAndMainManagerProfileViewModel hrAndMainManagerProfileViewModel;
     private WorkerProfileViewModel workerProfileViewModel;
     private NotesViewModel notesViewModel;
     private WorkerHomeViewModel workerHomeViewModel;
+    private EditProfileViewModel editProfileViewModel;
+
+    private DeleteTagsViewModel deleteTagsViewModel;
     public ViewModelFactory(Model model)
     {
         this.model = model;
@@ -41,14 +53,17 @@ public class ViewModelFactory
         this.assignWorkersToProjectManagerViewModel = new AssignWorkersToProjectManagerViewModel(model, viewState);
         this.addProjectViewModel = new AddProjectViewModel(model, viewState);
         this.createUserProfileViewModel = new CreateUserProfileViewModel(model, viewState);
-        loginViewModel = new LoginViewModel(model);
+        this.loginViewModel = new LoginViewModel(model);
         this.workersViewModel = new WorkersViewModel(model, viewState);
         this.projectManagerProfileViewModel = new ProjectManagerProfileViewModel(model, viewState);
         this.homeViewModel = new HomeViewModel(model, viewState);
+        this.editProjectViewModel = new EditProjectViewModel(model, viewState);
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
       this.notesViewModel = new NotesViewModel(model, viewState);
         this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
+        this.editProfileViewModel = new EditProfileViewModel(model,viewState);
+        this.deleteTagsViewModel = new DeleteTagsViewModel(model);
     }
     
     public Model getModel()
@@ -69,6 +84,15 @@ public class ViewModelFactory
     public HrAndMainManagerProfileViewModel getHrAndMainManagerProfileViewModel()
     {
         return hrAndMainManagerProfileViewModel;
+    }
+
+    public DeleteTagsViewModel getDeleteTagsViewModel() {
+        return deleteTagsViewModel;
+    }
+
+    public EditProfileViewModel getEditProfileViewModel()
+    {
+        return editProfileViewModel;
     }
 
     public TasksViewModel getTasksViewModel()
@@ -133,6 +157,10 @@ public class ViewModelFactory
   {
     return notesViewModel;
   }
+    public EditProjectViewModel getEditProjectViewModel()
+    {
+        return editProjectViewModel;
+    }
 
     public WorkerHomeViewModel getWorkerHomeViewModel()
     {

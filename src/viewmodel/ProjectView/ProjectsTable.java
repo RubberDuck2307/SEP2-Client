@@ -21,6 +21,7 @@ public class ProjectsTable
 
   private Long id;
   private Button btton;
+  private Button buttonEdit;
 
   public ProjectsTable(Project project){
     this.title = new SimpleStringProperty(project.getName());
@@ -89,5 +90,14 @@ public class ProjectsTable
             ", deadline=" + deadline +
             ", manager=" + manager +
             '}';
+  }
+  
+  public Button getButtonEdit()
+  {
+    return buttonEdit;
+  }
+  public void setButtonEdit(Button buttonEdit)
+  {
+    this.buttonEdit = buttonEdit;
   }
 }

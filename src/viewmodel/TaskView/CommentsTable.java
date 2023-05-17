@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 
 public class CommentsTable
 {
+    //TODO delete
     private StringProperty worker;
     private StringProperty comment;
     

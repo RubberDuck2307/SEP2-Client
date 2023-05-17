@@ -73,7 +73,6 @@ public class WorkerProfileViewModel implements ViewModel
     employee.setValue(model.getUser());
     setAvatarPicture();
     employeeName.setValue(model.getUser().getName());
-
     employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
 
     Employee employee = viewState.getEmployee();
@@ -112,6 +111,10 @@ public class WorkerProfileViewModel implements ViewModel
       tasksTable.add(new TasksTableForWorkerProfile(taskList.getTask(i),model.getProjectById(taskList.getTask(i).getProjectId())));
     }
 
+  }
+  public void reset(){
+    load();
+    Employee employee = viewState.getEmployee();
   }
 
   public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}

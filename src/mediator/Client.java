@@ -17,6 +17,89 @@ public class Client implements ClientInterface {
         model = (RemoteModel) Naming.lookup("rmi://localhost:1099/Case");
     }
 
+    @Override public Long saveTag(Tag tag)
+    {
+        try
+        {
+            return model.saveTag(tag);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public TagList getAllTags()
+    {
+        try
+        {
+            return model.getAllTags();
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public TagList getTagsOfTask(Long taskId)
+    {
+        try
+        {
+            return model.getTagsOfTask(taskId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void addTagToTask(Long taskId, Long tagId)
+    {
+        try
+        {
+            model.addTagToTask(taskId, tagId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void removeTagFromTask(Long taskId, Long tagId)
+    {
+        try
+        {
+            model.removeTagFromTask(taskId, tagId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public Tag getTag(Long tagId)
+    {
+        try
+        {
+            return model.getTag(tagId);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void deleteTag(Long id)
+    {
+        try
+        {
+            model.deleteTag(id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public TaskList getAllTasksOfProject(Long id) {
@@ -84,6 +167,17 @@ public class Client implements ClientInterface {
         }
     }
 
+
+    public void changeTaskStatus(Long taskId, String status) {
+        try
+        {
+            model.changeTaskStatus(taskId, status);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
     @Override public EmployeeList getEmployeesAssignedToManager(
         int managerNumber)
     {
@@ -96,6 +190,7 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void removeWorkerFromTask(Integer workingNumber, Long taskID) {
@@ -183,11 +278,23 @@ public class Client implements ClientInterface {
         }
     }
 
-    @Override public void saveProject(Project project)
+    @Override public Long saveProject(Project project)
     {
         try
         {
-            model.saveProject(project);
+            return model.saveProject(project);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Override public void updateProject(Project project)
+    {
+        try
+        {
+            model.updateProject(project);
         }
         catch (RemoteException e)
         {
@@ -199,6 +306,29 @@ public class Client implements ClientInterface {
         try
         {
             model.unassignEmployeesFromTask(employeeWorkingNumbers, TaskID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void dismissEmployeesFromProject(ArrayList<Integer> employeeWorkingNumbers, Long projectID){
+        try
+        {
+            model.dismissEmployeesFromProject(employeeWorkingNumbers, projectID);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id)
+    {
+        try
+        {
+            model.assignEmployeesToProject(addedEmployees, id);
         }
         catch (RemoteException e)
         {
@@ -326,6 +456,30 @@ public class Client implements ClientInterface {
         try
         {
             return model.getAllWorkersManagersByWorkerWorkingNumber(workingNumber);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void updateEmployee(Employee employee)
+    {
+        try
+        {
+            model.updateEmployee(employee);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public void changePassword(Employee employee, String password)
+    {
+        try
+        {
+            model.changePassword(employee,password);
         }
         catch (RemoteException e)
         {
