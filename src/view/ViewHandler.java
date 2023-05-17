@@ -4,11 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import viewmodel.EditTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.ViewModelFactory;
 
-import javax.swing.text.View;
 import java.util.HashMap;
 
 public class ViewHandler {
@@ -38,80 +36,80 @@ public class ViewHandler {
         Region root = null;
         switch (id) {
             case "login": {
-                root = loadViewController(viewModelFactory.getLoginViewModel(), "LoginView.fxml");
+                root = loadViewController(viewModelFactory.getLoginViewModel(), "FXML/LoginView.fxml");
                 break;
             }
             case "workerHomePage": {
-                root = loadViewController(viewModelFactory.getWorkerHomeViewModel(), "WorkerHomeView.fxml");
+                root = loadViewController(viewModelFactory.getWorkerHomeViewModel(), "FXML/WorkerHomeView.fxml");
                 break;
             }
             case "editProfile": {
-                root = loadViewController(viewModelFactory.getEditProfileViewModel(), "EditProfileView.fxml");
+                root = loadViewController(viewModelFactory.getEditProfileViewModel(), "FXML/EditProfileView.fxml");
                 break;
             }
             case "hrAndMainManagerProfile": {
-                root = loadViewController(viewModelFactory.getHrAndMainManagerProfileViewModel(), "HrAndMainManagerProfileView.fxml");
+                root = loadViewController(viewModelFactory.getHrAndMainManagerProfileViewModel(), "FXML/HrAndMainManagerProfileView.fxml");
                 break;
             }
             case "workerProfile": {
-                root = loadViewController(viewModelFactory.getWorkerProfileViewModel(), "WorkerProfileView.fxml");
+                root = loadViewController(viewModelFactory.getWorkerProfileViewModel(), "FXML/WorkerProfileView.fxml");
                 break;
             }
             case "projects": {
-                root = loadViewController(viewModelFactory.getProjectsViewModel(), "ProjectsView.fxml");
+                root = loadViewController(viewModelFactory.getProjectsViewModel(), "FXML/ProjectsView.fxml");
                 break;
             }
             case "editTask": {
-                root = loadViewController(viewModelFactory.getEditTaskViewModel(), "EditTaskView.fxml");
+                root = loadViewController(viewModelFactory.getEditTaskViewModel(), "FXML/EditTaskView.fxml");
                 break;
             }
             case "tasks": {
-                root = loadViewController(viewModelFactory.getTasksViewModel(), "TasksView.fxml");
+                root = loadViewController(viewModelFactory.getTasksViewModel(), "FXML/TasksView.fxml");
                 break;
             }
             case "assignWorkersToTask": {
-                root = loadViewController(viewModelFactory.getAssignWorkersToTaskViewModel(), "AssignWorkersToTaskView.fxml");
+                root = loadViewController(viewModelFactory.getAssignWorkersToTaskViewModel(), "FXML/AssignWorkersToTaskView.fxml");
                 break;
             }
             case "assignWorkersToProject": {
-                root = loadViewController(viewModelFactory.getAssignWorkersToProjectViewModel(), "AssignEmployeesToProjectView.fxml");
+                root = loadViewController(viewModelFactory.getAssignWorkersToProjectViewModel(), "FXML/AssignEmployeesToProjectView.fxml");
                 break;
             }
             case "assignWorkersToProjectManager": {
-                root = loadViewController(viewModelFactory.getAssignWorkersToProjectManagerViewModel(), "AssignWorkersToProjectManagerView.fxml");
+                root = loadViewController(viewModelFactory.getAssignWorkersToProjectManagerViewModel(), "FXML/AssignWorkersToProjectManagerView.fxml");
                 break;
             }
             case "addTask": {
-                root = loadViewController(viewModelFactory.getAddTaskViewModel(), "AddTaskToProjectView.fxml");
+                root = loadViewController(viewModelFactory.getAddTaskViewModel(), "FXML/AddTaskToProjectView.fxml");
                 break;
             }
             case "addProject": {
                 root = loadViewController(
-                        viewModelFactory.getAddProjectViewModel(), "AddProjectView.fxml");
+                        viewModelFactory.getAddProjectViewModel(), "FXML/AddProjectView.fxml");
                 break;
             }
             case "createUserProfile": {
-                root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(), "CreateUserProfileView.fxml");
+                root = loadViewController(viewModelFactory.getCreateUserProfileViewModel(), "FXML/CreateUserProfileView.fxml");
                 break;
             }
             case "workers": {
-                root = loadViewController(viewModelFactory.getWorkersViewModel(), "WorkersView.fxml");
+                root = loadViewController(viewModelFactory.getWorkersViewModel(), "FXML/WorkersView.fxml");
                 break;
             }
             case "projectManagerPage": {
-                root = loadViewController(viewModelFactory.getProjectManagerProfileViewModel(), "ProjectManagerProfileView.fxml");
+                root = loadViewController(viewModelFactory.getProjectManagerProfileViewModel(), "FXML/ProjectManagerProfileView.fxml");
                 break;
             }
             case "home": {
-                root = loadViewController(viewModelFactory.getHomeViewModel(), "HomeView.fxml");
+                root = loadViewController(viewModelFactory.getHomeViewModel(), "FXML/HomeView.fxml");
                 break;
             }
             case "editProject": {
-                root = loadViewController(viewModelFactory.getEditProjectViewModel(), "EditProjectView.fxml");
+                root = loadViewController(viewModelFactory.getEditProjectViewModel(), "FXML/EditProjectView.fxml");
                 break;
             }
             case "deleteTags": {
-                root = loadViewController(viewModelFactory.getDeleteTagsViewModel(), "DeleteTagsView.fxml");
+                root = loadViewController(viewModelFactory.getDeleteTagsViewModel(), "FXML/DeleteTagsView.fxml");
                 break;
             }
             default: {

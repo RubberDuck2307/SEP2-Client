@@ -1,14 +1,17 @@
 package viewmodel;
 
 import model.Model;
-import viewmodel.AddProjectView.AddProjectViewModel;
+import viewmodel.EmployeeView.*;
+import viewmodel.ProjectView.AddProjectViewModel;
+import viewmodel.ProjectView.EditProjectViewModel;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.TagsView.DeleteTagsViewModel;
+import viewmodel.TaskView.AddTaskViewModel;
+import viewmodel.TaskView.EditTaskViewModel;
 import viewmodel.TaskView.TasksViewModel;
 
 import viewmodel.WorkerView.ProjectManagerProfileViewModel;
 import viewmodel.WorkerView.WorkersViewModel;
-import viewmodel.TaskView.TasksViewModel;
 import viewmodel.WorkerView.*;
 
 public class ViewModelFactory
@@ -48,7 +51,7 @@ public class ViewModelFactory
         this.assignWorkersToProjectManagerViewModel = new AssignWorkersToProjectManagerViewModel(model, viewState);
         this.addProjectViewModel = new AddProjectViewModel(model, viewState);
         this.createUserProfileViewModel = new CreateUserProfileViewModel(model, viewState);
-        loginViewModel = new LoginViewModel(model);
+        this.loginViewModel = new LoginViewModel(model);
         this.workersViewModel = new WorkersViewModel(model, viewState);
         this.projectManagerProfileViewModel = new ProjectManagerProfileViewModel(model, viewState);
         this.homeViewModel = new HomeViewModel(model, viewState);

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.TasksViewController">
+    <items>
+        <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
+            <children>
+                <VBox prefHeight="767.0" prefWidth="255.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="187.0" prefWidth="239.0">
+                            <children>
+
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../../icons/COMPANYLOGO.png" />
+                                    </image>
+
+                                </ImageView>
+
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openHome" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <SVGPath content="M20 8.76017V15.5967C20 17.4377 18.5076 18.93 16.6667 18.93H15.4444C14.8922 18.93 14.4444 18.4823 14.4444 17.93V17.7078C14.4444 17.1555 14.8922 16.7078 15.4444 16.7078H16.6667C17.2803 16.7078 17.7778 16.2104 17.7778 15.5967V8.76017C17.7778 8.41409 17.6165 8.08778 17.3416 7.87755L10.6749 2.77951C10.2765 2.47486 9.72345 2.47485 9.32506 2.77951L2.65839 7.87755C2.38348 8.08777 2.22222 8.41409 2.22222 8.76017V15.5967C2.22222 16.2104 2.71968 16.7078 3.33333 16.7078H4.55556C5.10784 16.7078 5.55556 17.1555 5.55556 17.7078V17.93C5.55556 18.4823 5.10784 18.93 4.55556 18.93H3.33333C1.49239 18.93 0 17.4377 0 15.5967V8.76017C0 7.72193 0.48377 6.74299 1.3085 6.11231L7.97517 1.01427C9.17036 0.100302 10.8297 0.100308 12.0248 1.01427L18.6915 6.11231C19.5162 6.74299 20 7.72194 20 8.76017ZM9.88889 9.15228H10.1111C11.768 9.15228 13.1111 10.4954 13.1111 12.1523V15.7078C13.1111 17.3647 11.768 18.7078 10.1111 18.7078H9.88889C8.23204 18.7078 6.88889 17.3647 6.88889 15.7078V12.1523C6.88889 10.4954 8.23204 9.15228 9.88889 9.15228ZM11.1111 12.1523C11.1111 11.6 10.6634 11.1523 10.1111 11.1523H9.88889C9.3366 11.1523 8.88889 11.6 8.88889 12.1523V15.7078C8.88889 16.2601 9.3366 16.7078 9.88889 16.7078H10.1111C10.6634 16.7078 11.1111 16.2601 11.1111 15.7078V12.1523Z" styleClass="side-menu-icon-home" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="side-menu-text" text="HOME">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </HBox>
+
+                        <HBox fx:id="taskHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <SVGPath content="M11.0748 3.25583C11.4141 2.42845 12.5859 2.42845 12.9252 3.25583L14.6493 7.45955C14.793 7.80979 15.1221 8.04889 15.4995 8.07727L20.0303 8.41798C20.922 8.48504 21.2841 9.59942 20.6021 10.1778L17.1369 13.1166C16.8482 13.3614 16.7225 13.7483 16.8122 14.1161L17.8882 18.5304C18.1 19.3992 17.152 20.0879 16.3912 19.618L12.5255 17.2305C12.2034 17.0316 11.7966 17.0316 11.4745 17.2305L7.60881 19.618C6.84796 20.0879 5.90001 19.3992 6.1118 18.5304L7.18785 14.1161C7.2775 13.7483 7.1518 13.3614 6.86309 13.1166L3.3979 10.1778C2.71588 9.59942 3.07796 8.48504 3.96971 8.41798L8.50046 8.07727C8.87794 8.04889 9.20704 7.80979 9.35068 7.45955L11.0748 3.25583Z" onMousePressed="#openProjects" strokeWidth="0.0" styleClass="side-menu-icon-workers" />
+
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label onMousePressed="#openProjects" styleClass="side-menu-text" text="PROJECTS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMouseClicked="#openWorkersView" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
+                            <children>
+                                <SVGPath content="M11 4C11 5.65685 9.65685 7 8 7C6.34315 7 5 5.65685 5 4C5 2.34315 6.34315 1 8 1C9.65685 1 11 2.34315 11 4Z M1 16.5C1 12.9101 3.91015 10 7.5 10H8.5C12.0899 10 15 12.9101 15 16.5V17C15 17.5523 14.5523 18 14 18H2C1.44772 18 1 17.5523 1 17V16.5Z" stroke="#0D6EFD" styleClass="side-menu-icon-projects" />
+                                <ImageView>
+                                    <image>
+
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="side-menu-text" text="WORKERS">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="260.0" prefWidth="239.0" />
+                        <HBox layoutX="10.0" layoutY="310.0" prefHeight="137.0" prefWidth="239.0">
+                            <children>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="118.0" prefWidth="45.0">
+                                    <children>
+                                        <ImageView fx:id="avatarPic" fitHeight="47.0" fitWidth="47.0">
+                                            <image>
+                                                <Image url="@../../icons/man-avatar.png" />
+                                            </image>
+                                            <HBox.margin>
+                                                <Insets left="20.0" />
+                                            </HBox.margin>
+                                        </ImageView>
+                                    </children>
+                                </HBox>
+                                <HBox prefHeight="74.0" prefWidth="128.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <HBox prefHeight="67.0" prefWidth="100.0">
+                                                    <children>
+                                                        <Label fx:id="employeeName" alignment="BOTTOM_LEFT" prefHeight="62.0" prefWidth="90.0" styleClass="normal-text" text="Anna Andrlová">
+                                                            <font>
+                                                                <Font name="System Bold" size="12.0" />
+                                                            </font></Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox prefHeight="59.0" prefWidth="90.0">
+                                                    <children>
+                                                        <Label fx:id="employeeWorkingNumber" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children></HBox>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="10.0" minWidth="-Infinity" prefHeight="225.0" prefWidth="1119.0">
+            <children>
+                <VBox prefHeight="751.0" prefWidth="1118.0">
+                    <children>
+                        <HBox prefHeight="110.0" prefWidth="1118.0">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <children>
+                                <Label prefHeight="46.0" prefWidth="150.0" styleClass="heading" text="TASKS OF" />
+                        
+                                <Label fx:id="projectName" prefHeight="46.0" prefWidth="861.0" styleClass="heading" text="VIA WEBSITE" />
+                        <Button fx:id="addButton" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#addNewTask" prefHeight="53.0" prefWidth="57.0" styleClass="button-add" textFill="TRANSPARENT">
+                           <HBox.margin>
+                              <Insets right="10.0" top="8.0" />
+                           </HBox.margin>
+                        </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="20.0" top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="463.0" prefWidth="1078.0" styleClass="box">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                            <children>
+                                <VBox prefHeight="293.0" prefWidth="1155.0">
+                                    <children>
+                                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="1039.0">
+                                            <children>
+                                                <Label prefHeight="64.0" prefWidth="70.0" styleClass="heading-3" text="Priority" />
+                                                <ChoiceBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="0.0" styleClass="input-select">
+                                                    <HBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </HBox.margin>
+                                                </ChoiceBox>
+                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="57.0" styleClass="heading-3" text="Status">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <ChoiceBox layoutX="96.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="0.0" styleClass="input-select">
+                                       <HBox.margin>
+                                          <Insets top="15.0" />
+                                       </HBox.margin>
+                                    </ChoiceBox>
+                                                <Label prefHeight="64.0" prefWidth="45.0" styleClass="heading-3" text="Title">
+                                                    <HBox.margin>
+                                                        <Insets left="20.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                                <TextField prefHeight="38.0" prefWidth="256.0" styleClass="input-select">
+                                                    <HBox.margin>
+                                                        <Insets top="15.0" />
+                                                    </HBox.margin>
+                                                </TextField>
+                                                <Button maxHeight="53.0" maxWidth="57.0" minHeight="15.0" minWidth="23.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="23.0" styleClass="button-back">
+                                                    <HBox.margin>
+                                                        <Insets left="7.0" top="17.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets top="20.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox prefHeight="290.0" prefWidth="1039.0">
+                                            <children>
+                                                <TableView fx:id="taskTable" onMousePressed="#taskTableClick" prefHeight="243.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
+                                                    <columns>
+                                                        <TableColumn fx:id="title" prefWidth="428.0000228881836" text="Title" />
+                                                        <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="106.0" text="Deadline" />
+                                                        <TableColumn fx:id="priority" minWidth="0.0" prefWidth="107.0" text="Priority" />
+                                                        <TableColumn fx:id="status" minWidth="0.0" prefWidth="117.0" text="Status" />
+                                                        <TableColumn fx:id="tags" minWidth="0.0" prefWidth="123.19989013671875" text="Tags" />
+                                                        <TableColumn fx:id="delete" minWidth="0.0" prefWidth="81.5999755859375" text="Delete" />
+                                                        <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="71.9998779296875" text="Edit" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="1118.0">
+                            <children>
+                                <HBox prefHeight="246.0" prefWidth="867.0" styleClass="box">
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                    <children>
+                                        <VBox prefHeight="231.0" prefWidth="543.0">
+                                            <children>
+                                                <HBox prefHeight="46.0" prefWidth="539.0">
+                                                    <children>
+                                                        <Label fx:id="taskName" styleClass="heading-2" text="HOME PAGE - FRONTEND">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox disable="true" layoutX="10.0" layoutY="10.0" prefHeight="59.0" prefWidth="539.0">
+                                                    <children>
+                                                        <TextArea fx:id="taskDescription" editable="false" prefHeight="62.0" prefWidth="515.0" styleClass="normal-text">
+                                                            <HBox.margin>
+                                                                <Insets left="10.0" />
+                                                            </HBox.margin>
+                                                        </TextArea>
+                                                        <ScrollBar orientation="VERTICAL" />
+                                                    </children>
+                                                </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="539.0">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="411.0" styleClass="heading-2" text="TAGS">
+                                             <HBox.margin>
+                                                <Insets left="20.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="135.0" styleClass="button-blue" text="Delete tags">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="116.0" prefHeight="121.0" prefWidth="539.0">
+                                       <children>
+                                          <VBox>
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="540.0">
+                                                   <children>
+                                                       <ScrollPane pannable="true" prefHeight="80.0" prefWidth="526.0" vbarPolicy="NEVER">
+                                                           <content>
+                                                               <HBox fx:id="hBoxForTags" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="60.0" spacing="10.0">
+                                                               <padding>
+                                                                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                                                               </padding></HBox>
+                                                           </content>
+                                                       </ScrollPane>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="367.0" prefWidth="846.0" styleClass="box">
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
+                                    </HBox.margin>
+                                    <children>
+                                        <VBox prefHeight="231.0" prefWidth="543.0">
+                                            <children>
+                                                <HBox prefHeight="55.0" prefWidth="539.0">
+                                                    <children>
+                                                        <Label prefHeight="30.0" prefWidth="387.0" styleClass="heading-2" text="ASSIGNED WORKERS">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                          <Button fx:id="assignWorkerButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#assignWorker" prefHeight="56.0" prefWidth="144.0" styleClass="button-blue" text="Assign">
+                                             <HBox.margin>
+                                                <Insets top="12.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                                    </children>
+                                                </HBox>
+                                                <HBox disable="true" layoutX="10.0" layoutY="10.0" prefHeight="181.0" prefWidth="539.0" />
+                                                <TableView fx:id="workersTable" prefHeight="391.0" prefWidth="490.0" styleClass="table-view2">
+                                                    <columns>
+                                                        <TableColumn fx:id="number" prefWidth="88.79998779296875" text="Number" />
+                                                        <TableColumn fx:id="name" minWidth="0.0" prefWidth="241.60010528564453" text="Name" />
+                                                        <TableColumn fx:id="position" maxWidth="153.5999755859375" minWidth="0.0" prefWidth="140.7999267578125" text="Position" />
+                                                    </columns>
+                                                    <VBox.margin>
+                                                        <Insets left="15.0" right="15.0" />
+                                                    </VBox.margin>
+                                                </TableView>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </items>
+</SplitPane>
