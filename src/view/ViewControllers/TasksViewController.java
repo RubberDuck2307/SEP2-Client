@@ -57,10 +57,8 @@ public class TasksViewController implements ViewController
     private TableColumn<TasksTable, String> priority;
     @FXML
     private TableColumn<TasksTable, Button> status;
-    @FXML
-    private TableColumn<TasksTable, String> tags;
     @FXML private HBox hBoxForTags;
-
+    @FXML private Button deleteTags;
     @FXML
     private TableView<WorkersTable> workersTable;
     @FXML
@@ -126,7 +124,6 @@ public class TasksViewController implements ViewController
             if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
                 assignWorkerButton.setVisible(newValue);
                 hBoxForTags.setVisible(newValue);
-                fillInTags();
             }
         }));
 
@@ -200,8 +197,8 @@ public class TasksViewController implements ViewController
 
     public void taskTableClick() {
         if (taskTable.getSelectionModel().getSelectedItem() != null) {
-            viewModel.chooseTask(
-                    taskTable.getSelectionModel().getSelectedItem().getId());
+            viewModel.chooseTask(taskTable.getSelectionModel().getSelectedItem().getId());
+            fillInTags();
             workersTable.setVisible(true);
         }
     }
@@ -213,24 +210,28 @@ public class TasksViewController implements ViewController
                 addButton.setVisible(false);
                 taskHBox.setVisible(false);
                 taskHBox.setManaged(false);
+                deleteTags.setVisible(false);
             }
             case MAIN_MANAGER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
                 taskHBox.setVisible(true);
                 taskHBox.setManaged(true);
+                deleteTags.setVisible(false);
             }
             case PROJECT_MANAGER -> {
                 edit.setVisible(true);
                 addButton.setVisible(true);
                 taskHBox.setVisible(true);
                 taskHBox.setManaged(true);
+                deleteTags.setVisible(true);
             }
             case WORKER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
                 taskHBox.setVisible(true);
                 taskHBox.setManaged(true);
+                deleteTags.setVisible(false);
             }
         }
     }
@@ -292,6 +293,9 @@ public class TasksViewController implements ViewController
   public void openWorkersView()
   {
     viewHandler.openView("workers");
+  }
+  public void openDeleteTags(){
+        viewHandler.openView("deleteTags");
   }
   public void openHome()
   {

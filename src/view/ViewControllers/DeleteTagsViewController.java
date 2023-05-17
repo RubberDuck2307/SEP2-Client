@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import model.Tag;
 import view.ViewController;
 import view.ViewHandler;
@@ -40,10 +41,10 @@ public class DeleteTagsViewController implements ViewController
         this.viewModel.load();
 
 
-        PropertyValueFactory<DeleteTagsTable, Label> tagLabel = new PropertyValueFactory("tag");
+        PropertyValueFactory<DeleteTagsTable, Label> tagLabel = new PropertyValueFactory<>("tag");
         tagColumn.setCellValueFactory(tagLabel);
 
-        PropertyValueFactory<DeleteTagsTable, Button> deleteButton = new PropertyValueFactory("delete");
+        PropertyValueFactory<DeleteTagsTable, Button> deleteButton = new PropertyValueFactory<>("delete");
         deleteColumn.setCellValueFactory(deleteButton);
         tagsTable.getSelectionModel().setCellSelectionEnabled(false);
 
@@ -62,32 +63,32 @@ public class DeleteTagsViewController implements ViewController
             Button button = new Button();
             button.setId("delete-button");
             button.setStyle("-fx-alignment: CENTER;");
+
             int finalI = i;
             button.setOnAction(event -> delete(viewModel.getAllTags().get(finalI)));
             tagsTables.get(i).setDeleteButton(button);
         }
-
     }
 
 
     @FXML
     private void openProjects() {
-
+        viewHandler.openView("projects");
     }
 
     @FXML
     private void openHome() {
-
+        viewHandler.openView("workerHomePage");
     }
 
     @FXML
     private void openWorkersView() {
-
+        viewHandler.openView("workers");
     }
 
     @FXML
     private void backButtonClick() {
-
+        viewHandler.openView("tasks");
     }
 
 

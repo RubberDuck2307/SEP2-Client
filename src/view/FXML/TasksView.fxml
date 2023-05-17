@@ -218,8 +218,8 @@
                                                         <TableColumn fx:id="priority" minWidth="0.0" prefWidth="107.0" text="Priority" />
                                                         <TableColumn fx:id="status" minWidth="0.0" prefWidth="117.0" text="Status" />
                                                         <TableColumn fx:id="tags" minWidth="0.0" prefWidth="123.19989013671875" text="Tags" />
-                                                        <TableColumn fx:id="delete" minWidth="0.0" prefWidth="81.5999755859375" text="Delete" />
                                                         <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="71.9998779296875" text="Edit" />
+                                                        <TableColumn fx:id="delete" minWidth="0.0" prefWidth="81.5999755859375" text="Delete" />
                                                     </columns>
                                                 </TableView>
                                             </children>
@@ -266,7 +266,7 @@
                                                 <Insets left="20.0" top="10.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="135.0" styleClass="button-blue" text="Delete tags">
+                                          <Button fx:id="deleteTags" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openDeleteTags" prefHeight="26.0" prefWidth="135.0" styleClass="button-blue" text="Delete tags">
                                              <HBox.margin>
                                                 <Insets top="15.0" />
                                              </HBox.margin>
@@ -279,7 +279,7 @@
                                              <children>
                                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="540.0">
                                                    <children>
-                                                       <ScrollPane pannable="true" prefHeight="80.0" prefWidth="526.0" vbarPolicy="NEVER">
+                                                       <ScrollPane pannable="true" prefHeight="80.0" prefWidth="526.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
                                                            <content>
                                                                <HBox fx:id="hBoxForTags" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="60.0" spacing="10.0">
                                                                <padding>
