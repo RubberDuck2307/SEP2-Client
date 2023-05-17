@@ -40,13 +40,10 @@ public class LoginViewModel implements ViewModel
         int hour = time.getHour();
         switch (hour)
         {
-            case 6, 7, 8, 9, 10, 11, 12:
-                headlineProperty.setValue("Good morning");
-                break;
-            case 13,14,15,16,17:
-                headlineProperty.setValue("Good afternoon");
-                break;
-                
+            case 6, 7, 8, 9, 10, 11, 12 -> headlineProperty.setValue("Good morning");
+            case 13, 14, 15, 16, 17 -> headlineProperty.setValue("Good afternoon");
+            case 18, 19, 20, 21, 22, 23 -> headlineProperty.setValue("Good evening");
+            case 0, 1, 2, 3, 4, 5 -> headlineProperty.setValue("Good night");
         }
     }
     

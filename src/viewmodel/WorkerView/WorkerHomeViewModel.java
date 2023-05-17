@@ -3,14 +3,13 @@ package viewmodel.WorkerView;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import model.*;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -83,6 +82,7 @@ public class WorkerHomeViewModel implements ViewModel
     workerPhoneNumber.setValue(worker.getPhoneNumber());
     workerRole.setValue(worker.getRole().toString());
     workerDateOfBirth.setValue(worker.getDob().toString());
+    headline();
 
     EmployeeList managersList = model.getAllWorkersManagersByWorkerWorkingNumber(worker.getWorkingNumber());
     String managers = "";
@@ -116,6 +116,20 @@ public class WorkerHomeViewModel implements ViewModel
       notificationTable.add(new NotificationTable(notificationList.get(i)));
     }
 
+  }
+
+  public void headline()
+  {
+    Employee worker = model.getUser();
+    LocalTime time = LocalTime.now();
+    int hour = time.getHour();
+    switch (hour)
+    {
+      case 6, 7, 8, 9, 10, 11, 12 -> workerName.setValue("Good morning, " + worker.getName() + "!");
+      case 13, 14, 15, 16, 17 -> workerName.setValue("Good afternoon, " + worker.getName() + "!");
+      case 18, 19, 20, 21, 22, 23 -> workerName.setValue("Good evening, " + worker.getName() + "!");
+      case 0, 1, 2, 3, 4, 5 -> workerName.setValue("Good night, " + worker.getName() + "!");
+    }
   }
 
   public ObservableList<TasksTableForWorkerProfile> getTaskTable(){return tasksTable;}
