@@ -25,7 +25,7 @@ public class NoteCell {
     titleBox.getChildren().addAll(title, creationDate);
 
     noteText = new TextArea(note.getNoteText());
-    noteText.getStyleClass().add("note-content-area");
+    noteText.getStyleClass().add("note-text-area");
     noteText.setEditable(false);
     noteText.setWrapText(true);
 

@@ -36,7 +36,6 @@ public class NotesViewController implements ViewController
   private ObservableList<Note> notes;
   private Region root;
   private NotesViewModel viewModel;
-  //private NoteVBOXController noteVBOXController;
 
   public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
   {
@@ -63,23 +62,7 @@ public class NotesViewController implements ViewController
     {
       notesListVBox.getChildren().addAll(noteCellVBox.getChildren());
     }
-
-    //notesListVBox = noteVBOXController.getNotesListVBox();
-    //notesListVBox.getChildren().add(((NotesViewModel) viewModel).loadNoteVBox());
-
-   // NoteVBOXController noteVBOXController = new NoteVBOXController();
-
-    //Label title = noteVBOXController.getTitle();
-    //Label creationDate = noteVBOXController.getCreationDate();
-    //TextArea noteText = noteVBOXController.getNoteText();
-
-    //title.textProperty().bindBidirectional(((NotesViewModel) viewModel).getTitleProperty());
-    //creationDate.textProperty().bindBidirectional(((NotesViewModel) viewModel).getCreationDate());
-    //noteText.textProperty().bindBidirectional(((NotesViewModel) viewModel).getNoteTextProperty());
-    }
-
-    //notesList.setCellFactory(((NotesViewModel) viewModel).getNoteCellFactory());
-    //((NotesViewModel) viewModel).load();
+  }
 
    // notes = ((NotesViewModel) viewModel).getNoteList().getAllNotes();
     //notesList.setItems(notes);

@@ -548,16 +548,28 @@
 
 .note-title-label{
   -fx-font-family: "SF Pro Display";
-  -fx-font-size: 14;
+  -fx-font-size: 13;
+  -fx-font-weight: bold;
+
 }
 
-
+.note-date-label{
+  -fx-font-family: "SF Pro Display";
+  -fx-font-size: 13;
+  -fx-font-weight: bold;
+  -fx-alignment: center-right;
+}
 
 #my-text-area {
   -fx-background-color: transparent;
   -fx-background-insets: 0;
   -fx-border-color: transparent;
+}
 
+.note-text-area{
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-border-color: transparent;
 }
 
 
