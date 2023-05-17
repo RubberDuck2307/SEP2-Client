@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
+import model.Tag;
 import view.ViewController;
 import view.ViewHandler;
 import viewmodel.ProjectView.ProjectsTable;
@@ -95,6 +96,7 @@ public class WorkerHomeViewController implements ViewController
     deleteNotificationColumn.setCellValueFactory(button);
     deleteNotificationColumn.setStyle("-fx-alignment: CENTER;");
 
+
     this.viewModel.employeePropertyProperty()
         .addListener((observable, oldValue, newValue) -> {
           setWindow(((Employee) newValue).getRole());
@@ -110,17 +112,18 @@ public class WorkerHomeViewController implements ViewController
     for (int i = 0; i < this.viewModel.getNotificationTable().size(); i++) {
       notificationTables.add(new NotificationTable(this.viewModel.getNotificationTable().get(i).getMessage()));
       Button button1 = new Button("");
-      button1.setId("button-delete-notification");
-      Long index = (long) i;
+      button1.setId("delete-button");
+
+      int index =  i;
       button1.setOnAction(e -> {
-        notificationButtonTableClick(index);
+        delete(viewModel.getNotificationTable().get(index).getMessage());
       });
       notificationTables.get(i).setButton(button1);
     }
   }
-  public void notificationButtonTableClick(Long index) {
-    taskTable.getSelectionModel().select(index.intValue());
-    //call delete function from model
+  private void delete(String message){
+    viewModel.deleteNotification(message);
+    reset();
   }
 
   @Override public Region getRoot()

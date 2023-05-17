@@ -131,6 +131,10 @@ public class WorkerHomeViewModel implements ViewModel
       case 0, 1, 2, 3, 4, 5 -> workerName.setValue("Good night, " + worker.getName() + "!");
     }
   }
+  public void deleteNotification(String message){
+    //model.deleteTag(tag.getId());
+    System.out.println("delete " + message);
+  }
 
   public ObservableList<TasksTableForWorkerProfile> getTaskTable(){return tasksTable;}
   public ObservableList<NotificationTable> getNotificationTable(){return notificationTable;}

@@ -266,8 +266,8 @@
                                                         </Label>
                                                         <TableView fx:id="notificationTable" prefHeight="338.0" prefWidth="1018.0" styleClass="notificationTable">
                                                             <columns>
-                                                                <TableColumn fx:id="messageNotificationColumn" prefWidth="395.99999845027924" styleClass="notificationTable" text="Message" />
-                                                <TableColumn fx:id="deleteNotificationColumn" minWidth="0.0" prefWidth="76.80001831054688" styleClass="notificationTable" text="Delete" />
+                                                                <TableColumn fx:id="messageNotificationColumn" prefWidth="433.59997403621674" styleClass="notificationTable" text="Message" />
+                                                <TableColumn fx:id="deleteNotificationColumn" minWidth="0.0" prefWidth="48.000091552734375" styleClass="notificationTable" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
