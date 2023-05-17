@@ -9,6 +9,7 @@ import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -62,7 +63,7 @@ public class WorkerHomeViewModel implements ViewModel
     employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
 
     Employee worker = model.getUser();
-    workerName.setValue("Welcome back, " + worker.getName() + "!");
+    headline();
 
     EmployeeList managersList = model.getAllWorkersManagersByWorkerWorkingNumber(worker.getWorkingNumber());
     String managers = "";
@@ -88,6 +89,20 @@ public class WorkerHomeViewModel implements ViewModel
       tasksTable.add(new TasksTableForWorkerProfile(taskList.getTask(i),model.getProjectById(taskList.getTask(i).getProjectId())));
     }
 
+  }
+  
+  public void headline()
+  {
+    Employee worker = model.getUser();
+    LocalTime time = LocalTime.now();
+    int hour = time.getHour();
+    switch (hour)
+    {
+      case 6, 7, 8, 9, 10, 11, 12 -> workerName.setValue("Good morning, " + worker.getName() + "!");
+      case 13, 14, 15, 16, 17 -> workerName.setValue("Good afternoon, " + worker.getName() + "!");
+      case 18, 19, 20, 21, 22, 23 -> workerName.setValue("Good evening, " + worker.getName() + "!");
+      case 0, 1, 2, 3, 4, 5 -> workerName.setValue("Good night, " + worker.getName() + "!");
+    }
   }
 
   public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
