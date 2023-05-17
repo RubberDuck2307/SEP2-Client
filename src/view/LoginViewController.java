@@ -12,7 +12,8 @@ import viewmodel.ViewModel;
 import java.awt.*;
 
 public class LoginViewController implements ViewController {
-
+    
+    public Label headline;
     private ViewHandler viewHandler;
     private LoginViewModel viewModel;
 
@@ -38,6 +39,7 @@ public class LoginViewController implements ViewController {
         passwordField.textProperty().bindBidirectional(viewModel.passwordPropertyProperty());
         workingNumberField.textProperty().bindBidirectional(viewModel.workingNumberPropertyProperty());
         errorLabel.textProperty().bindBidirectional(viewModel.errorPropertyProperty());
+        headline.textProperty().bind(viewModel.headlinePropertyProperty());
     }
 
     @Override

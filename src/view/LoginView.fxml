@@ -50,8 +50,8 @@
                <children>
                   <VBox maxHeight="300.0" maxWidth="400.0" prefWidth="642.0">
                      <children>
-                        <Label prefHeight="0.0" prefWidth="642.0" styleClass="heading" text="Welcome back" textAlignment="CENTER" />
-                        <Label prefHeight="0.0" prefWidth="642.0" styleClass="small-message" text="Welcome back. Please enter your details." textAlignment="CENTER" />
+                        <Label fx:id="headline" prefHeight="0.0" prefWidth="642.0" styleClass="heading" text="Welcome back" textAlignment="CENTER" />
+                        <Label prefHeight="0.0" prefWidth="642.0" styleClass="small-message" text="Please enter your details." textAlignment="CENTER" />
                         <Label styleClass="labels-form" text="Working number">
                            <VBox.margin>
                               <Insets top="10.0" />
