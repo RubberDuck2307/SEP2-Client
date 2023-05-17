@@ -1,15 +1,10 @@
 package viewmodel;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import model.*;
 import util.Validator;
-import viewmodel.TaskView.TasksTable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +16,7 @@ public class EditTaskViewModel implements ViewModel
   private ViewState viewState;
   private ObjectProperty<Employee> employee;
   private ObjectProperty<Image> avatarPic;
-  private StringProperty nameOfTheProject;
+  private StringProperty nameOfTheTask;
   private StringProperty title;
   private StringProperty errorTitleMessage;
   private StringProperty errorTitleHours;
@@ -54,7 +49,7 @@ public class EditTaskViewModel implements ViewModel
     this.viewState = viewState;
     this.employee=new SimpleObjectProperty<>();
     this.avatarPic=new SimpleObjectProperty<>();
-    this.nameOfTheProject = new SimpleStringProperty();
+    this.nameOfTheTask = new SimpleStringProperty();
     this.title = new SimpleStringProperty();
     this.errorTitleMessage = new SimpleStringProperty();
     LocalDate localDate = LocalDate.now();
@@ -96,7 +91,7 @@ public class EditTaskViewModel implements ViewModel
 
     Project project = viewState.getProject();
 
-    nameOfTheProject.setValue(project.getName());
+    nameOfTheTask.setValue(viewState.getTask().getName());
     deadline.setValue(task.getDeadline());
     status.setValue(task.getStatus());
     priority.setValue(task.getPriority());
@@ -131,9 +126,9 @@ public class EditTaskViewModel implements ViewModel
     Task task = viewState.getTask();
     priority.setValue(task.getPriority());
   }
-  public StringProperty getNameOfTheProject()
+  public StringProperty getNameOfTheTask()
   {
-    return nameOfTheProject;
+    return nameOfTheTask;
   }
   public boolean add(){
     errorTitleHours.setValue(null);
@@ -297,9 +292,9 @@ public class EditTaskViewModel implements ViewModel
         return employees;
     }
 
-    public StringProperty nameOfTheProjectProperty()
+    public StringProperty nameOfTheTaskProperty()
     {
-        return nameOfTheProject;
+        return nameOfTheTask;
     }
 
     public StringProperty titleProperty()
