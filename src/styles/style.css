@@ -319,6 +319,10 @@
 }
 
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
 .side-menu-icon-home{
     -size: 24;
     -fx-fill: #B7BBC0; /* set the fill color */

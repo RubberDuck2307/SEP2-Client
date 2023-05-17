@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
+import model.Project;
 import view.ViewController;
 import view.ViewHandler;
 import viewmodel.ProjectView.ProjectManagersTable;
@@ -112,20 +113,20 @@ public class ProjectsViewController implements ViewController
     private void fillInProjectsTable(){
         projectsTables.clear();
         for (int i = 0; i < this.viewModel.getProjectList().size(); i++) {
-            projectsTables.add(new ProjectsTable(this.viewModel.getProjectList().get(i)));
+            Project project = this.viewModel.getProjectList().get(i);
+            projectsTables.add(new ProjectsTable(project));
             Button button1 = new Button(" ");
             Button button2 = new Button(" ");
             button1.setId("showTasks");
             button2.setId("button-edit");
-            Long index = (long) i;
             button1.setOnAction(e ->
             {
-                projectButtonTableClick(index);
+                projectButtonTableClick(project.getId());
                 viewHandler.openView("tasks");
             });
             button2.setOnAction(e ->
             {
-                projectButtonTableClick(index);
+                projectButtonTableClick(project.getId());
                 viewHandler.openView("editProject");
             });
             projectsTables.get(i).setBtton(button1);
@@ -148,7 +149,6 @@ public class ProjectsViewController implements ViewController
 
     @FXML
     public void projectTableClick() {
-
         if (projectTable.getSelectionModel().getSelectedItem() != null) {
             viewModel.setProject(projectTable.getSelectionModel().getSelectedItem().getId());
         }
@@ -160,8 +160,7 @@ public class ProjectsViewController implements ViewController
     }
 
     public void projectButtonTableClick(Long index) {
-        projectTable.getSelectionModel().select(index.intValue());
-        projectTableClick();
+        viewModel.setProject(index);
     }
 
     private void setWindow(EmployeeRole employeeRole) {

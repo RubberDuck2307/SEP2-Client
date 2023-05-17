@@ -136,13 +136,13 @@ public class TasksViewController implements ViewController
     private void fillInTasksTable() {
         taskTables.clear();
         for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
-            taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
+            Task task=this.viewModel.getTasks().get(i);
+            taskTables.add(new TasksTable(task));
             Button button1 = new Button("");
             Button statusButton = createStatusButton(this.viewModel.getTasks().get(i));
             button1.setId("button-edit");
-            Long index = (long) i;
             button1.setOnAction(e -> {
-                taskButtonTableClick(index);
+                taskButtonTableClick(task.getId());
                 viewHandler.openView("editTask");
             });
             taskTables.get(i).setBtton(button1);
@@ -191,8 +191,7 @@ public class TasksViewController implements ViewController
     }
 
     public void taskButtonTableClick(Long index) {
-        taskTable.getSelectionModel().select(index.intValue());
-        taskTableClick();
+        viewModel.chooseTask(index);
     }
 
     public void taskTableClick() {
