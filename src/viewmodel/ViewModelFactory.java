@@ -36,6 +36,7 @@ public class ViewModelFactory
     private WorkerProfileViewModel workerProfileViewModel;
     private WorkerHomeViewModel workerHomeViewModel;
     private EditProfileViewModel editProfileViewModel;
+    private ProjectManagerHomeViewModel projectManagerHomeViewModel;
 
     private DeleteTagsViewModel deleteTagsViewModel;
     public ViewModelFactory(Model model)
@@ -61,6 +62,7 @@ public class ViewModelFactory
         this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
         this.editProfileViewModel = new EditProfileViewModel(model,viewState);
         this.deleteTagsViewModel = new DeleteTagsViewModel(model);
+        this.projectManagerHomeViewModel = new ProjectManagerHomeViewModel(model, viewState);
     }
     
     public Model getModel()
@@ -71,6 +73,11 @@ public class ViewModelFactory
     public ProjectsViewModel getProjectsViewModel()
     {
         return projectsViewModel;
+    }
+
+    public ProjectManagerHomeViewModel getProjectManagerHomeViewModel()
+    {
+        return projectManagerHomeViewModel;
     }
 
     public WorkerProfileViewModel getWorkerProfileViewModel()

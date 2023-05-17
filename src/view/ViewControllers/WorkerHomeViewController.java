@@ -36,10 +36,10 @@ public class WorkerHomeViewController implements ViewController
   @FXML public TableColumn<TasksTableForWorkerProfile, String> taskTitle;
   @FXML public TableColumn <TasksTableForWorkerProfile, String> taskStatus;
   @FXML public TableColumn<TasksTableForWorkerProfile, String>  taskProjectName;
-  public TableView<NotificationTable> notificationTable;
-  public TableColumn<NotificationTable, String> messageNotificationColumn;
-  public TableColumn<NotificationTable, Button> deleteNotificationColumn;
-  private ObservableList<NotificationTable> notificationTables;
+  @FXML public TableView<NotificationTable> notificationTable;
+  @FXML public TableColumn<NotificationTable, String> messageNotificationColumn;
+  @FXML public TableColumn<NotificationTable, Button> deleteNotificationColumn;
+   private ObservableList<NotificationTable> notificationTables;
   @FXML private TableColumn<TasksTableForWorkerProfile, String>  taskPriority;
   @FXML private Label workerName2;
   @FXML private Label workerRole;

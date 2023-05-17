@@ -44,6 +44,10 @@ public class ProjectManagerHomeViewModel implements ViewModel
   private StringProperty projectDeadline;
   private ProjectList projectList;
 
+  private ObservableList<NotificationTable> notificationTable;
+  private StringProperty message;
+  private ArrayList<String> notificationList;
+
   public ProjectManagerHomeViewModel(Model model, ViewState viewState)
   {
     this.employeeName=new SimpleStringProperty();
@@ -67,6 +71,10 @@ public class ProjectManagerHomeViewModel implements ViewModel
     this.currentProjectsTable = FXCollections.observableArrayList();
     this.projectDeadline = new SimpleStringProperty();
     this.projectTitle = new SimpleStringProperty();
+
+    this.notificationTable = FXCollections.observableArrayList();
+    this.message = new SimpleStringProperty();
+    this.notificationList = new ArrayList<>();
   }
   public void headline()
   {
@@ -114,10 +122,23 @@ public class ProjectManagerHomeViewModel implements ViewModel
       currentProjectsTable.add(new ProjectsTable(projectList.get(i)));
     }
     headline();
+    notificationList.add("aaa");
+    notificationList.add("sss");
+    notificationTable.clear();
+    for (int i = 0; i < notificationList.size(); i++)
+    {
+      notificationTable.add(new NotificationTable(notificationList.get(i)));
+    }
 
+  }
+  public void deleteNotification(String message){
+    //model.deleteTag(tag.getId());
+    System.out.println("delete " + message);
   }
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
   public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
+  public ObservableList<NotificationTable> getNotificationTable(){return notificationTable;}
+
 
   public String getManagerName()
   {

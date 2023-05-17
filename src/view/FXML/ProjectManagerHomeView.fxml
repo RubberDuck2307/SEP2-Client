@@ -245,7 +245,7 @@
                                                 <Insets top="30.0" />
                                             </VBox.margin>
                                         </HBox>
-                                        <HBox prefHeight="429.0" prefWidth="1018.0" spacing="40.0">
+                                        <HBox prefHeight="403.0" prefWidth="1018.0" spacing="40.0">
                                             <children>
                                                 <VBox>
                                                     <children>
@@ -258,12 +258,30 @@
                                                                 </Label>
                                                             </children>
                                                         </HBox>
-                                                        <TableView fx:id="currentProjectsTable" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                                        <TableView fx:id="currentProjectsTable" prefHeight="200.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
                                                             <columns>
                                                                 <TableColumn fx:id="projectTitle" prefWidth="310.40002286434174" text="Title" />
                                                                 <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="170.39999389648438" text="Deadline" />
                                                             </columns>
                                                         </TableView>
+                                          <HBox layoutX="10.0" layoutY="10.0">
+                                             <children>
+                                                <Label styleClass="heading-4" text="NOTIFICATIONS">
+                                                   <padding>
+                                                      <Insets bottom="10.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets top="20.0" />
+                                             </padding>
+                                          </HBox>
+                                          <TableView fx:id="notificationTable" layoutX="10.0" layoutY="42.0" prefHeight="262.0" prefWidth="490.0" styleClass="notificationTable">
+                                             <columns>
+                                                <TableColumn fx:id="messageNotificationColumn" prefWidth="421.600035071373" styleClass="notificationTable" text="Message" />
+                                                <TableColumn fx:id="deleteNotificationColumn" minWidth="0.0" prefWidth="60.800018310546875" styleClass="notificationTable" />
+                                             </columns>
+                                          </TableView>
                                                     </children>
                                                 </VBox>
                                                 <VBox layoutX="10.0" layoutY="10.0">
@@ -293,7 +311,7 @@
                                                 </VBox>
                                             </children>
                                             <VBox.margin>
-                                                <Insets top="40.0" />
+                                                <Insets top="20.0" />
                                             </VBox.margin>
                                         </HBox>
                                     </children>

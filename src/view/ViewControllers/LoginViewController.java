@@ -65,7 +65,7 @@ public class LoginViewController implements ViewController
                     viewHandler.openView("home");
                 }
                 case PROJECT_MANAGER -> {
-                    viewHandler.openView("home");
+                    viewHandler.openView("projectManagerHomePage");
                 }
                 case MAIN_MANAGER -> {
                     viewHandler.openView("home");
