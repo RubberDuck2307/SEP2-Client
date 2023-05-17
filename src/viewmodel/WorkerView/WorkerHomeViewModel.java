@@ -3,6 +3,8 @@ package viewmodel.WorkerView;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import model.*;
 import viewmodel.ProjectView.ProjectsTable;
@@ -19,10 +21,6 @@ public class WorkerHomeViewModel implements ViewModel
   private ObjectProperty<Image> avatarPic;
   private StringProperty employeeName;
   private StringProperty employeeWorkingNumber;
-  private ObservableList<ProjectsTable> currentProjectsTable;
-  private StringProperty projectTitle;
-  private StringProperty projectDeadline;
-  private ProjectList projectList;
 
   private ObservableList<TasksTableForWorkerProfile> tasksTable;
   private StringProperty taskTitle;
@@ -30,8 +28,18 @@ public class WorkerHomeViewModel implements ViewModel
   private StringProperty taskProjectName;
   private TaskList taskList;
 
+  private ObservableList<NotificationTable> notificationTable;
+  private StringProperty message;
+  private ArrayList<String> notificationList;
+
 
   private StringProperty workerName;
+  private StringProperty workerName2;
+   private StringProperty workerRole;
+   private StringProperty workerDateOfBirth;
+   private StringProperty workerPhoneNumber;
+   private StringProperty workerEmail;
+   private StringProperty workerManagers;
 
   public WorkerHomeViewModel(Model model, ViewState viewState)
   {
@@ -43,15 +51,22 @@ public class WorkerHomeViewModel implements ViewModel
 
 
     this.workerName = new SimpleStringProperty();
-
-    this.currentProjectsTable = FXCollections.observableArrayList();
-    this.projectDeadline = new SimpleStringProperty();
-    this.projectTitle = new SimpleStringProperty();
+    this.workerRole = new SimpleStringProperty();
+    this.workerDateOfBirth = new SimpleStringProperty();
+    this.workerPhoneNumber = new SimpleStringProperty();
+    this.workerEmail = new SimpleStringProperty();
+    this.workerManagers = new SimpleStringProperty();
+    this.workerName2 = new SimpleStringProperty();
 
     this.tasksTable = FXCollections.observableArrayList();
     this.taskStatus = new SimpleStringProperty();
     this.taskTitle = new SimpleStringProperty();
     this.taskProjectName = new SimpleStringProperty();
+
+    this.notificationTable = FXCollections.observableArrayList();
+    this.message = new SimpleStringProperty();
+    this.notificationList = new ArrayList<>();
+
   }
   public void load()
   {
@@ -63,6 +78,11 @@ public class WorkerHomeViewModel implements ViewModel
 
     Employee worker = model.getUser();
     workerName.setValue("Welcome back, " + worker.getName() + "!");
+    workerName2.setValue(worker.getName());
+    workerEmail.setValue(worker.getEmail());
+    workerPhoneNumber.setValue(worker.getPhoneNumber());
+    workerRole.setValue(worker.getRole().toString());
+    workerDateOfBirth.setValue(worker.getDob().toString());
 
     EmployeeList managersList = model.getAllWorkersManagersByWorkerWorkingNumber(worker.getWorkingNumber());
     String managers = "";
@@ -75,23 +95,31 @@ public class WorkerHomeViewModel implements ViewModel
       }
 
     }
-    projectList = model.getAllProjectsByWorkingNumber(worker.getWorkingNumber());
-    currentProjectsTable.clear();
-    for (int i = 0; i < projectList.size(); i++)
-    {
-      currentProjectsTable.add(new ProjectsTable(projectList.get(i)));
+    if(Objects.equals(managers, "")){
+      workerManagers.setValue("This worker is not assigned to any manager.");
     }
+    else{
+      workerManagers.setValue(managers);
+    }
+
     taskList = model.getAllTasksByUserId(worker.getWorkingNumber());
     tasksTable.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
       tasksTable.add(new TasksTableForWorkerProfile(taskList.getTask(i),model.getProjectById(taskList.getTask(i).getProjectId())));
     }
+    notificationList.add("aaa");
+    notificationList.add("sss");
+    notificationTable.clear();
+    for (int i = 0; i < notificationList.size(); i++)
+    {
+      notificationTable.add(new NotificationTable(notificationList.get(i)));
+    }
 
   }
 
-  public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
   public ObservableList<TasksTableForWorkerProfile> getTaskTable(){return tasksTable;}
+  public ObservableList<NotificationTable> getNotificationTable(){return notificationTable;}
 
   public String getWorkerName()
   {
@@ -121,8 +149,65 @@ public class WorkerHomeViewModel implements ViewModel
     return employee.get();
   }
 
+  public String getWorkerName2()
+  {
+    return workerName2.get();
+  }
 
+  public StringProperty workerName2Property()
+  {
+    return workerName2;
+  }
 
+  public String getWorkerRole()
+  {
+    return workerRole.get();
+  }
+
+  public StringProperty workerRoleProperty()
+  {
+    return workerRole;
+  }
+
+  public String getWorkerDateOfBirth()
+  {
+    return workerDateOfBirth.get();
+  }
+
+  public StringProperty workerDateOfBirthProperty()
+  {
+    return workerDateOfBirth;
+  }
+
+  public String getWorkerPhoneNumber()
+  {
+    return workerPhoneNumber.get();
+  }
+
+  public StringProperty workerPhoneNumberProperty()
+  {
+    return workerPhoneNumber;
+  }
+
+  public String getWorkerEmail()
+  {
+    return workerEmail.get();
+  }
+
+  public StringProperty workerEmailProperty()
+  {
+    return workerEmail;
+  }
+
+  public String getWorkerManagers()
+  {
+    return workerManagers.get();
+  }
+
+  public StringProperty workerManagersProperty()
+  {
+    return workerManagers;
+  }
 
   public boolean isWoman(){
     return Objects.equals(employee.getValue().getGender(), "F");
@@ -135,5 +220,6 @@ public class WorkerHomeViewModel implements ViewModel
       avatarPic.setValue(new Image("/icons/man-avatar.png"));
     }
   }
+
 
 }

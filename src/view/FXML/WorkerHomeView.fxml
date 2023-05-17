@@ -164,19 +164,110 @@
                                                 <Insets top="30.0" />
                                             </VBox.margin>
                                         </HBox>
+                              <HBox prefHeight="145.0" prefWidth="1018.0" spacing="30.0">
+                                 <children>
+                                    <HBox prefHeight="142.0" prefWidth="494.0">
+                                       <children>
+                                          <VBox prefHeight="146.0" prefWidth="470.0" styleClass="personal-info-box">
+                                             <children>
+                                                <Label styleClass="heading-4" text="PERSONAL INFORMATION">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <HBox prefHeight="50.0" prefWidth="429.0">
+                                                   <children>
+                                                      <VBox prefHeight="51.0" prefWidth="193.0">
+                                                         <children>
+                                                            <Label styleClass="heading-of-label" text="Name" />
+                                                            <Label fx:id="workerName2" text="Anna" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                   <opaqueInsets>
+                                                      <Insets />
+                                                   </opaqueInsets>
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="28.0" prefHeight="42.0" prefWidth="429.0">
+                                                   <children>
+                                                      <VBox prefHeight="100.0" prefWidth="193.0">
+                                                         <children>
+                                                            <Label styleClass="heading-of-label" text="Role" />
+                                                            <Label fx:id="workerRole" text="Project Manager" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Label prefHeight="18.0" prefWidth="106.0" styleClass="heading-of-label" text="Date of birth" />
+                                                            <Label fx:id="workerDateOfBirth" text="12. 3. 2009" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="236.0" prefWidth="517.0">
+                                       <children>
+                                          <VBox prefHeight="183.0" prefWidth="470.0" styleClass="personal-info-box">
+                                             <children>
+                                                <Label styleClass="heading-4" text="CONTACT INFORMATION">
+                                                   <VBox.margin>
+                                                      <Insets bottom="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <HBox prefHeight="51.0" prefWidth="363.0">
+                                                   <children>
+                                                      <VBox prefHeight="51.0" prefWidth="217.0">
+                                                         <children>
+                                                            <Label styleClass="heading-of-label" text="Phone number" />
+                                                            <Label fx:id="workerPhoneNumber" text="123333333333" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="51.0" prefWidth="272.0">
+                                                         <children>
+                                                            <Label styleClass="heading-of-label" text="E-mail" />
+                                                            <Label fx:id="workerEmail" text="dfac kxxq@gmail.com" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="31.0" layoutY="63.0" prefHeight="51.0" prefWidth="363.0">
+                                                   <children>
+                                                      <VBox prefHeight="39.0" prefWidth="427.0">
+                                                         <children>
+                                                            <Label styleClass="heading-of-label" text="Managers" />
+                                                            <Label fx:id="workerManagers" text="123333333333" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
                                         <HBox prefHeight="429.0" prefWidth="1018.0" spacing="40.0">
                                             <children>
                                                 <VBox>
                                                     <children>
-                                                        <Label styleClass="heading-4" text="CURRENT PROJECTS">
+                                                        <Label styleClass="heading-4" text="NOTIFICATIONS">
                                                             <padding>
                                                                 <Insets bottom="10.0" />
                                                             </padding>
                                                         </Label>
-                                                        <TableView fx:id="currentProjectsTable" prefHeight="338.0" prefWidth="1018.0" styleClass="side-menu-icon-projects">
+                                                        <TableView fx:id="notificationTable" prefHeight="338.0" prefWidth="1018.0" styleClass="notificationTable">
                                                             <columns>
-                                                                <TableColumn fx:id="projectTitle" prefWidth="340.0000594854355" text="Title" />
-                                                                <TableColumn fx:id="projectDeadline" minWidth="0.0" prefWidth="140.80001831054688" text="Deadline" />
+                                                                <TableColumn fx:id="messageNotificationColumn" prefWidth="395.99999845027924" styleClass="notificationTable" text="Message" />
+                                                <TableColumn fx:id="deleteNotificationColumn" minWidth="0.0" prefWidth="76.80001831054688" styleClass="notificationTable" text="Delete" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
@@ -192,7 +283,8 @@
                                                             <columns>
                                                                 <TableColumn fx:id="taskTitle" prefWidth="109.60009920597076" text="Title" />
                                                                 <TableColumn fx:id="taskStatus" minWidth="0.0" prefWidth="119.99993133544922" text="Status" />
-                                                                <TableColumn fx:id="taskProjectName" minWidth="0.0" prefWidth="251.9998779296875" text="Project name" />
+                                                                <TableColumn fx:id="taskProjectName" minWidth="0.0" prefWidth="160.0" text="Project name" />
+                                                <TableColumn fx:id="taskPriority" minWidth="0.0" prefWidth="83.199951171875" text="Priority" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
