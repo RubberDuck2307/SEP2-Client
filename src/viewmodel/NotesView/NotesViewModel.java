@@ -4,14 +4,15 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ListChangeListener;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import model.*;
+import view.NoteVBOXController;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,12 @@ public class NotesViewModel implements ViewModel
   private ObjectProperty<Employee> employeeProperty;
   private StringProperty titleProperty;
   private StringProperty noteTextProperty;
-  private SimpleObjectProperty<LocalDate> creationDate;
+  private SimpleObjectProperty<String> creationDate;
   private ViewState viewState;
   private NoteList noteList;
   private Model model;
   private VBox noteCellVBox;
+  private VBox notesListVbox;
 
   public NotesViewModel(Model model, ViewState viewState)
   {
@@ -42,40 +44,121 @@ public class NotesViewModel implements ViewModel
     userName = new SimpleStringProperty();
     userNumber = new SimpleStringProperty();
 
-    titleProperty = new SimpleStringProperty();
-    noteTextProperty = new SimpleStringProperty();
-    creationDate = new SimpleObjectProperty<>();
+    this.titleProperty = new SimpleStringProperty();
+    this.noteTextProperty = new SimpleStringProperty();
+    this.creationDate = new SimpleObjectProperty<>();
     noteList = new NoteList();
-    noteCellVBox = new VBox();
-    //noteList.addListener(getNoteListChangeListener());
-    //refreshNoteCellVBox();
+    //noteCellVBox = new VBox();
+    noteCellVBox = loadNoteVBox();
+    notesListVbox = new VBox();
+    refreshNoteListVBox();
   }
+  public void load() {
+    Employee user = model.getUser();
+    if (user != null) {
+      employee.setValue(user);
+      setAvatarPicture();
+      //noteCellVBox = loadNoteVBox();
+      //notesListVbox.getChildren().add(loadNoteVBox());
+      notesListVbox = loadNoteVBox();
 
-  public void load()
-  {
-    employee.setValue(model.getUser());
-    setAvatarPicture();
-
-    //int workingNumber = viewState.getEmployee().getWorkingNumber();  // supposed to be used to get the notes of the employee with that working number
-
-    try {
-      int workingNumber = model.getUser().getWorkingNumber();
-
-      NoteList savedNoteList = model.getAllNotesSavedByEmployee(workingNumber);
-      if (savedNoteList != null) {
-        ArrayList<Note> noteArrayList = new ArrayList<>(savedNoteList.getAllNotes());
-        noteList = new NoteList(noteArrayList);
+      employeeProperty.set(user);
+      userName.set(user.getName());
+      userNumber.set(String.valueOf(user.getWorkingNumber()));
+      refreshNoteListVBox();
       } else {
-        noteList = new NoteList();
+        System.out.println("User is not available. Unable to retrieve notes.");
       }
-    } catch (Exception e) {
-      // message
     }
-    employeeProperty.set(model.getUser());
-    userName.set(model.getUser().getName());
-    userNumber.set(model.getUser().getWorkingNumber().toString());
 
+
+  public VBox loadNoteVBox() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NoteVBOX.fxml"));
+      noteCellVBox = loader.load();
+
+      // Get the FXML controller and set the necessary data in the note VBox
+      NoteVBOXController controller = loader.getController();
+
+      LocalDate dateValue = LocalDate.of(2023, 5, 15);
+      Note note = new Note(14L, "", "", dateValue);
+      controller.setNoteData(note);
+
+      // Load the list of notes from the database
+      Employee user = model.getUser();
+      if (user != null) {
+        int workingNumber = user.getWorkingNumber();
+        NoteList savedNoteList = model.getAllNotesSavedByEmployee(workingNumber);
+
+        System.out.println("Notes list loaded from database");
+
+        if (savedNoteList != null) {
+          ArrayList<Note> noteArrayList = new ArrayList<>(savedNoteList.getAllNotes());
+          noteList = new NoteList(noteArrayList);
+
+          System.out.println("Existing notes list gotten from database");
+
+          // Add the existing notes to the VBox
+          List<Node> noteCells = noteCellVBox.getChildren();
+          for (int i = 0; i < noteList.size(); i++) {
+            Note savedNote = noteList.get(i);
+            VBox savedNoteVBox = createNoteVBOX(savedNote);
+            noteCells.add(savedNoteVBox);
+
+            System.out.println("Existing notes were inserted into VBOXES");
+          }
+        } else {
+          noteList = new NoteList();
+
+          System.out.println("A new notes list created");
+        }
+
+        System.out.println("NotesListVBOX was returned");
+        return notesListVbox;
+      } else {
+        System.out.println("User is not available. Unable to retrieve notes.");
+        return null;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
+
+  private VBox createNoteVBOX(Note note)
+  {
+    try
+    {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NoteVBOX.fxml"));
+      VBox noteCellVBox = loader.load();
+
+      System.out.println("NotesVBOX.fxml was loaded");
+
+      // Get the FXML controller and set the necessary data in the note cell VBox
+      NoteVBOXController controller = loader.getController();
+      controller.setNoteData(note);
+
+      System.out.println("NoteCellVBox(NotesVBOX.fxml) created");
+      return noteCellVBox;
+
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  public void reset()
+  {
+    notesListVbox.getChildren().clear(); // Clear the notesListVbox
+    //model.setUser(model.getUser()); // Reset the current user in the model
+   // notesListVbox.getChildren().clear();
+    loadNoteVBox();
+    refreshNoteListVBox();
+    load();
+  }
+
   public StringProperty userNumberProperty() {
     return userNumber;
   }
@@ -123,9 +206,21 @@ public class NotesViewModel implements ViewModel
     return noteTextProperty;
   }
 
-  public SimpleObjectProperty<LocalDate> getCreationDate()
+  public SimpleObjectProperty<String> getCreationDate()
   {
     return creationDate;
+  }
+
+  public void setCreationDate(LocalDate creationDate)
+  {
+    if(creationDate == null)
+    {
+      this.creationDate.set("");
+    }
+    else
+    {
+      this.creationDate.set(creationDate.toString());
+    }
   }
 
   public ViewState getViewState()
@@ -143,10 +238,6 @@ public class NotesViewModel implements ViewModel
     return noteList;
   }
 
-  //public Callback<ListView<Note>, ListCell<Note>> getNoteCellFactory() {
-   // return new NoteCellFactory(this);
-//  }
-
   public List<NoteCell> getNoteCells() {
     List<NoteCell> noteCells = new ArrayList<>();
     for (Note note : noteList.getAllNotes()) {
@@ -158,21 +249,11 @@ public class NotesViewModel implements ViewModel
     return noteCellVBox;
   }
 
-  private ListChangeListener<Note> getNoteListChangeListener() {
-    return change -> refreshNoteCellVBox();
-  }
-
-  private void refreshNoteCellVBox() {
-    noteCellVBox.getChildren().clear();
+  private void refreshNoteListVBox() {
+    notesListVbox.getChildren().clear();
     for (Note note : noteList.getAllNotes()) {
       NoteCell cell = new NoteCell(note);
-      noteCellVBox.getChildren().add(cell.getNoteVBox());
+      notesListVbox.getChildren().add(cell.getNoteVBox());
     }
-  }
-
-  public void reset()
-  {
-    refreshNoteCellVBox();
-    load();
   }
 }

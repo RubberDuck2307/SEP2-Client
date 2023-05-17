@@ -2,20 +2,20 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class NoteList
+public class NoteList implements Serializable
 {
-  private ObservableList<Note> notesList;
+  private ArrayList<Note> notesList;
 
   public NoteList(ArrayList<Note> notesList)
   {
-    this.notesList = FXCollections.observableArrayList(notesList);
+    this.notesList = notesList;
   }
   public NoteList()
   {
-    this.notesList = FXCollections.observableArrayList();
+    this.notesList = new ArrayList<>();
   }
   public void addNote(Note note)
   {
@@ -30,13 +30,14 @@ public class NoteList
     return notesList.size();
   }
 
-  public ObservableList<Note> getAllNotes() {
+  public ArrayList<Note> getAllNotes() {
     return notesList;
   }
 
   public NoteList addAll(NoteList otherList) {
-    notesList.addAll(otherList.getAllNotes());
-    return this;
+    NoteList newList = new NoteList();
+    newList.notesList.addAll(otherList.getAllNotes());
+    return newList;
   }
   public void clear() {
     notesList.clear();
@@ -46,5 +47,9 @@ public class NoteList
     return "NotesList{" +
         "notesList=" + notesList +
         '}';
+  }
+  public Note get(int index)
+  {
+    return notesList.get(index);
   }
 }

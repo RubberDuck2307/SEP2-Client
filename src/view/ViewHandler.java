@@ -31,7 +31,7 @@ public class ViewHandler {
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        openView("notes");
+        openView("login");
     }
 
     public void openView(String id) {

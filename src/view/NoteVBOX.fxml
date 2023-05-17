@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="noteContainer" alignment="CENTER" prefHeight="125.0" prefWidth="594.0" styleClass="note-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NoteVBOXController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="37.0" prefWidth="594.0" styleClass="note-title-box" stylesheets="@../styles/style.css">
+         <children>
+            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="470.0" text="NOTE 1" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="creationDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="163.0" text="12.12.1212.">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <TextArea id="my-text-area" fx:id="noteText" prefHeight="138.0" prefWidth="586.0" styleClass="note-text-area" stylesheets="@../styles/style.css" text="Life is good&#10;Vomitting sucks&#10;Project period &#10;Vbox&#10;Razer&#10;Blade &#10;15" wrapText="true">
+         <effect>
+            <DropShadow height="0.0" radius="0.0" width="0.0">
+               <color>
+                  <Color opacity="0.0" />
+               </color>
+            </DropShadow>
+         </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextArea>
+   </children>
+</VBox>

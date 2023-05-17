@@ -8,9 +8,9 @@ import model.Note;
 
 public class NoteCell {
   private final VBox noteVBox;
-  private final Label titleLabel;
-  private final Label dateLabel;
-  private final TextArea contentArea;
+  private final Label title;
+  private final Label creationDate;
+  private final TextArea noteText;
 
   public NoteCell(Note note) {
     noteVBox = new VBox();
@@ -18,21 +18,27 @@ public class NoteCell {
 
     HBox titleBox = new HBox();
     titleBox.getStyleClass().add("note-title-box");
-    titleLabel = new Label(note.getTitle());
-    titleLabel.getStyleClass().add("note-title-label");
-    dateLabel = new Label(note.getCreationDate().toString());
-    dateLabel.getStyleClass().add("note-date-label");
-    titleBox.getChildren().addAll(titleLabel, dateLabel);
+    title = new Label(note.getTitle());
+    title.getStyleClass().add("note-title-label");
+    creationDate = new Label(note.getCreationDate().toString());
+    creationDate.getStyleClass().add("note-date-label");
+    titleBox.getChildren().addAll(title, creationDate);
 
-    contentArea = new TextArea(note.getNoteText());
-    contentArea.getStyleClass().add("note-content-area");
-    contentArea.setEditable(false);
-    contentArea.setWrapText(true);
+    noteText = new TextArea(note.getNoteText());
+    noteText.getStyleClass().add("note-content-area");
+    noteText.setEditable(false);
+    noteText.setWrapText(true);
 
-    noteVBox.getChildren().addAll(titleBox, contentArea);
+    noteVBox.getChildren().addAll(titleBox, noteText);
   }
 
   public VBox getNoteVBox() {
     return noteVBox;
+  }
+  public void setNoteData()
+  {
+    title.setText("");
+    creationDate.setText("");
+    noteText.setText("");
   }
 }

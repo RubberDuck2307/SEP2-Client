@@ -546,6 +546,12 @@
   -fx-background-color: #bbdefb;
 }
 
+.note-title-label{
+  -fx-font-family: "SF Pro Display";
+  -fx-font-size: 14;
+}
+
+
 
 #my-text-area {
   -fx-background-color: transparent;
