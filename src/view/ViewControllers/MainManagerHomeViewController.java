@@ -133,4 +133,8 @@ public class MainManagerHomeViewController implements ViewController
 
   }
 
+  public void logOut()
+  {
+    viewHandler.openView("login");
+  }
 }
