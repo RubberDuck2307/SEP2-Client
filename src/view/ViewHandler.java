@@ -43,6 +43,14 @@ public class ViewHandler {
                 root = loadViewController(viewModelFactory.getProjectManagerHomeViewModel(), "FXML/ProjectManagerHomeView.fxml");
                 break;
             }
+            case "hrHomePage": {
+                root = loadViewController(viewModelFactory.getHrHomeViewModel(), "FXML/HrHomeView.fxml");
+                break;
+            }
+            case "mainManagerHomePage": {
+                root = loadViewController(viewModelFactory.getMainManagerHomeViewModel(), "FXML/MainManagerHomeView.fxml");
+                break;
+            }
             case "workerHomePage": {
                 root = loadViewController(viewModelFactory.getWorkerHomeViewModel(), "FXML/WorkerHomeView.fxml");
                 break;

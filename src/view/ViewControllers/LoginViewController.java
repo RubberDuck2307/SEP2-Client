@@ -62,13 +62,13 @@ public class LoginViewController implements ViewController
                     viewHandler.openView("workerHomePage");
                 }
                 case HR -> {
-                    viewHandler.openView("home");
+                    viewHandler.openView("hrHomePage");
                 }
                 case PROJECT_MANAGER -> {
                     viewHandler.openView("projectManagerHomePage");
                 }
                 case MAIN_MANAGER -> {
-                    viewHandler.openView("home");
+                    viewHandler.openView("mainManagerHomePage");
                 }
             }
         }
