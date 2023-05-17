@@ -65,7 +65,7 @@ public class CreateUserProfileViewModel implements ViewModel
         this.dob = new SimpleObjectProperty<>();
         this.dobE = new SimpleStringProperty("");
         this.jobTitle = new SimpleStringProperty("");
-        this.gender = new SimpleBooleanProperty(false);
+        this.gender = new SimpleBooleanProperty(true);
         this.validator = new Validator();
         this.firstNameValue = new SimpleBooleanProperty(false);
         this.lastNameValue = new SimpleBooleanProperty(false);
