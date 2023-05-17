@@ -82,4 +82,6 @@ public interface RemoteModel extends Remote {
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
     void updateEmployee(Employee employee) throws RemoteException;
     void changePassword(Employee employee, String password) throws RemoteException;
+    
+    void deleteEmployeeByWorkingNumber(Integer workingNumber) throws  RemoteException;
 }

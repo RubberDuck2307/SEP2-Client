@@ -203,10 +203,11 @@
                                                 <TableView fx:id="workerTable" onMousePressed="#workerTableClick" prefHeight="545.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
                                                     <columns>
                                                         <TableColumn fx:id="name" prefWidth="278.39998626708984" text="Name" />
-                                                        <TableColumn fx:id="role" minWidth="0.0" prefWidth="235.20001220703125" text="Role" />
-                                                        <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="208.0" text="Working number" />
-                                                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="192.00006103515625" text="E-mail" />
-                                          <TableColumn fx:id="edit" minWidth="0.0" prefWidth="120.7999267578125" text="Edit" />
+                                                        <TableColumn fx:id="role" minWidth="0.0" prefWidth="146.0" text="Role" />
+                                                        <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="145.0" text="Working number" />
+                                                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="231.0" text="E-mail" />
+                                          <TableColumn fx:id="edit" minWidth="0.0" prefWidth="124.0" text="Edit" />
+                                          <TableColumn fx:id="delete" prefWidth="187.0" text="Delete" />
                                                     </columns>
                                                 </TableView>
                                             </children>

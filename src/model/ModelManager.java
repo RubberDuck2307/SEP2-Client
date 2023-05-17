@@ -3,7 +3,6 @@ package model;
 
 import mediator.ClientInterface;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelManager implements Model
@@ -244,6 +243,12 @@ public class ModelManager implements Model
     public Integer saveEmployee(Employee employee, String password)
     {
         return client.saveEmployee(employee, password);
+    }
+    
+    @Override
+    public void deleteEmployeeByWorkingNumber(Integer workingNumber)
+    {
+        client.deleteEmployeeByWorkingNumber(workingNumber);
     }
 
     public void setUser(Employee user)

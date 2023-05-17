@@ -60,4 +60,6 @@ public interface ClientInterface {
   EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
     void updateEmployee(Employee employee);
     void changePassword(Employee employee, String password);
+    
+    void deleteEmployeeByWorkingNumber(Integer workingNumber);
 }

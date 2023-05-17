@@ -221,6 +221,19 @@ public class Client implements ClientInterface {
             throw new RuntimeException(e);
         }
     }
+    
+    @Override
+    public void deleteEmployeeByWorkingNumber(Integer workingNumber)
+    {
+        try
+    {
+        model.deleteEmployeeByWorkingNumber(workingNumber);
+    }
+    catch (RemoteException e)
+    {
+        throw new RuntimeException(e);
+    }
+    }
 
     @Override
     public void assignEmployeesToTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) {
