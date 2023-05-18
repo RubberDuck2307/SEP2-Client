@@ -2,6 +2,7 @@ package mediator;
 
 import model.*;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,9 +18,7 @@ public interface ClientInterface {
     void removeTagFromTask(Long taskId, Long tagId);
     Tag getTag(Long tagId);
     void deleteTag(Long id);
-
-
-
+    void addNotificationListener(PropertyChangeListener listener);
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);

@@ -5,6 +5,7 @@ import javafx.beans.property.StringProperty;
 import model.Model;
 import viewmodel.ViewModel;
 
+import java.beans.PropertyChangeEvent;
 import java.rmi.UnmarshalException;
 
 public class ForgotPasswordViewModel implements ViewModel {
@@ -55,4 +56,6 @@ public class ForgotPasswordViewModel implements ViewModel {
     public StringProperty errorProperty() {
         return error;
     }
+
+
 }

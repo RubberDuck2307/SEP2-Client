@@ -9,6 +9,7 @@ import model.Model;
 import model.UserProfile;
 import viewmodel.ViewModel;
 
+import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -134,9 +135,9 @@ public class LoginViewModel implements ViewModel
         return headlineProperty.get();
     }
 
-
     public StringProperty headlinePropertyProperty()
     {
         return headlineProperty;
     }
+
 }

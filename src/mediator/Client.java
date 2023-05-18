@@ -4,6 +4,7 @@ import model.*;
 import utility.observer.event.ObserverEvent;
 import utility.observer.listener.RemoteListener;
 
+import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -85,6 +86,11 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void addNotificationListener(PropertyChangeListener listener) {
+        listenerHandler.addListener("notification", listener);
     }
 
     @Override

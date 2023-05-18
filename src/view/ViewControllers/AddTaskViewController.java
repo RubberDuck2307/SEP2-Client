@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -20,8 +21,7 @@ import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
 
-public class AddTaskViewController implements ViewController
-{
+public class AddTaskViewController extends ViewControllerWithNavigationMenu {
   @FXML private Button backButton;
   @FXML private Label nameOfTheProject;
   @FXML private TextField title;
@@ -48,18 +48,23 @@ public class AddTaskViewController implements ViewController
   @FXML private Label workingNumberL;
   private Region root;
   private AddTaskViewModel viewModel;
-  private ViewHandler viewHandler;
+  @FXML
+  private ImageView bellImage;
+  @FXML
+  private HBox projectsHbox;
   private ArrayList<CheckBox> checkboxes;
   private ObservableList<WorkersWithCheckboxTable> workersTableList = FXCollections.observableArrayList();
-  private int hoursAsInteger;
+
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)
   {
+
     this.root = root;
     this.viewHandler = viewHandler;
     this.viewModel = (AddTaskViewModel) viewModel;
     this.viewModel.load();
+    super.init(this.viewModel, this.viewHandler, bellImage, avatarPic, nameL, workingNumberL, projectsHbox);
     checkboxes= new ArrayList<>();
     setChoiceBox();
     fillInTags();
@@ -75,15 +80,10 @@ public class AddTaskViewController implements ViewController
     checkBoxColumn.setCellValueFactory(checkbox);
     checkBoxColumn.setStyle("-fx-alignment: CENTER;");
 
-    this.viewModel.load();
     fillInWorkerTable();
     workersTable.setItems(workersTableList);
     errorTitleHours.setText(null);
-
-    nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
-    workingNumberL.textProperty()
-        .bindBidirectional(this.viewModel.workingNumberProperty());
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+   setWindow(this.viewModel.getEmployee().getRole());
   }
 
   @Override public Region getRoot()
@@ -98,6 +98,7 @@ public class AddTaskViewController implements ViewController
     fillInWorkerTable();
     priority.setValue("");
     hBoxForTags.getChildren().addAll(checkboxes);
+    setWindow(this.viewModel.getEmployee().getRole());
   }
 
   public void bindEverything()
@@ -133,7 +134,7 @@ public class AddTaskViewController implements ViewController
     {
       fillInTags();
     }
-    //reset tags \/\/\/
+
     tags.setText("");
   }
 
@@ -194,37 +195,13 @@ public class AddTaskViewController implements ViewController
     viewModel.assignWorker(employee);
   }
 
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
-  }
 
-  public void createTask()
-  {
-    if (viewModel.add())
-    {
+  public void createTask() {
+    if (viewModel.add()) {
       viewHandler.openView("tasks");
     }
+  }
 
-  }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
   public void backButton()
   {
     viewHandler.openView("tasks");
@@ -238,9 +215,8 @@ public class AddTaskViewController implements ViewController
     priority.setValue("HIGH");
   }
 
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
+  public void setWindow(EmployeeRole role){
+
   }
 
 }

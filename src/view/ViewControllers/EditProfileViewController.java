@@ -17,7 +17,7 @@ import view.ViewHandler;
 import viewmodel.EmployeeView.EditProfileViewModel;
 import viewmodel.ViewModel;
 
-public class EditProfileViewController implements ViewController
+public class EditProfileViewController extends ViewControllerWithNavigationMenu
 {
 
   @FXML
@@ -63,13 +63,13 @@ public class EditProfileViewController implements ViewController
 
   private Region root;
   private EditProfileViewModel viewModel;
-  private ViewHandler viewHandler;
   @FXML private HBox projectHBox;
+
+  @FXML private ImageView bellImage;
 
   @Override
   public void init(ViewHandler viewHandler, ViewModel viewModel, Region root) {
     this.root = root;
-    System.out.println(root);
     this.viewHandler = viewHandler;
     this.viewModel = (EditProfileViewModel) viewModel;
     setChoiceBox();
@@ -80,7 +80,22 @@ public class EditProfileViewController implements ViewController
     this.roleErrorL.setText(null);
     this.phoneNumberErrorL.setText(null);
     this.passwordErrorL.setText(null);
+    value = new SimpleBooleanProperty(true);
 
+    this.viewModel.load();
+
+    super.init(this.viewModel, viewHandler, bellImage, avatarPic, nameL, workingNumberL, projectHBox);
+
+    bind();
+
+    colorLabels();
+
+
+    setWindow(this.viewModel.getEmployee().getRole());
+    genreSetting();
+  }
+
+  private void bind(){
     avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
     firstNameL.textProperty().bindBidirectional(this.viewModel.firstNameProperty());
     firstNameErrorL.textProperty().bindBidirectional(this.viewModel.firstNameEProperty());
@@ -94,16 +109,8 @@ public class EditProfileViewController implements ViewController
     dobL.valueProperty().bindBidirectional(this.viewModel.dobProperty());
     dobErrorL.textProperty().bindBidirectional(this.viewModel.dobEProperty());
     roleL.valueProperty().bindBidirectional(this.viewModel.roleProperty());
-    colorLabels();
-    value = new SimpleBooleanProperty(true);
     this.value.bindBidirectional(this.viewModel.genderProperty());
-    this.nameL.textProperty().bind(this.viewModel.nameProperty());
-    this.workingNumberL.textProperty().bind(this.viewModel.workingNumberFProperty());
-    this.viewModel.load();
-    setWindow(this.viewModel.getEmployee().getRole());
-    genreSetting();
   }
-
   public void genreSetting() {
     if(viewModel.userIsWoman()){
       genderFemale.setSelected(true);
@@ -181,26 +188,8 @@ public class EditProfileViewController implements ViewController
     genreSetting();
   }
 
-  private void setWindow(EmployeeRole employeeRole) {
-    switch (employeeRole) {
-      case WORKER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case HR -> {
-        projectHBox.setVisible(false);
-        projectHBox.setManaged(false);
-      }
-      case PROJECT_MANAGER -> {
-
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case MAIN_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-    }
+  protected void setWindow(EmployeeRole employeeRole) {
+    super.setWindow(employeeRole);
   }
 
   @FXML
@@ -216,9 +205,6 @@ public class EditProfileViewController implements ViewController
     }
   }
 
-  public void openProjects() {
-    viewHandler.openView("projects");
-  }
 
   public void setChoiceBox() {
     roleL.getItems().add("Main Manager");
@@ -231,27 +217,8 @@ public class EditProfileViewController implements ViewController
   public void backButtonClick(){
     viewHandler.openView("workers");
   }
-  public void openWorkersView() {
-    viewHandler.openView("workers");
-  }
 
-  public void openHome() {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
+
 
   public void changePassword()
   {

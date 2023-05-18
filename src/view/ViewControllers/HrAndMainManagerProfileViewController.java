@@ -25,7 +25,7 @@ import viewmodel.WorkerView.WorkersViewModel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class HrAndMainManagerProfileViewController implements ViewController
+public class HrAndMainManagerProfileViewController extends ViewControllerWithNavigationMenu
 {
   @FXML private Button backButton;
   @FXML private ImageView avatarPic;
@@ -39,6 +39,7 @@ public class HrAndMainManagerProfileViewController implements ViewController
   @FXML private Label employeeName;
   @FXML private Label employeeWorkingNumber;
   @FXML private ImageView avatarPicture;
+  @FXML private ImageView bellImage;
 
   private Region root;
   private HrAndMainManagerProfileViewModel viewModel;
@@ -51,19 +52,11 @@ public class HrAndMainManagerProfileViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (HrAndMainManagerProfileViewModel) viewModel;
     this.viewModel.load();
-    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
-    managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
-    managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
-    managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
-    managerRole.textProperty().bindBidirectional(this.viewModel.managerRoleProperty());
-    managerPhoneNumber.textProperty().bindBidirectional(this.viewModel.managerPhoneNumberProperty());
+    super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName,
+        employeeWorkingNumber, projectHBox);
+    bind();
     isWoman();
-    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
-      setWindow(((Employee) newValue).getRole());
-    });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
+    setWindow(this.viewModel.getEmployee().getRole());
   }
 
   @Override public Region getRoot()
@@ -73,44 +66,25 @@ public class HrAndMainManagerProfileViewController implements ViewController
 
   @Override public void reset()
   {
+    viewModel.reset();
     isWoman();
-viewModel.load();
+    setWindow(this.viewModel.getEmployee().getRole());
   }
 
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
+  private void bind(){
+    managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
+    managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
+    managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
+    managerRole.textProperty().bindBidirectional(this.viewModel.managerRoleProperty());
+    managerPhoneNumber.textProperty().bindBidirectional(this.viewModel.managerPhoneNumberProperty());
   }
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
-  }
-
-
   public void goBackButton()
   {
     viewHandler.openLastWindow();
   }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
+
   public void isWoman(){
-    if (((HrAndMainManagerProfileViewModel) viewModel).isProjectManagerWoman())
+    if (this.viewModel.isProjectManagerWoman())
     {
       avatarPicture.setImage(new Image("/icons/woman-avatar.png"));
       //avatarPic.setImage(new Image("/icons/woman-avatar.png"));
@@ -119,26 +93,8 @@ viewModel.load();
       avatarPicture.setImage(new Image("/icons/man-avatar.png"));
     }
   }
-  private void setWindow(EmployeeRole employeeRole) {
-    switch (employeeRole) {
-      case WORKER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case HR -> {
-        projectHBox.setVisible(false);
-        projectHBox.setManaged(false);
-      }
-      case PROJECT_MANAGER -> {
-
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case MAIN_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-    }
+  protected void setWindow(EmployeeRole employeeRole) {
+    super.setWindow(employeeRole);
 
   }
 

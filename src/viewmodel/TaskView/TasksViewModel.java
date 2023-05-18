@@ -10,73 +10,60 @@ import viewmodel.TaskView.CommentsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.WorkersTable;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class TasksViewModel implements ViewModel
+public class TasksViewModel extends ViewModelWithNavigationMenu
 {
-    private Model model;
-    //tasks
-    private StringProperty employeeName;
-    private ObjectProperty<Employee> employee;
-    private ObjectProperty<Image> avatarPic;
-    private StringProperty employeeWorkingNumber;
     private TaskList taskList;
-    private EmployeeList employeeList;
     private StringProperty error;
     private StringProperty projectName;
     private StringProperty taskName;
     private StringProperty taskDescription;
-
     private ObservableList<Task> tasks;
     private ObservableList<TasksTable> tasksTables;
     private TagList tagList;
     private ObservableList<WorkersTable> workersTables;
     private StringProperty name;
     private IntegerProperty number;
-    private StringProperty position;
     private ViewState viewState;
     private BooleanProperty isTaskSelected;
 
+
     public TasksViewModel(Model model, ViewState viewState)
     {
+        super(model);
         this.error = new SimpleStringProperty();
-        this.avatarPic = new SimpleObjectProperty<>();
-        this.model = model;
-        this.employeeName = new SimpleStringProperty();
-        this.employeeWorkingNumber = new SimpleStringProperty();
-        this.employee = new SimpleObjectProperty<>();
         this.tasks = FXCollections.observableArrayList();
         this.viewState = viewState;
         this.taskList = new TaskList();
-        this.employeeList = new EmployeeList();
-        //employeeList.addEmployee(viewState.getEmployee());
         this.projectName = new SimpleStringProperty();
         this.taskName = new SimpleStringProperty();
         this.taskDescription = new SimpleStringProperty();
         this.tasksTables = FXCollections.observableArrayList();
         this.workersTables = FXCollections.observableArrayList();
         this.name = new SimpleStringProperty();
-        this.position = new SimpleStringProperty();
         this.number = new SimpleIntegerProperty();
         this.isTaskSelected = new SimpleBooleanProperty();
+
     }
     public void reset()
     {
+        super.reset();
         isTaskSelected.set(false);
         load();
     }
 
     public void load()
     {
+        super.load();
         Project project = viewState.getProject();
-        employee.setValue(model.getUser());
-        setAvatarPicture();
-        employeeName.setValue(model.getUser().getName());
-        employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
         taskList = model.getAllTasksOfProject(project.getId());
         taskName.setValue("Description");
         projectName.setValue(project.getName());
@@ -123,44 +110,15 @@ public class TasksViewModel implements ViewModel
         return true;
     }
 
-    public ObservableList<TasksTable> getAll()
-    {
-        return tasksTables;
-    }
 
-    public ObjectProperty<Employee> employeeProperty()
-    {
-        return employee;
-    }
-
-    public Employee getEmployee()
-    {
-        return employee.get();
-    }
-
-    public StringProperty getEmployeeName()
-    {
-        return employeeName;
-    }
-
-    public StringProperty getEmployeeWorkingNumber()
-    {
-        return employeeWorkingNumber;
-    }
 
     public ObservableList<WorkersTable> getWorkersTables()
     {
         return workersTables;
     }
-
     public StringProperty getError()
     {
         return error;
-    }
-
-    public String getProjectName()
-    {
-        return projectName.get();
     }
 
     public StringProperty projectNameProperty()
@@ -168,19 +126,9 @@ public class TasksViewModel implements ViewModel
         return projectName;
     }
 
-    public String getTaskName()
-    {
-        return taskName.get();
-    }
-
     public StringProperty taskNameProperty()
     {
         return taskName;
-    }
-
-    public String getTaskDescription()
-    {
-        return taskDescription.get();
     }
 
     public StringProperty taskDescriptionProperty()
@@ -203,20 +151,7 @@ public class TasksViewModel implements ViewModel
         return number.get();
     }
 
-    public IntegerProperty numberProperty()
-    {
-        return number;
-    }
 
-    public String getPosition()
-    {
-        return position.get();
-    }
-
-    public StringProperty positionProperty()
-    {
-        return position;
-    }
 
     public ObservableList<Task> getTasks()
     {
@@ -239,46 +174,19 @@ public class TasksViewModel implements ViewModel
         isTaskSelected.set(true);
     }
 
-    public boolean isIsTaskSelected()
-    {
-        return isTaskSelected.get();
-    }
 
     public BooleanProperty isTaskSelectedProperty()
     {
         return isTaskSelected;
     }
 
-    public void setIsTaskSelected(boolean isTaskSelected)
-    {
-        this.isTaskSelected.set(isTaskSelected);
-    }
-    public ObjectProperty<Image> avatarPicProperty()
-    {
-        return avatarPic;
-    }
-    public boolean isWoman()
-    {
-        return Objects.equals(employee.getValue().getGender(), "F");
-    }
-    public void setAvatarPicture()
-    {
-        if (isWoman())
-        {
-            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-        }
-        else
-        {
-            avatarPic.setValue(new Image("/icons/man-avatar.png"));
-        }
-    }
-    public Employee getEmployeeProperty()
-    {
-        return employee.get();
-    }
-
     public TagList getTagList()
     {
         return tagList;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        super.propertyChange(evt);
     }
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -61,4 +62,5 @@ public interface Model{
     void dismissEmployeesFromProject(ArrayList<Integer> removedEmployees, Long id);
     void updateEmployee(Employee employee);
     void changePassword(Employee employee, String password);
+    void addNotificationListener(PropertyChangeListener listener);
 }

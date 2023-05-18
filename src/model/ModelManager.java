@@ -3,6 +3,7 @@ package model;
 
 import mediator.ClientInterface;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -215,6 +216,11 @@ public class ModelManager implements Model {
     @Override
     public void changePassword(Employee employee, String password) {
         client.changePassword(employee, password);
+    }
+
+    @Override
+    public void addNotificationListener(PropertyChangeListener listener) {
+        client.addNotificationListener(listener);
     }
 
     @Override

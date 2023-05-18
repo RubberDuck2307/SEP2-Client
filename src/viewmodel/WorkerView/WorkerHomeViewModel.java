@@ -7,60 +7,42 @@ import javafx.scene.image.Image;
 import model.*;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class WorkerHomeViewModel implements ViewModel
+public class WorkerHomeViewModel extends ViewModelWithNavigationMenu
 {
-  private Model model;
-  private ObjectProperty<Employee> employee;
-  private ObjectProperty<Image> avatarPic;
-  private StringProperty employeeName;
-  private StringProperty employeeWorkingNumber;
-  private ObservableList<ProjectsTable> currentProjectsTable;
-  private StringProperty projectTitle;
-  private StringProperty projectDeadline;
-  private ProjectList projectList;
+  private final ObservableList<ProjectsTable> currentProjectsTable;
+  private final ObservableList<TasksTableForWorkerProfile> tasksTable;
 
-  private ObservableList<TasksTableForWorkerProfile> tasksTable;
-  private StringProperty taskTitle;
-  private StringProperty taskStatus;
-  private StringProperty taskProjectName;
-  private TaskList taskList;
+  private final StringProperty workerName;
 
-
-  private StringProperty workerName;
-
-  public WorkerHomeViewModel(Model model, ViewState viewState)
+  public WorkerHomeViewModel(Model model)
   {
-    this.employeeName=new SimpleStringProperty();
-    this.employeeWorkingNumber=new SimpleStringProperty();
-    this.employee=new SimpleObjectProperty<>();
-    this.avatarPic=new SimpleObjectProperty<>();
-    this.model = model;
-
+    super(model);
 
     this.workerName = new SimpleStringProperty();
 
     this.currentProjectsTable = FXCollections.observableArrayList();
-    this.projectDeadline = new SimpleStringProperty();
-    this.projectTitle = new SimpleStringProperty();
 
     this.tasksTable = FXCollections.observableArrayList();
-    this.taskStatus = new SimpleStringProperty();
-    this.taskTitle = new SimpleStringProperty();
-    this.taskProjectName = new SimpleStringProperty();
+
   }
+
+  public void reset()
+  {
+    super.reset();
+    load();
+  }
+
   public void load()
   {
-    employee.setValue(model.getUser());
-    setAvatarPicture();
-    employeeName.setValue(model.getUser().getName());
-
-    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
-
+    super.load();
     Employee worker = model.getUser();
     workerName.setValue("Welcome back, " + worker.getName() + "!");
 
@@ -75,13 +57,13 @@ public class WorkerHomeViewModel implements ViewModel
       }
 
     }
-    projectList = model.getAllProjectsByWorkingNumber(worker.getWorkingNumber());
+    ProjectList projectList = model.getAllProjectsByWorkingNumber(worker.getWorkingNumber());
     currentProjectsTable.clear();
     for (int i = 0; i < projectList.size(); i++)
     {
       currentProjectsTable.add(new ProjectsTable(projectList.get(i)));
     }
-    taskList = model.getAllTasksByUserId(worker.getWorkingNumber());
+    TaskList taskList = model.getAllTasksByUserId(worker.getWorkingNumber());
     tasksTable.clear();
     for (int i = 0; i < taskList.size(); i++)
     {
@@ -93,47 +75,15 @@ public class WorkerHomeViewModel implements ViewModel
   public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
   public ObservableList<TasksTableForWorkerProfile> getTaskTable(){return tasksTable;}
 
-  public String getWorkerName()
-  {
-    return workerName.get();
-  }
-
-
   public StringProperty workerNameProperty()
   {
     return workerName;
   }
 
 
-  public StringProperty getEmployeeName()
-  {
-    return employeeName;
-  }
 
-  public StringProperty getEmployeeWorkingNumber()
-  {
-    return employeeWorkingNumber;
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    super.propertyChange(evt);
   }
-  public ObjectProperty<Employee> employeePropertyProperty() {
-    return employee;
-  }
-  public Employee getEmployeeProperty() {
-    return employee.get();
-  }
-
-
-
-
-  public boolean isWoman(){
-    return Objects.equals(employee.getValue().getGender(), "F");
-  }
-  public void setAvatarPicture(){
-    if(isWoman()){
-      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-    }
-    else{
-      avatarPic.setValue(new Image("/icons/man-avatar.png"));
-    }
-  }
-
 }

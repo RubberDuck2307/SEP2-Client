@@ -50,8 +50,8 @@ public class ViewModelFactory
         this.assignWorkersToTaskViewModel = new AssignWorkersToTaskViewModel(model, viewState);
         this.assignEmployeesToProjectViewModel = new AssignEmployeesToProjectViewModel(model, viewState);
         this.assignWorkersToProjectManagerViewModel = new AssignWorkersToProjectManagerViewModel(model, viewState);
-        this.addProjectViewModel = new AddProjectViewModel(model, viewState);
-        this.createUserProfileViewModel = new CreateUserProfileViewModel(model, viewState);
+        this.addProjectViewModel = new AddProjectViewModel(model);
+        this.createUserProfileViewModel = new CreateUserProfileViewModel(model);
         this.loginViewModel = new LoginViewModel(model);
         this.workersViewModel = new WorkersViewModel(model, viewState);
         this.projectManagerProfileViewModel = new ProjectManagerProfileViewModel(model, viewState);
@@ -59,7 +59,7 @@ public class ViewModelFactory
         this.editProjectViewModel = new EditProjectViewModel(model, viewState);
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
-        this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
+        this.workerHomeViewModel= new WorkerHomeViewModel(model);
         this.editProfileViewModel = new EditProfileViewModel(model,viewState);
         this.deleteTagsViewModel = new DeleteTagsViewModel(model);
         this.forgotPasswordViewModel = new ForgotPasswordViewModel(model);

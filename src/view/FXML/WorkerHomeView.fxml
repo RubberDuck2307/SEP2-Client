@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.WorkerHomeViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.WorkerHomeViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -41,9 +41,14 @@
                                 </ImageView>
                                 <Label styleClass="side-menu-text-active" text="HOME">
                                     <HBox.margin>
-                                        <Insets left="10.0" />
+                                        <Insets left="10.0" right="10.0" />
                                     </HBox.margin>
                                 </Label>
+                        <ImageView fx:id="bellImage" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/bell.png" />
+                           </image>
+                        </ImageView>
                             </children>
                             <padding>
                                 <Insets left="30.0" />

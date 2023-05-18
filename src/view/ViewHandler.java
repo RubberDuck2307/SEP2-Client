@@ -13,6 +13,8 @@ public class ViewHandler {
     private Scene currentScene;
     private Stage primaryStage;
 
+    private ViewController currentViewController;
+
     private String lastPageId;
     private String currentPageId;
     private ViewModelFactory viewModelFactory;

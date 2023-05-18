@@ -6,18 +6,21 @@ import javafx.scene.paint.Color;
 import model.*;
 import util.Validator;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EditTaskViewModel implements ViewModel
+public class EditTaskViewModel extends ViewModelWithNavigationMenu
+
 {
-  private Model model;
   private ViewState viewState;
-  private ObjectProperty<Employee> employee;
-  private ObjectProperty<Image> avatarPic;
+
+
   private StringProperty nameOfTheTask;
   private StringProperty title;
   private StringProperty errorTitleMessage;
@@ -25,6 +28,7 @@ public class EditTaskViewModel implements ViewModel
   private ObjectProperty<LocalDate> deadline;
   private StringProperty description;
   private ObjectProperty<String> priority;
+  private int estimatedHoursInt;
   private ObjectProperty<String> status;
   private IntegerProperty estimatedHours;
   private StringProperty tags;
@@ -33,7 +37,6 @@ public class EditTaskViewModel implements ViewModel
   private TagList assignedTags;
   private ObjectProperty<javafx.scene.paint.Color> color;
   private StringProperty tagsE;
-  private int estimatedHoursInt;
   private StringProperty errorPriorityMessage;
   private StringProperty errorDeadlineMessage;
   private Validator validator;
@@ -42,15 +45,12 @@ public class EditTaskViewModel implements ViewModel
   private EmployeeList employeesOfProject;
   private EmployeeList originalAssignedEmployees;
   private EmployeeList assignedEmployees;
-  private StringProperty name, workingNumber;
 
 
   public EditTaskViewModel(Model model, ViewState viewState)
   {
-    this.model = model;
+    super(model);
     this.viewState = viewState;
-    this.employee=new SimpleObjectProperty<>();
-    this.avatarPic=new SimpleObjectProperty<>();
     this.nameOfTheTask = new SimpleStringProperty();
     this.title = new SimpleStringProperty();
     this.errorTitleMessage = new SimpleStringProperty();
@@ -74,24 +74,21 @@ public class EditTaskViewModel implements ViewModel
     employeesOfProject = new EmployeeList();
     assignedEmployees = new EmployeeList();
     originalAssignedEmployees = new EmployeeList();
-    name = new SimpleStringProperty();
-    workingNumber = new SimpleStringProperty();
   }
   public void load()
   {
+    super.load();
     Task task= viewState.getTask();
     Long taskID=task.getId();
     this.tagList= model.getAllTags();
     initialTags= model.getTagsOfTask(taskID);
     assignedTags= model.getTagsOfTask(taskID);
     //System.out.println("assigned tags: "+assignedTags.get(0).getName());
-    employee.setValue(model.getUser());
-    setAvatarPicture();
+
     originalAssignedEmployees = model.getEmployeesOfTask(taskID);
     assignedEmployees = model.getEmployeesOfTask(taskID);
     mandatoryEmployeeFiltering();
 
-    Project project = viewState.getProject();
 
     nameOfTheTask.setValue(viewState.getTask().getName());
     deadline.setValue(task.getDeadline());
@@ -100,8 +97,6 @@ public class EditTaskViewModel implements ViewModel
     title.setValue(task.getName());
     description.setValue(task.getDescription());
     estimatedHours.setValue(task.getEstimatedTime());
-    name.setValue(model.getUser().getName());
-    workingNumber.setValue(model.getUser().getWorkingNumber().toString());
   }
 
   private void mandatoryEmployeeFiltering(){
@@ -118,6 +113,7 @@ public class EditTaskViewModel implements ViewModel
   }
 
   public void reset(){
+    super.reset();
     errorTitleMessage.setValue("");
     errorTitleHours.setValue("");
     tagsE.setValue("");
@@ -294,10 +290,6 @@ public class EditTaskViewModel implements ViewModel
         return employees;
     }
 
-    public StringProperty nameOfTheTaskProperty()
-    {
-        return nameOfTheTask;
-    }
 
     public StringProperty titleProperty()
     {
@@ -314,20 +306,12 @@ public class EditTaskViewModel implements ViewModel
         return estimatedHours.get();
     }
 
-    public String getErrorPriorityMessage()
-    {
-        return errorPriorityMessage.get();
-    }
 
     public StringProperty errorPriorityMessageProperty()
     {
         return errorPriorityMessage;
     }
 
-    public String getErrorDeadlineMessage()
-    {
-        return errorDeadlineMessage.get();
-    }
 
     public StringProperty errorDeadlineMessageProperty()
     {
@@ -404,43 +388,14 @@ public class EditTaskViewModel implements ViewModel
   public StringProperty errorTitleHoursProperty() {
         return errorTitleHours;
     }
-    public String getName()
-    {
-        return name.get();
-    }
-    public StringProperty nameProperty()
-    {
-        return name;
-    }
-    public String getWorkingNumber()
-    {
-        return workingNumber.get();
-    }
-    public StringProperty workingNumberProperty()
-    {
-        return workingNumber;
-    }
-    public ObjectProperty<Image> avatarPicProperty()
-    {
-        return avatarPic;
-    }
-    public boolean isWoman()
-    {
-        return Objects.equals(employee.getValue().getGender(), "F");
-    }
-    public void setAvatarPicture()
-    {
-        if (isWoman())
-        {
-            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-        }
-        else
-        {
-            avatarPic.setValue(new Image("/icons/man-avatar.png"));
-        }
-    }
+
     public Employee getEmployeeProperty()
     {
         return employee.get();
+    }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    super.propertyChange(evt);
     }
 }
