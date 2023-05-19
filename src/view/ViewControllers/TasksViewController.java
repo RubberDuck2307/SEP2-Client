@@ -23,7 +23,8 @@ import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewController extends ViewControllerWithNavigationMenu
 {
-    @FXML
+  public TableColumn<TasksTable, String> estimatedTime;
+  @FXML
     private Label employeeName;
     @FXML
     private Label employeeWorkingNumber;
@@ -124,6 +125,9 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
 
         name.setCellValueFactory(
                 cellData -> cellData.getValue().getNameProperty());
+        estimatedTime.setCellValueFactory(
+               cellData -> cellData.getValue().estimatedTimeProperty());
+        estimatedTime.setStyle("-fx-alignment: CENTER;");
         number.setCellValueFactory(
                 cellData -> cellData.getValue().getNumberProperty());
         workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());
@@ -136,7 +140,7 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
         status.setCellValueFactory(statusButton);
         status.setStyle("-fx-alignment: CENTER;");
 
-
+        taskTable.setItems(taskTables);
     }
 
     private void fillInTasksTable() {
@@ -154,6 +158,7 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
             taskTables.get(i).setBtton(button1);
             taskTables.get(i).setStatusButton(statusButton);
         }
+        System.out.println(taskTables.size());
 
     }
 

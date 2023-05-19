@@ -1,9 +1,6 @@
 package viewmodel.TaskView;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import model.Task;
@@ -16,11 +13,13 @@ public class TasksTable
     private StringProperty deadline;
     private StringProperty priority;
     private StringProperty status;
+    private StringProperty estimatedTime;
     private Button button;
     private Button statusButton;
     private Long id;
     private StringProperty tags;
     private Button btton;
+
 
 
     public TasksTable(Task task)
@@ -29,9 +28,9 @@ public class TasksTable
         setDeadline(task.getDeadline());
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
+        System.out.println("");
+        setEstimatedTime(task.getEstimatedTime());
         this.id=task.getId();
-        //this.button=new Button("CLICK");
-        //this.tags = new SimpleStringProperty(task.getTags());
     }
 
     public Button getButton()
@@ -57,6 +56,11 @@ public class TasksTable
         if(deadline!=null)    this.deadline = new SimpleStringProperty(deadline.toString());
         else this.deadline=new SimpleStringProperty("");
     }
+    public void setEstimatedTime(int estimatedTime)
+    {
+        if(estimatedTime!=0)    this.estimatedTime = new SimpleStringProperty(estimatedTime + "");
+        else this.estimatedTime=new SimpleStringProperty("not set");
+    }
 
     public String getTitle()
     {
@@ -71,6 +75,16 @@ public class TasksTable
     public String getDeadline()
     {
         return deadline.get();
+    }
+
+    public String getEstimatedTime()
+    {
+        return estimatedTime.get();
+    }
+
+    public StringProperty estimatedTimeProperty()
+    {
+        return estimatedTime;
     }
 
     public Long getId()
@@ -132,6 +146,10 @@ public class TasksTable
     public ObservableValue<String> getPriorityProperty()
     {
         return priority;
+    }
+    public ObservableValue<String> getEstimatedTimeProperty()
+    {
+        return estimatedTime;
     }
     public ObservableValue<String> getStatusProperty()
     {

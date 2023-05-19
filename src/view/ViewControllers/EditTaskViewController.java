@@ -130,6 +130,7 @@ public class EditTaskViewController extends ViewControllerWithNavigationMenu
         title.textProperty().bindBidirectional(this.viewModel.titleProperty());
         colorPicker.valueProperty().bindBidirectional(this.viewModel.colorProperty());
         //estimatedHours.textProperty().bindBidirectional(this.viewModel.estimatedHoursProperty());
+
         Bindings.bindBidirectional(estimatedHours.textProperty(), (viewModel).estimatedHoursProperty(), new StringIntegerConverter(0));
         deadline.valueProperty().bindBidirectional(this.viewModel.deadlineProperty());
         status.valueProperty().bindBidirectional(this.viewModel.statusProperty());

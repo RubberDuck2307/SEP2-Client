@@ -26,15 +26,13 @@ import viewmodel.WorkerView.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class HrHomeViewController implements ViewController
+public class HrHomeViewController extends ViewControllerWithNavigationMenu
 {
   @FXML public TableView<NotificationTable> notificationTable;
   @FXML public TableColumn<NotificationTable, String> messageNotificationColumn;
   @FXML public TableColumn<NotificationTable, Button> deleteNotificationColumn;
   @FXML private ObservableList<NotificationTable> notificationTables;
   @FXML private Label workerName2;
-
-  @FXML private ImageView avatarPic;
   @FXML
   private HBox projectHBox;
   @FXML private Label managerName;
@@ -43,14 +41,14 @@ public class HrHomeViewController implements ViewController
   @FXML private Label managerPhoneNumber;
   @FXML private Label managerEmail;
 
-
-  @FXML private Label employeeName;
-  @FXML private Label employeeWorkingNumber;
-
-
+  @FXML private ImageView bellImage;
   private Region root;
+  @FXML private Label employeeName;
+    @FXML private Label employeeWorkingNumber;
   private HrHomeViewModel viewModel;
   private ViewHandler viewHandler;
+
+  @FXML private ImageView avatarPic;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)
@@ -59,10 +57,7 @@ public class HrHomeViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (HrHomeViewModel) viewModel;
     this.viewModel.load();
-    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
-
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
+    super.init(this.viewModel, viewHandler, bellImage, avatarPic,  employeeName, employeeWorkingNumber, projectHBox);
     managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
     managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
     managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
@@ -75,22 +70,13 @@ public class HrHomeViewController implements ViewController
 
     workerName2.textProperty()
         .bindBidirectional(this.viewModel.workerName2Property());
-    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
-      setWindow(((Employee) newValue).getRole());
-    });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
+
+    setWindow(this.viewModel.getEmployee().getRole());
 
 
     PropertyValueFactory<NotificationTable, Button> button = new PropertyValueFactory("button");
     deleteNotificationColumn.setCellValueFactory(button);
     deleteNotificationColumn.setStyle("-fx-alignment: CENTER;");
-
-
-    this.viewModel.employeePropertyProperty()
-        .addListener((observable, oldValue, newValue) -> {
-          setWindow(((Employee) newValue).getRole());
-        });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
 
     notificationTables = FXCollections.observableArrayList();
     fillInTasksTable();
@@ -124,69 +110,16 @@ public class HrHomeViewController implements ViewController
   @Override
   public void reset() {
     viewModel.reset();
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
+    setWindow(this.viewModel.getEmployee().getRole());
   }
 
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
-  }
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
-  }
-
-
-  public void assignedWorkerTableClick()
-  {
-  }
 
   public void goBackButton()
   {
     viewHandler.openLastWindow();
   }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
-  private void setWindow(EmployeeRole employeeRole) {
-    switch (employeeRole) {
-      case WORKER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case HR -> {
-        projectHBox.setVisible(false);
-        projectHBox.setManaged(false);
 
-      }
-      case PROJECT_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
 
-      }
-      case MAIN_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-
-      }
-    }
-
-  }
 
   @FXML public void assign(){
     viewHandler.openView("assignWorkersToProjectManager");

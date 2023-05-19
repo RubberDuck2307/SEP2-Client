@@ -222,7 +222,7 @@
                                                         <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="106.0" text="Deadline" />
                                                         <TableColumn fx:id="priority" minWidth="0.0" prefWidth="107.0" text="Priority" />
                                                         <TableColumn fx:id="status" minWidth="0.0" prefWidth="117.0" text="Status" />
-                                                        <TableColumn fx:id="tags" minWidth="0.0" prefWidth="123.19989013671875" text="Tags" />
+                                                        <TableColumn fx:id="estimatedTime" minWidth="0.0" prefWidth="123.19989013671875" text="Estimated time" />
                                                         <TableColumn fx:id="edit" maxWidth="100.0" minWidth="0.0" prefWidth="71.9998779296875" text="Edit" />
                                                         <TableColumn fx:id="delete" minWidth="0.0" prefWidth="81.5999755859375" text="Delete" />
                                                     </columns>

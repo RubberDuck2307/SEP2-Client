@@ -24,6 +24,7 @@ public class TasksViewModel extends ViewModelWithNavigationMenu
     private TaskList taskList;
     private StringProperty error;
     private StringProperty projectName;
+    private StringProperty estimatedTime;
     private StringProperty taskName;
     private StringProperty taskDescription;
     private ObservableList<Task> tasks;
@@ -43,6 +44,8 @@ public class TasksViewModel extends ViewModelWithNavigationMenu
         this.tasks = FXCollections.observableArrayList();
         this.viewState = viewState;
         this.taskList = new TaskList();
+        this.estimatedTime = new SimpleStringProperty();
+        //employeeList.addEmployee(viewState.getEmployee());
         this.projectName = new SimpleStringProperty();
         this.taskName = new SimpleStringProperty();
         this.taskDescription = new SimpleStringProperty();
