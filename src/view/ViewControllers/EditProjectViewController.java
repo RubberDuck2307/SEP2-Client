@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import view.ViewController;
@@ -14,7 +15,7 @@ import viewmodel.ProjectView.EditProjectViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
-public class EditProjectViewController implements ViewController
+public class EditProjectViewController extends ViewControllerWithNavigationMenu
 {
     @FXML
     public ImageView avatarPic;
@@ -45,9 +46,12 @@ public class EditProjectViewController implements ViewController
     private TableColumn<WorkersWithCheckboxTable, CheckBox> checkBoxColumn;
     private Region root;
     private EditProjectViewModel viewModel;
-    private ViewHandler viewHandler;
     private ObservableList<WorkersWithCheckboxTable> workersWithCheckboxTables;
-    
+    @FXML
+    private HBox projectsHbox;
+
+    @FXML
+    private ImageView bellImage;
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
     {
@@ -55,23 +59,34 @@ public class EditProjectViewController implements ViewController
         this.viewHandler = viewHandler;
         this.viewModel = (EditProjectViewModel) viewModel;
         this.viewModel.load();
+        super.init(this.viewModel, viewHandler, bellImage ,this.avatarPic, this.nameL, this.workingNumberL, this.projectsHbox);
+
+        bind();
+        setUpTable();
+
+        fillInManagerTable();
+        super.setWindow(this.viewModel.getEmployee().getRole());
+    }
+
+    private void bind(){
+
+        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+        title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
+        description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
+        deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
+        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
+        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
+        headlineLabel.textProperty().bind(this.viewModel.headlineProperty());
+    }
+
+    private void setUpTable(){
         workersWithCheckboxTables = FXCollections.observableArrayList();
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
         checkBoxColumn.setCellValueFactory(checkbox);
         checkBoxColumn.setStyle("-fx-alignment: CENTER;");
-        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-        title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
-        description.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
-        deadline.valueProperty().bindBidirectional(this.viewModel.getDeadlineProperty());
         managersTable.setItems(workersWithCheckboxTables);
-        titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
-        deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
-        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
-        headlineLabel.textProperty().bind(this.viewModel.headlineProperty());
-        fillInManagerTable();
     }
     
     private void fillInManagerTable()
@@ -102,26 +117,12 @@ public class EditProjectViewController implements ViewController
     {
         viewModel.reset();
         fillInManagerTable();
+        super.setWindow(viewModel.getEmployee().getRole());
     }
     
     public void switchWorker(Employee employee)
     {
         viewModel.switchWorker(employee);
-    }
-    
-    public void openHome()
-    {
-        viewHandler.openView("home");
-    }
-    
-    public void openProjects()
-    {
-        viewHandler.openView("projects");
-    }
-    
-    public void openWorkersView()
-    {
-        viewHandler.openView("workers");
     }
     public void backButtonPressed()
     {
@@ -134,4 +135,5 @@ public class EditProjectViewController implements ViewController
             viewHandler.openView("projects");
         }
     }
+
 }

@@ -6,17 +6,17 @@ import model.Model;
 import model.*;
 import util.Validator;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class EditProfileViewModel implements ViewModel
+public class EditProfileViewModel extends ViewModelWithNavigationMenu
 {
   private Validator validator;
-  private ObjectProperty<Employee> employee;
-  private ObjectProperty<Image> avatarPic;
-  private Model model;
   private ViewState viewState;
   private StringProperty firstName;
   private StringProperty firstNameE;
@@ -37,17 +37,13 @@ public class EditProfileViewModel implements ViewModel
   private ObjectProperty<LocalDate> dob;
   private StringProperty dobE;
   private BooleanProperty dobValue;
-  private Integer workingNumber;
   private BooleanProperty gender;
-  private StringProperty name;
-  private StringProperty workingNumberF;
+
 
   public EditProfileViewModel(Model model, ViewState viewState)
   {
-    this.model = model;
+    super(model);
     this.viewState = viewState;
-    this.name = new SimpleStringProperty();
-    this.workingNumberF = new SimpleStringProperty();
     this.firstName = new SimpleStringProperty("");
     this.firstNameE = new SimpleStringProperty("");
     this.email = new SimpleStringProperty("");
@@ -71,11 +67,10 @@ public class EditProfileViewModel implements ViewModel
     this.phoneNumberValue = new SimpleBooleanProperty(false);
     this.passwordValue = new SimpleBooleanProperty(false);
     this.dobValue = new SimpleBooleanProperty(false);
-    this.employee=new SimpleObjectProperty<>();
-    this.avatarPic=new SimpleObjectProperty<>();
   }
 
   public void reset(){
+    super.reset();
     this.firstName.setValue("");
     this.firstNameE.setValue("");
     this.email.setValue("");
@@ -99,13 +94,11 @@ public class EditProfileViewModel implements ViewModel
   }
   public void load()
   {
-    employee.setValue(model.getUser());
+    super.load();
     Employee worker = viewState.getEmployee();
-    setAvatarPicture();
+
     LocalDate localDate = LocalDate.now();
     this.dob.setValue(localDate);
-    this.name.setValue(model.getUser().getName());
-    this.workingNumberF.setValue(model.getUser().getWorkingNumber().toString());
     this.firstName.setValue(worker.getName());
     this.email.setValue(worker.getEmail());
     this.role.setValue(worker.getRole().toString());
@@ -219,7 +212,6 @@ public boolean editPassword()
 
   private void editPasswordInDBS()
   {
-    workingNumber = viewState.getEmployee().getWorkingNumber();
     model.changePassword(viewState.getEmployee(), password.getValue());
   }
 
@@ -240,31 +232,20 @@ public boolean editPassword()
     }
     else genderChar = "F";
     System.out.println(genderChar);
-    workingNumber = viewState.getEmployee().getWorkingNumber();
+    Integer workingNumber = viewState.getEmployee().getWorkingNumber();
     Employee employee = new Employee(workingNumber, firstName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
     model.updateEmployee(employee);
   }
 
 
-  public String getFirstName()
-  {
-    return firstName.get();
-  }
 
-  public Model getModel()
-  {
-    return model;
-  }
 
   public ViewState getViewState()
   {
     return viewState;
   }
 
-  public String getFirstNameE()
-  {
-    return firstNameE.get();
-  }
+
 
   public StringProperty firstNameEProperty()
   {
@@ -272,50 +253,33 @@ public boolean editPassword()
   }
 
 
-  public String getEmailE()
-  {
-    return emailE.get();
-  }
 
   public StringProperty emailEProperty()
   {
     return emailE;
   }
 
-  public String getRoleE()
-  {
-    return roleE.get();
-  }
 
   public StringProperty roleEProperty()
   {
     return roleE;
   }
 
-  public String getPhoneNumberE()
-  {
-    return phoneNumberE.get();
-  }
+
 
   public StringProperty phoneNumberEProperty()
   {
     return phoneNumberE;
   }
 
-  public String getPasswordE()
-  {
-    return passwordE.get();
-  }
+
 
   public StringProperty passwordEProperty()
   {
     return passwordE;
   }
 
-  public String getDobE()
-  {
-    return dobE.get();
-  }
+
 
   public StringProperty dobEProperty()
   {
@@ -328,13 +292,7 @@ public boolean editPassword()
   }
 
 
-  public String getEmail()
-  {
-    return email.get();
-  }
-  public Employee getEmployeeProperty() {
-    return employee.get();
-  }
+
 
 
   public StringProperty emailProperty()
@@ -372,10 +330,7 @@ public boolean editPassword()
     return password;
   }
 
-  public LocalDate getDob()
-  {
-    return dob.get();
-  }
+
 
   public ObjectProperty<LocalDate> dobProperty()
   {
@@ -393,15 +348,6 @@ public boolean editPassword()
     return firstNameValue;
   }
 
-  public boolean getLastNameValue()
-  {
-    return lastNameValue.get();
-  }
-
-  public BooleanProperty lastNameValueProperty()
-  {
-    return lastNameValue;
-  }
 
   public boolean getEmailValue()
   {
@@ -447,64 +393,23 @@ public boolean editPassword()
   {
     return dobValue.get();
   }
-
   public BooleanProperty dobValueProperty()
   {
     return dobValue;
   }
 
-  public Integer getWorkingNumber()
-  {
-    return workingNumber;
-  }
-
-  public boolean isGender()
-  {
-    return gender.get();
-  }
   public BooleanProperty genderProperty()
   {
     return gender;
   }
 
-  public String getName()
-  {
-    return name.get();
+  public Integer getWorkingNumber(){
+    return viewState.getEmployee().getWorkingNumber();
   }
-  public StringProperty nameProperty()
-  {
-    return name;
-  }
-  public String getWorkingNumberF()
-  {
-    return workingNumberF.get();
-  }
-  public StringProperty workingNumberFProperty()
-  {
-    return workingNumberF;
-  }
-  public ObjectProperty<Image> avatarPicProperty()
-  {
-    return avatarPic;
-  }
-  public boolean isWoman(){
-    return Objects.equals(employee.getValue().getGender(), "F");
-  }
-  public void setAvatarPicture(){
-    if(isWoman()){
-      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-    }
-    else{
-      avatarPic.setValue(new Image("/icons/man-avatar.png"));
-    }
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    super.propertyChange(evt);
   }
 
-  public Employee getEmployee() {
-    return employee.get();
-  }
-
-  public ObjectProperty<Employee> employeeProperty() {
-    return employee;
-  }
 }
 

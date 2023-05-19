@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
@@ -15,7 +16,7 @@ import viewmodel.EmployeeView.AssignWorkersToTaskViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
-public class AssignWorkersToTaskViewController implements ViewController
+public class AssignWorkersToTaskViewController  extends ViewControllerWithNavigationMenu
 {
     @FXML
     private Label nameL;
@@ -37,6 +38,9 @@ public class AssignWorkersToTaskViewController implements ViewController
     private AssignWorkersToTaskViewModel viewModel;
     private ViewHandler viewHandler;
     private ObservableList<WorkersWithCheckboxTable> workerTableColumns = FXCollections.observableArrayList();
+    @FXML private ImageView bellImage;
+    @FXML private HBox projectsHbox;
+
     
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
@@ -46,17 +50,26 @@ public class AssignWorkersToTaskViewController implements ViewController
         this.viewModel = (AssignWorkersToTaskViewModel) viewModel;
         this.viewModel.load();
         projectName.textProperty().bindBidirectional(this.viewModel.getTaskName());
+
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic , nameL, workingNumberL, projectsHbox);
+
+        setUpTable();
+
+        fillInTable();
+
+        setWindow(this.viewModel.getEmployee().getRole());
+    }
+
+    private void setUpTable(){
+        workerTableColumns = FXCollections.observableArrayList();
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty());
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
         checkboxColumn.setCellValueFactory(checkbox);
         checkboxColumn.setStyle("-fx-alignment: CENTER;");
         avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-        workerTableColumns = FXCollections.observableArrayList();
-        fillInTable();
+
         workersTable.setItems(workerTableColumns);
-        nameL.textProperty().bindBidirectional(this.viewModel.userNameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
     }
 
     private void fillInTable(){
@@ -85,13 +98,6 @@ public class AssignWorkersToTaskViewController implements ViewController
     {
         viewHandler.openLastWindow();
     }
-    
-    @FXML
-    public void openProjects()
-    {
-        viewHandler.openView("projects");
-    }
-    
     @Override
     public Region getRoot()
     {
@@ -102,28 +108,7 @@ public class AssignWorkersToTaskViewController implements ViewController
     public void reset() {
         viewModel.reset();
         fillInTable();
+        setWindow(this.viewModel.getEmployee().getRole());
     }
 
-    public void openWorkersView()
-    {
-        viewHandler.openView("workers");
-    }
-    public void openHome()
-    {
-        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-        switch (role) {
-            case WORKER -> {
-                viewHandler.openView("workerHomePage");
-            }
-            case HR -> {
-                viewHandler.openView("home");
-            }
-            case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
-            }
-            case MAIN_MANAGER -> {
-                viewHandler.openView("home");
-            }
-        }
-    }
 }

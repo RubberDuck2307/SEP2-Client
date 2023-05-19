@@ -1,51 +1,42 @@
 package viewmodel.EmployeeView;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import model.*;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AssignEmployeesToProjectViewModel implements ViewModel
+public class AssignEmployeesToProjectViewModel extends ViewModelWithNavigationMenu
 {
     private ViewState viewState;
-    private Model model;
-    private ObjectProperty<Employee> employee;
-    private ObjectProperty<Image> avatarPic;
-    private StringProperty userName;
-    private StringProperty userNumber;
     private StringProperty projectName;
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfProject;
     private ObjectProperty<Employee> user;
 
     public AssignEmployeesToProjectViewModel(Model model, ViewState viewState) {
+        super(model);
         this.viewState = viewState;
-        this.model = model;
         employeesOfProject = new EmployeeList();
         employeesOfManager = new EmployeeList();
         projectName = new SimpleStringProperty("");
         user = new SimpleObjectProperty<>();
-        userName = new SimpleStringProperty("");
-        userNumber = new SimpleStringProperty("");
-        this.employee=new SimpleObjectProperty<>();
-        this.avatarPic=new SimpleObjectProperty<>();
     }
     public void reset(){
+        super.reset();
         load();
     }
 
 
     public void load() {
-        employee.setValue(model.getUser());
-        setAvatarPicture();
+        super.load();
         user.set(model.getUser());
         Project project = viewState.getProject();
         projectName.set(project.getName());
@@ -57,8 +48,6 @@ public class AssignEmployeesToProjectViewModel implements ViewModel
             employeesOfManager = model.getAllProjectManagers();
         }
         employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
-        userName.set(user.get().getName());
-        userNumber.set(user.get().getWorkingNumber().toString());
 
     }
 
@@ -89,9 +78,6 @@ public class AssignEmployeesToProjectViewModel implements ViewModel
         return employeesOfManager;
     }
 
-    public EmployeeList getEmployeesOfProject() {
-        return employeesOfProject;
-    }
 
     public Employee getUser() {
         return user.get();
@@ -101,38 +87,9 @@ public class AssignEmployeesToProjectViewModel implements ViewModel
         return user;
     }
 
-    public String getUserName() {
-        return userName.get();
-    }
 
-    public StringProperty userNameProperty() {
-        return userName;
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        super.propertyChange(evt);
     }
-
-    public String getUserNumber() {
-        return userNumber.get();
-    }
-
-    public StringProperty userNumberProperty() {
-        return userNumber;
-    }
-    public ObjectProperty<Image> avatarPicProperty()
-    {
-        return avatarPic;
-    }
-    public boolean isWoman(){
-        return Objects.equals(employee.getValue().getGender(), "F");
-    }
-    public void setAvatarPicture(){
-        if(isWoman()){
-            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-        }
-        else{
-            avatarPic.setValue(new Image("/icons/man-avatar.png"));
-        }
-    }
-    public Employee getEmployeeProperty() {
-        return employee.get();
-    }
-
 }

@@ -20,10 +20,9 @@ import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.ProjectView.ProjectsViewModel;
 import viewmodel.ViewModel;
 
-public class ProjectsViewController implements ViewController
+public class ProjectsViewController extends ViewControllerWithNavigationMenu
 {
     public TableColumn<ProjectsTable, Button> open;
-    //public TableColumn<ProjectsTable, Button> openTask;
     public TableColumn<ProjectsTable, Button> edit;
     @FXML public ImageView avatarPic;
     @FXML private HBox homeButton;
@@ -31,7 +30,6 @@ public class ProjectsViewController implements ViewController
     private Label nameLabel;
     @FXML
     private Label numberLabel;
-
     @FXML
     private HBox projectHBox;
     @FXML
@@ -46,7 +44,6 @@ public class ProjectsViewController implements ViewController
     private TableColumn<ProjectsTable, String> titleColumn;
     @FXML
     private TableColumn<ProjectsTable, String> deadlineColumn;
-
     @FXML
     private TableView<ProjectManagersTable> employeesListTable;
     @FXML
@@ -58,56 +55,53 @@ public class ProjectsViewController implements ViewController
     private Label titleLabel;
     private Region root;
     private ProjectsViewModel viewModel;
-    private ViewHandler viewHandler;
     private ObservableList<ProjectsTable> projectsTables;
+    @FXML
+    private ImageView bellImage;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root) {
         this.root = root;
         this.viewHandler = viewHandler;
         this.viewModel = (ProjectsViewModel) viewModel;
-        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+        this.viewModel.load();
+        super.init(this.viewModel, viewHandler,bellImage ,this.avatarPic, this.nameLabel, this.numberLabel, this.projectHBox);
+
         titleLabel.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
         descriptionArea.textProperty().bindBidirectional(this.viewModel.getDescriptionProperty());
-        nameLabel.textProperty().bindBidirectional(this.viewModel.userNameProperty());
-        numberLabel.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
 
-        titleColumn.setCellValueFactory(cellData -> cellData.getValue().getTitleValue());
-        deadlineColumn.setCellValueFactory(cellData -> cellData.getValue().deadlineProperty());
+        setUpWorkersTable();
 
+        setWindow(this.viewModel.getEmployee().getRole());
 
+        setUpProjectsTable();
+        fillInProjectsTable();
+
+        assignButton.setVisible(false);
+        this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
+            if (((ProjectsViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((ProjectsViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
+                assignButton.setVisible(newValue);
+            }
+        }));
+    }
+
+    private void setUpWorkersTable(){
         projectEmployeeNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameValue());
         projectEmployeeRoleColumn.setCellValueFactory(cellData -> cellData.getValue().getRoleValue());
         employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
 
+    }
+    private void setUpProjectsTable(){
+        titleColumn.setCellValueFactory(cellData -> cellData.getValue().getTitleValue());
+        deadlineColumn.setCellValueFactory(cellData -> cellData.getValue().deadlineProperty());
         PropertyValueFactory<ProjectsTable, Button> button = new PropertyValueFactory("btton");
         open.setCellValueFactory(button);
         open.setStyle("-fx-alignment: CENTER;");
         PropertyValueFactory<ProjectsTable, Button> buttonEdit = new PropertyValueFactory("buttonEdit");
         edit.setCellValueFactory(buttonEdit);
         edit.setStyle("-fx-alignment: CENTER;");
-
-        this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
-            setWindow(((Employee) newValue).getRole());
-        });
-
-        this.viewModel.load();
-
-        setWindow(this.viewModel.getEmployeeProperty().getRole());
-
         projectsTables = FXCollections.observableArrayList();
-        fillInProjectsTable();
-
-        assignButton.setVisible(false);
-        this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
-            if (((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
-                assignButton.setVisible(newValue);
-            }
-        }));
-
         projectTable.setItems(projectsTables);
-        employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
-
     }
 
     private void fillInProjectsTable(){
@@ -133,15 +127,7 @@ public class ProjectsViewController implements ViewController
             
             projectsTables.get(i).setButtonEdit(button2);
         }
-       
-        assignButton.setVisible(false);
-        this.viewModel.selectedProjectProperty().addListener(((observable, oldValue, newValue) -> {
-            if (((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.PROJECT_MANAGER) || ((ProjectsViewModel) viewModel).getEmployeeProperty().getRole().equals(EmployeeRole.MAIN_MANAGER)) {
-                assignButton.setVisible(newValue);
-            }
-        }));
 
-        projectTable.setItems(projectsTables);
         employeesListTable.setItems(this.viewModel.getProjectManagersObservableList());
 
     }
@@ -163,39 +149,30 @@ public class ProjectsViewController implements ViewController
         viewModel.setProject(index);
     }
 
-    private void setWindow(EmployeeRole employeeRole) {
+    protected void setWindow(EmployeeRole employeeRole) {
+        super.setWindow(employeeRole);
         switch (employeeRole) {
             case WORKER -> {
                 addProjectButton.setVisible(false);
                 assignButton.setVisible(false);
                 open.setVisible(true);
                 edit.setVisible(false);
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
             }
             case HR -> {
-                projectHBox.setVisible(false);
-                projectHBox.setManaged(false);
                 addProjectButton.setVisible(false);
                 assignButton.setVisible(false);
                 open.setVisible(false);
                 edit.setVisible(false);
-
-
             }
             case PROJECT_MANAGER -> {
                 addProjectButton.setVisible(false);
                 open.setVisible(true);
                 edit.setVisible(true);
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
             }
             case MAIN_MANAGER -> {
                 addProjectButton.setVisible(true);
                 open.setVisible(true);
                 edit.setVisible(true);
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
             }
         }
 
@@ -208,7 +185,7 @@ public class ProjectsViewController implements ViewController
     @Override
     public void reset() {
         assignButton.setVisible(false);
-        setWindow(viewModel.getEmployeeProperty().getRole());
+        setWindow(viewModel.getEmployee().getRole());
         viewModel.reset();
         fillInProjectsTable();
     }
@@ -216,35 +193,6 @@ public class ProjectsViewController implements ViewController
     @FXML
     public void openAddProject() {
         viewHandler.openView("addProject");
-    }
-
-    public void openTask() {
-        viewHandler.openView("tasks");
-    }
-
-
-    public void openWorkers()
-    {
-        viewHandler.openView("workers");
-    }
-
-    public void openHome()
-    {
-        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-        switch (role) {
-            case WORKER -> {
-                viewHandler.openView("workerHomePage");
-            }
-            case HR -> {
-                viewHandler.openView("home");
-            }
-            case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
-            }
-            case MAIN_MANAGER -> {
-                viewHandler.openView("home");
-            }
-        }
     }
     public void openEditProject()
     {

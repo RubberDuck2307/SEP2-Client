@@ -1,5 +1,6 @@
 package model;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public interface Model{
 
     Tag getTag(Long tagId);
     void deleteTag(Long id);
-
-
+    void logOut();
+    boolean addForgetPasswordNotification(Integer workingNumber);
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
 
@@ -63,4 +64,5 @@ public interface Model{
     void updateEmployee(Employee employee);
     
     void changePassword(Employee employee, String password);
+    void addNotificationListener(PropertyChangeListener listener);
 }

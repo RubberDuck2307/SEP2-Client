@@ -24,7 +24,7 @@ import viewmodel.WorkersWithCheckboxTable;
 
 import java.util.ArrayList;
 
-public class EditTaskViewController implements ViewController
+public class EditTaskViewController extends ViewControllerWithNavigationMenu
 {
     @FXML
     public Button backButton;
@@ -73,11 +73,13 @@ public class EditTaskViewController implements ViewController
     public Label workingNumberL;
     private Region root;
     private EditTaskViewModel viewModel;
-    private ViewHandler viewHandler;
-    private int counter;
-    private ArrayList<CheckBox> checkboxes;
-    private int hoursAsInteger;
+
+
     private ObservableList<WorkersWithCheckboxTable> workersTableList;
+    @FXML
+    private ImageView bellImage;
+    @FXML
+    private HBox projectsHbox;
     
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
@@ -87,11 +89,10 @@ public class EditTaskViewController implements ViewController
         this.viewHandler = viewHandler;
         this.viewModel = (EditTaskViewModel) viewModel;
         this.viewModel.load();
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic, nameL, workingNumberL, projectsHbox);
         errorTitleHours.setText(null);
         setChoiceBox();
-        this.counter = 0;
-        this.checkboxes = new ArrayList<>();
-        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+
         numberColumn.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox");
@@ -102,8 +103,7 @@ public class EditTaskViewController implements ViewController
         fillInWorkerTable();
         fillInTags();
         deadline.setEditable(false);
-        nameL.textProperty().bind(this.viewModel.nameProperty());
-        workingNumberL.textProperty().bind(this.viewModel.workingNumberProperty());
+        setWindows(this.viewModel.getEmployee().getRole());
     }
     
     @Override
@@ -117,6 +117,7 @@ public class EditTaskViewController implements ViewController
         viewModel.reset();
         fillInWorkerTable();
         fillInTags();
+        setWindows(this.viewModel.getEmployee().getRole());
     }
 
     public void bindEverything()
@@ -209,16 +210,7 @@ public class EditTaskViewController implements ViewController
     {
         viewModel.switchWorker(employee);
     }
-    
-    public void setPriority()
-    {
-        viewModel.setPriority();
-    }
-    
-    public void openProjects()
-    {
-        viewHandler.openView("projects");
-    }
+
     
     public void createTask()
     {
@@ -242,33 +234,15 @@ public class EditTaskViewController implements ViewController
         status.getItems().add("DONE");
         status.getItems().add("IN PROGRESS");
     }
-    
+
+
+    public void setWindows(EmployeeRole employeeRole){
+        super.setWindow(employeeRole);
+    }
     public void resetDeadlineClick(ActionEvent actionEvent)
     {
         this.deadline.getEditor().clear();
         this.deadline.setEditable(true);
         deadline.setValue(null);
-    }
-    public void openWorkersView()
-    {
-        viewHandler.openView("workers");
-    }
-    public void openHome()
-    {
-        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-        switch (role) {
-            case WORKER -> {
-                viewHandler.openView("workerHomePage");
-            }
-            case HR -> {
-                viewHandler.openView("home");
-            }
-            case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
-            }
-            case MAIN_MANAGER -> {
-                viewHandler.openView("home");
-            }
-        }
     }
 }

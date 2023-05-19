@@ -1,24 +1,24 @@
 package viewmodel.EmployeeView;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.image.Image;
 import model.Employee;
 import model.Model;
 import viewmodel.ViewModel;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
-public class HomeViewModel implements ViewModel
+public class HomeViewModel implements ViewModel, PropertyChangeListener
 {
     private Model model;
     private ViewState viewState;
     private ObjectProperty<Employee> employeeProperty;
     private ObjectProperty<Image> avatarPic;
     private StringProperty name, workingNumber;
+    private BooleanProperty notification;
     
     public HomeViewModel(Model model, ViewState viewState)
     {
@@ -28,6 +28,7 @@ public class HomeViewModel implements ViewModel
         this.workingNumber = new SimpleStringProperty();
         employeeProperty = new SimpleObjectProperty<>();
         this.avatarPic=new SimpleObjectProperty<>();
+        notification = new SimpleBooleanProperty();
     }
 
     public void reset()
@@ -81,4 +82,12 @@ public class HomeViewModel implements ViewModel
             avatarPic.setValue(new Image("/icons/man-avatar.png"));
         }
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("notification")){
+            notification.setValue(true);
+        }
+    }
+
 }

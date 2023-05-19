@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.ProjectsViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.ProjectsViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -45,9 +45,17 @@
                                 </ImageView>
                         <Label onMousePressed="#openHome" styleClass="side-menu-text" text="HOME">
                            <HBox.margin>
-                              <Insets left="10.0" />
+                              <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Label>
+                        <ImageView fx:id="bellImage" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/bell.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
                             </children>
                      <padding>
                         <Insets left="30.0" />
@@ -73,7 +81,7 @@
                         <Insets left="30.0" />
                      </padding>
                         </HBox>
-                        <HBox fx:id="workersHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openWorkers" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
+                        <HBox fx:id="workersHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openWorkersView" prefHeight="99.0" prefWidth="239.0" styleClass="menu-hover">
                             <children>
                                 <SVGPath content="M11 4C11 5.65685 9.65685 7 8 7C6.34315 7 5 5.65685 5 4C5 2.34315 6.34315 1 8 1C9.65685 1 11 2.34315 11 4Z M1 16.5C1 12.9101 3.91015 10 7.5 10H8.5C12.0899 10 15 12.9101 15 16.5V17C15 17.5523 14.5523 18 14 18H2C1.44772 18 1 17.5523 1 17V16.5Z" stroke="#0D6EFD" styleClass="side-menu-icon-projects" />
                                 <ImageView>
@@ -81,7 +89,7 @@
 
                                     </image>
                                 </ImageView>
-                                <Label onMousePressed="#openWorkers" styleClass="side-menu-text" text="WORKERS">
+                                <Label onMousePressed="#openWorkersView" styleClass="side-menu-text" text="WORKERS">
                                     <HBox.margin>
                                         <Insets left="10.0" />
                                     </HBox.margin>
@@ -151,10 +159,6 @@
                         <Button fx:id="addProjectButton" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#openAddProject" prefHeight="53.0" prefWidth="57.0" styleClass="button-add" textFill="TRANSPARENT">
                            <HBox.margin>
                               <Insets right="20.0" top="8.0" />
-                           </HBox.margin></Button>
-                        <Button id="hoo" fx:id="editProjectButton" maxHeight="53.0" maxWidth="57.0" mnemonicParsing="false" onAction="#openEditProject" prefHeight="53.0" prefWidth="57.0" styleClass="button-edit">
-                           <HBox.margin>
-                              <Insets top="8.0" />
                            </HBox.margin></Button>
                             </children>
                             <VBox.margin>

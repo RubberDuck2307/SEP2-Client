@@ -13,6 +13,8 @@ public class ViewHandler {
     private Scene currentScene;
     private Stage primaryStage;
 
+    private ViewController currentViewController;
+
     private String lastPageId;
     private String currentPageId;
     private ViewModelFactory viewModelFactory;
@@ -122,6 +124,10 @@ public class ViewHandler {
             }
             case "deleteTags": {
                 root = loadViewController(viewModelFactory.getDeleteTagsViewModel(), "FXML/DeleteTagsView.fxml");
+                break;
+            }
+            case "forgotPassword":{
+                root = loadViewController(viewModelFactory.getForgotPasswordViewModel(), "FXML/ForgotPasswordView.fxml");
                 break;
             }
             default: {

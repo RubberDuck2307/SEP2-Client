@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
@@ -18,11 +19,11 @@ import viewmodel.EmployeeView.AssignEmployeesToProjectViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
-public class AssignEmployeesToProjectViewController implements ViewController
-{
+public class AssignEmployeesToProjectViewController extends ViewControllerWithNavigationMenu {
     @FXML
     private Label headlineLabel;
-    @FXML public ImageView avatarPic;
+    @FXML
+    public ImageView avatarPic;
     @FXML
     private TableView<WorkersWithCheckboxTable> workersTable;
     @FXML
@@ -40,7 +41,11 @@ public class AssignEmployeesToProjectViewController implements ViewController
     private Region root;
     private AssignEmployeesToProjectViewModel viewModel;
     private ViewHandler viewHandler;
-    private  ObservableList<WorkersWithCheckboxTable> workerTableColumns;
+    private ObservableList<WorkersWithCheckboxTable> workerTableColumns;
+    @FXML
+    private ImageView bellImage;
+    @FXML
+    private HBox projectsHbox;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -49,36 +54,18 @@ public class AssignEmployeesToProjectViewController implements ViewController
         this.viewHandler = viewHandler;
         this.viewModel = (AssignEmployeesToProjectViewModel) viewModel;
         this.viewModel.load();
-
-
-        nameLabel.textProperty().bindBidirectional(this.viewModel.userNameProperty());
-        numberLabel.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
+        init(this.viewModel, viewHandler, bellImage, this.avatarPic, this.nameLabel, this.numberLabel, projectsHbox);
         projectName.textProperty()
                 .bindBidirectional(this.viewModel.getProjectName());
-        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
 
-        nameColumn.setCellValueFactory(
-                cellData -> cellData.getValue().getNameProperty());
-        numberColumn.setCellValueFactory(
-                cellData -> cellData.getValue().getNumberProperty());
-
-        PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox"
-        );
-        checkboxColumn.setCellValueFactory(checkbox);
-        checkboxColumn.setStyle("-fx-alignment: CENTER;");
-        workerTableColumns = FXCollections.observableArrayList();
-        fillInTable();
-
-        workersTable.setItems(workerTableColumns);
 
         setWindow(this.viewModel.getUser().getRole());
+        setTable();
+        fillInTable();
 
-        this.viewModel.userProperty().addListener((observable, oldValue, newValue) -> {
-            setWindow((newValue).getRole());
-        });
     }
 
-    private void fillInTable(){
+    private void fillInTable() {
         workerTableColumns.clear();
         for (int i = 0; i < this.viewModel.getEmployeesOfManager().size(); i++) {
             Employee employee = this.viewModel.getEmployeesOfManager().get(i);
@@ -91,6 +78,23 @@ public class AssignEmployeesToProjectViewController implements ViewController
             checkBox.setSelected(this.viewModel.isAssigned(employee));
             workerTableColumns.get(i).setCheckbox(checkBox);
         }
+        System.out.println(workerTableColumns.size());
+    }
+
+    private void setTable() {
+        workerTableColumns = FXCollections.observableArrayList();
+        nameColumn.setCellValueFactory(
+                cellData -> cellData.getValue().getNameProperty());
+        numberColumn.setCellValueFactory(
+                cellData -> cellData.getValue().getNumberProperty());
+
+        PropertyValueFactory<WorkersWithCheckboxTable, CheckBox> checkbox = new PropertyValueFactory("checkbox"
+        );
+        checkboxColumn.setCellValueFactory(checkbox);
+        checkboxColumn.setStyle("-fx-alignment: CENTER;");
+
+
+        workersTable.setItems(workerTableColumns);
     }
 
     public void assignEmployee(Employee employee) {
@@ -102,12 +106,8 @@ public class AssignEmployeesToProjectViewController implements ViewController
         viewHandler.openLastWindow();
     }
 
-    @FXML
-    public void openProjects() {
-        viewHandler.openView("projects");
-    }
-
-    private void setWindow(EmployeeRole employeeRole) {
+    protected void setWindow(EmployeeRole employeeRole) {
+        super.setWindow(employeeRole);
         if (employeeRole.equals(EmployeeRole.PROJECT_MANAGER))
             headlineLabel.setText("ASSIGN WORKER");
         else if (employeeRole.equals(EmployeeRole.MAIN_MANAGER))
@@ -126,27 +126,5 @@ public class AssignEmployeesToProjectViewController implements ViewController
         setWindow(viewModel.getUser().getRole());
     }
 
-    public void openWorkersView()
-  {
-    viewHandler.openView("workers");
-  }
-    public void openHome()
-    {
-        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-        switch (role) {
-            case WORKER -> {
-                viewHandler.openView("workerHomePage");
-            }
-            case HR -> {
-                viewHandler.openView("home");
-            }
-            case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
-            }
-            case MAIN_MANAGER -> {
-                viewHandler.openView("home");
-            }
-        }
-    }
 
 }
