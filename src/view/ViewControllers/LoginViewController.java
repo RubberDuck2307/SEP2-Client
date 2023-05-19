@@ -14,12 +14,13 @@ import viewmodel.ViewModel;
 public class LoginViewController implements ViewController
 {
     
-    public Label headline;
+    @FXML
+    private Label headline;
     private ViewHandler viewHandler;
     private LoginViewModel viewModel;
 
     @FXML
-    public TextField workingNumberField;
+    private TextField workingNumberField;
     @FXML
     private PasswordField passwordField;
     @FXML
@@ -62,16 +63,21 @@ public class LoginViewController implements ViewController
                     viewHandler.openView("workerHomePage");
                 }
                 case HR -> {
-                    viewHandler.openView("home");
+                    viewHandler.openView("hrHomePage");
                 }
                 case PROJECT_MANAGER -> {
-                    viewHandler.openView("home");
+                    viewHandler.openView("projectManagerHomePage");
                 }
                 case MAIN_MANAGER -> {
-                    viewHandler.openView("home");
+                    viewHandler.openView("mainManagerHomePage");
                 }
             }
         }
+    }
+
+    @FXML
+    private void openForgotPassword(){
+        viewHandler.openView("forgotPassword");
     }
 
 }

@@ -2,6 +2,7 @@ package mediator;
 
 import model.*;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,14 +11,14 @@ public interface ClientInterface {
 
     Long saveTag(Tag tag);
     TagList getAllTags();
+    void logOut();
+    boolean addForgetPasswordNotification(Integer workingNumber);
     TagList getTagsOfTask(Long taskId);
     void addTagToTask(Long taskId, Long tagId);
     void removeTagFromTask(Long taskId, Long tagId);
     Tag getTag(Long tagId);
     void deleteTag(Long id);
-
-
-
+    void addNotificationListener(PropertyChangeListener listener);
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber);
@@ -61,4 +62,6 @@ public interface ClientInterface {
   EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
     void updateEmployee(Employee employee);
     void changePassword(Employee employee, String password);
+    
+    void deleteEmployeeByWorkingNumber(Integer workingNumber);
 }

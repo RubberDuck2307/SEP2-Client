@@ -17,7 +17,7 @@ import view.ViewHandler;
 import viewmodel.EmployeeView.CreateUserProfileViewModel;
 import viewmodel.ViewModel;
 
-public class CreateUserProfileViewController implements ViewController
+public class CreateUserProfileViewController extends ViewControllerWithNavigationMenu
 {
 
     @FXML
@@ -56,7 +56,6 @@ public class CreateUserProfileViewController implements ViewController
     private RadioButton genderMale;
     @FXML
     private RadioButton genderFemale;
-
     @FXML
     private BooleanProperty value;
     @FXML
@@ -69,6 +68,8 @@ public class CreateUserProfileViewController implements ViewController
     private ViewHandler viewHandler;
     @FXML private HBox projectHBox;
 
+    @FXML  private ImageView bellImage;
+
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root) {
         this.root = root;
@@ -77,13 +78,19 @@ public class CreateUserProfileViewController implements ViewController
         this.viewModel = (CreateUserProfileViewModel) viewModel;
         setChoiceBox();
         this.viewModel.load();
-        this.dobErrorL.setText(null);
-        this.emailErrorL.setText(null);
-        this.lastNameErrorL.setText(null);
-        this.firstNameErrorL.setText(null);
-        this.roleErrorL.setText(null);
-        this.phoneNumberErrorL.setText(null);
-        this.passwordErrorL.setText(null);
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic, nameL, workingNumberL, projectHBox);
+
+        value = new SimpleBooleanProperty(true);
+
+        bind();
+
+        roleL.setValue("");
+        colorLabels();
+        setWindow(this.viewModel.getEmployee().getRole());
+
+    }
+
+    private void bind(){
         avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
         firstNameL.textProperty().bindBidirectional(this.viewModel.firstNameProperty());
         firstNameErrorL.textProperty().bindBidirectional(this.viewModel.firstNameEProperty());
@@ -99,15 +106,7 @@ public class CreateUserProfileViewController implements ViewController
         dobL.valueProperty().bindBidirectional(this.viewModel.dobProperty());
         dobErrorL.textProperty().bindBidirectional(this.viewModel.dobEProperty());
         roleL.valueProperty().bindBidirectional(this.viewModel.roleProperty());
-        roleL.setValue("");
-        colorLabels();
-        value = new SimpleBooleanProperty(true);
         this.value.bindBidirectional(this.viewModel.genderProperty());
-        this.nameL.textProperty().bind(this.viewModel.nameProperty());
-        this.workingNumberL.textProperty().bind(this.viewModel.workingNumberFProperty());
-        this.viewModel.load();
-        setWindow(this.viewModel.getEmployee().getRole());
-
     }
 
     public void radioButtons() {
@@ -185,28 +184,7 @@ public class CreateUserProfileViewController implements ViewController
         genderFemale.setSelected(false);
         genderMale.setSelected(true);
         roleL.setValue("");
-    }
-
-    private void setWindow(EmployeeRole employeeRole) {
-        switch (employeeRole) {
-            case WORKER -> {
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
-            }
-            case HR -> {
-                projectHBox.setVisible(false);
-                projectHBox.setManaged(false);
-            }
-            case PROJECT_MANAGER -> {
-
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
-            }
-            case MAIN_MANAGER -> {
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
-            }
-        }
+        setWindow(viewModel.getEmployee().getRole());
     }
 
     @FXML
@@ -222,10 +200,6 @@ public class CreateUserProfileViewController implements ViewController
         }
     }
 
-    public void openProjects() {
-        viewHandler.openView("projects");
-    }
-
     public void setChoiceBox() {
         roleL.getItems().add("Main Manager");
         roleL.getItems().add("Project Manager");
@@ -236,25 +210,6 @@ public class CreateUserProfileViewController implements ViewController
     public void backButtonClick(){
         viewHandler.openLastWindow();
     }
-    public void openWorkersView() {
-        viewHandler.openView("workers");
-    }
 
-    public void openHome() {
-        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-        switch (role) {
-            case WORKER -> {
-                viewHandler.openView("workerHomePage");
-            }
-            case HR -> {
-                viewHandler.openView("home");
-            }
-            case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
-            }
-            case MAIN_MANAGER -> {
-                viewHandler.openView("home");
-            }
-        }
-    }
+
 }

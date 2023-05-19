@@ -1,66 +1,54 @@
 package viewmodel.ProjectView;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import model.*;
 import util.Validator;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EditProjectViewModel implements ViewModel
+public class EditProjectViewModel extends ViewModelWithNavigationMenu
 {
     private Validator validator;
-    private ObjectProperty<Image> avatarPic;
-    private ObjectProperty<Employee> employee;
     private StringProperty titleProperty;
     private StringProperty titleEProperty;
     private SimpleObjectProperty<LocalDate> deadlineProperty;
     private StringProperty deadlineEProperty;
     private StringProperty descriptionProperty;
-    private ObservableList<Employee> employees;
-    private StringProperty errorProperty;
     private StringProperty headline;
     private EmployeeList managers;
     private EmployeeList assignedManagers;
     private EmployeeList originalAssignedEmployees;
     private EmployeeList assignedEmployees;
-    private StringProperty name;
-    private StringProperty workingNumber;
     private ViewState viewState;
-    private Model model;
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfProject;
     private ObjectProperty<Employee> user;
     
     public EditProjectViewModel(Model model, ViewState viewState)
     {
-        this.model = model;
+        super(model);
         this.viewState = viewState;
         user = new SimpleObjectProperty<>();
         employeesOfProject = new EmployeeList();
         employeesOfManager = new EmployeeList();
-        this.employee = new SimpleObjectProperty<>();
         this.titleProperty = new SimpleStringProperty();
         this.descriptionProperty = new SimpleStringProperty();
         this.titleEProperty = new SimpleStringProperty();
         this.deadlineEProperty = new SimpleStringProperty();
         this.deadlineProperty = new SimpleObjectProperty<>();
-        this.avatarPic = new SimpleObjectProperty<>();
         managers = new EmployeeList();
         assignedManagers = new EmployeeList();
         this.validator = new Validator();
-        this.name = new SimpleStringProperty();
-        this.workingNumber = new SimpleStringProperty();
-        employees = FXCollections.observableArrayList();
         assignedEmployees = new EmployeeList();
         originalAssignedEmployees = new EmployeeList();
         headline = new SimpleStringProperty();
@@ -68,6 +56,7 @@ public class EditProjectViewModel implements ViewModel
     
     public void load()
     {
+        super.load();
         user.setValue(model.getUser());
         if (user.get().getRole().equals(EmployeeRole.PROJECT_MANAGER))
         {
@@ -81,18 +70,15 @@ public class EditProjectViewModel implements ViewModel
         titleProperty.setValue(viewState.getProject().getName());
         deadlineProperty.setValue(viewState.getProject().getDeadline());
         descriptionProperty.setValue(viewState.getProject().getDescription());
-        employee.setValue(model.getUser());
-        setAvatarPicture();
         originalAssignedEmployees = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         assignedEmployees = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         assignedManagers = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         managers = model.getAllProjectManagers();
-        name.setValue(this.model.getUser().getName());
-        workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
     }
     
     public void reset()
     {
+        super.reset();
         titleProperty.setValue("");
         titleEProperty.setValue("");
         descriptionProperty.setValue("");
@@ -201,68 +187,23 @@ public class EditProjectViewModel implements ViewModel
     {
         return deadlineProperty;
     }
-    
-    public EmployeeList getManagers()
-    {
-        return managers;
-    }
+
     public EmployeeList getEmployeesOfManager()
     {
         return employeesOfManager;
-    }
-    public EmployeeList getEmployeesOfProject()
-    {
-        return employeesOfProject;
     }
     public Employee getUser()
     {
         return user.get();
     }
-    public ObjectProperty<Employee> userProperty()
-    {
-        return user;
-    }
-    public String getHeadline()
-    {
-        return headline.get();
-    }
     public StringProperty headlineProperty()
     {
         return headline;
     }
-    public String getName()
-    {
-        return name.get();
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        super.propertyChange(evt);
     }
-    public StringProperty nameProperty()
-    {
-        return name;
-    }
-    public String getWorkingNumber()
-    {
-        return workingNumber.get();
-    }
-    public StringProperty workingNumberProperty()
-    {
-        return workingNumber;
-    }
-    public boolean isWoman()
-    {
-        return Objects.equals(employee.getValue().getGender(), "F");
-    }
-    public void setAvatarPicture()
-    {
-        if (isWoman())
-        {
-            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-        }
-        else
-        {
-            avatarPic.setValue(new Image("/icons/man-avatar.png"));
-        }
-    }
-    public ObjectProperty<Image> avatarPicProperty()
-    {
-        return avatarPic;
-    }
+
 }

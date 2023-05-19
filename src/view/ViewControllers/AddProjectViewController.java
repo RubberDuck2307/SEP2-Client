@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
@@ -15,7 +16,7 @@ import viewmodel.ProjectView.AddProjectViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
-public class AddProjectViewController implements ViewController
+public class AddProjectViewController extends ViewControllerWithNavigationMenu
 {
     @FXML
     private Label nameL;
@@ -44,9 +45,11 @@ public class AddProjectViewController implements ViewController
     private TableColumn<WorkersWithCheckboxTable, CheckBox> checkBoxColumn;
     private Region root;
     private AddProjectViewModel viewModel;
-    private ViewHandler viewHandler;
     private ObservableList<WorkersWithCheckboxTable> workersWithCheckboxTables;
-
+    @FXML
+    private HBox projectsHbox;
+    @FXML
+    private ImageView bellImage;
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel,
                      Region root) {
@@ -54,6 +57,7 @@ public class AddProjectViewController implements ViewController
         this.viewHandler = viewHandler;
         this.viewModel = (AddProjectViewModel) viewModel;
         this.viewModel.load();
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic, nameL, workingNumberL, projectsHbox);
         workersWithCheckboxTables = FXCollections.observableArrayList();
 
         numberColumn.setCellValueFactory(
@@ -71,8 +75,8 @@ public class AddProjectViewController implements ViewController
         managersTable.setItems(workersWithCheckboxTables);
         titleE.textProperty().bind(this.viewModel.getTitleErrorProperty());
         deadlineE.textProperty().bind(this.viewModel.getDeadlineErrorProperty());
-        nameL.textProperty().bindBidirectional(this.viewModel.nameProperty());
-        workingNumberL.textProperty().bindBidirectional(this.viewModel.workingNumberProperty());
+
+        super.setWindow(this.viewModel.getEmployee().getRole());
         fillInTable();
     }
 
@@ -94,7 +98,9 @@ public class AddProjectViewController implements ViewController
     @Override
     public void reset() {
         viewModel.reset();
+        deadline.setValue(null);
         fillInTable();
+        super.setWindow(viewModel.getEmployee().getRole());
     }
 
     public Region getRoot() {
@@ -117,27 +123,6 @@ public class AddProjectViewController implements ViewController
         viewModel.assignEmployee(employee);
     }
 
-    public void openWorkersView() {
-        viewHandler.openView("workers");
-    }
 
-    public void openHome()
-    {
-        EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-        switch (role) {
-            case WORKER -> {
-                viewHandler.openView("workerHomePage");
-            }
-            case HR -> {
-                viewHandler.openView("home");
-            }
-            case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
-            }
-            case MAIN_MANAGER -> {
-                viewHandler.openView("home");
-            }
-        }
-    }
 
 }

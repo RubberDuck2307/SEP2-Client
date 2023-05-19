@@ -1,5 +1,6 @@
 package model;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public interface Model{
 
     Tag getTag(Long tagId);
     void deleteTag(Long id);
-
-
+    void logOut();
+    boolean addForgetPasswordNotification(Integer workingNumber);
     TaskList getAllTasksOfProject(Long id) ;
     ProjectList getAllProjects();
 
@@ -41,13 +42,14 @@ public interface Model{
     EmployeeList getEmployeesOfTask(Long taskId);
     Long saveTask(Task task);
     Task getTask(Long projectId);
-
+    
     void assignWorkerToManager(int managerNumber, int workerNumber);
     void removeWorkerFromManager(int managerNumber, int workerNumber);
-
+    
     Employee getUser();
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     Integer saveEmployee(Employee employee, String password);
+    void deleteEmployeeByWorkingNumber(Integer workingNumber);
     void updateTask(Task task);
     NoteList getAllNotesSavedByEmployee(Integer workingNumber);
     EmployeeList getAllEmployees();
@@ -55,11 +57,13 @@ public interface Model{
     Employee getEmployeeByWorkingNumber(int workingNumber);
     Project getProjectById(long projectId);
     TaskList getAllTasksByUserId (Integer workingNumber);
+    
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
     
     void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id);
-    
     void dismissEmployeesFromProject(ArrayList<Integer> removedEmployees, Long id);
     void updateEmployee(Employee employee);
+    
     void changePassword(Employee employee, String password);
+    void addNotificationListener(PropertyChangeListener listener);
 }

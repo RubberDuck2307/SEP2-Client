@@ -21,7 +21,7 @@ import viewmodel.TaskView.TasksTable;
 import viewmodel.TaskView.TasksViewModel;
 import viewmodel.TaskView.WorkersTable;
 
-public class TasksViewController implements ViewController
+public class TasksViewController extends ViewControllerWithNavigationMenu
 {
     @FXML
     private Label employeeName;
@@ -70,8 +70,8 @@ public class TasksViewController implements ViewController
 
     private Region root;
     private TasksViewModel viewModel;
-    private ViewHandler viewHandler;
     private ObservableList<TasksTable> taskTables;
+    @FXML private ImageView bellImage;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel,
@@ -79,18 +79,41 @@ public class TasksViewController implements ViewController
         this.root = root;
         this.viewHandler = viewHandler;
         this.viewModel = (TasksViewModel) viewModel;
+        this.viewModel.load();
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName, employeeWorkingNumber, taskHBox);
+
+        bind();
+
         workersTable.setVisible(false);
-        avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-        employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
-        employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
+
+        setWindow(this.viewModel.getEmployee().getRole());
+
+        assignWorkerButton.setVisible(false);
+
+        hBoxForTags.setVisible(false);
+
+        this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
+                assignWorkerButton.setVisible(newValue);
+                hBoxForTags.setVisible(newValue);
+                fillInTags();
+            }
+        }));
+
+        taskTables = FXCollections.observableArrayList();
+
+        setTaskTable();
+        fillInTasksTable();
+    }
+
+    private void bind(){
         projectName.textProperty().bind(this.viewModel.projectNameProperty());
         taskName.textProperty().bind(this.viewModel.taskNameProperty());
         taskDescription.textProperty()
                 .bind(this.viewModel.taskDescriptionProperty());
 
-        //buttonColumn.setCellFactory(buttonColumn.forTableColumn());
-
-
+    }
+    private void setTaskTable(){
         // task table
         title.setCellValueFactory(
                 cellData -> cellData.getValue().getTitleProperty());
@@ -113,41 +136,25 @@ public class TasksViewController implements ViewController
         status.setCellValueFactory(statusButton);
         status.setStyle("-fx-alignment: CENTER;");
 
-        this.viewModel.employeeProperty().addListener((observable, oldValue, newValue) -> {
-            setWindow(newValue.getRole());
-        });
-        this.viewModel.load();
-        setWindow(this.viewModel.getEmployee().getRole());
-        assignWorkerButton.setVisible(false);
-        hBoxForTags.setVisible(false);
-        this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
-            if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
-                assignWorkerButton.setVisible(newValue);
-                hBoxForTags.setVisible(newValue);
-            }
-        }));
-
-        taskTables = FXCollections.observableArrayList();
-        fillInTasksTable();
-        taskTable.setItems(taskTables);
 
     }
 
     private void fillInTasksTable() {
         taskTables.clear();
         for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
-            taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
+            Task task=this.viewModel.getTasks().get(i);
+            taskTables.add(new TasksTable(task));
             Button button1 = new Button("");
             Button statusButton = createStatusButton(this.viewModel.getTasks().get(i));
             button1.setId("button-edit");
-            Long index = (long) i;
             button1.setOnAction(e -> {
-                taskButtonTableClick(index);
+                taskButtonTableClick(task.getId());
                 viewHandler.openView("editTask");
             });
             taskTables.get(i).setBtton(button1);
             taskTables.get(i).setStatusButton(statusButton);
         }
+
     }
 
     private void fillInTags()
@@ -191,8 +198,7 @@ public class TasksViewController implements ViewController
     }
 
     public void taskButtonTableClick(Long index) {
-        taskTable.getSelectionModel().select(index.intValue());
-        taskTableClick();
+        viewModel.chooseTask(index);
     }
 
     public void taskTableClick() {
@@ -204,34 +210,31 @@ public class TasksViewController implements ViewController
     }
 
     public void setWindow(EmployeeRole employeeRole) {
+        super.setWindow(employeeRole);
         switch (employeeRole) {
             case HR -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
-                taskHBox.setVisible(false);
-                taskHBox.setManaged(false);
                 deleteTags.setVisible(false);
+
             }
             case MAIN_MANAGER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
-                taskHBox.setVisible(true);
-                taskHBox.setManaged(true);
                 deleteTags.setVisible(false);
+
             }
             case PROJECT_MANAGER -> {
                 edit.setVisible(true);
                 addButton.setVisible(true);
-                taskHBox.setVisible(true);
-                taskHBox.setManaged(true);
                 deleteTags.setVisible(true);
+
             }
             case WORKER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
-                taskHBox.setVisible(true);
-                taskHBox.setManaged(true);
                 deleteTags.setVisible(false);
+
             }
         }
     }
@@ -286,33 +289,9 @@ public class TasksViewController implements ViewController
         viewHandler.openView("addTask");
     }
 
-    public void editTask() {
-        viewHandler.openView("editTask");
+    public void openDeleteTags(){
+        viewHandler.openView("deleteTags");
     }
 
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
-  }
-  public void openDeleteTags(){
-        viewHandler.openView("deleteTags");
-  }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
+
 }

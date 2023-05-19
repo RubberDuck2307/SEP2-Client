@@ -9,6 +9,7 @@ import model.Model;
 import model.UserProfile;
 import viewmodel.ViewModel;
 
+import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,10 +32,10 @@ public class LoginViewModel implements ViewModel
         this.headlineProperty = new SimpleStringProperty("");
         this.loggedEmployee = new SimpleObjectProperty<Employee>();
         this.model = model;
-        headline();
+        setHeadline();
     }
     
-    public void headline()
+    public void setHeadline()
     {
         LocalTime time = LocalTime.now();
         int hour = time.getHour();
@@ -130,8 +131,10 @@ public class LoginViewModel implements ViewModel
     {
         return headlineProperty.get();
     }
+
     public StringProperty headlinePropertyProperty()
     {
         return headlineProperty;
     }
+
 }

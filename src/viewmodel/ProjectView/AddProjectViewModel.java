@@ -10,57 +10,44 @@ import model.Model;
 import model.Project;
 import util.Validator;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class AddProjectViewModel implements ViewModel
+public class AddProjectViewModel extends ViewModelWithNavigationMenu
 {
   private Validator validator;
-  private ObjectProperty<Image> avatarPic;
-  private ObjectProperty<Employee> employee;
   private StringProperty titleProperty;
   private StringProperty titleEProperty;
   private SimpleObjectProperty<LocalDate> deadlineProperty;
   private StringProperty deadlineEProperty;
   private StringProperty descriptionProperty;
-  private ObservableList<AssignManagersTable> assignManagersObservableList;
-  private AssignManagersTable assignManagersTable;
-  private StringProperty errorProperty;
   private EmployeeList managers;
   private EmployeeList employeesOfProject;
-  private StringProperty name;
-  private StringProperty workingNumber;
-  private ViewState viewState;
-  private Model model;
 
-  public AddProjectViewModel(Model model, ViewState viewState)
+  public AddProjectViewModel(Model model)
   {
-    this.model = model;
-    this.viewState = viewState;
-    this.employee = new SimpleObjectProperty<>();
+    super(model);
+
     this.titleProperty = new SimpleStringProperty();
     this.descriptionProperty = new SimpleStringProperty();
     this.titleEProperty = new SimpleStringProperty();
     this.deadlineEProperty = new SimpleStringProperty();
     this.deadlineProperty = new SimpleObjectProperty<>();
-    this.avatarPic = new SimpleObjectProperty<>();
     managers = new EmployeeList();
     this.validator = new Validator();
     employeesOfProject = new EmployeeList();
-    this.name = new SimpleStringProperty();
-    this.workingNumber = new SimpleStringProperty();
-    assignManagersObservableList = FXCollections.observableArrayList();
   }
 
   public void load()
   {
-    employee.setValue(model.getUser());
-    setAvatarPicture();
+    super.load();
     managers = model.getAllProjectManagers();
-    name.setValue(this.model.getUser().getName());
-    workingNumber.setValue(this.model.getUser().getWorkingNumber().toString());
+
   }
 
   public void assignEmployee(Employee employee)
@@ -78,6 +65,7 @@ public class AddProjectViewModel implements ViewModel
 
   public void reset()
   {
+    super.reset();
     titleProperty.setValue("");
     descriptionProperty.setValue("");
     deadlineProperty.setValue(null);
@@ -128,10 +116,6 @@ public class AddProjectViewModel implements ViewModel
     return descriptionProperty;
   }
 
-  public Employee getEmployeeProperty()
-  {
-    return employee.get();
-  }
 
   public StringProperty getTitleErrorProperty()
   {
@@ -153,45 +137,10 @@ public class AddProjectViewModel implements ViewModel
     return managers;
   }
 
-  public String getName()
-  {
-    return name.get();
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    super.propertyChange(evt);
   }
 
-  public StringProperty nameProperty()
-  {
-    return name;
-  }
-
-  public String getWorkingNumber()
-  {
-    return workingNumber.get();
-  }
-
-  public StringProperty workingNumberProperty()
-  {
-    return workingNumber;
-  }
-
-  public boolean isWoman()
-  {
-    return Objects.equals(employee.getValue().getGender(), "F");
-  }
-
-  public void setAvatarPicture()
-  {
-    if (isWoman())
-    {
-      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-    }
-    else
-    {
-      avatarPic.setValue(new Image("/icons/man-avatar.png"));
-    }
-  }
-
-  public ObjectProperty<Image> avatarPicProperty()
-  {
-    return avatarPic;
-  }
 }

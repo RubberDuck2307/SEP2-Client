@@ -1,28 +1,22 @@
 package view.ViewControllers;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
-import view.ViewController;
 import view.ViewHandler;
-import viewmodel.TaskView.TasksTable;
 import viewmodel.ViewModel;
 import viewmodel.WorkerView.WorkersTable;
 import viewmodel.WorkerView.WorkersViewModel;
 
-public class WorkersViewController implements ViewController
+public class WorkersViewController extends ViewControllerWithNavigationMenu
 {
   @FXML public ImageView avatarPic;
   @FXML public TableView<viewmodel.WorkerView.WorkersTable> workerTable;
@@ -31,11 +25,13 @@ public class WorkersViewController implements ViewController
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> workingNumber;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, String> email;
   @FXML public TableColumn<viewmodel.WorkerView.WorkersTable, Button> edit;
+  public TableColumn<viewmodel.WorkerView.WorkersTable, Button> delete;
   @FXML
   private HBox projectHBox;
   @FXML public Button createNewProfileButton;
   @FXML public Label employeeName;
   @FXML public Label employeeWorkingNumber;
+  @FXML private ImageView ringImage;
 
   private Region root;
   private WorkersViewModel viewModel;
@@ -50,30 +46,36 @@ public class WorkersViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (WorkersViewModel) viewModel;
     this.viewModel.load();
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-    name.setCellValueFactory(
-        cellData -> cellData.getValue().getNameProperty());
-    workingNumber.setCellValueFactory(
-        cellData -> cellData.getValue().getNumberProperty());
-    email.setCellValueFactory(
-        cellData -> cellData.getValue().getEmailProperty());
-    role.setCellValueFactory(
-        cellData -> cellData.getValue().getRoleProperty());
-    workerTable.setItems(((WorkersViewModel) viewModel).getWorkersTable());
+    super.init(this.viewModel, viewHandler, ringImage, avatarPic, employeeName,
+        employeeWorkingNumber, projectHBox);
 
-    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
-    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
-    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
-      setWindow(((Employee) newValue).getRole());
-    });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
-    PropertyValueFactory<viewmodel.WorkerView.WorkersTable, Button> button = new PropertyValueFactory("button");
-    edit.setCellValueFactory(button);
-    //edit.setStyle("-fx-margin-right: 15px;");
+    setWindow(this.viewModel.getEmployee().getRole());
+
     workersTables = FXCollections.observableArrayList();
 
+    setWorkersTable();
     fillInTable();
+  }
+
+
+  private void setWorkersTable(){
+    name.setCellValueFactory(
+            cellData -> cellData.getValue().getNameProperty());
+    workingNumber.setCellValueFactory(
+            cellData -> cellData.getValue().getNumberProperty());
+    email.setCellValueFactory(
+            cellData -> cellData.getValue().getEmailProperty());
+    role.setCellValueFactory(
+            cellData -> cellData.getValue().getRoleProperty());
+    workerTable.setItems( viewModel.getWorkersTable());
+    PropertyValueFactory<viewmodel.WorkerView.WorkersTable, Button> button = new PropertyValueFactory("button");
+    PropertyValueFactory<viewmodel.WorkerView.WorkersTable, Button> deleteButton = new PropertyValueFactory("deleteButton");
+    edit.setCellValueFactory(button);
+    delete.setCellValueFactory(deleteButton);
+    workersTables = FXCollections.observableArrayList();
+
     workerTable.setItems(workersTables);
+
   }
 
   @Override public Region getRoot()
@@ -83,53 +85,78 @@ public class WorkersViewController implements ViewController
 
   @Override
   public void reset() {
-    viewModel.load();
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
+    viewModel.reset();
+    setWindow(this.viewModel.getEmployee().getRole());
     fillInTable();
   }
 
-  private void fillInTable(){
+  private void fillInTable()
+  {
     workersTables.clear();
-    for (int i = 0; i < this.viewModel.getWorkersTable().size(); i++) {
-      workersTables.add(new WorkersTable(this.viewModel.getEmployeess().get(i)));
+    for (int i = 0; i < this.viewModel.getWorkersTable().size(); i++)
+    {
+      Employee employee = this.viewModel.getEmployeess().get(i);
+      workersTables.add(new WorkersTable(employee));
       Button button1 = new Button("");
+      Button button2 = new Button("");
       button1.setId("button-edit");
-      Long index = (long) i;
-      button1.setOnAction(e -> {
-        workersButtonTableClick(index);
+      button2.setId("delete-button");
+      button1.setOnAction(e ->
+      {
+        workersButtonTableClick(employee);
         viewHandler.openView("editProfile");
       });
+      button2.setOnAction(e ->
+      {
+        alertWindow(employee);
+      });
       workersTables.get(i).setButton(button1);
+      workersTables.get(i).setDeleteButton(button2);
+    }
+  }
+  private void alertWindow(Employee employee)
+  {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Deleting User Profile");
+    alert.setHeaderText("Are you sure you want to delete " + employee.getName() + " ?");
+    alert.showAndWait();
+    if (alert.getResult() == ButtonType.OK)
+    {
+      delete(employee);
     }
   }
 
+  public void delete(Employee employee)
+  {
+    viewModel.delete(employee);
+    reset();
+  }
+
+
   public void workerTableClick()
   {
-    if (workerTable.getSelectionModel().getSelectedItem() != null) {
-      if(viewModel.isMainManager(workerTable.getSelectionModel().getSelectedItem().getNumber())){
-        viewModel.chooseWorker(
-            workerTable.getSelectionModel().getSelectedItem().getNumber());
+    if (workerTable.getSelectionModel().getSelectedItem() != null)
+    {
+      viewModel.chooseWorker(workerTable.getSelectionModel().getSelectedItem().getNumber());
+      if (viewModel.isMainManager(workerTable.getSelectionModel().getSelectedItem().getNumber()))
+      {
         viewHandler.openView("projectManagerPage");
       }
-      else if(viewModel.isWorker(workerTable.getSelectionModel().getSelectedItem().getNumber())){
-        viewModel.chooseWorker(
-            workerTable.getSelectionModel().getSelectedItem().getNumber());
+      else if (viewModel.isWorker(workerTable.getSelectionModel().getSelectedItem().getNumber()))
+      {
         viewHandler.openView("workerProfile");
       }
-      else{
-        viewModel.chooseWorker(
-            workerTable.getSelectionModel().getSelectedItem().getNumber());
+      else
+      {
         viewHandler.openView("hrAndMainManagerProfile");
       }
     }
   }
-  public void workersButtonTableClick(Long index){
-    workerTable.getSelectionModel().select(index.intValue());
-    workerTableClick();
-  }
-  public void openProjects()
+
+
+  public void workersButtonTableClick(Employee employee)
   {
-    viewHandler.openView("projects");
+    viewModel.chooseWorker(employee);
   }
 
   public void createNewProfile()
@@ -138,54 +165,23 @@ public class WorkersViewController implements ViewController
   }
 
 
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
-  }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
-  private void setWindow(EmployeeRole employeeRole) {
+  protected void setWindow(EmployeeRole employeeRole) {
+    super.setWindow(employeeRole);
     switch (employeeRole) {
       case WORKER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
         edit.setVisible(false);
         createNewProfileButton.setVisible(false);
       }
       case HR -> {
-        projectHBox.setVisible(false);
-        projectHBox.setManaged(false);
         edit.setVisible(true);
         createNewProfileButton.setVisible(true);
       }
       case PROJECT_MANAGER -> {
-
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
         edit.setVisible(false);
         createNewProfileButton.setVisible(false);
       }
       case MAIN_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
         edit.setVisible(false);
-
         createNewProfileButton.setVisible(false);
       }
     }

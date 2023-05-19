@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.WorkersViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.WorkersViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -43,9 +43,17 @@
                                 </ImageView>
                                 <Label styleClass="side-menu-text" text="HOME">
                                     <HBox.margin>
-                                        <Insets left="10.0" />
+                                        <Insets left="10.0" right="10.0" />
                                     </HBox.margin>
                                 </Label>
+                        <ImageView fx:id="ringImage" fitHeight="31.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/bell.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
                             </children>
                             <padding>
                                 <Insets left="30.0" />
@@ -90,7 +98,7 @@
                             </padding>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="260.0" prefWidth="239.0" />
-                        <HBox layoutX="10.0" layoutY="310.0" prefHeight="137.0" prefWidth="239.0">
+                        <HBox layoutX="10.0" layoutY="310.0" prefHeight="137.0" prefWidth="207.0">
                             <children>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="118.0" prefWidth="45.0">
                                     <children>
@@ -104,7 +112,7 @@
                                         </ImageView>
                                     </children>
                                 </HBox>
-                                <HBox prefHeight="74.0" prefWidth="128.0">
+                                <HBox prefHeight="117.0" prefWidth="128.0">
                                     <children>
                                         <VBox prefHeight="200.0" prefWidth="100.0">
                                             <children>
@@ -118,7 +126,7 @@
                                                 </HBox>
                                                 <HBox prefHeight="59.0" prefWidth="90.0">
                                                     <children>
-                                                        <Label fx:id="employeeWorkingNumber" alignment="TOP_LEFT" prefHeight="66.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
+                                                        <Label fx:id="employeeWorkingNumber" alignment="TOP_LEFT" prefHeight="49.0" prefWidth="90.0" styleClass="normal-text" text="332000" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -203,10 +211,11 @@
                                                 <TableView fx:id="workerTable" onMousePressed="#workerTableClick" prefHeight="545.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
                                                     <columns>
                                                         <TableColumn fx:id="name" prefWidth="278.39998626708984" text="Name" />
-                                                        <TableColumn fx:id="role" minWidth="0.0" prefWidth="235.20001220703125" text="Role" />
-                                                        <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="208.0" text="Working number" />
-                                                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="192.00006103515625" text="E-mail" />
-                                          <TableColumn fx:id="edit" minWidth="0.0" prefWidth="120.7999267578125" text="Edit" />
+                                                        <TableColumn fx:id="role" minWidth="0.0" prefWidth="146.0" text="Role" />
+                                                        <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="145.0" text="Working number" />
+                                                        <TableColumn fx:id="email" minWidth="0.0" prefWidth="231.0" text="E-mail" />
+                                          <TableColumn fx:id="edit" minWidth="0.0" prefWidth="124.0" text="Edit" />
+                                          <TableColumn fx:id="delete" prefWidth="187.0" text="Delete" />
                                                     </columns>
                                                 </TableView>
                                             </children>

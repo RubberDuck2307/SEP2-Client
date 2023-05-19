@@ -1,13 +1,14 @@
 package mediator;
 
 import model.*;
+import utility.observer.subject.RemoteSubject;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface RemoteModel extends Remote {
+public interface RemoteModel extends RemoteSubject<String, String>{
 
     Long saveTag(Tag tag) throws RemoteException;
     TagList getAllTags() throws RemoteException;
@@ -22,6 +23,7 @@ public interface RemoteModel extends Remote {
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber) throws RemoteException;
 
     Long saveTask(Task task) throws RemoteException;
+    boolean addForgetPasswordNotification(Integer workingNumber) throws RemoteException;
 
     ProjectList getAllProjects() throws RemoteException;
 
@@ -83,4 +85,6 @@ public interface RemoteModel extends Remote {
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
     void updateEmployee(Employee employee) throws RemoteException;
     void changePassword(Employee employee, String password) throws RemoteException;
+    
+    void deleteEmployeeByWorkingNumber(Integer workingNumber) throws  RemoteException;
 }

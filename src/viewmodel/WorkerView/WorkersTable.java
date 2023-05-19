@@ -15,6 +15,7 @@ public class WorkersTable
   private StringProperty email;
   private StringProperty role;
   private Button button;
+  private Button deleteButton;
   public WorkersTable(Employee employee){
     this.number = new SimpleIntegerProperty(employee.getWorkingNumber());
     this.name = new SimpleStringProperty(employee.getName());
@@ -39,7 +40,14 @@ public class WorkersTable
   {
     return number;
   }
-
+  public Button getDeleteButton()
+  {
+    return deleteButton;
+  }
+  public void setDeleteButton(Button deleteButton)
+  {
+    this.deleteButton = deleteButton;
+  }
   public String getName()
   {
     return name.get();

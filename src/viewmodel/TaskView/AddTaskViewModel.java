@@ -7,18 +7,18 @@ import javafx.scene.paint.Color;
 import model.*;
 import util.Validator;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddTaskViewModel implements ViewModel
+public class AddTaskViewModel extends ViewModelWithNavigationMenu
 {
-    private ObjectProperty<Employee> employee;
-    private ObjectProperty<Image> avatarPic;
-    private Model model;
     private ViewState viewState;
     private StringProperty nameOfTheProject;
     private StringProperty title;
@@ -42,14 +42,12 @@ public class AddTaskViewModel implements ViewModel
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfProject;
     private ArrayList<Integer> assignedEmployeeWorkingNumbers;
-    private StringProperty name;
-    private StringProperty workingNumber;
+
     
     public AddTaskViewModel(Model model, ViewState viewState)
     {
-        this.employee=new SimpleObjectProperty<>();
-        this.avatarPic=new SimpleObjectProperty<>();
-        this.model = model;
+        super(model);
+
         this.viewState = viewState;
         this.nameOfTheProject = new SimpleStringProperty("");
         this.title = new SimpleStringProperty("");
@@ -68,14 +66,12 @@ public class AddTaskViewModel implements ViewModel
         this.validator = new Validator();
         this.workers = new EmployeeList();
         this.assignedEmployeeWorkingNumbers = new ArrayList<>();
-        this.name = new SimpleStringProperty("");
-        this.workingNumber = new SimpleStringProperty("");
+        this.notification = new SimpleBooleanProperty(false);
     }
     public void load()
     {
+        super.load();
         this.tagList= model.getAllTags();
-        employee.setValue(model.getUser());
-        setAvatarPicture();
         Project project = viewState.getProject();
         nameOfTheProject.setValue(project.getName());
         deadline.setValue(project.getDeadline());
@@ -90,11 +86,11 @@ public class AddTaskViewModel implements ViewModel
             }
         }
         assignedEmployeeWorkingNumbers.clear();
-        name.setValue(model.getUser().getName());
-        workingNumber.setValue(model.getUser().getWorkingNumber().toString());
+
     }
 
     public void reset(){
+        super.reset();
         errorLabelsReset();
         title.setValue("");
         priority.setValue(null);
@@ -198,14 +194,8 @@ public class AddTaskViewModel implements ViewModel
         return valid;
     }
 
-    public StringProperty nameOfTheProjectProperty()
-    {
-        return nameOfTheProject;
-    }
-    public Employee getEmployeeProperty() {
-        return employee.get();
-    }
-    
+
+
     public StringProperty titleProperty()
     {
         return title;
@@ -297,36 +287,10 @@ public class AddTaskViewModel implements ViewModel
     {
         return workers;
     }
-    
-    public String getName()
-    {
-        return name.get();
-    }
-    public StringProperty nameProperty()
-    {
-        return name;
-    }
-    public String getWorkingNumber()
-    {
-        return workingNumber.get();
-    }
-    public StringProperty workingNumberProperty()
-    {
-        return workingNumber;
-    }
-    public ObjectProperty<Image> avatarPicProperty()
-    {
-        return avatarPic;
-    }
-    public boolean isWoman(){
-        return Objects.equals(employee.getValue().getGender(), "F");
-    }
-    public void setAvatarPicture(){
-        if(isWoman()){
-            avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-        }
-        else{
-            avatarPic.setValue(new Image("/icons/man-avatar.png"));
-        }
+
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        super.propertyChange(evt);
     }
 }

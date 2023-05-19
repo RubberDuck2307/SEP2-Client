@@ -13,6 +13,8 @@ public class ViewHandler {
     private Scene currentScene;
     private Stage primaryStage;
 
+    private ViewController currentViewController;
+
     private String lastPageId;
     private String currentPageId;
     private ViewModelFactory viewModelFactory;
@@ -37,6 +39,18 @@ public class ViewHandler {
         switch (id) {
             case "login": {
                 root = loadViewController(viewModelFactory.getLoginViewModel(), "FXML/LoginView.fxml");
+                break;
+            }
+            case "projectManagerHomePage": {
+                root = loadViewController(viewModelFactory.getProjectManagerHomeViewModel(), "FXML/ProjectManagerHomeView.fxml");
+                break;
+            }
+            case "hrHomePage": {
+                root = loadViewController(viewModelFactory.getHrHomeViewModel(), "FXML/HrHomeView.fxml");
+                break;
+            }
+            case "mainManagerHomePage": {
+                root = loadViewController(viewModelFactory.getMainManagerHomeViewModel(), "FXML/MainManagerHomeView.fxml");
                 break;
             }
             case "workerHomePage": {
@@ -110,6 +124,10 @@ public class ViewHandler {
             }
             case "deleteTags": {
                 root = loadViewController(viewModelFactory.getDeleteTagsViewModel(), "FXML/DeleteTagsView.fxml");
+                break;
+            }
+            case "forgotPassword":{
+                root = loadViewController(viewModelFactory.getForgotPasswordViewModel(), "FXML/ForgotPasswordView.fxml");
                 break;
             }
             case "notes": {
