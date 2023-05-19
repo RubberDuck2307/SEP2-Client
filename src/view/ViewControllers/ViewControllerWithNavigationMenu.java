@@ -32,10 +32,8 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
         this.employeeWorkingNumber = employeeWorkingNumber;
         this.viewHandler = viewHandler;
         this.projectHBox = projectHBox;
-
         bind();
         addListeners();
-
     }
 
     private void addListeners() {
@@ -94,14 +92,12 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
                 projectHBox.setManaged(false);
             }
             case PROJECT_MANAGER -> {
-
                 projectHBox.setVisible(true);
                 projectHBox.setManaged(true);
             }
             case MAIN_MANAGER -> {
                 projectHBox.setVisible(true);
                 projectHBox.setManaged(true);
-
             }
         }
 

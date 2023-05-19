@@ -228,6 +228,12 @@ public class ModelManager implements Model {
         return client.saveEmployee(employee, password);
     }
 
+    @Override
+    public void deleteEmployeeByWorkingNumber(Integer workingNumber)
+    {
+        client.deleteEmployeeByWorkingNumber(workingNumber);
+    }
+
     public void setUser(Employee user) {
         this.user = user;
     }

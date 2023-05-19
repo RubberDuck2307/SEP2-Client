@@ -57,10 +57,8 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
     private TableColumn<TasksTable, String> priority;
     @FXML
     private TableColumn<TasksTable, Button> status;
-    @FXML
-    private TableColumn<TasksTable, String> tags;
     @FXML private HBox hBoxForTags;
-
+    @FXML private Button deleteTags;
     @FXML
     private TableView<WorkersTable> workersTable;
     @FXML
@@ -137,20 +135,20 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
         PropertyValueFactory<TasksTable, Button> statusButton = new PropertyValueFactory("statusButton");
         status.setCellValueFactory(statusButton);
         status.setStyle("-fx-alignment: CENTER;");
-        taskTable.setItems(taskTables);
+
 
     }
 
     private void fillInTasksTable() {
         taskTables.clear();
         for (int i = 0; i < this.viewModel.getTasks().size(); i++) {
-            taskTables.add(new TasksTable(this.viewModel.getTasks().get(i)));
+            Task task=this.viewModel.getTasks().get(i);
+            taskTables.add(new TasksTable(task));
             Button button1 = new Button("");
             Button statusButton = createStatusButton(this.viewModel.getTasks().get(i));
             button1.setId("button-edit");
-            Long index = (long) i;
             button1.setOnAction(e -> {
-                taskButtonTableClick(index);
+                taskButtonTableClick(task.getId());
                 viewHandler.openView("editTask");
             });
             taskTables.get(i).setBtton(button1);
@@ -200,14 +198,13 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
     }
 
     public void taskButtonTableClick(Long index) {
-        taskTable.getSelectionModel().select(index.intValue());
-        taskTableClick();
+        viewModel.chooseTask(index);
     }
 
     public void taskTableClick() {
         if (taskTable.getSelectionModel().getSelectedItem() != null) {
-            viewModel.chooseTask(
-                    taskTable.getSelectionModel().getSelectedItem().getId());
+            viewModel.chooseTask(taskTable.getSelectionModel().getSelectedItem().getId());
+            fillInTags();
             workersTable.setVisible(true);
         }
     }
@@ -218,21 +215,25 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
             case HR -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
+                deleteTags.setVisible(false);
 
             }
             case MAIN_MANAGER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
+                deleteTags.setVisible(false);
 
             }
             case PROJECT_MANAGER -> {
                 edit.setVisible(true);
                 addButton.setVisible(true);
+                deleteTags.setVisible(true);
 
             }
             case WORKER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
+                deleteTags.setVisible(false);
 
             }
         }
@@ -286,6 +287,10 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
 
     public void addNewTask() {
         viewHandler.openView("addTask");
+    }
+
+    public void openDeleteTags(){
+        viewHandler.openView("deleteTags");
     }
 
 

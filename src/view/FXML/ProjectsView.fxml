@@ -209,8 +209,9 @@
                                                     <columns>
                                                         <TableColumn fx:id="titleColumn" prefWidth="575.2000045776367" text="Title" />
                                                         <TableColumn fx:id="deadlineColumn" minWidth="0.0" prefWidth="219.2000732421875" text="Deadline" />
-                                                        <TableColumn fx:id="edit" minWidth="0.0" prefWidth="51.0" text="Edit" />
                                                         <TableColumn fx:id="open" minWidth="0.0" prefWidth="98.39996337890625" text="Open tasks" />
+                                                        <TableColumn fx:id="edit" minWidth="0.0" prefWidth="51.0" text="Edit" />
+                                          <TableColumn fx:id="delete" minWidth="0.0" prefWidth="51.0" text="Delete" />
                                                     </columns>
                                                 </TableView>
                                             </children>

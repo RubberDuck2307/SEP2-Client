@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.DeleteTagsViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.DeleteTagsViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -180,10 +180,8 @@
                                                     <children>
                                                         <TableView fx:id="tagsTable" prefHeight="486.0" prefWidth="818.0" styleClass="arrow">
                                                             <columns>
-                                                                <TableColumn fx:id="tagColumn" prefWidth="194.6666488647461" text="Tag" />
-                                                                <TableColumn fx:id="numberColumn" minWidth="0.0" prefWidth="500.0000915527344" />
-                                                                <TableColumn fx:id="deleteColumn" maxWidth="685.6" minWidth="0.0" prefWidth="52.6666259765625" styleClass="-fx-alignment: CENTER_RIGHT;" text="Delete" />
-                                                <TableColumn prefWidth="145.3333740234375" />
+                                                                <TableColumn fx:id="tagColumn" prefWidth="731.1999969482422" text="Tag" />
+                                                                <TableColumn fx:id="deleteColumn" maxWidth="685.6" minWidth="0.0" prefWidth="86.39996337890625" styleClass="-fx-alignment: CENTER_RIGHT;" text="Delete" />
                                                             </columns>
                                                             <HBox.margin>
                                                                 <Insets top="20.0" />

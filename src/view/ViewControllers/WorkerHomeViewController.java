@@ -1,10 +1,13 @@
 package view.ViewControllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,14 +15,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
 import model.EmployeeRole;
+import model.Tag;
 import view.ViewController;
 import view.ViewHandler;
 import viewmodel.ProjectView.ProjectsTable;
+import viewmodel.TaskView.TasksTable;
 import viewmodel.ViewModel;
-import viewmodel.WorkerView.ProjectManagerProfileViewModel;
-import viewmodel.WorkerView.TasksTableForWorkerProfile;
-import viewmodel.WorkerView.WorkerHomeViewModel;
-import viewmodel.WorkerView.WorkerProfileViewModel;
+import viewmodel.WorkerView.*;
 
 public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
     @FXML
@@ -48,6 +50,17 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
     public TableColumn<TasksTableForWorkerProfile, String> taskProjectName;
     private Region root;
     private WorkerHomeViewModel viewModel;
+  @FXML public TableView<NotificationTable> notificationTable;
+  @FXML public TableColumn<NotificationTable, String> messageNotificationColumn;
+  @FXML public TableColumn<NotificationTable, Button> deleteNotificationColumn;
+  private ObservableList<NotificationTable> notificationTables;
+  @FXML private TableColumn<TasksTableForWorkerProfile, String>  taskPriority;
+  @FXML private Label workerName2;
+  @FXML private Label workerRole;
+  @FXML private Label workerDateOfBirth;
+  @FXML private Label workerPhoneNumber;
+  @FXML private Label workerEmail;
+  @FXML private Label workerManagers;
     @FXML
     private ImageView bellImage;
 
@@ -57,31 +70,75 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
         this.root = root;
         this.viewHandler = viewHandler;
         this.viewModel = (WorkerHomeViewModel) viewModel;
-        super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName, employeeWorkingNumber, projectHBox);
         this.viewModel.load();
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName, employeeWorkingNumber, projectHBox);
 
-        workerName.textProperty()
-                .bindBidirectional(this.viewModel.workerNameProperty());
-
-        projectDeadline.setCellValueFactory(
-                cellData -> cellData.getValue().deadlineProperty());
-        projectTitle.setCellValueFactory(
-                cellData -> cellData.getValue().titleProperty());
-        currentProjectsTable.setItems(
-                ((WorkerHomeViewModel) viewModel).getCurrentProjectsTableTable());
+        bind();
 
 
+      messageNotificationColumn.setCellValueFactory(
+              cellData -> cellData.getValue().messageProperty());
+      notificationTable.setItems(((WorkerHomeViewModel) viewModel).getNotificationTable());
+
+      PropertyValueFactory<NotificationTable, Button> button = new PropertyValueFactory("button");
+      deleteNotificationColumn.setCellValueFactory(button);
+      deleteNotificationColumn.setStyle("-fx-alignment: CENTER;");
+
+      notificationTables = FXCollections.observableArrayList();
+      fillInTasksTable();
+      notificationTable.setItems(notificationTables);
+
+
+        setWindow(this.viewModel.getEmployee().getRole());
+    }
+
+
+    private void setTaskTable(){
         taskTitle.setCellValueFactory(
                 cellData -> cellData.getValue().getTitleProperty());
         taskStatus.setCellValueFactory(
                 cellData -> cellData.getValue().getStatusProperty());
         taskProjectName.setCellValueFactory(
                 cellData -> cellData.getValue().projectNameProperty());
-        taskTable.setItems(
-                ((WorkerHomeViewModel) viewModel).getTaskTable());
-
-        setWindow(this.viewModel.getEmployee().getRole());
+        taskTable.setItems
+                (this.viewModel.getTaskTable());
+        taskPriority.setCellValueFactory(
+                cellData -> cellData.getValue().priorityProperty());
     }
+    private void bind(){
+        workerName.textProperty()
+                .bindBidirectional(this.viewModel.workerNameProperty());
+        workerName2.textProperty()
+                .bindBidirectional(this.viewModel.workerName2Property());
+        workerEmail.textProperty()
+                .bindBidirectional(this.viewModel.workerEmailProperty());
+        workerDateOfBirth.textProperty()
+                .bindBidirectional(this.viewModel.workerDateOfBirthProperty());
+        workerRole.textProperty()
+                .bindBidirectional(this.viewModel.workerRoleProperty());
+        workerPhoneNumber.textProperty()
+                .bindBidirectional(this.viewModel.workerPhoneNumberProperty());
+        workerManagers.textProperty().bindBidirectional(this.viewModel.workerManagersProperty());
+    }
+
+  private void fillInTasksTable() {
+    notificationTables.clear();
+    for (int i = 0; i < this.viewModel.getNotificationTable().size(); i++) {
+      notificationTables.add(new NotificationTable(this.viewModel.getNotificationTable().get(i).getMessage()));
+      Button button1 = new Button("");
+      button1.setId("delete-button");
+
+      int index =  i;
+      button1.setOnAction(e -> {
+        delete(viewModel.getNotificationTable().get(index).getMessage());
+      });
+      notificationTables.get(i).setButton(button1);
+    }
+  }
+  private void delete(String message){
+    viewModel.deleteNotification(message);
+    reset();
+  }
 
     @Override
     public Region getRoot() {

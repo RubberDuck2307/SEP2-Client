@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 
 public class ProjectManagerProfileViewController extends ViewControllerWithNavigationMenu
 {
+
   @FXML private Button backButton;
   @FXML private ImageView avatarPic;
   @FXML
@@ -159,4 +160,6 @@ public class ProjectManagerProfileViewController extends ViewControllerWithNavig
   @FXML public void assign(){
     viewHandler.openView("assignWorkersToProjectManager");
   }
+
+
 }
