@@ -180,7 +180,7 @@ public class EditTaskViewModel extends ViewModelWithNavigationMenu
     }
     if (valid)
     {
-      Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), status.getValue(),
+      Task task2 = new Task(task1.getId(), title.getValue(), description.getValue(), deadline.getValue(), estimatedHours.getValue(), priority.getValue(), status.getValue(),
           project.getId());
       model.updateTask(task2);
       assignWorkersFromTable();
