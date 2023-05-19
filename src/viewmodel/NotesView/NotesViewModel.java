@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.*;
 import view.NoteVBOXController;
@@ -44,9 +45,9 @@ public class NotesViewModel implements ViewModel
     userName = new SimpleStringProperty();
     userNumber = new SimpleStringProperty();
 
-    this.titleProperty = new SimpleStringProperty();
-    this.noteTextProperty = new SimpleStringProperty();
-    this.creationDate = new SimpleObjectProperty<>();
+    titleProperty = new SimpleStringProperty();
+    noteTextProperty = new SimpleStringProperty();
+    creationDate = new SimpleObjectProperty<>();
     noteList = new NoteList();
     //noteCellVBox = new VBox();
     noteCellVBox = loadNoteVBox();

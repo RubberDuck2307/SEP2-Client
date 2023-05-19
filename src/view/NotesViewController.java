@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import model.EmployeeRole;
@@ -22,6 +23,8 @@ public class NotesViewController implements ViewController
   private Label numberLabel;
   @FXML
   private VBox notesListVBox;
+  @FXML
+  private HBox titleHBox;
 //  @FXML
   //private TextArea noteText;
 //  @FXML

@@ -11,18 +11,26 @@
 
 <VBox fx:id="noteContainer" alignment="CENTER" prefHeight="125.0" prefWidth="594.0" styleClass="note-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.NoteVBOXController">
    <children>
-      <HBox alignment="CENTER" prefHeight="37.0" prefWidth="594.0" styleClass="note-title-box" stylesheets="@../styles/style.css">
+      <HBox id="note-title-box" fx:id="titleContainer" alignment="CENTER" prefHeight="26.0" prefWidth="585.0" styleClass="note-title-box" stylesheets="@../styles/style.css">
          <children>
-            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="470.0" text="NOTE 1" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="creationDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="163.0" text="12.12.1212.">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
+            <HBox fx:id="titleHBox" alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="310.0" stylesheets="@../styles/style.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="title" alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="19.0" prefWidth="60.0" styleClass="note-title-label" text="NOTE 1" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="263.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="creationDate" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="82.0" styleClass="note-date-label" stylesheets="@../styles/style.css" text="12.12.1212.">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets />

@@ -8,6 +8,7 @@ import model.Note;
 
 public class NoteCell {
   private final VBox noteVBox;
+  private final HBox titleBox;
   private final Label title;
   private final Label creationDate;
   private final TextArea noteText;
@@ -16,7 +17,7 @@ public class NoteCell {
     noteVBox = new VBox();
     noteVBox.getStyleClass().add("note-container");
 
-    HBox titleBox = new HBox();
+    titleBox = new HBox();
     titleBox.getStyleClass().add("note-title-box");
     title = new Label(note.getTitle());
     title.getStyleClass().add("note-title-label");
@@ -25,8 +26,10 @@ public class NoteCell {
     titleBox.getChildren().addAll(title, creationDate);
 
     noteText = new TextArea(note.getNoteText());
+    noteText.setId("my-text-area");
+
     noteText.getStyleClass().add("note-text-area");
-    noteText.setEditable(false);
+    noteText.setEditable(false);   // when set to true text will be editable
     noteText.setWrapText(true);
 
     noteVBox.getChildren().addAll(titleBox, noteText);
@@ -34,11 +37,5 @@ public class NoteCell {
 
   public VBox getNoteVBox() {
     return noteVBox;
-  }
-  public void setNoteData()
-  {
-    title.setText("");
-    creationDate.setText("");
-    noteText.setText("");
   }
 }

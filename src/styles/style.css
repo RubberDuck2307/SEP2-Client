@@ -607,11 +607,15 @@
   -fx-background-color: #bbdefb;
 }
 
+#note-title-box{
+
+}
+
 .note-title-label{
   -fx-font-family: "SF Pro Display";
   -fx-font-size: 13;
   -fx-font-weight: bold;
-
+  text-transform: uppercase;
 }
 
 .note-date-label{
@@ -627,15 +631,11 @@
   -fx-border-color: transparent;
 }
 
-.note-text-area{
-  -fx-background-color: transparent;
-  -fx-background-insets: 0;
-  -fx-border-color: transparent;
-}
 
 
 .note-container {
   -fx-background-color: white;
+
   -fx-border-color: #e0e0e0;
   -fx-border-radius: 10;
   -fx-border-width: 2;
@@ -646,7 +646,6 @@
   -fx-padding: 3;
   -fx-margin: 10;
 }
-
 
 
 .personal-info-box{

@@ -1,16 +1,21 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import model.Note;
 import viewmodel.NotesView.NotesViewModel;
 import viewmodel.ViewModel;
 
 public class NoteVBOXController implements ViewController
 {
+  @FXML
+  private HBox titleContainer;
   @FXML
   private Label creationDate;
   @FXML
@@ -29,9 +34,11 @@ public class NoteVBOXController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (NotesViewModel) viewModel;
     this.root = root;
-    title.textProperty().bindBidirectional(((NotesViewModel) viewModel).getTitleProperty());
-    creationDate.textProperty().bindBidirectional(((NotesViewModel) viewModel).getCreationDate());
-    noteText.textProperty().bindBidirectional(((NotesViewModel) viewModel).getNoteTextProperty());
+    title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
+    creationDate.textProperty().bindBidirectional(this.viewModel.getCreationDate());
+    title.setTextAlignment(TextAlignment.LEFT);
+    creationDate.setTextAlignment(TextAlignment.RIGHT);
+    noteText.textProperty().bindBidirectional(this.viewModel.getNoteTextProperty());
   }
 
   public void setNoteData(Note note)
@@ -62,7 +69,10 @@ public class NoteVBOXController implements ViewController
   {
     return noteText;
   }
-
+  public HBox getTitleContainer()
+  {
+    return titleContainer;
+  }
   @Override public Region getRoot()
   {
     return root;
