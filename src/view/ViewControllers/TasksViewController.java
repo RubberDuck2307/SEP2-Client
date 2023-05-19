@@ -23,7 +23,8 @@ import viewmodel.TaskView.WorkersTable;
 
 public class TasksViewController implements ViewController
 {
-    @FXML
+  public TableColumn<TasksTable, String> estimatedTime;
+  @FXML
     private Label employeeName;
     @FXML
     private Label employeeWorkingNumber;
@@ -101,6 +102,9 @@ public class TasksViewController implements ViewController
 
         name.setCellValueFactory(
                 cellData -> cellData.getValue().getNameProperty());
+        estimatedTime.setCellValueFactory(
+               cellData -> cellData.getValue().estimatedTimeProperty());
+        estimatedTime.setStyle("-fx-alignment: CENTER;");
         number.setCellValueFactory(
                 cellData -> cellData.getValue().getNumberProperty());
         workersTable.setItems(((TasksViewModel) viewModel).getWorkersTables());

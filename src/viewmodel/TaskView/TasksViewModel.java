@@ -28,6 +28,7 @@ public class TasksViewModel implements ViewModel
     private EmployeeList employeeList;
     private StringProperty error;
     private StringProperty projectName;
+    private StringProperty estimatedTime;
     private StringProperty taskName;
     private StringProperty taskDescription;
 
@@ -53,6 +54,7 @@ public class TasksViewModel implements ViewModel
         this.viewState = viewState;
         this.taskList = new TaskList();
         this.employeeList = new EmployeeList();
+        this.estimatedTime = new SimpleStringProperty();
         //employeeList.addEmployee(viewState.getEmployee());
         this.projectName = new SimpleStringProperty();
         this.taskName = new SimpleStringProperty();
