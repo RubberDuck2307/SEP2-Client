@@ -26,7 +26,7 @@ import viewmodel.WorkerView.WorkersViewModel;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class MainManagerHomeViewController implements ViewController
+public class MainManagerHomeViewController extends ViewControllerWithNavigationMenu
 {
   @FXML private Label workerName2;
   @FXML private ImageView avatarPic;
@@ -44,6 +44,7 @@ public class MainManagerHomeViewController implements ViewController
   private Region root;
   private MainManagerHomeViewModel viewModel;
   private ViewHandler viewHandler;
+  @FXML private ImageView bellImage;
 
   @Override public void init(ViewHandler viewHandler, ViewModel viewModel,
       Region root)
@@ -52,21 +53,21 @@ public class MainManagerHomeViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (MainManagerHomeViewModel) viewModel;
     this.viewModel.load();
-    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
+
+    bind();
+
+    super.init(this.viewModel, viewHandler,bellImage, avatarPic, employeeName, employeeWorkingNumber, projectHBox);
+    setWindow(this.viewModel.getEmployee().getRole());
+  }
+
+  private void bind(){
     managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
     managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
     managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
     managerRole.textProperty().bindBidirectional(this.viewModel.managerRoleProperty());
     managerPhoneNumber.textProperty().bindBidirectional(this.viewModel.managerPhoneNumberProperty());
     workerName2.textProperty().bindBidirectional(this.viewModel.getWorkerName2());
-    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
-      setWindow(((Employee) newValue).getRole());
-    });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
   }
-
   @Override public Region getRoot()
   {
     return root;
@@ -76,15 +77,7 @@ public class MainManagerHomeViewController implements ViewController
   {
 
     viewModel.load();
-  }
-
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
-  }
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
+    setWindow(viewModel.getEmployee().getRole());
   }
 
 
@@ -92,46 +85,8 @@ public class MainManagerHomeViewController implements ViewController
   {
     viewHandler.openLastWindow();
   }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
-  private void setWindow(EmployeeRole employeeRole) {
-    switch (employeeRole) {
-      case WORKER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case HR -> {
-        projectHBox.setVisible(false);
-        projectHBox.setManaged(false);
-      }
-      case PROJECT_MANAGER -> {
 
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case MAIN_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-    }
 
-  }
 
   public void logOut()
   {

@@ -11,6 +11,7 @@ import model.*;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
 import javax.swing.text.html.ImageView;
@@ -18,14 +19,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainManagerHomeViewModel implements ViewModel
+public class MainManagerHomeViewModel extends ViewModelWithNavigationMenu
 {
-  private Model model;
   private ViewState viewState;
-  private ObjectProperty<Employee> employee;
-  private ObjectProperty<Image> avatarPic;
-  private StringProperty employeeName;
-  private StringProperty employeeWorkingNumber;
   private StringProperty managerName;
   private StringProperty managerRole;
   private StringProperty managerDateOfBirth;
@@ -38,11 +34,8 @@ public class MainManagerHomeViewModel implements ViewModel
 
   public MainManagerHomeViewModel(Model model, ViewState viewState)
   {
-    this.employeeName=new SimpleStringProperty();
-    this.employeeWorkingNumber=new SimpleStringProperty();
-    this.employee=new SimpleObjectProperty<>();
-    this.avatarPic=new SimpleObjectProperty<>();
-    this.model = model;
+    super(model);
+
     this.viewState = viewState;
 
     this.managerName = new SimpleStringProperty();
@@ -53,14 +46,14 @@ public class MainManagerHomeViewModel implements ViewModel
     this.workerName2 = new SimpleStringProperty();
 
   }
+
+  public void reset(){
+    super.reset();
+
+  }
   public void load()
   {
-    employee.setValue(model.getUser());
-    setAvatarPicture();
-    employeeName.setValue(model.getUser().getName());
-
-    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
-
+    super.load();
     Employee employee = model.getUser();
     managerName.setValue(employee.getName());
     managerEmail.setValue(employee.getEmail());
@@ -127,21 +120,6 @@ public class MainManagerHomeViewModel implements ViewModel
   }
 
 
-  public StringProperty getEmployeeName()
-  {
-    return employeeName;
-  }
-
-  public StringProperty getEmployeeWorkingNumber()
-  {
-    return employeeWorkingNumber;
-  }
-  public ObjectProperty<Employee> employeePropertyProperty() {
-    return employee;
-  }
-  public Employee getEmployeeProperty() {
-    return employee.get();
-  }
   public void headline()
   {
     Employee worker = model.getUser();
@@ -156,21 +134,4 @@ public class MainManagerHomeViewModel implements ViewModel
     }
   }
 
-
-
-  public ObjectProperty<Image> avatarPicProperty()
-  {
-    return avatarPic;
-  }
-  public boolean isWoman(){
-    return Objects.equals(employee.getValue().getGender(), "F");
-  }
-  public void setAvatarPicture(){
-    if(isWoman()){
-      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
-    }
-    else{
-      avatarPic.setValue(new Image("/icons/man-avatar.png"));
-    }
-  }
 }

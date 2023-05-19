@@ -136,7 +136,7 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
         status.setCellValueFactory(statusButton);
         status.setStyle("-fx-alignment: CENTER;");
 
-
+        taskTable.setItems(taskTables);
     }
 
     private void fillInTasksTable() {
@@ -154,6 +154,7 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
             taskTables.get(i).setBtton(button1);
             taskTables.get(i).setStatusButton(statusButton);
         }
+        System.out.println(taskTables.size());
 
     }
 
