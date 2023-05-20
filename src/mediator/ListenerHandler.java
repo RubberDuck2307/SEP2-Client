@@ -10,12 +10,13 @@ import utility.observer.listener.GeneralListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
+import java.util.regex.Pattern;
 
 public class ListenerHandler implements NamedPropertyChangeSubject {
 
     private RemoteModel model;
     private GeneralListener<String, String> listener;
-    private PropertyChangeSupport  propertyChangeSupport;
+    private PropertyChangeSupport propertyChangeSupport;
 
     public ListenerHandler(RemoteModel model, GeneralListener<String, String> listener) {
         this.model = model;
@@ -23,16 +24,24 @@ public class ListenerHandler implements NamedPropertyChangeSubject {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
-    public void addListener(Employee employee) throws RemoteException {
+    public void addServerListener(Employee employee) throws RemoteException {
         if (employee != null) {
-            if (employee.getRole().equals(EmployeeRole.HR)) {
-                model.addListener(listener, "forgetPasswordNotification");
-            } else model.addListener(listener, "general");
+            switch (employee.getRole()) {
+                case HR:
+                    model.addListener(listener, "00|forgetPassword|notification");
+                    break;
+                case WORKER:
+                    model.addListener(listener, employee.getWorkingNumber() + "|assignedToTask|notification");
+                    break;
+                case PROJECT_MANAGER:
+                    model.addListener(listener, employee.getWorkingNumber() + "|assignedToProject|notification");
+                    break;
+            }
         }
     }
 
 
-    public void removeListener() {
+    public void removeServerListener() {
 
         try {
             model.removeListener(listener);
@@ -44,12 +53,12 @@ public class ListenerHandler implements NamedPropertyChangeSubject {
     }
 
     public void handlePropertyChange(ObserverEvent<String, String> event) {
-        System.out.println("happening");
-        if (event.getPropertyName().equals("forgetPasswordNotification"))
-            handleForgetPasswordNotification();
+        String[] eventName = event.getPropertyName().split(Pattern.quote("|"));
+        if (eventName[2].equals("notification"))
+            handleNotification();
     }
 
-    public void handleForgetPasswordNotification() {
+    public void handleNotification() {
         propertyChangeSupport.firePropertyChange("notification", 0, 1);
     }
 

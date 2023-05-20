@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
  * @version 1.0 - May 2023
  */
-public class Task implements Serializable {
+public class Task implements Serializable, IdObject {
     /**
      * The id of the task.
      */

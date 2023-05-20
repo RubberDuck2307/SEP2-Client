@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * A class representing a user profile.
  */
-public class UserProfile implements Serializable {
+public class UserProfile implements Serializable, IdObject {
     /**
      * working number of the user
      */
@@ -43,6 +43,10 @@ public class UserProfile implements Serializable {
     }
 
 
+    @Override
+    public Long getId() {
+        return workingNumber.longValue();
+    }
 }
 
 

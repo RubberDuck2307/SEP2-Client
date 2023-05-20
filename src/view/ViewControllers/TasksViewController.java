@@ -158,7 +158,7 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
             taskTables.get(i).setBtton(button1);
             taskTables.get(i).setStatusButton(statusButton);
         }
-        System.out.println(taskTables.size());
+
 
     }
 

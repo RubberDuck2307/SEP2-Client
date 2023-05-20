@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public interface ClientInterface {
 
+    IdObjectList<ForgottenPasswordNotification> getForgottenPasswordNotification() ;
+    IdObjectList<AssignedToTaskNotification> getAssignedToTaskNotification(Integer workingNumber)  ;
+    IdObjectList<AssignedToProjectNotification> getAssignedToProjectNotification(Integer workingNumber)  ;
+
     Long saveTag(Tag tag);
     TagList getAllTags();
     void logOut();

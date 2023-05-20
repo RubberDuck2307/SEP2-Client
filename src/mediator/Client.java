@@ -25,6 +25,34 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
         this.listenerHandler = new ListenerHandler(model, this);
     }
 
+
+    @Override
+    public IdObjectList<ForgottenPasswordNotification> getForgottenPasswordNotification() {
+        try {
+            return model.getForgottenPasswordNotification();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public IdObjectList<AssignedToTaskNotification> getAssignedToTaskNotification(Integer workingNumber) {
+        try {
+            return model.getAssignedToTaskNotification(workingNumber);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public IdObjectList<AssignedToProjectNotification> getAssignedToProjectNotification(Integer workingNumber) {
+        try {
+            return model.getAssignedToProjectNotification(workingNumber);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public Long saveTag(Tag tag) {
         try {
@@ -132,7 +160,7 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
     public Employee login(UserProfile userProfile) {
         try {
             Employee employee = model.login(userProfile);
-            listenerHandler.addListener(employee);
+            listenerHandler.addServerListener(employee);
             return employee;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
@@ -433,6 +461,6 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
 
     public void logOut(){
 
-            listenerHandler.removeListener();
+            listenerHandler.removeServerListener();
     }
 }

@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import model.Tag;
@@ -17,7 +19,7 @@ import viewmodel.TagsView.DeleteTagsViewModel;
 import viewmodel.ViewModel;
 import viewmodel.WorkersWithCheckboxTable;
 
-public class DeleteTagsViewController implements ViewController
+public class DeleteTagsViewController extends ViewControllerWithNavigationMenu
 {
 
     private ViewHandler viewHandler;
@@ -29,9 +31,18 @@ public class DeleteTagsViewController implements ViewController
     @FXML
     private TableColumn<DeleteTagsTable, Label> tagColumn;
     @FXML
-    private TableColumn<DeleteTagsTable, String> numberColumn;
-    @FXML
     private TableColumn<DeleteTagsTable, Button> deleteColumn;
+    @FXML
+    private Label nameL;
+    @FXML Label workingNumberL;
+
+    @FXML
+    private ImageView avatarPic;
+
+    @FXML
+    private HBox projectHbox;
+    @FXML
+    private ImageView bellImage;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root) {
@@ -40,7 +51,7 @@ public class DeleteTagsViewController implements ViewController
         this.root = root;
         this.viewModel.load();
 
-
+        super.init(this.viewModel, viewHandler, bellImage, avatarPic, nameL, workingNumberL, projectHbox);
         PropertyValueFactory<DeleteTagsTable, Label> tagLabel = new PropertyValueFactory<>("tag");
         tagColumn.setCellValueFactory(tagLabel);
 
@@ -53,6 +64,7 @@ public class DeleteTagsViewController implements ViewController
         fillInTable();
 
         tagsTable.setItems(tagsTables);
+        super.setWindow(this.viewModel.getEmployee().getRole());
     }
 
     private void fillInTable() {
@@ -71,20 +83,6 @@ public class DeleteTagsViewController implements ViewController
     }
 
 
-    @FXML
-    private void openProjects() {
-        viewHandler.openView("projects");
-    }
-
-    @FXML
-    private void openHome() {
-        viewHandler.openView("workerHomePage");
-    }
-
-    @FXML
-    private void openWorkersView() {
-        viewHandler.openView("workers");
-    }
 
     @FXML
     private void backButtonClick() {
@@ -101,6 +99,7 @@ public class DeleteTagsViewController implements ViewController
     public void reset() {
         viewModel.reset();
         fillInTable();
+        super.setWindow(this.viewModel.getEmployee().getRole());
     }
 
     private void delete(Tag tag){
