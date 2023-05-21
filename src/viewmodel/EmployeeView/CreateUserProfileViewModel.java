@@ -37,7 +37,6 @@ public class CreateUserProfileViewModel extends ViewModelWithNavigationMenu{
     private ObjectProperty<LocalDate> dob;
     private StringProperty dobE;
     private BooleanProperty dobValue;
-    private StringProperty jobTitle;
     private Integer workingNumber;
     private BooleanProperty gender;
 
@@ -59,7 +58,6 @@ public class CreateUserProfileViewModel extends ViewModelWithNavigationMenu{
         this.passwordE = new SimpleStringProperty("");
         this.dob = new SimpleObjectProperty<>();
         this.dobE = new SimpleStringProperty("");
-        this.jobTitle = new SimpleStringProperty("");
         this.gender = new SimpleBooleanProperty(true);
         this.validator = new Validator();
         this.firstNameValue = new SimpleBooleanProperty(false);
@@ -86,7 +84,6 @@ public class CreateUserProfileViewModel extends ViewModelWithNavigationMenu{
         this.password.setValue("");
         this.passwordE.setValue("");
         this.dobE.setValue("");
-        this.jobTitle.setValue("");
         this.gender.setValue(true);
         this.firstNameValue.setValue(false);
         this.lastNameValue.setValue(false);

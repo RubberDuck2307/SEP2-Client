@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.CreateUserProfileViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.CreateUserProfileViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -293,16 +293,7 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox layoutX="10.0" layoutY="106.0" prefHeight="48.0" prefWidth="708.0">
-                                       <children>
-                                          <Label layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="111.0" styleClass="labels-form" text="Job title">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="jobTitleL" prefHeight="32.0" prefWidth="278.0" styleClass="text-fields" />
-                                       </children>
-                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="106.0" prefHeight="48.0" prefWidth="708.0" />
                                     <VBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="495.0">
                                        <children>
                                           <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createProfile" styleClass="create-button" text="Create profile">
