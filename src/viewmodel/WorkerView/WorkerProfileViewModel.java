@@ -63,7 +63,7 @@ public class WorkerProfileViewModel extends ViewModelWithNavigationMenu {
         workerName.setValue(employee.getName());
         workerEmail.setValue(employee.getEmail());
         workerPhoneNumber.setValue(employee.getPhoneNumber());
-        workerRole.setValue(employee.getRole().toString());
+        workerRole.setValue(employee.getRoleString());
         workerDateOfBirth.setValue(employee.getDob().toString());
 
         EmployeeList managersList = model.getAllWorkersManagersByWorkerWorkingNumber(employee.getWorkingNumber());

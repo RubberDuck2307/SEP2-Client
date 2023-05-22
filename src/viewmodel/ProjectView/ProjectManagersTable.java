@@ -12,7 +12,7 @@ public class ProjectManagersTable
 
   public ProjectManagersTable(Employee projectManager){
     this.name=new SimpleStringProperty(projectManager.getName());
-    this.role = new SimpleStringProperty(projectManager.getRole().toString());
+    this.role = new SimpleStringProperty(projectManager.getRoleString());
   }
 
   public String getName()
