@@ -95,11 +95,26 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
         hBoxForTags.setVisible(false);
 
         this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
-            if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
-                assignWorkerButton.setVisible(newValue);
-                hBoxForTags.setVisible(newValue);
-                fillInTags();
+          EmployeeRole role= this.viewModel.getEmployee().getRole();
+
+          switch(role){
+            case PROJECT_MANAGER -> {
+              assignWorkerButton.setVisible(newValue);
+              hBoxForTags.setVisible(newValue);
+              fillInTags();
             }
+            case MAIN_MANAGER -> {
+              hBoxForTags.setVisible(newValue);
+              fillInTags();
+            }
+            case WORKER -> {
+              hBoxForTags.setVisible(newValue);
+              fillInTags();
+            }
+            case HR -> {
+
+            }
+          }
         }));
 
         taskTables = FXCollections.observableArrayList();
