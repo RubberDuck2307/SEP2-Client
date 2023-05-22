@@ -71,7 +71,7 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
         workerName2.setValue(worker.getName());
         workerEmail.setValue(worker.getEmail());
         workerPhoneNumber.setValue(worker.getPhoneNumber());
-        workerRole.setValue(worker.getRole().toString());
+        workerRole.setValue(worker.getRoleString());
         workerDateOfBirth.setValue(worker.getDob().toString());
         headline();
 

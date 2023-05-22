@@ -13,6 +13,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The class is handling the communication with server.
+ * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
+ * @version 1.0 - May 2023
+ */
 public class Client implements ClientInterface, RemoteListener<String, String> {
 
     private RemoteModel model;
