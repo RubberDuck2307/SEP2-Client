@@ -87,13 +87,11 @@ public class WorkersViewModel extends ViewModelWithNavigationMenu {
   {
     return selectedEmployee.get();
   }
+
   public ObjectProperty<Employee> selectedEmployeeProperty()
   {
     return selectedEmployee;
   }
-
-
-
 
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
   public ObservableList<Employee> getEmployeess()
