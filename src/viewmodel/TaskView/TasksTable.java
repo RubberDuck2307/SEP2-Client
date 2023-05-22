@@ -19,6 +19,7 @@ public class TasksTable
     private Long id;
     private StringProperty tags;
     private Button btton;
+    private Button buttonDelete;
 
 
 
@@ -154,5 +155,13 @@ public class TasksTable
     public ObservableValue<String> getStatusProperty()
     {
         return status;
+    }
+    public Button getButtonDelete()
+    {
+        return buttonDelete;
+    }
+    public void setButtonDelete(Button buttonDelete)
+    {
+        this.buttonDelete = buttonDelete;
     }
 }

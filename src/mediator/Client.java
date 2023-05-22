@@ -352,7 +352,11 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
+    public void deleteTaskById(Long id)
+    {
+    }
+    
     @Override
     public void assignWorkerToManager(int managerNumber,
                                       int workerNumber) {

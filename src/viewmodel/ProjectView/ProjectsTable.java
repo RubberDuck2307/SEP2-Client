@@ -22,6 +22,7 @@ public class ProjectsTable
   private Long id;
   private Button btton;
   private Button buttonEdit;
+  private Button buttonDelete;
 
   public ProjectsTable(Project project){
     this.title = new SimpleStringProperty(project.getName());
@@ -99,5 +100,13 @@ public class ProjectsTable
   public void setButtonEdit(Button buttonEdit)
   {
     this.buttonEdit = buttonEdit;
+  }
+  public Button getButtonDelete()
+  {
+    return buttonDelete;
+  }
+  public void setButtonDelete(Button buttonDelete)
+  {
+    this.buttonDelete = buttonDelete;
   }
 }

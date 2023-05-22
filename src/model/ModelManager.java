@@ -168,7 +168,12 @@ public class ModelManager implements Model {
     public Long saveTask(Task task) {
         return client.saveTask(task);
     }
-
+    @Override
+    public void deleteTaskById(Long id)
+    {
+        client.deleteTaskById(id);
+    }
+    
     @Override
     public void assignWorkerToManager(int managerNumber, int workerNumber) {
         client.assignWorkerToManager(managerNumber, workerNumber);

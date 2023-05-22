@@ -104,5 +104,9 @@ public class ProjectsViewModel extends ViewModelWithNavigationMenu
     public void propertyChange(PropertyChangeEvent evt) {
         super.propertyChange(evt);
     }
-
+    
+    public void delete(Project project)
+    {
+        //TODO
+    }
 }

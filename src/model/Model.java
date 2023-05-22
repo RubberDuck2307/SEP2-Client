@@ -63,44 +63,46 @@ public interface Model {
     void updateProject(Project project);
 
     EmployeeList getEmployeesOfTask(Long taskId);
-
+    
     Long saveTask(Task task);
-
+    
+    void deleteTaskById(Long id);
+    
     Task getTask(Long projectId);
-
+    
     void assignWorkerToManager(int managerNumber, int workerNumber);
-
+    
     void removeWorkerFromManager(int managerNumber, int workerNumber);
-
+    
     Employee getUser();
-
+    
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
-
+    
     Integer saveEmployee(Employee employee, String password);
-
+    
     void deleteEmployeeByWorkingNumber(Integer workingNumber);
-
+    
     void updateTask(Task task);
-
+    
     EmployeeList getAllEmployees();
-
+    
     void setUser(Employee user);
-
+    
     Employee getEmployeeByWorkingNumber(int workingNumber);
-
+    
     Project getProjectById(long projectId);
-
+    
     TaskList getAllTasksByUserId(Integer workingNumber);
-
+    
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
-
+    
     void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id);
-
+    
     void dismissEmployeesFromProject(ArrayList<Integer> removedEmployees, Long id);
-
+    
     void updateEmployee(Employee employee);
-
+    
     void changePassword(Employee employee, String password);
-
+    
     void addNotificationListener(PropertyChangeListener listener);
 }

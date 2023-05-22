@@ -192,4 +192,8 @@ public class TasksViewModel extends ViewModelWithNavigationMenu
     public void propertyChange(PropertyChangeEvent evt) {
         super.propertyChange(evt);
     }
+    public void delete(Task task)
+    {
+        model.deleteTaskById(task.getId());
+    }
 }

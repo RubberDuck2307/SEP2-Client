@@ -45,6 +45,8 @@ public interface ClientInterface {
     void assignEmployeesToProject(ArrayList<Integer> addedEmployees, Long id);
     
     Long saveTask(Task task);
+    void deleteTaskById(Long id);
+    
     void assignWorkerToManager(int managerNumber, int workerNumber);
     
     void removeWorkerFromManager(int managerNumber, int workerNumber);
@@ -52,7 +54,6 @@ public interface ClientInterface {
     Integer saveEmployee(Employee employee, String password);
     
     Task getTask(Long projectId);
-    
     Employee login(UserProfile userProfile);
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
@@ -60,10 +61,11 @@ public interface ClientInterface {
     EmployeeList getAllEmployees();
     Employee getEmployeeByWorkingNumber(int workingNumber);
     Project getProjectById(long projectId);
-    TaskList getAllTasksByUserId(Integer workingNumber);
     
-  EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
+    TaskList getAllTasksByUserId(Integer workingNumber);
+    EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber);
     void updateEmployee(Employee employee);
+    
     void changePassword(Employee employee, String password);
     
     void deleteEmployeeByWorkingNumber(Integer workingNumber);
