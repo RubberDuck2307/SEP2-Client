@@ -355,6 +355,14 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
     @Override
     public void deleteTaskById(Long id)
     {
+        try
+        {
+            model.deleteTaskById(id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
     
     @Override
