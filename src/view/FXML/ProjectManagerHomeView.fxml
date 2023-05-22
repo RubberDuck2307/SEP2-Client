@@ -286,7 +286,7 @@
                                           </HBox>
                                           <TableView fx:id="notificationTable" layoutX="10.0" layoutY="42.0" prefHeight="262.0" prefWidth="490.0" styleClass="notificationTable">
                                              <columns>
-                                                <TableColumn fx:id="messageNotificationColumn" prefWidth="421.600035071373" styleClass="notificationTable" text="Message" />
+                                                <TableColumn fx:id="messageNotificationColumn" maxWidth="1.7976931348623157E308" minWidth="400.0" prefWidth="-1.0" styleClass="notificationTable" text="Message" />
                                                 <TableColumn fx:id="deleteNotificationColumn" minWidth="0.0" prefWidth="60.800018310546875" styleClass="notificationTable" />
                                              </columns>
                                           </TableView>
