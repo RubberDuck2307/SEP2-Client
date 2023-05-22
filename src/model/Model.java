@@ -59,6 +59,8 @@ public interface Model {
     EmployeeList getAllProjectManagers();
 
     Long saveProject(Project project);
+    
+    void deleteProjectById(Long id);
 
     void updateProject(Project project);
 
@@ -105,4 +107,6 @@ public interface Model {
     void changePassword(Employee employee, String password);
     
     void addNotificationListener(PropertyChangeListener listener);
+    
+
 }

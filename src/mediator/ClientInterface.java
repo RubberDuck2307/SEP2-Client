@@ -39,6 +39,7 @@ public interface ClientInterface {
     void assignEmployeeToProject(Integer workingNumber, Long projectID);
     void removeEmployeeFromProject(Integer workingNumber, Long projectID);
     Long saveProject(Project project);
+    void deleteProjectById(Long id);
     void updateProject(Project project);
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID);
     void dismissEmployeesFromProject(ArrayList<Integer> employeeWorkingNumbers, Long projectID);
@@ -69,4 +70,6 @@ public interface ClientInterface {
     void changePassword(Employee employee, String password);
     
     void deleteEmployeeByWorkingNumber(Integer workingNumber);
+    
+
 }

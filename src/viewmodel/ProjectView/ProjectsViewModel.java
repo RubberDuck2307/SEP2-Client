@@ -107,6 +107,6 @@ public class ProjectsViewModel extends ViewModelWithNavigationMenu
     
     public void delete(Project project)
     {
-        //TODO
+        model.deleteProjectById(project.getId());
     }
 }

@@ -45,6 +45,7 @@ public interface RemoteModel extends RemoteSubject<String, String> {
     void changeTaskStatus(Long taskId, String status) throws RemoteException;
     
     Long saveProject(Project project) throws RemoteException;
+    void deleteProjectById(Long id)  throws RemoteException;
     
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
     
@@ -103,4 +104,6 @@ public interface RemoteModel extends RemoteSubject<String, String> {
     void changePassword(Employee employee, String password) throws RemoteException;
     
     void deleteEmployeeByWorkingNumber(Integer workingNumber) throws RemoteException;
+    
+
 }

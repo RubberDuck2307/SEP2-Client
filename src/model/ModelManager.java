@@ -144,7 +144,12 @@ public class ModelManager implements Model {
     public Long saveProject(Project project) {
         return client.saveProject(project);
     }
-
+    @Override
+    public void deleteProjectById(Long id)
+    {
+        client.deleteProjectById(id);
+    }
+    
     @Override
     public void updateProject(Project project) {
         client.updateProject(project);

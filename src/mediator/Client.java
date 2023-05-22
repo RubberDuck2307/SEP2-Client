@@ -309,7 +309,19 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
+    public void deleteProjectById(Long id)
+    {
+        try
+        {
+            model.deleteProjectById(id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
     @Override
     public void updateProject(Project project) {
         try {

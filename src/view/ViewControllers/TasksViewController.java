@@ -187,7 +187,6 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
     
     public void delete(Task task)
     {
-        System.out.println(task.getId());
         viewModel.delete(task);
         reset();
     }
