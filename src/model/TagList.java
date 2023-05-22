@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * A class representing a list of tags.
+ */
 public class TagList implements Serializable
 {
     private ArrayList<Tag> tags;

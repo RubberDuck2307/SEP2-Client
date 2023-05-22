@@ -170,6 +170,7 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 

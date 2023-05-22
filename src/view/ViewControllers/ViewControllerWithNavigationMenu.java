@@ -12,6 +12,11 @@ import view.ViewController;
 import view.ViewHandler;
 import viewmodel.ViewModelWithNavigationMenu;
 
+/**
+ * Super class for all view controllers that have a navigation menu.
+ * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
+ * @version 1.0 - May 2023
+ */
 public abstract class ViewControllerWithNavigationMenu implements ViewController {
     private ImageView bellImage;
     private ImageView avatarPic;

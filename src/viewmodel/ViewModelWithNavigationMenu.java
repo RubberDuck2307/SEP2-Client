@@ -10,6 +10,11 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Super class for all view models that have navigation menu.
+ * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
+ * @version 1.0 - May 2023
+ */
 public abstract class ViewModelWithNavigationMenu implements ViewModel, PropertyChangeListener {
 
     protected BooleanProperty notification;
