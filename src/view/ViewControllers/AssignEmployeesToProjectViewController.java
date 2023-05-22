@@ -78,7 +78,7 @@ public class AssignEmployeesToProjectViewController extends ViewControllerWithNa
             checkBox.setSelected(this.viewModel.isAssigned(employee));
             workerTableColumns.get(i).setCheckbox(checkBox);
         }
-        System.out.println(workerTableColumns.size());
+        //System.out.println(workerTableColumns.size());
     }
 
     private void setTable() {
