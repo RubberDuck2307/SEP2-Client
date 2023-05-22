@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import model.Employee;
-import model.EmployeeRole;
-import view.ViewController;
 import view.ViewHandler;
 import viewmodel.EmployeeView.AssignWorkersToTaskViewModel;
 import viewmodel.ViewModel;
@@ -74,9 +72,9 @@ public class AssignWorkersToTaskViewController  extends ViewControllerWithNaviga
 
     private void fillInTable(){
         workerTableColumns.clear();
-        for (int i = 0; i < this.viewModel.getEmployeesOfTask().size(); i++)
+        for (int i = 0; i < this.viewModel.getWorkersOfTask().size(); i++)
         {
-            Employee employee = this.viewModel.getEmployeesOfTask().get(i);
+            Employee employee = this.viewModel.getWorkersOfTask().get(i);
             workerTableColumns.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
             checkBox.setId("checklist");

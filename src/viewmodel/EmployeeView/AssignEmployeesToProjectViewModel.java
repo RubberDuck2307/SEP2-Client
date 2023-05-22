@@ -41,13 +41,19 @@ public class AssignEmployeesToProjectViewModel extends ViewModelWithNavigationMe
         Project project = viewState.getProject();
         projectName.set(project.getName());
 
+        employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         if (user.get().getRole().equals(EmployeeRole.PROJECT_MANAGER)){
             employeesOfManager = model.getEmployeesAssignedToManager(user.get().getWorkingNumber());
+            for(int i=0;i<employeesOfProject.size();i++){
+                Employee employee=employeesOfProject.get(i);
+                if(employee.getRole()==EmployeeRole.WORKER && !employeesOfManager.containsByWorkingNumber(employee.getWorkingNumber())){
+                    employeesOfManager.addEmployee(employeesOfProject.get(i));
+                }
+            }
         }
         else if (user.get().getRole().equals(EmployeeRole.MAIN_MANAGER)){
             employeesOfManager = model.getAllProjectManagers();
         }
-        employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
 
     }
 
