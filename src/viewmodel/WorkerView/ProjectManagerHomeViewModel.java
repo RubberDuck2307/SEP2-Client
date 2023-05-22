@@ -81,7 +81,7 @@ public class ProjectManagerHomeViewModel extends ViewModelWithNavigationMenu
     managerName.setValue(employee.getName());
     managerEmail.setValue(employee.getEmail());
     managerPhoneNumber.setValue(employee.getPhoneNumber());
-    managerRole.setValue(employee.getRole().toString());
+    managerRole.setValue(employee.getRoleString());
     managerDateOfBirth.setValue(employee.getDob().toString());
 
     projectList = model.getAllProjectsByWorkingNumber(employee.getWorkingNumber());

@@ -65,12 +65,25 @@ public class AssignEmployeesToProjectViewModel extends ViewModelWithNavigationMe
     }
 
     public void assignEmployee(Employee employee) {
+        Project project= viewState.getProject();
         if (!employeesOfProject.containsByWorkingNumber(employee.getWorkingNumber())) {
-            model.assignEmployeeToProject(employee.getWorkingNumber(), viewState.getProject().getId());
+            model.assignEmployeeToProject(employee.getWorkingNumber(), project.getId());
             employeesOfProject.addEmployee(employee);
         } else {
-            model.removeEmployeeFromProject(employee.getWorkingNumber(), viewState.getProject().getId());
+            model.removeEmployeeFromProject(employee.getWorkingNumber(), project.getId());
             employeesOfProject.removeByWorkingNumber(employee.getWorkingNumber());
+            if(employee.getRole()==EmployeeRole.WORKER)
+            {
+                TaskList taskList = model.getAllTasksOfProject(project.getId());
+                for(int i=0;i<taskList.size();i++)
+                {
+                    Task task=taskList.getTask(i);
+                    if(task.getWorkers().containsByWorkingNumber(employee.getWorkingNumber()))
+                    {
+                        model.removeWorkerFromTask(employee.getWorkingNumber(),task.getId());
+                    }
+                }
+            }
         }
     }
 

@@ -101,16 +101,7 @@ public class EditProfileViewModel extends ViewModelWithNavigationMenu
     this.dob.setValue(localDate);
     this.firstName.setValue(worker.getName());
     this.email.setValue(worker.getEmail());
-    this.role.setValue(worker.getRole().toString());
-    if(worker.getRole()==EmployeeRole.MAIN_MANAGER){
-      this.role.setValue("Main Manager");
-    }else if(worker.getRole()==EmployeeRole.PROJECT_MANAGER){
-      this.role.setValue("Project Manager");
-    }else if(worker.getRole()==EmployeeRole.WORKER){
-      this.role.setValue("Worker");
-    } else{
-      this.role.setValue(worker.getRole().toString());
-    }
+    this.role.setValue(worker.getRoleString());
     this.phoneNumber.setValue(worker.getPhoneNumber());
     this.dob.setValue(worker.getDob());
   }
