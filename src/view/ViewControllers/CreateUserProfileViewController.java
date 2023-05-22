@@ -204,7 +204,7 @@ public class CreateUserProfileViewController extends ViewControllerWithNavigatio
         roleL.getItems().add("Main Manager");
         roleL.getItems().add("Project Manager");
         roleL.getItems().add("Worker");
-        roleL.setValue("HR");
+        roleL.getItems().add("HR");
     }
 
     public void backButtonClick(){
