@@ -6,29 +6,28 @@ import model.Model;
 import model.Tag;
 import model.TagList;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class DeleteTagsViewModel implements ViewModel, PropertyChangeListener {
+public class DeleteTagsViewModel extends ViewModelWithNavigationMenu {
 
     private TagList allTags;
-    private Model model;
-    private BooleanProperty notification;
-
 
     public DeleteTagsViewModel(Model model) {
-        this.model = model;
+        super(model);
         notification = new SimpleBooleanProperty(false);
 
-        load();
     }
 
     public void reset() {
+        super.reset();
         load();
     }
 
     public void load() {
+        super.load();
         allTags = model.getAllTags();
     }
 
@@ -44,16 +43,9 @@ public class DeleteTagsViewModel implements ViewModel, PropertyChangeListener {
         return model;
     }
 
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("notification")) {
-            notification.setValue(true);
-        }
+        super.propertyChange(evt);
     }
 
 

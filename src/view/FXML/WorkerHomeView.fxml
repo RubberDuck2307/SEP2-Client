@@ -272,7 +272,7 @@
                                                         </Label>
                                                         <TableView fx:id="notificationTable" prefHeight="338.0" prefWidth="1018.0" styleClass="notificationTable">
                                                             <columns>
-                                                                <TableColumn fx:id="messageNotificationColumn" prefWidth="433.59997403621674" styleClass="notificationTable" text="Message" />
+                                                                <TableColumn fx:id="messageNotificationColumn" maxWidth="1.7976931348623157E308" minWidth="433.59997403621674" prefWidth="-1.0" styleClass="notificationTable" text="Message" />
                                                 <TableColumn fx:id="deleteNotificationColumn" minWidth="0.0" prefWidth="48.000091552734375" styleClass="notificationTable" />
                                                             </columns>
                                                         </TableView>

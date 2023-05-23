@@ -11,21 +11,18 @@ import model.*;
 import viewmodel.ProjectView.ProjectsTable;
 import viewmodel.TaskView.TasksTable;
 import viewmodel.ViewModel;
+import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
 import javax.swing.text.html.ImageView;
+import java.beans.PropertyChangeEvent;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ProjectManagerHomeViewModel implements ViewModel
+public class ProjectManagerHomeViewModel extends ViewModelWithNavigationMenu
 {
-  private Model model;
-  private ViewState viewState;
-  private ObjectProperty<Employee> employee;
-  private ObjectProperty<Image> avatarPic;
-  private StringProperty employeeName;
-  private StringProperty employeeWorkingNumber;
+
   private StringProperty managerName;
   private StringProperty managerRole;
   private StringProperty managerDateOfBirth;
@@ -34,32 +31,18 @@ public class ProjectManagerHomeViewModel implements ViewModel
   private StringProperty workerName2;
 
   private ObservableList<WorkersTable> workersTables;
-  private StringProperty name;
-  private IntegerProperty number;
-  private StringProperty email;
   private EmployeeList employeeList;
 
   private ObservableList<ProjectsTable> currentProjectsTable;
-  private StringProperty projectTitle;
-  private StringProperty projectDeadline;
   private ProjectList projectList;
 
-  private ObservableList<NotificationTable> notificationTable;
-  private StringProperty message;
-  private ArrayList<String> notificationList;
 
-  public ProjectManagerHomeViewModel(Model model, ViewState viewState)
+  private ObservableList<NotificationTable> notificationList;
+
+  public ProjectManagerHomeViewModel(Model model)
   {
-    this.employeeName=new SimpleStringProperty();
-    this.employeeWorkingNumber=new SimpleStringProperty();
-    this.employee=new SimpleObjectProperty<>();
-    this.avatarPic=new SimpleObjectProperty<>();
-    this.model = model;
-    this.viewState = viewState;
+    super(model);
     this.workersTables = FXCollections.observableArrayList();
-    this.name = new SimpleStringProperty();
-    this.number = new SimpleIntegerProperty();
-    this.email = new SimpleStringProperty();
     this.workerName2 = new SimpleStringProperty();
 
     this.managerName = new SimpleStringProperty();
@@ -69,12 +52,7 @@ public class ProjectManagerHomeViewModel implements ViewModel
     this.managerEmail = new SimpleStringProperty();
 
     this.currentProjectsTable = FXCollections.observableArrayList();
-    this.projectDeadline = new SimpleStringProperty();
-    this.projectTitle = new SimpleStringProperty();
-
-    this.notificationTable = FXCollections.observableArrayList();
-    this.message = new SimpleStringProperty();
-    this.notificationList = new ArrayList<>();
+    this.notificationList = FXCollections.observableArrayList();
   }
   public void headline()
   {
@@ -92,21 +70,18 @@ public class ProjectManagerHomeViewModel implements ViewModel
 
 
   public void reset(){
+    super.reset();
     load();
   }
   public void load()
   {
-    employee.setValue(model.getUser());
-    setAvatarPicture();
-    employeeName.setValue(model.getUser().getName());
-
-    employeeWorkingNumber.setValue(model.getUser().getWorkingNumber().toString());
+    super.load();
 
     Employee employee = model.getUser();
     managerName.setValue(employee.getName());
     managerEmail.setValue(employee.getEmail());
     managerPhoneNumber.setValue(employee.getPhoneNumber());
-    managerRole.setValue(employee.getRole().toString());
+    managerRole.setValue(employee.getRoleString());
     managerDateOfBirth.setValue(employee.getDob().toString());
 
     projectList = model.getAllProjectsByWorkingNumber(employee.getWorkingNumber());
@@ -122,22 +97,25 @@ public class ProjectManagerHomeViewModel implements ViewModel
       currentProjectsTable.add(new ProjectsTable(projectList.get(i)));
     }
     headline();
-    notificationList.add("aaa");
-    notificationList.add("sss");
-    notificationTable.clear();
-    for (int i = 0; i < notificationList.size(); i++)
-    {
-      notificationTable.add(new NotificationTable(notificationList.get(i)));
-    }
+    getNotifications();
 
   }
+
+  private void getNotifications(){
+    notificationList.clear();
+    IdObjectList<AssignedToProjectNotification> notifications = model.getAssignedToProjectNotification(model.getUser().getWorkingNumber());
+    for (int i = notifications.size() -1; i >= 0; i--)
+    {
+      notificationList.add(new NotificationTable(notifications.get(i)));
+    }
+  }
+
   public void deleteNotification(String message){
-    //model.deleteTag(tag.getId());
     System.out.println("delete " + message);
   }
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
   public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}
-  public ObservableList<NotificationTable> getNotificationTable(){return notificationTable;}
+
 
 
   public String getManagerName()
@@ -199,42 +177,15 @@ public class ProjectManagerHomeViewModel implements ViewModel
   {
     return managerEmail;
   }
-  public boolean isProjectManagerWoman(){
-    Employee employeeManager = viewState.getEmployee();
-    return Objects.equals(employeeManager.getGender(), "F");
-  }
 
-  public StringProperty getEmployeeName()
-  {
-    return employeeName;
-  }
-
-  public StringProperty getEmployeeWorkingNumber()
-  {
-    return employeeWorkingNumber;
-  }
-  public ObjectProperty<Employee> employeePropertyProperty() {
-    return employee;
-  }
-  public Employee getEmployeeProperty() {
-    return employee.get();
-  }
-
-
-
-  public ObjectProperty<Image> avatarPicProperty()
-  {
-    return avatarPic;
-  }
-  public boolean isWoman(){
-    return Objects.equals(employee.getValue().getGender(), "F");
-  }
-  public void setAvatarPicture(){
-    if(isWoman()){
-      avatarPic.setValue(new Image("/icons/woman-avatar.png"));
+  public void propertyChange(PropertyChangeEvent evt){
+    if (evt.getPropertyName().equals("notification")){
+      getNotifications();
     }
-    else{
-      avatarPic.setValue(new Image("/icons/man-avatar.png"));
-    }
+    super.propertyChange(evt);
+  }
+
+  public ObservableList<NotificationTable> getNotificationList() {
+    return notificationList;
   }
 }

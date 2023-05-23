@@ -13,6 +13,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The class is handling the communication with server.
+ * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
+ * @version 1.0 - May 2023
+ */
 public class Client implements ClientInterface, RemoteListener<String, String> {
 
     private RemoteModel model;
@@ -23,6 +28,34 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
         model = (RemoteModel) Naming.lookup("rmi://localhost:1099/Case");
         UnicastRemoteObject.exportObject(this, 0);
         this.listenerHandler = new ListenerHandler(model, this);
+    }
+
+
+    @Override
+    public IdObjectList<ForgottenPasswordNotification> getForgottenPasswordNotification() {
+        try {
+            return model.getForgottenPasswordNotification();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public IdObjectList<AssignedToTaskNotification> getAssignedToTaskNotification(Integer workingNumber) {
+        try {
+            return model.getAssignedToTaskNotification(workingNumber);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public IdObjectList<AssignedToProjectNotification> getAssignedToProjectNotification(Integer workingNumber) {
+        try {
+            return model.getAssignedToProjectNotification(workingNumber);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -132,7 +165,7 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
     public Employee login(UserProfile userProfile) {
         try {
             Employee employee = model.login(userProfile);
-            listenerHandler.addListener(employee);
+            listenerHandler.addServerListener(employee);
             return employee;
         } catch (RemoteException e) {
             throw new RuntimeException(e);
@@ -281,7 +314,19 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
+    public void deleteProjectById(Long id)
+    {
+        try
+        {
+            model.deleteProjectById(id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
     @Override
     public void updateProject(Project project) {
         try {
@@ -324,7 +369,19 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
+    public void deleteTaskById(Long id)
+    {
+        try
+        {
+            model.deleteTaskById(id);
+        }
+        catch (RemoteException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
     @Override
     public void assignWorkerToManager(int managerNumber,
                                       int workerNumber) {
@@ -442,6 +499,6 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
 
     public void logOut(){
 
-            listenerHandler.removeListener();
+            listenerHandler.removeServerListener();
     }
 }

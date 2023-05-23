@@ -17,6 +17,22 @@ public class ModelManager implements Model {
         this.client = client;
     }
 
+
+    @Override
+    public IdObjectList<ForgottenPasswordNotification> getForgottenPasswordNotification() {
+        return client.getForgottenPasswordNotification();
+    }
+
+    @Override
+    public IdObjectList<AssignedToTaskNotification> getAssignedToTaskNotification(Integer workingNumber) {
+        return client.getAssignedToTaskNotification(workingNumber);
+    }
+
+    @Override
+    public IdObjectList<AssignedToProjectNotification> getAssignedToProjectNotification(Integer workingNumber) {
+        return client.getAssignedToProjectNotification(workingNumber);
+    }
+
     @Override
     public Long saveTag(Tag tag) {
         return client.saveTag(tag);
@@ -128,7 +144,12 @@ public class ModelManager implements Model {
     public Long saveProject(Project project) {
         return client.saveProject(project);
     }
-
+    @Override
+    public void deleteProjectById(Long id)
+    {
+        client.deleteProjectById(id);
+    }
+    
     @Override
     public void updateProject(Project project) {
         client.updateProject(project);
@@ -152,7 +173,12 @@ public class ModelManager implements Model {
     public Long saveTask(Task task) {
         return client.saveTask(task);
     }
-
+    @Override
+    public void deleteTaskById(Long id)
+    {
+        client.deleteTaskById(id);
+    }
+    
     @Override
     public void assignWorkerToManager(int managerNumber, int workerNumber) {
         client.assignWorkerToManager(managerNumber, workerNumber);

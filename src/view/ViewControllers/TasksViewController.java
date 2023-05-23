@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import model.EmployeeRole;
+import model.Project;
 import model.Tag;
 import model.Task;
 import view.ViewController;
@@ -47,7 +48,7 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
     @FXML
     private TableView<TasksTable> taskTable;
     @FXML
-    public TableColumn<TasksTable, String> delete;
+    public TableColumn delete;
     @FXML
     public TableColumn<TasksTable, Button> edit;
     @FXML
@@ -94,11 +95,26 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
         hBoxForTags.setVisible(false);
 
         this.viewModel.isTaskSelectedProperty().addListener(((observable, oldValue, newValue) -> {
-            if (((TasksViewModel) viewModel).getEmployee().getRole().equals(EmployeeRole.PROJECT_MANAGER)) {
-                assignWorkerButton.setVisible(newValue);
-                hBoxForTags.setVisible(newValue);
-                fillInTags();
+          EmployeeRole role= this.viewModel.getEmployee().getRole();
+
+          switch(role){
+            case PROJECT_MANAGER -> {
+              assignWorkerButton.setVisible(newValue);
+              hBoxForTags.setVisible(newValue);
+              fillInTags();
             }
+            case MAIN_MANAGER -> {
+              hBoxForTags.setVisible(newValue);
+              fillInTags();
+            }
+            case WORKER -> {
+              hBoxForTags.setVisible(newValue);
+              fillInTags();
+            }
+            case HR -> {
+
+            }
+          }
         }));
 
         taskTables = FXCollections.observableArrayList();
@@ -139,6 +155,10 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
         PropertyValueFactory<TasksTable, Button> statusButton = new PropertyValueFactory("statusButton");
         status.setCellValueFactory(statusButton);
         status.setStyle("-fx-alignment: CENTER;");
+        
+        PropertyValueFactory<TasksTable, Button> buttonDelete = new PropertyValueFactory("buttonDelete");
+        delete.setCellValueFactory(buttonDelete);
+        delete.setStyle("-fx-alignment: CENTER;");
 
         taskTable.setItems(taskTables);
     }
@@ -149,17 +169,41 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
             Task task=this.viewModel.getTasks().get(i);
             taskTables.add(new TasksTable(task));
             Button button1 = new Button("");
+            Button button2 = new Button("");
             Button statusButton = createStatusButton(this.viewModel.getTasks().get(i));
             button1.setId("button-edit");
+            button2.setId("delete-button");
             button1.setOnAction(e -> {
                 taskButtonTableClick(task.getId());
                 viewHandler.openView("editTask");
             });
+            button2.setOnAction(e -> {
+                alertWindow(task);
+            });
             taskTables.get(i).setBtton(button1);
+            taskTables.get(i).setButtonDelete(button2);
             taskTables.get(i).setStatusButton(statusButton);
         }
-        System.out.println(taskTables.size());
 
+
+    }
+    
+    private void alertWindow(Task task)
+    {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Deleting Task");
+        alert.setHeaderText("Are you sure you want to delete the task " + task.getName() + " ?");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK)
+        {
+            delete(task);
+        }
+    }
+    
+    public void delete(Task task)
+    {
+        viewModel.delete(task);
+        reset();
     }
 
     private void fillInTags()
@@ -221,24 +265,27 @@ public class TasksViewController extends ViewControllerWithNavigationMenu
                 edit.setVisible(false);
                 addButton.setVisible(false);
                 deleteTags.setVisible(false);
+                delete.setVisible(false);
 
             }
             case MAIN_MANAGER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
                 deleteTags.setVisible(false);
+                delete.setVisible(false);
 
             }
             case PROJECT_MANAGER -> {
                 edit.setVisible(true);
                 addButton.setVisible(true);
                 deleteTags.setVisible(true);
-
+                delete.setVisible(true);
             }
             case WORKER -> {
                 edit.setVisible(false);
                 addButton.setVisible(false);
                 deleteTags.setVisible(false);
+                delete.setVisible(false);
 
             }
         }

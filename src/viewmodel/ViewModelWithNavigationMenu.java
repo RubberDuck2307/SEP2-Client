@@ -7,6 +7,7 @@ import model.Model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class ViewModelWithNavigationMenu implements ViewModel, PropertyChangeListener {
@@ -38,8 +39,8 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
     }
 
     public void reset() {
-        notification.setValue(false);
 
+        notification.setValue(false);
     }
 
     public void load(){
@@ -47,8 +48,31 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
         employeeName.setValue(employee.getValue().getName());
         employeeWorkingNumber.setValue(employee.getValue().getWorkingNumber().toString());
         setAvatarPicture();
+
     }
 
+    private void setNotification(){   //This method is not important now. It will be used later if deleting notes is ever implemented.
+        notification.setValue(false);
+        int notificationsSize = 0;
+        switch (employee.getValue().getRole()){
+            case HR:
+                notificationsSize = model.getForgottenPasswordNotification().size();
+                break;
+            case WORKER:
+                notificationsSize = model.getAssignedToTaskNotification(employee.getValue().getWorkingNumber()).size();
+                break;
+            case PROJECT_MANAGER:
+                notificationsSize = model.getAssignedToProjectNotification(employee.getValue().getWorkingNumber()).size();
+                break;
+        }
+        if (notificationsSize > 0){
+            notification.setValue(true);
+
+        }
+        else {
+            notification.setValue(false);
+        }
+    };
     public ObjectProperty<Image> avatarPicProperty() {
         return avatarPic;
     }

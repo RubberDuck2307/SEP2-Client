@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
  * @version 1.0 - May 2023
  */
-public class Employee implements Serializable {
+public class Employee implements Serializable, IdObject {
     /**
      * The working number of the employee.
      */
@@ -179,5 +179,31 @@ public class Employee implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
+    }
+
+    /**
+     * @return String representation of the role of the employee.
+     */
+    public String getRoleString(){
+        switch (role){
+            case PROJECT_MANAGER -> {
+                return "Project Manager";
+            }
+            case MAIN_MANAGER -> {
+                return "Main Manager";
+            }
+            case WORKER -> {
+                return "Worker";
+            }
+            case HR -> {
+                return "HR";
+            }
+        }
+        throw new RuntimeException("Employee role is not valid");
+    }
+
+    @Override
+    public Long getId() {
+        return null;
     }
 }

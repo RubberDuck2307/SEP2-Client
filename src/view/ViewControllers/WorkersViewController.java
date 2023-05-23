@@ -171,18 +171,22 @@ public class WorkersViewController extends ViewControllerWithNavigationMenu
       case WORKER -> {
         edit.setVisible(false);
         createNewProfileButton.setVisible(false);
+        delete.setVisible(false);
       }
       case HR -> {
         edit.setVisible(true);
         createNewProfileButton.setVisible(true);
+        delete.setVisible(true);
       }
       case PROJECT_MANAGER -> {
         edit.setVisible(false);
         createNewProfileButton.setVisible(false);
+        delete.setVisible(false);
       }
       case MAIN_MANAGER -> {
         edit.setVisible(false);
         createNewProfileButton.setVisible(false);
+        delete.setVisible(false);
       }
     }
 

@@ -1,40 +1,43 @@
 package viewmodel.WorkerView;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Button;
-import model.Employee;
+import model.*;
 
-public class NotificationTable
-{
+public class NotificationTable implements IdObject {
+    private StringProperty text;
+    private Long id;
 
-  private StringProperty message;
-  private Button button;
-  public NotificationTable(String message){
-    this.message = new SimpleStringProperty(message);
-  }
+    public NotificationTable(String text, Long id) {
+        this.text = new SimpleStringProperty(text);;
+        this.id = id;
+    }
 
+    public NotificationTable(AssignedToProjectNotification notification) {
+        this.text = new SimpleStringProperty();
+        this.text.set( "You have been assigned to project " + notification.getProjectName());
+    }
 
-  public Button getButton()
-  {
-    return button;
-  }
+    public NotificationTable(AssignedToTaskNotification notification){
+        this.text = new SimpleStringProperty();
+        this.text.set( "You have been assigned to task " + notification.getTaskName());
+    }
 
-  public void setButton(Button button)
-  {
-    this.button = button;
-  }
+    public NotificationTable(ForgottenPasswordNotification notification) {
+        this.text = new SimpleStringProperty();
+        this.text.set( "User with working number " + notification.getWorkingNumber() + " has requested a password reset.");
+    }
 
-  public String getMessage()
-  {
-    return message.get();
-  }
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-  public StringProperty messageProperty()
-  {
-    return message;
-  }
+    public String getText() {
+        return text.get();
+    }
+
+    public StringProperty textProperty() {
+        return text;
+    }
 }

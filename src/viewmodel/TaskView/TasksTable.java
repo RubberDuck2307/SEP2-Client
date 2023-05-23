@@ -19,6 +19,7 @@ public class TasksTable
     private Long id;
     private StringProperty tags;
     private Button btton;
+    private Button buttonDelete;
 
 
 
@@ -28,7 +29,7 @@ public class TasksTable
         setDeadline(task.getDeadline());
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
-        System.out.println("");
+        //System.out.println("");
         setEstimatedTime(task.getEstimatedTime());
         this.id=task.getId();
     }
@@ -154,5 +155,13 @@ public class TasksTable
     public ObservableValue<String> getStatusProperty()
     {
         return status;
+    }
+    public Button getButtonDelete()
+    {
+        return buttonDelete;
+    }
+    public void setButtonDelete(Button buttonDelete)
+    {
+        this.buttonDelete = buttonDelete;
     }
 }

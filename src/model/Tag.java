@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Tag implements Serializable
+public class Tag implements Serializable, IdObject
 {
 
     private String name;

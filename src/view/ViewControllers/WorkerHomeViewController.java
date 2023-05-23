@@ -52,8 +52,6 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
     private WorkerHomeViewModel viewModel;
   @FXML public TableView<NotificationTable> notificationTable;
   @FXML public TableColumn<NotificationTable, String> messageNotificationColumn;
-  @FXML public TableColumn<NotificationTable, Button> deleteNotificationColumn;
-  private ObservableList<NotificationTable> notificationTables;
   @FXML private TableColumn<TasksTableForWorkerProfile, String>  taskPriority;
   @FXML private Label workerName2;
   @FXML private Label workerRole;
@@ -77,16 +75,10 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
 
 
       messageNotificationColumn.setCellValueFactory(
-              cellData -> cellData.getValue().messageProperty());
-      notificationTable.setItems(((WorkerHomeViewModel) viewModel).getNotificationTable());
+              cellData -> cellData.getValue().textProperty());
+      notificationTable.setItems(((WorkerHomeViewModel) viewModel).getNotificationList());
 
-      PropertyValueFactory<NotificationTable, Button> button = new PropertyValueFactory("button");
-      deleteNotificationColumn.setCellValueFactory(button);
-      deleteNotificationColumn.setStyle("-fx-alignment: CENTER;");
 
-      notificationTables = FXCollections.observableArrayList();
-      fillInTasksTable();
-      notificationTable.setItems(notificationTables);
 
 
         setWindow(this.viewModel.getEmployee().getRole());
@@ -121,20 +113,7 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
         workerManagers.textProperty().bindBidirectional(this.viewModel.workerManagersProperty());
     }
 
-  private void fillInTasksTable() {
-    notificationTables.clear();
-    for (int i = 0; i < this.viewModel.getNotificationTable().size(); i++) {
-      notificationTables.add(new NotificationTable(this.viewModel.getNotificationTable().get(i).getMessage()));
-      Button button1 = new Button("");
-      button1.setId("delete-button");
 
-      int index =  i;
-      button1.setOnAction(e -> {
-        delete(viewModel.getNotificationTable().get(index).getMessage());
-      });
-      notificationTables.get(i).setButton(button1);
-    }
-  }
   private void delete(String message){
     viewModel.deleteNotification(message);
     reset();

@@ -71,7 +71,7 @@ public class ViewModelFactory
         this.editProfileViewModel = new EditProfileViewModel(model,viewState);
         this.deleteTagsViewModel = new DeleteTagsViewModel(model);
         this.forgotPasswordViewModel = new ForgotPasswordViewModel(model);
-        this.projectManagerHomeViewModel = new ProjectManagerHomeViewModel(model, viewState);
+        this.projectManagerHomeViewModel = new ProjectManagerHomeViewModel(model);
         this.hrHomeViewModel = new HrHomeViewModel(model, viewState);
         this.mainManagerHomeViewModel = new MainManagerHomeViewModel(model, viewState);
     }

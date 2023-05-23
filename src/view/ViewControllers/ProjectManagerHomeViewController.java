@@ -26,12 +26,12 @@ import viewmodel.WorkerView.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ProjectManagerHomeViewController implements ViewController
+public class ProjectManagerHomeViewController extends ViewControllerWithNavigationMenu
 {
   @FXML public TableView<NotificationTable> notificationTable;
   @FXML public TableColumn<NotificationTable, String> messageNotificationColumn;
   @FXML public TableColumn<NotificationTable, Button> deleteNotificationColumn;
-  @FXML private ObservableList<NotificationTable> notificationTables;
+
   @FXML private Label workerName2;
 
   @FXML private ImageView avatarPic;
@@ -58,7 +58,7 @@ public class ProjectManagerHomeViewController implements ViewController
   @FXML private Label employeeName;
   @FXML private Label employeeWorkingNumber;
 
-
+@FXML private ImageView bellImage;
   private Region root;
   private ProjectManagerHomeViewModel viewModel;
   private ViewHandler viewHandler;
@@ -70,70 +70,59 @@ public class ProjectManagerHomeViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (ProjectManagerHomeViewModel) viewModel;
     this.viewModel.load();
-    employeeName.textProperty().bindBidirectional(this.viewModel.getEmployeeName());
+    super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName, employeeWorkingNumber, projectHBox );
 
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-    employeeWorkingNumber.textProperty().bindBidirectional(this.viewModel.getEmployeeWorkingNumber());
+    bind();
+
+    setWorkerTable();
+    setProjectTable();
+    setNotificationTable();
+
+
+
+    workerName2.textProperty()
+        .bindBidirectional(this.viewModel.workerName2Property());
+
+    setWindow(this.viewModel.getEmployee().getRole());
+
+
+
+
+  }
+
+  private void setWorkerTable(){
+    workerName.setCellValueFactory(
+            cellData -> cellData.getValue().getNameProperty());
+    workerNumber.setCellValueFactory(
+            cellData -> cellData.getValue().getNumberProperty());
+    workerEmail.setCellValueFactory(
+            cellData -> cellData.getValue().getEmailProperty());
+    assignWorkersTable.setItems( viewModel.getWorkersTable());
+  }
+
+  private void setNotificationTable(){
+    messageNotificationColumn.setCellValueFactory(
+            cellData -> cellData.getValue().textProperty());
+    notificationTable.setItems( viewModel.getNotificationList());
+  }
+
+  private void setProjectTable(){
+    projectDeadline.setCellValueFactory(
+            cellData -> cellData.getValue().deadlineProperty());
+    projectTitle.setCellValueFactory(
+            cellData -> cellData.getValue().titleProperty());
+    currentProjectsTable.setItems( viewModel.getCurrentProjectsTableTable());
+  }
+
+  private void bind(){
     managerName.textProperty().bindBidirectional(this.viewModel.managerNameProperty());
     managerEmail.textProperty().bindBidirectional(this.viewModel.managerEmailProperty());
     managerDateOfBirth.textProperty().bindBidirectional(this.viewModel.managerDateOfBirthProperty());
     managerRole.textProperty().bindBidirectional(this.viewModel.managerRoleProperty());
     managerPhoneNumber.textProperty().bindBidirectional(this.viewModel.managerPhoneNumberProperty());
-    workerName.setCellValueFactory(
-        cellData -> cellData.getValue().getNameProperty());
-    workerNumber.setCellValueFactory(
-        cellData -> cellData.getValue().getNumberProperty());
-    workerEmail.setCellValueFactory(
-        cellData -> cellData.getValue().getEmailProperty());
-    assignWorkersTable.setItems(((ProjectManagerHomeViewModel) viewModel).getWorkersTable());
-
-    messageNotificationColumn.setCellValueFactory(
-        cellData -> cellData.getValue().messageProperty());
-    notificationTable.setItems(((ProjectManagerHomeViewModel) viewModel).getNotificationTable());
-
-    projectDeadline.setCellValueFactory(
-        cellData -> cellData.getValue().deadlineProperty());
-    projectTitle.setCellValueFactory(
-        cellData -> cellData.getValue().titleProperty());
-    currentProjectsTable.setItems(((ProjectManagerHomeViewModel) viewModel).getCurrentProjectsTableTable());
-    workerName2.textProperty()
-        .bindBidirectional(this.viewModel.workerName2Property());
-    this.viewModel.employeePropertyProperty().addListener((observable, oldValue, newValue) -> {
-      setWindow(((Employee) newValue).getRole());
-    });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
-
-
-    PropertyValueFactory<NotificationTable, Button> button = new PropertyValueFactory("button");
-    deleteNotificationColumn.setCellValueFactory(button);
-    deleteNotificationColumn.setStyle("-fx-alignment: CENTER;");
-
-
-    this.viewModel.employeePropertyProperty()
-        .addListener((observable, oldValue, newValue) -> {
-          setWindow(((Employee) newValue).getRole());
-        });
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
-
-    notificationTables = FXCollections.observableArrayList();
-    fillInTasksTable();
-    notificationTable.setItems(notificationTables);
   }
 
-  private void fillInTasksTable() {
-    notificationTables.clear();
-    for (int i = 0; i < this.viewModel.getNotificationTable().size(); i++) {
-      notificationTables.add(new NotificationTable(this.viewModel.getNotificationTable().get(i).getMessage()));
-      Button button1 = new Button("");
-      button1.setId("delete-button");
 
-      int index =  i;
-      button1.setOnAction(e -> {
-        delete(viewModel.getNotificationTable().get(index).getMessage());
-      });
-      notificationTables.get(i).setButton(button1);
-    }
-  }
   private void delete(String message){
     viewModel.deleteNotification(message);
     reset();
@@ -147,16 +136,7 @@ public class ProjectManagerHomeViewController implements ViewController
   @Override
   public void reset() {
     viewModel.reset();
-    setWindow(this.viewModel.getEmployeeProperty().getRole());
-  }
-
-  public void openWorkersView()
-  {
-    viewHandler.openView("workers");
-  }
-  public void openProjects()
-  {
-    viewHandler.openView("projects");
+    setWindow(this.viewModel.getEmployee().getRole());
   }
 
 
@@ -164,51 +144,9 @@ public class ProjectManagerHomeViewController implements ViewController
   {
   }
 
-  public void goBackButton()
-  {
-    viewHandler.openLastWindow();
-  }
-  public void openHome()
-  {
-    EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
-    switch (role) {
-      case WORKER -> {
-        viewHandler.openView("workerHomePage");
-      }
-      case HR -> {
-        viewHandler.openView("home");
-      }
-      case PROJECT_MANAGER -> {
-        viewHandler.openView("home");
-      }
-      case MAIN_MANAGER -> {
-        viewHandler.openView("home");
-      }
-    }
-  }
-  private void setWindow(EmployeeRole employeeRole) {
-    switch (employeeRole) {
-      case WORKER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-      }
-      case HR -> {
-        projectHBox.setVisible(false);
-        projectHBox.setManaged(false);
 
-      }
-      case PROJECT_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-
-      }
-      case MAIN_MANAGER -> {
-        projectHBox.setVisible(true);
-        projectHBox.setManaged(true);
-
-      }
-    }
-
+  protected void setWindow(EmployeeRole employeeRole) {
+    super.setWindow(employeeRole);
   }
 
   @FXML public void assign(){

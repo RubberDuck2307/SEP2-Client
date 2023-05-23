@@ -2,12 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.WorkersViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.WorkersViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -174,38 +172,6 @@
                             <children>
                                 <VBox prefHeight="539.0" prefWidth="1039.0">
                                     <children>
-                                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="1039.0">
-                                            <children>
-                                                <Label layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="74.0" styleClass="heading-3" text="Filter by">
-                                                    <HBox.margin>
-                                                        <Insets />
-                                                    </HBox.margin>
-                                                </Label>
-                                                <ChoiceBox layoutX="96.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="0.0" styleClass="input-select">
-                                                    <HBox.margin>
-                                                        <Insets top="15.0" />
-                                                    </HBox.margin>
-                                                </ChoiceBox>
-                                                <Label prefHeight="64.0" prefWidth="45.0" styleClass="heading-3" text="Text">
-                                                    <HBox.margin>
-                                                        <Insets left="20.0" />
-                                                    </HBox.margin>
-                                                </Label>
-                                                <TextField prefHeight="38.0" prefWidth="256.0" styleClass="input-select">
-                                                    <HBox.margin>
-                                                        <Insets top="15.0" />
-                                                    </HBox.margin>
-                                                </TextField>
-                                                <Button maxHeight="53.0" maxWidth="57.0" minHeight="15.0" minWidth="23.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="23.0" styleClass="button-back">
-                                                    <HBox.margin>
-                                                        <Insets left="7.0" top="17.0" />
-                                                    </HBox.margin>
-                                                </Button>
-                                            </children>
-                                            <VBox.margin>
-                                                <Insets top="20.0" />
-                                            </VBox.margin>
-                                        </HBox>
                                         <HBox prefHeight="566.0" prefWidth="1039.0">
                                             <children>
                                                 <TableView fx:id="workerTable" onMousePressed="#workerTableClick" prefHeight="545.0" prefWidth="1040.0" styleClass="side-menu-icon-projects">
@@ -215,8 +181,11 @@
                                                         <TableColumn fx:id="workingNumber" minWidth="0.0" prefWidth="145.0" text="Working number" />
                                                         <TableColumn fx:id="email" minWidth="0.0" prefWidth="231.0" text="E-mail" />
                                           <TableColumn fx:id="edit" minWidth="0.0" prefWidth="124.0" text="Edit" />
-                                          <TableColumn fx:id="delete" prefWidth="187.0" text="Delete" />
+                                          <TableColumn fx:id="delete" prefWidth="108.7999267578125" text="Delete" />
                                                     </columns>
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
                                                 </TableView>
                                             </children>
                                         </HBox>

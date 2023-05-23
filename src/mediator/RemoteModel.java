@@ -8,14 +8,26 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface RemoteModel extends RemoteSubject<String, String>{
+public interface RemoteModel extends RemoteSubject<String, String> {
+
+    IdObjectList<ForgottenPasswordNotification> getForgottenPasswordNotification() throws RemoteException;
+
+    IdObjectList<AssignedToTaskNotification> getAssignedToTaskNotification(Integer workingNumber) throws RemoteException;
+
+    IdObjectList<AssignedToProjectNotification> getAssignedToProjectNotification(Integer workingNumber) throws RemoteException;
 
     Long saveTag(Tag tag) throws RemoteException;
+
     TagList getAllTags() throws RemoteException;
+
     TagList getTagsOfTask(Long taskId) throws RemoteException;
+
     void addTagToTask(Long taskId, Long tagId) throws RemoteException;
+
     void removeTagFromTask(Long taskId, Long tagId) throws RemoteException;
+
     Tag getTag(Long tagId) throws RemoteException;
+
     void deleteTag(Long id) throws RemoteException;
 
     TaskList getAllTasksOfProject(Long id) throws RemoteException;
@@ -23,6 +35,9 @@ public interface RemoteModel extends RemoteSubject<String, String>{
     ProjectList getAllProjectsByWorkingNumber(Integer workingNumber) throws RemoteException;
 
     Long saveTask(Task task) throws RemoteException;
+
+    void deleteTaskById(Long id) throws RemoteException;
+
     boolean addForgetPasswordNotification(Integer workingNumber) throws RemoteException;
 
     ProjectList getAllProjects() throws RemoteException;
@@ -30,6 +45,7 @@ public interface RemoteModel extends RemoteSubject<String, String>{
     void changeTaskStatus(Long taskId, String status) throws RemoteException;
 
     Long saveProject(Project project) throws RemoteException;
+    void deleteProjectById(Long id)  throws RemoteException;
 
     void unassignEmployeesFromTask(ArrayList<Integer> employeeWorkingNumbers, Long TaskID) throws RemoteException;
 
@@ -68,6 +84,7 @@ public interface RemoteModel extends RemoteSubject<String, String>{
     void updateProject(Project project) throws RemoteException;
 
     String hello() throws RemoteException;
+
     NoteList getAllNotesSavedByEmployee(Integer workingNumber) throws RemoteException;
 
     void updateTask(Task task) throws RemoteException;
@@ -83,8 +100,12 @@ public interface RemoteModel extends RemoteSubject<String, String>{
     TaskList getAllTasksByUserId(Integer workingNumber) throws RemoteException;
 
     EmployeeList getAllWorkersManagersByWorkerWorkingNumber(Integer workingNumber) throws RemoteException;
+
     void updateEmployee(Employee employee) throws RemoteException;
+
     void changePassword(Employee employee, String password) throws RemoteException;
     
-    void deleteEmployeeByWorkingNumber(Integer workingNumber) throws  RemoteException;
+    void deleteEmployeeByWorkingNumber(Integer workingNumber) throws RemoteException;
+
+
 }

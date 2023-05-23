@@ -33,7 +33,7 @@ public class ProjectManagerProfileViewController extends ViewControllerWithNavig
   @FXML
   private HBox projectHBox;
   @FXML private Label employeeName;
-    @FXML private Label employeeWorkingNumber;
+  @FXML private Label employeeWorkingNumber;
   @FXML private Label managerName;
   @FXML private Label managerRole;
   @FXML private Label managerDateOfBirth;
@@ -67,6 +67,7 @@ public class ProjectManagerProfileViewController extends ViewControllerWithNavig
     this.viewModel.load();
     super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName, employeeWorkingNumber, projectHBox);
 
+    bind();
     setWorkerTable();
     setProjectTable();
 

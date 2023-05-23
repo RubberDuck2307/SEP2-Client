@@ -20,7 +20,7 @@ public class WorkersTable
     this.number = new SimpleIntegerProperty(employee.getWorkingNumber());
     this.name = new SimpleStringProperty(employee.getName());
     this.email = new SimpleStringProperty(employee.getEmail());
-    this.role = new SimpleStringProperty(employee.getRole().toString());
+    this.role = new SimpleStringProperty(employee.getRoleString());
   }
 
   public int getNumber()

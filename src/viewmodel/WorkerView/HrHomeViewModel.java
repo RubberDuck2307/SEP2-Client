@@ -15,6 +15,7 @@ import viewmodel.ViewModelWithNavigationMenu;
 import viewmodel.ViewState;
 
 import javax.swing.text.html.ImageView;
+import java.beans.PropertyChangeEvent;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -32,9 +33,9 @@ public class HrHomeViewModel extends ViewModelWithNavigationMenu
 
 
 
-  private ObservableList<NotificationTable> notificationTable;
+
   private StringProperty message;
-  private ArrayList<String> notificationList;
+  private ObservableList<NotificationTable> notificationList;
 
   public HrHomeViewModel(Model model, ViewState viewState)
   {
@@ -49,9 +50,8 @@ public class HrHomeViewModel extends ViewModelWithNavigationMenu
     this.managerEmail = new SimpleStringProperty();
 
 
-    this.notificationTable = FXCollections.observableArrayList();
+    this.notificationList = FXCollections.observableArrayList();
     this.message = new SimpleStringProperty();
-    this.notificationList = new ArrayList<>();
   }
   public void headline()
   {
@@ -85,24 +85,30 @@ public class HrHomeViewModel extends ViewModelWithNavigationMenu
     managerName.setValue(employee.getName());
     managerEmail.setValue(employee.getEmail());
     managerPhoneNumber.setValue(employee.getPhoneNumber());
-    managerRole.setValue(employee.getRole().toString());
+    managerRole.setValue(employee.getRoleString());
     managerDateOfBirth.setValue(employee.getDob().toString());
 
     headline();
-    notificationList.add("aaa");
-    notificationList.add("sss");
-    notificationTable.clear();
-    for (int i = 0; i < notificationList.size(); i++)
-    {
-      notificationTable.add(new NotificationTable(notificationList.get(i)));
-    }
+
+    getNotifications();
 
   }
+
+  private void getNotifications(){
+    notificationList.clear();
+    IdObjectList<ForgottenPasswordNotification> notifications = model.getForgottenPasswordNotification();
+    for (int i = notifications.size() -1; i >= 0; i--)
+    {
+      notificationList.add(new NotificationTable(notifications.get(i)));
+    }
+    System.out.println("notificationList: " + notificationList.size());
+  }
+
   public void deleteNotification(String message){
 
     System.out.println("delete " + message);
   }
-  public ObservableList<NotificationTable> getNotificationTable(){return notificationTable;}
+  public ObservableList<NotificationTable> getNotificationList(){return notificationList;}
 
 
   public String getManagerName()
@@ -165,5 +171,13 @@ public class HrHomeViewModel extends ViewModelWithNavigationMenu
     return managerEmail;
   }
 
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    if (evt.getPropertyName().equals("notification")){
+      getNotifications();
+    }
+    super.propertyChange(evt);
+
+  }
 
 }

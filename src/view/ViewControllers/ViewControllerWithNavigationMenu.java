@@ -34,17 +34,16 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
         this.projectHBox = projectHBox;
         bind();
         addListeners();
+        viewModel.load();
     }
 
     private void addListeners() {
         this.viewModel.employeeProperty().addListener((observable, oldValue, newValue) -> {
-            setWindow(((Employee) newValue).getRole());
+            setWindow(newValue.getRole());
         });
 
         this.viewModel.notificationProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal) {
-                this.bellImage.setVisible(true);
-            }
+            this.bellImage.setVisible(newVal);
         });
     }
 
@@ -69,13 +68,13 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
                 viewHandler.openView("workerHomePage");
             }
             case HR -> {
-                viewHandler.openView("home");
+                viewHandler.openView("hrHomePage");
             }
             case PROJECT_MANAGER -> {
-                viewHandler.openView("home");
+                viewHandler.openView("projectManagerHomePage");
             }
             case MAIN_MANAGER -> {
-                viewHandler.openView("home");
+                viewHandler.openView("mainManagerHomePage");
             }
         }
     }

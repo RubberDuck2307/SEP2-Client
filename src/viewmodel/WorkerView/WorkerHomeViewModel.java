@@ -25,9 +25,8 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
     private StringProperty taskProjectName;
     private TaskList taskList;
     private final StringProperty workerName;
-    private ObservableList<NotificationTable> notificationTable;
     private StringProperty message;
-    private ArrayList<String> notificationList;
+    private ObservableList<NotificationTable> notificationList;
 
     private StringProperty workerName2;
     private StringProperty workerRole;
@@ -54,9 +53,9 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
         this.taskTitle = new SimpleStringProperty();
         this.taskProjectName = new SimpleStringProperty();
 
-        this.notificationTable = FXCollections.observableArrayList();
+        this.notificationList = FXCollections.observableArrayList();
         this.message = new SimpleStringProperty();
-        this.notificationList = new ArrayList<>();
+
 
     }
 
@@ -72,7 +71,7 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
         workerName2.setValue(worker.getName());
         workerEmail.setValue(worker.getEmail());
         workerPhoneNumber.setValue(worker.getPhoneNumber());
-        workerRole.setValue(worker.getRole().toString());
+        workerRole.setValue(worker.getRoleString());
         workerDateOfBirth.setValue(worker.getDob().toString());
         headline();
 
@@ -99,11 +98,16 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
         for (int i = 0; i < taskList.size(); i++) {
             tasksTable.add(new TasksTableForWorkerProfile(taskList.getTask(i), model.getProjectById(taskList.getTask(i).getProjectId())));
         }
-        notificationList.add("aaa");
-        notificationList.add("sss");
-        notificationTable.clear();
-        for (int i = 0; i < notificationList.size(); i++) {
-            notificationTable.add(new NotificationTable(notificationList.get(i)));
+
+        getNotifications();
+    }
+
+    private void getNotifications(){
+        notificationList.clear();
+        IdObjectList<AssignedToTaskNotification> notifications = model.getAssignedToTaskNotification(model.getUser().getWorkingNumber());
+        for (int i = notifications.size() -1; i >= 0; i--)
+        {
+            notificationList.add(new NotificationTable(notifications.get(i)));
         }
 
     }
@@ -129,9 +133,6 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
         return tasksTable;
     }
 
-    public ObservableList<NotificationTable> getNotificationTable() {
-        return notificationTable;
-    }
 
     public StringProperty workerNameProperty() {
         return workerName;
@@ -151,6 +152,9 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("notification")){
+            getNotifications();
+        }
         super.propertyChange(evt);
 
     }
@@ -189,6 +193,10 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
 
     public StringProperty workerManagersProperty() {
         return workerManagers;
+    }
+
+    public ObservableList<NotificationTable> getNotificationList() {
+        return notificationList;
     }
 
     public boolean isWoman() {
