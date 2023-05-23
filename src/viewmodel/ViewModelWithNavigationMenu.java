@@ -18,6 +18,8 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
     protected StringProperty employeeName;
     protected StringProperty employeeWorkingNumber;
     protected Model model;
+    protected BooleanProperty seeTasks;
+    protected BooleanProperty seeProjects;
 
     public ViewModelWithNavigationMenu(Model model) {
         this.model = model;
@@ -47,6 +49,7 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
         employee.setValue(model.getUser());
         employeeName.setValue(employee.getValue().getName());
         employeeWorkingNumber.setValue(employee.getValue().getWorkingNumber().toString());
+        seeProjects = model.getUserAccess().seeProjectProperty();
         setAvatarPicture();
 
     }
@@ -118,5 +121,14 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
 
     public StringProperty employeeWorkingNumberProperty() {
         return employeeWorkingNumber;
+    }
+
+
+    public BooleanProperty seeTasksProperty() {
+        return seeTasks;
+    }
+
+    public BooleanProperty seeProjectsProperty() {
+        return seeProjects;
     }
 }

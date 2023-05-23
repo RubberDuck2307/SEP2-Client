@@ -129,6 +129,7 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
     @Override
     public TaskList getAllTasksOfProject(Long id) {
         try {
+
             return model.getAllTasksOfProject(id);
         } catch (RemoteException e) {
             throw new RuntimeException(e);

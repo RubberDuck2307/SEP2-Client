@@ -10,7 +10,7 @@ public interface Model {
     IdObjectList<ForgottenPasswordNotification> getForgottenPasswordNotification();
     IdObjectList<AssignedToTaskNotification> getAssignedToTaskNotification(Integer workingNumber);
     IdObjectList<AssignedToProjectNotification> getAssignedToProjectNotification(Integer workingNumber);
-
+    UserAccess getUserAccess();
     Long saveTag(Tag tag);
 
     TagList getAllTags();

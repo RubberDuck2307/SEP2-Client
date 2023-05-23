@@ -13,6 +13,13 @@ public class ModelManager implements Model {
     private Employee user;
     private ClientInterface client;
 
+    private UserAccess userAccess = new UserAccess(true, true, true, true);
+
+    @Override
+    public UserAccess getUserAccess() {
+        return userAccess;
+    }
+
     public ModelManager(ClientInterface client) {
         this.client = client;
     }

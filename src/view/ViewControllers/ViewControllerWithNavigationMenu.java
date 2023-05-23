@@ -35,6 +35,9 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
         bind();
         addListeners();
         viewModel.load();
+
+        this.projectHBox.setVisible(this.viewModel.seeProjectsProperty().getValue());
+        this.projectHBox.setManaged(this.viewModel.seeProjectsProperty().getValue());
     }
 
     private void addListeners() {
@@ -44,6 +47,11 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
 
         this.viewModel.notificationProperty().addListener((obs, oldVal, newVal) -> {
             this.bellImage.setVisible(newVal);
+        });
+
+        this.viewModel.seeProjectsProperty().addListener((obs, oldVal, newVal) -> {
+            this.projectHBox.setVisible(newVal);
+            this.projectHBox.setManaged(newVal);
         });
     }
 
@@ -82,22 +90,22 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
 
     protected void setWindow(EmployeeRole employeeRole) {
         switch (employeeRole) {
-            case WORKER -> {
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
-            }
-            case HR -> {
-                projectHBox.setVisible(false);
-                projectHBox.setManaged(false);
-            }
-            case PROJECT_MANAGER -> {
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
-            }
-            case MAIN_MANAGER -> {
-                projectHBox.setVisible(true);
-                projectHBox.setManaged(true);
-            }
+//            case WORKER -> {
+//                projectHBox.setVisible(true);
+//                projectHBox.setManaged(true);
+//            }
+//            case HR -> {
+//                projectHBox.setVisible(false);
+//                projectHBox.setManaged(false);
+//            }
+//            case PROJECT_MANAGER -> {
+//                projectHBox.setVisible(true);
+//                projectHBox.setManaged(true);
+//            }
+//            case MAIN_MANAGER -> {
+//                projectHBox.setVisible(true);
+//                projectHBox.setManaged(true);
+//            }
         }
 
     }
