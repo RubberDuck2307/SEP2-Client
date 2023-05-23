@@ -1,27 +1,26 @@
-package view;
+package view.ViewControllers;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import model.Note;
+import view.ViewHandler;
 import viewmodel.NotesView.NotesViewModel;
 import viewmodel.ViewModel;
 
-public class NoteVBOXController implements ViewController
+public class NoteVBOXController extends ViewControllerWithNavigationMenu
 {
   @FXML
-  private HBox titleContainer;
+  private HBox titleHBox;
   @FXML
   private Label creationDate;
   @FXML
   private Label title;
   @FXML
-  private VBox noteContainer;
+  private VBox noteVBox;
   @FXML
   private TextArea noteText;
   private ViewHandler viewHandler;
@@ -34,26 +33,30 @@ public class NoteVBOXController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = (NotesViewModel) viewModel;
     this.root = root;
+    bind();
+
+    noteText.setEditable(false);   // when set to true text will be editable
+  }
+
+  private void bind(){
     title.textProperty().bindBidirectional(this.viewModel.getTitleProperty());
     creationDate.textProperty().bindBidirectional(this.viewModel.getCreationDate());
-    title.setTextAlignment(TextAlignment.LEFT);
-    creationDate.setTextAlignment(TextAlignment.RIGHT);
     noteText.textProperty().bindBidirectional(this.viewModel.getNoteTextProperty());
   }
 
-  public void setNoteData(Note note)
-  {
+
+  public void setNoteData(Note note) {
     this.title.setText(note.getTitle());
     this.creationDate.setText(note.getCreationDate().toString());
     this.noteText.setText(note.getNoteText());
   }
-  public VBox getNoteContainer()
+  public VBox getNoteVBox()
   {
-    return noteContainer;
+    return noteVBox;
   }
 
   public VBox getNotesListVBox() {
-    return (VBox) noteContainer.getParent();
+    return (VBox) noteVBox.getParent();
   }
   public Label getCreationDate()
   {
@@ -69,9 +72,9 @@ public class NoteVBOXController implements ViewController
   {
     return noteText;
   }
-  public HBox getTitleContainer()
+  public HBox getTitleHBox()
   {
-    return titleContainer;
+    return titleHBox;
   }
   @Override public Region getRoot()
   {
@@ -82,6 +85,4 @@ public class NoteVBOXController implements ViewController
   {
     viewModel.reset();
   }
-
-
 }

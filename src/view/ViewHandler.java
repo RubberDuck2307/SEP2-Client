@@ -131,7 +131,7 @@ public class ViewHandler {
                 break;
             }
             case "notes": {
-                root = loadViewController(viewModelFactory.getNotesViewModel(), "NotesView.fxml");
+                root = loadViewController(viewModelFactory.getNotesViewModel(), "FXML/NotesView.fxml");
                 break;
             }
             default: {

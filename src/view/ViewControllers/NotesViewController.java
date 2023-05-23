@@ -1,4 +1,4 @@
-package view;
+package view.ViewControllers;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +10,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import model.EmployeeRole;
 import model.Note;
+import view.ViewHandler;
 import viewmodel.NotesView.NotesViewModel;
 import viewmodel.ViewModel;
 
-public class NotesViewController implements ViewController
+public class NotesViewController extends ViewControllerWithNavigationMenu
 {
   @FXML
   public ImageView avatarPic;
@@ -24,60 +25,40 @@ public class NotesViewController implements ViewController
   @FXML
   private VBox notesListVBox;
   @FXML
-  private HBox titleHBox;
-//  @FXML
-  //private TextArea noteText;
-//  @FXML
- // private Label creationDate;
-//  @FXML
- // private Label title;
-  @FXML
   private Button backButton;
+  @FXML
+  private Button addNoteButton;
+  @FXML
+  private ImageView bellImage;
+  @FXML
+  private HBox projectsHbox;
 
-  @FXML private Button addNoteButton;
   private ViewHandler viewHandler;
   private ObservableList<Note> notes;
   private Region root;
   private NotesViewModel viewModel;
-
+  @Override
   public void init(ViewHandler viewHandler, ViewModel viewModel, Region root)
   {
+    this.root = root;
     this.viewHandler = viewHandler;
     this.viewModel = (NotesViewModel)viewModel;
-    this.root = root;
-
-    avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
-    nameLabel.textProperty().bindBidirectional(this.viewModel.userNameProperty());
-    numberLabel.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
-
-    //FXMLLoader loader = new FXMLLoader();
-    //loader.setLocation(getClass().getResource("/view/NoteVBOX.fxml"));
-
     this.viewModel.load();
 
-    notesListVBox.getChildren().clear(); // Clear previous note containers
+    super.init(this.viewModel, viewHandler, bellImage, avatarPic, nameLabel, numberLabel, projectsHbox);
+    //avatarPic.imageProperty().bindBidirectional(this.viewModel.avatarPicProperty());
+    //nameLabel.textProperty().bindBidirectional(this.viewModel.userNameProperty());
+    //numberLabel.textProperty().bindBidirectional(this.viewModel.userNumberProperty());
 
-    System.out.println("NotesListVBOX cleared");
-
-    VBox noteCellVBox = this.viewModel.loadNoteVBox();
-
-    if (noteCellVBox != null)
-    {
-      notesListVBox.getChildren().addAll(noteCellVBox.getChildren());
-    }
+    setNotes();
   }
 
-   // notes = ((NotesViewModel) viewModel).getNoteList().getAllNotes();
-    //notesList.setItems(notes);
-    //fillNoteCells();
-
-  //private void fillNoteCells() {
-   // notesListVBox.getChildren().clear();
-    //VBox noteCellVBox = viewModel.getNoteCellVBox();
-   // if (noteCellVBox != null) {
-  //    notesListVBox.getChildren().addAll(noteCellVBox.getChildren());
-  //  }
- // }
+  public void setNotes()
+  {
+    notesListVBox.getChildren().clear();
+    VBox notesInVBOX = this.viewModel.loadNotesInVBOX();
+    notesListVBox.getChildren().addAll(notesInVBOX.getChildren());
+  }
 
   @Override public Region getRoot()
   {
@@ -86,6 +67,7 @@ public class NotesViewController implements ViewController
   @Override public void reset()
   {
     viewModel.reset();
+    setNotes();
   }
 
   //public void addNoteButtonClick(){viewHandler.openView("addNote");}
@@ -100,7 +82,8 @@ public class NotesViewController implements ViewController
   public void openProjects() {
     viewHandler.openView("projects");
   }
-  public void openHome()
+
+    public void openHome()
   {
     EmployeeRole role = this.viewModel.getEmployeeProperty().getRole();
     switch (role) {

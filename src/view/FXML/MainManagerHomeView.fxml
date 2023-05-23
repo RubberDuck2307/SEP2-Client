@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.MainManagerHomeViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.MainManagerHomeViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -153,6 +153,7 @@
                                     <children>
                               <HBox alignment="CENTER_RIGHT" prefHeight="1.0" prefWidth="1039.0">
                                  <children>
+                                    <Button onMouseClicked="#openNotes" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" styleClass="Notes-button" text="Notes" />
                                     <Button mnemonicParsing="false" onMousePressed="#logOut" prefHeight="26.0" prefWidth="76.0" styleClass="log-out-button" text="Log out" />
                                  </children>
                                  <padding>

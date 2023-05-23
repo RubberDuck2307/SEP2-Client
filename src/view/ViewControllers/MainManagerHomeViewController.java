@@ -92,4 +92,6 @@ public class MainManagerHomeViewController extends ViewControllerWithNavigationM
   {
     viewHandler.openView("login");
   }
+
+  public void openNotes(){viewHandler.openView("notes");}
 }

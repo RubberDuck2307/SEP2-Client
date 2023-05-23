@@ -129,4 +129,6 @@ public class HrHomeViewController extends ViewControllerWithNavigationMenu
   {
     viewHandler.openView("login");
   }
+
+  public void openNotes(){viewHandler.openView("notes");}
 }

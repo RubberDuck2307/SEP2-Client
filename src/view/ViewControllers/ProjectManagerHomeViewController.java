@@ -219,4 +219,6 @@ public class ProjectManagerHomeViewController implements ViewController
   {
     viewHandler.openView("login");
   }
+
+  public void openNotes(){viewHandler.openView("notes");}
 }

@@ -1,6 +1,7 @@
 package viewmodel;
 
 import model.Model;
+import view.ViewControllers.NoteVBOXController;
 import viewmodel.NotesView.NotesViewModel;
 import viewmodel.EmployeeView.*;
 import viewmodel.ProjectView.AddProjectViewModel;
@@ -65,7 +66,7 @@ public class ViewModelFactory
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
       this.notesViewModel = new NotesViewModel(model, viewState);
-        this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
+        //this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
         this.workerHomeViewModel= new WorkerHomeViewModel(model);
         this.editProfileViewModel = new EditProfileViewModel(model,viewState);
         this.deleteTagsViewModel = new DeleteTagsViewModel(model);

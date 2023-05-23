@@ -150,6 +150,7 @@
                                     <children>
                               <HBox alignment="CENTER_RIGHT" prefHeight="1.0" prefWidth="1039.0">
                                  <children>
+                                    <Button onMouseClicked="#openNotes" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" styleClass="Notes-button" text="Notes" />
                                     <Button mnemonicParsing="false" onMousePressed="#logOut" prefHeight="26.0" prefWidth="76.0" styleClass="log-out-button" text="Log out" />
                                  </children>
                                  <padding>

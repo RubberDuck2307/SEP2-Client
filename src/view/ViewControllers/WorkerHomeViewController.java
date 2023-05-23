@@ -150,7 +150,6 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
         viewModel.reset();
     }
 
-
     protected void setWindow(EmployeeRole employeeRole) {
         super.setWindow(employeeRole);
 
@@ -159,4 +158,7 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
     public void logOut() {
         viewHandler.openView("login");
     }
+
+    public void openNotes(){viewHandler.openView("notes");}
+
 }
