@@ -53,6 +53,7 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
             this.projectHBox.setVisible(newVal);
             this.projectHBox.setManaged(newVal);
         });
+
     }
 
     private void bind() {

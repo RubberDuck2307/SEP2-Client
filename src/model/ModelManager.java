@@ -13,7 +13,7 @@ public class ModelManager implements Model {
     private Employee user;
     private ClientInterface client;
 
-    private UserAccess userAccess = new UserAccess(true, true, true, true);
+    private UserAccess userAccess = new UserAccess(true, false, true, true);
 
     @Override
     public UserAccess getUserAccess() {
