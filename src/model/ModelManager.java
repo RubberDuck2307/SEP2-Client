@@ -194,6 +194,12 @@ public class ModelManager implements Model {
         client.updateTask(task);
     }
 
+    @Override public NoteList getAllNotesSavedByEmployee(Integer workingNumber)
+    {
+        return client.getAllNotesSavedByEmployee(workingNumber);
+    }
+
+
     @Override
     public Task getTask(Long projectId) {
         return client.getTask(projectId);

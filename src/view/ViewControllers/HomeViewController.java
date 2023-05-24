@@ -62,6 +62,7 @@ public class HomeViewController implements ViewController
     {
         viewHandler.openView("login");
     }
+    public void openNotes(){viewHandler.openView("notes");}
     private void setWindow(EmployeeRole employeeRole)
     {
         switch (employeeRole)

@@ -245,7 +245,7 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
             throw new RuntimeException(e);
         }
     }
-    
+
     @Override
     public void deleteEmployeeByWorkingNumber(Integer workingNumber)
     {
@@ -414,6 +414,15 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
     public void updateTask(Task task) {
         try {
             model.updateTask(task);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override public NoteList getAllNotesSavedByEmployee(Integer workingNumber)
+    {
+        try {
+            return model.getAllNotesSavedByEmployee(workingNumber);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }

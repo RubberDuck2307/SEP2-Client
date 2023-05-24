@@ -61,6 +61,9 @@ public abstract class ViewControllerWithNavigationMenu implements ViewController
         viewHandler.openView("projects");
     }
 
+    public void openNotes(){viewHandler.openView("notes");}
+
+
     public void openHome() {
         EmployeeRole role = this.viewModel.getEmployee().getRole();
         switch (role) {

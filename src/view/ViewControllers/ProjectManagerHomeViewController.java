@@ -157,4 +157,6 @@ public class ProjectManagerHomeViewController extends ViewControllerWithNavigati
   {
     viewHandler.openView("login");
   }
+
+  public void openNotes(){viewHandler.openView("notes");}
 }

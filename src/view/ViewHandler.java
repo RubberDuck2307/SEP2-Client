@@ -114,10 +114,6 @@ public class ViewHandler {
                 root = loadViewController(viewModelFactory.getProjectManagerProfileViewModel(), "FXML/ProjectManagerProfileView.fxml");
                 break;
             }
-            case "home": {
-                root = loadViewController(viewModelFactory.getHomeViewModel(), "FXML/HomeView.fxml");
-                break;
-            }
             case "editProject": {
                 root = loadViewController(viewModelFactory.getEditProjectViewModel(), "FXML/EditProjectView.fxml");
                 break;
@@ -128,6 +124,10 @@ public class ViewHandler {
             }
             case "forgotPassword":{
                 root = loadViewController(viewModelFactory.getForgotPasswordViewModel(), "FXML/ForgotPasswordView.fxml");
+                break;
+            }
+            case "notes": {
+                root = loadViewController(viewModelFactory.getNotesViewModel(), "FXML/NotesView.fxml");
                 break;
             }
             default: {

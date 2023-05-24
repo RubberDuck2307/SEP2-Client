@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.AddTaskViewController">
+<SplitPane fx:id="window" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="window" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControllers.AddTaskViewController">
     <items>
         <HBox minWidth="-Infinity" prefHeight="767.0" prefWidth="207.0" style="-fx-border-radius: 10px;" styleClass="side-box">
             <children>
@@ -101,6 +101,20 @@
                                 <Insets left="30.0" />
                             </padding>
                         </HBox>
+                  <HBox fx:id="notesHBox" alignment="CENTER_LEFT" onMousePressed="#openNotes" prefHeight="100.0" prefWidth="240.0" styleClass="side-menu-text">
+                     <children>
+                        <SVGPath content="M20 2C20.552 2 21 2.448 21 3V6.757L19 8.757V4H5V20H19V17.242L21 15.242V21C21 21.552 20.552 22 20 22H4C3.448 22 3 21.552 3 21V3C3 2.448 3.448 2 4 2H20ZM21.778 8.808L23.192 10.222L15.414 18L13.998 17.998L14 16.586L21.778 8.808ZM13 12V14H8V12H13ZM16 8V10H8V8H16Z" fill="#000000a3" stroke="#d0d0d04f" styleClass="side-menu-icon-notes" />
+                        <ImageView fitHeight="1.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label styleClass="side-menu-text" text="NOTES">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="260.0" prefWidth="239.0" />
                         <HBox layoutX="10.0" layoutY="310.0" prefHeight="137.0" prefWidth="239.0">
                             <children>

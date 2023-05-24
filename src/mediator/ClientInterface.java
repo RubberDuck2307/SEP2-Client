@@ -59,6 +59,7 @@ public interface ClientInterface {
     EmployeeList getEmployeesOfTask(Long taskId);
     String hello();
     void updateTask(Task task);
+    NoteList getAllNotesSavedByEmployee(Integer workingNumber);
     EmployeeList getAllEmployees();
     Employee getEmployeeByWorkingNumber(int workingNumber);
     Project getProjectById(long projectId);

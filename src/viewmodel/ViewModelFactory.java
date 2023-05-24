@@ -1,6 +1,8 @@
 package viewmodel;
 
 import model.Model;
+import view.ViewControllers.NoteVBOXController;
+import viewmodel.NotesView.NotesViewModel;
 import viewmodel.EmployeeView.*;
 import viewmodel.ProjectView.AddProjectViewModel;
 import viewmodel.ProjectView.EditProjectViewModel;
@@ -35,6 +37,7 @@ public class ViewModelFactory
     private EditProjectViewModel editProjectViewModel;
     private HrAndMainManagerProfileViewModel hrAndMainManagerProfileViewModel;
     private WorkerProfileViewModel workerProfileViewModel;
+    private NotesViewModel notesViewModel;
     private WorkerHomeViewModel workerHomeViewModel;
     private EditProfileViewModel editProfileViewModel;
     private ProjectManagerHomeViewModel projectManagerHomeViewModel;
@@ -62,6 +65,8 @@ public class ViewModelFactory
         this.editProjectViewModel = new EditProjectViewModel(model, viewState);
         this.hrAndMainManagerProfileViewModel = new HrAndMainManagerProfileViewModel(model,viewState);
         this.workerProfileViewModel = new WorkerProfileViewModel(model,viewState);
+      this.notesViewModel = new NotesViewModel(model, viewState);
+        //this.workerHomeViewModel= new WorkerHomeViewModel(model,viewState);
         this.workerHomeViewModel= new WorkerHomeViewModel(model);
         this.editProfileViewModel = new EditProfileViewModel(model,viewState);
         this.deleteTagsViewModel = new DeleteTagsViewModel(model);
@@ -173,6 +178,10 @@ public class ViewModelFactory
     {
         return homeViewModel;
     }
+  public NotesViewModel getNotesViewModel()
+  {
+    return notesViewModel;
+  }
     public EditProjectViewModel getEditProjectViewModel()
     {
         return editProjectViewModel;
