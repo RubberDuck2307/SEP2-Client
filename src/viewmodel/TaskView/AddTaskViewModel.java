@@ -182,6 +182,7 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
         }
         if (valid)
         {
+            estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
             Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO", project.getId());
             //System.out.println("Bobek: " + task2.toString());
             Long id = model.saveTask(task2);
