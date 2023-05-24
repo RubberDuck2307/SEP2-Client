@@ -29,15 +29,6 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
 
         model.addNotificationListener(this);
     }
-
-    public boolean isNotification() {
-        return notification.get();
-    }
-
-    public BooleanProperty notificationProperty() {
-        return notification;
-    }
-
     public void reset() {
 
         notification.setValue(false);
@@ -119,4 +110,13 @@ public abstract class ViewModelWithNavigationMenu implements ViewModel, Property
     public StringProperty employeeWorkingNumberProperty() {
         return employeeWorkingNumber;
     }
+
+    public boolean isNotification() {
+        return notification.get();
+    }
+
+    public BooleanProperty notificationProperty() {
+        return notification;
+    }
+
 }
