@@ -70,6 +70,7 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
         this.viewModel = (WorkerHomeViewModel) viewModel;
         this.viewModel.load();
         super.init(this.viewModel, viewHandler, bellImage, avatarPic, employeeName, employeeWorkingNumber, projectHBox);
+        setTaskTable();
 
         bind();
 
