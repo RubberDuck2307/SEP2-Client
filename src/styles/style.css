@@ -350,13 +350,23 @@
     -fx-stroke: #B7BBC0; /* set the stroke color */
     -fx-stroke-width: 2;
 
-}.side-menu-icon-workers{
-    -size: 24;
-    -fx-fill: white; /* set the fill color */
-    -fx-stroke: #B7BBC0; /* set the stroke color */
-    -fx-stroke-width: 2;
-
 }
+.side-menu-icon-workers
+ {
+   -size: 24;
+   -fx-fill: white; /* set the fill color */
+   -fx-stroke: #B7BBC0; /* set the stroke color */
+   -fx-stroke-width: 2;
+
+ }
+
+.side-menu-icon-notes{
+  -size: 24;
+  -fx-fill: white; /* set the fill color */
+  -fx-stroke: #B7BBC0; /* set the stroke color */
+  -fx-stroke-width: 1.3;
+}
+
 .side-menu-text{
 -fx-font-size: 25px;
 -fx-font-weight: 600;
@@ -380,10 +390,14 @@
     -fx-fill: #E6F2FE; /* set the fill color */
     -fx-stroke: #0D6EFD; /* set the stroke color */
     -fx-stroke-width: 2;
-
 }
 
-
+.side-menu-icon-notes-active{
+  -size: 24;
+  -fx-fill: #E6F2FE; /* set the fill color */
+  -fx-stroke: #0D6EFD; /* set the stroke color */
+  -fx-stroke-width: 1.3;
+}
 
 
 
@@ -621,14 +635,14 @@
 
 .note-title-label{
   -fx-font-family: "SF Pro Display";
-  -fx-font-size: 13;
+  -fx-font-size: 14px;
   -fx-font-weight: bold;
   -fx-text-transform: uppercase;
 }
 
 .note-date-label{
   -fx-font-family: "SF Pro Display";
-  -fx-font-size: 13;
+  -fx-font-size: 14px;
   -fx-font-weight: bold;
   -fx-alignment: center-right;
 }
@@ -665,8 +679,8 @@
   -fx-background-radius: 2;
   -fx-padding: 3;
   -fx-margin: 10;
+  -fx-font-size: 12px;
 }
-
 
 .personal-info-box{
 -fx-border-color: #B7BBC0;

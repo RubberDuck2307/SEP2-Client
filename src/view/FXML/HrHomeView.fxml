@@ -57,7 +57,7 @@
 
                         <HBox fx:id="projectHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openProjects" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <SVGPath content="M11.0748 3.25583C11.4141 2.42845 12.5859 2.42845 12.9252 3.25583L14.6493 7.45955C14.793 7.80979 15.1221 8.04889 15.4995 8.07727L20.0303 8.41798C20.922 8.48504 21.2841 9.59942 20.6021 10.1778L17.1369 13.1166C16.8482 13.3614 16.7225 13.7483 16.8122 14.1161L17.8882 18.5304C18.1 19.3992 17.152 20.0879 16.3912 19.618L12.5255 17.2305C12.2034 17.0316 11.7966 17.0316 11.4745 17.2305L7.60881 19.618C6.84796 20.0879 5.90001 19.3992 6.1118 18.5304L7.18785 14.1161C7.2775 13.7483 7.1518 13.3614 6.86309 13.1166L3.3979 10.1778C2.71588 9.59942 3.07796 8.48504 3.96971 8.41798L8.50046 8.07727C8.87794 8.04889 9.20704 7.80979 9.35068 7.45955L11.0748 3.25583Z" onMousePressed="#openProjects" strokeWidth="0.0" styleClass="side-menu-icon-workers" />
+                                <SVGPath content="M11.0748 3.25583C11.4141 2.42845 12.5859 2.42845 12.9252 3.25583L14.6493 7.45955C14.793 7.80979 15.1221 8.04889 15.4995 8.07727L20.0303 8.41798C20.922 8.48504 21.2841 9.59942 20.6021 10.1778L17.1369 13.1166C16.8482 13.3614 16.7225 13.7483 16.8122 14.1161L17.8882 18.5304C18.1 19.3992 17.152 20.0879 16.3912 19.618L12.5255 17.2305C12.2034 17.0316 11.7966 17.0316 11.4745 17.2305L7.60881 19.618C6.84796 20.0879 5.90001 19.3992 6.1118 18.5304L7.18785 14.1161C7.2775 13.7483 7.1518 13.3614 6.86309 13.1166L3.3979 10.1778C2.71588 9.59942 3.07796 8.48504 3.96971 8.41798L8.50046 8.07727C8.87794 8.04889 9.20704 7.80979 9.35068 7.45955L11.0748 3.25583Z" onMousePressed="#openProjects" stroke="#0f72fc4f" strokeWidth="0.0" styleClass="side-menu-icon-workers" />
 
                                 <ImageView>
                                     <image>
@@ -92,6 +92,20 @@
                                 <Insets left="30.0" />
                             </padding>
                         </HBox>
+                  <HBox fx:id="notesHBox" alignment="CENTER_LEFT" onMousePressed="#openNotes" prefHeight="100.0" prefWidth="240.0" styleClass="side-menu-text">
+                     <children>
+                        <SVGPath content="M20 2C20.552 2 21 2.448 21 3V6.757L19 8.757V4H5V20H19V17.242L21 15.242V21C21 21.552 20.552 22 20 22H4C3.448 22 3 21.552 3 21V3C3 2.448 3.448 2 4 2H20ZM21.778 8.808L23.192 10.222L15.414 18L13.998 17.998L14 16.586L21.778 8.808ZM13 12V14H8V12H13ZM16 8V10H8V8H16Z" fill="#000000a3" stroke="#d0d0d04f" styleClass="side-menu-icon-notes" />
+                        <ImageView fitHeight="1.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label styleClass="side-menu-text" text="NOTES">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="260.0" prefWidth="239.0" />
                         <HBox layoutX="10.0" layoutY="310.0" prefHeight="137.0" prefWidth="239.0">
                             <children>
@@ -155,7 +169,6 @@
                                     <children>
                                         <HBox alignment="CENTER_RIGHT" prefHeight="1.0" prefWidth="1039.0">
                                             <children>
-                                    <Button onMouseClicked="#openNotes" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" styleClass="Notes-button" text="Notes" />
                                                 <Button mnemonicParsing="false" onMousePressed="#logOut" prefHeight="26.0" prefWidth="76.0" styleClass="log-out-button" text="Log out" />
                                             </children>
                                             <padding>

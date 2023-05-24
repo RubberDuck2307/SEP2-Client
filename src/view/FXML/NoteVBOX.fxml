@@ -11,18 +11,18 @@
    <children>
       <HBox id="note-title-box" fx:id="titleHBox" alignment="CENTER" prefHeight="26.0" prefWidth="585.0" styleClass="note-title-box" stylesheets="@../../styles/style.css">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="566.0" styleClass="note-title-label" stylesheets="@../../styles/style.css" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="453.0" styleClass="note-title-label" stylesheets="@../../styles/style.css" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="489.0" styleClass="note-title-label" text="NOTE 1" wrapText="true">
+                  <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="485.0" styleClass="note-title-label" text="NOTE 1" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="183.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="108.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="creationDate" contentDisplay="CENTER" prefHeight="19.0" prefWidth="133.0" styleClass="note-date-label" stylesheets="@../../styles/style.css" text="12.12.1212.">
+                  <Label fx:id="creationDate" contentDisplay="CENTER" prefHeight="19.0" prefWidth="94.0" styleClass="note-date-label" stylesheets="@../../styles/style.css" text="12.12.1212.">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

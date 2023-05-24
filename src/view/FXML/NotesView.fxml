@@ -40,9 +40,17 @@
                         </ImageView>
                         <Label id="home" onMousePressed="#openHome" styleClass="side-menu-text" text="HOME">
                            <HBox.margin>
-                              <Insets left="10.0" />
+                              <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Label>
+                        <ImageView fx:id="bellImage" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/bell.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
                      </children>
                      <padding>
                         <Insets left="30.0" />
@@ -82,6 +90,23 @@
                            </HBox.margin>
                         </Label>
                      </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" onMousePressed="#openNotes" prefHeight="100.0" prefWidth="200.0" styleClass="menu-active">
+                     <children>
+                        <SVGPath content="M20 2C20.552 2 21 2.448 21 3V6.757L19 8.757V4H5V20H19V17.242L21 15.242V21C21 21.552 20.552 22 20 22H4C3.448 22 3 21.552 3 21V3C3 2.448 3.448 2 4 2H20ZM21.778 8.808L23.192 10.222L15.414 18L13.998 17.998L14 16.586L21.778 8.808ZM13 12V14H8V12H13ZM16 8V10H8V8H16Z" fill="#000000a3" stroke="#d0d0d04f" strokeWidth="0.0" styleClass="side-menu-icon-notes-active" />
+                        <ImageView fitHeight="1.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label onMousePressed="#openWorkersView" styleClass="side-menu-text-active" text="NOTES">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                      <padding>
                         <Insets left="30.0" />
                      </padding>
@@ -155,21 +180,21 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0" prefHeight="678.0" prefWidth="717.0">
                      <children>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="648.0" prefWidth="680.0" styleClass="box">
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="662.0" prefWidth="669.0" styleClass="box">
                            <HBox.margin>
                               <Insets bottom="20.0" left="17.0" right="20.0" top="10.0" />
                            </HBox.margin>
                            <children>
-                              <VBox prefHeight="638.0" prefWidth="830.0">
+                              <VBox prefHeight="653.0" prefWidth="629.0">
                                  <children>
-                                    <HBox prefHeight="569.0" prefWidth="610.0">
+                                    <HBox prefHeight="637.0" prefWidth="640.0">
                                        <VBox.margin>
                                           <Insets left="10.0" right="10.0" />
                                        </VBox.margin>
                                        <children>
-                                          <ScrollPane fitToHeight="true" fitToWidth="true">
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="637.0" prefWidth="667.0">
                                              <content>
-                                                <VBox fx:id="notesListVBox" alignment="TOP_CENTER" prefHeight="569.0" prefWidth="652.0" styleClass="notes-vbox">
+                                                <VBox fx:id="notesListVBox" alignment="TOP_CENTER" prefHeight="635.0" prefWidth="650.0" styleClass="notes-vbox">
                                                    <children>
 
                                                    </children></VBox>
@@ -177,15 +202,6 @@
                                           </ScrollPane>
                                        </children>
                                     </HBox>
-                                    <VBox id="my-text-area" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="630.0">
-                                       <children>
-                                          <Button fx:id="addNoteButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="create-button" text="Add a note" textAlignment="CENTER">
-                                             <VBox.margin>
-                                                <Insets right="5.0" />
-                                             </VBox.margin>
-                                          </Button>
-                                       </children>
-                                    </VBox>
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" right="20.0" top="10.0" />
