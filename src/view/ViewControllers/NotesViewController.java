@@ -34,7 +34,7 @@ public class NotesViewController extends ViewControllerWithNavigationMenu
   @FXML
   private ImageView bellImage;
   @FXML
-  private HBox projectsHbox;
+  private HBox projectsHBox;
   private ViewHandler viewHandler;
   private Region root;
   private NotesViewModel viewModel;
@@ -48,8 +48,8 @@ public class NotesViewController extends ViewControllerWithNavigationMenu
     this.viewModel.load();
     notesListVBox = loadNotesInVBOX();
 
-    super.init(this.viewModel, viewHandler, bellImage, this.avatarPic, this.nameLabel, this.numberLabel, this.projectsHbox);
-
+    super.init(this.viewModel, viewHandler, bellImage, this.avatarPic, this.nameLabel, this.numberLabel, this.projectsHBox);
+    super.setWindow(this.viewModel.getEmployee().getRole());
     setNotes();
   }
 
@@ -126,6 +126,7 @@ public class NotesViewController extends ViewControllerWithNavigationMenu
   {
     viewModel.reset();
     setNotes();
+    super.setWindow(viewModel.getEmployee().getRole());
   }
   public void backButtonClick(){
     viewHandler.openLastWindow();
