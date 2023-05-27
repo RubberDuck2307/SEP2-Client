@@ -12,14 +12,14 @@ import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
 import java.util.regex.Pattern;
 
+/**
+ * Helper class for client to handle notifications from server.
+ * The class is used to add and remove listeners from the server and it handles property changes fired by the server.
+ * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
+ * @version 1.0 - May 2023
+ */
 public class ListenerHandler implements NamedPropertyChangeSubject {
 
-    /**
-     * Helper class for client to handle notifications from server.
-     * The class is used to add and remove listeners from the server and it handles property changes fired by the server.
-     * @author Anna Andrlova, Alex Bolfa, Cosmin Demian, Jan Metela, Arturs Ricards Rijnieks
-     * @version 1.0 - May 2023
-     */
 
     private RemoteModel model;
     private GeneralListener<String, String> listener;
