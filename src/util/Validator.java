@@ -160,6 +160,10 @@ public class Validator
      */
     public void validateTaskDeadline(LocalDate deadlineOfTheTask, LocalDate deadlineOfTheProject)
     {
+        if (deadlineOfTheProject == null)
+        {
+            return;
+        }
         if (deadlineOfTheTask.isAfter(deadlineOfTheProject))
         {
             throw new RuntimeException("Deadline of the task can not be after the deadline of the project");
