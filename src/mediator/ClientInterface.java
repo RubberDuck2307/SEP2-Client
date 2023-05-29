@@ -15,7 +15,7 @@ public interface ClientInterface {
 
     Long saveTag(Tag tag);
     TagList getAllTags();
-    void logOut();
+    void logOut(Employee employee);
     boolean addForgetPasswordNotification(Integer workingNumber);
     TagList getTagsOfTask(Long taskId);
     void addTagToTask(Long taskId, Long tagId);

@@ -497,8 +497,14 @@ public class Client implements ClientInterface, RemoteListener<String, String> {
         listenerHandler.handlePropertyChange(event);
     }
 
-    public void logOut(){
+    public void logOut(Employee employee) {
+        try {
 
-            listenerHandler.removeServerListener();
+        listenerHandler.removeServerListener(employee);
     }
+        catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

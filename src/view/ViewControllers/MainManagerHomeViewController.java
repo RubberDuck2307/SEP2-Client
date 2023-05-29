@@ -90,6 +90,7 @@ public class MainManagerHomeViewController extends ViewControllerWithNavigationM
 
   public void logOut()
   {
+    viewModel.logOut();
     viewHandler.openView("login");
   }
 

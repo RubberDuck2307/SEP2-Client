@@ -101,12 +101,10 @@ public class HrHomeViewModel extends ViewModelWithNavigationMenu
     {
       notificationList.add(new NotificationTable(notifications.get(i)));
     }
-    System.out.println("notificationList: " + notificationList.size());
   }
 
   public void deleteNotification(String message){
 
-    System.out.println("delete " + message);
   }
   public ObservableList<NotificationTable> getNotificationList(){return notificationList;}
 
@@ -169,6 +167,9 @@ public class HrHomeViewModel extends ViewModelWithNavigationMenu
   public StringProperty managerEmailProperty()
   {
     return managerEmail;
+  }
+  public void logOut() {
+    model.logOut();
   }
 
   @Override

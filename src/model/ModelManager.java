@@ -78,7 +78,7 @@ public class ModelManager implements Model {
         return client.getAllTasksOfProject(id);
     }
     public void logOut() {
-        client.logOut();
+        client.logOut(user);
     }
     @Override
     public ProjectList getAllProjectsByWorkingNumber(Integer workingNumber) {

@@ -101,6 +101,9 @@ public class ProjectManagerHomeViewModel extends ViewModelWithNavigationMenu
 
   }
 
+  public void logOut() {
+    model.logOut();
+  }
   private void getNotifications(){
     notificationList.clear();
     IdObjectList<AssignedToProjectNotification> notifications = model.getAssignedToProjectNotification(model.getUser().getWorkingNumber());
@@ -111,7 +114,6 @@ public class ProjectManagerHomeViewModel extends ViewModelWithNavigationMenu
   }
 
   public void deleteNotification(String message){
-    System.out.println("delete " + message);
   }
   public ObservableList<viewmodel.WorkerView.WorkersTable> getWorkersTable(){return workersTables;}
   public ObservableList<ProjectsTable> getCurrentProjectsTableTable(){return currentProjectsTable;}

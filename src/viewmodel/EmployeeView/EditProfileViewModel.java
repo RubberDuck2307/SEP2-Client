@@ -222,7 +222,6 @@ public boolean editPassword()
       genderChar = "M";
     }
     else genderChar = "F";
-    System.out.println(genderChar);
     Integer workingNumber = viewState.getEmployee().getWorkingNumber();
     Employee employee = new Employee(workingNumber, firstName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
     model.updateEmployee(employee);

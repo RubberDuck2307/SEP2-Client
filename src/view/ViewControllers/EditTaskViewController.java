@@ -145,7 +145,6 @@ public class EditTaskViewController extends ViewControllerWithNavigationMenu
         workersTableList.clear();
         for (int i = 0; i < viewModel.getEmployees().size(); i++)
         {
-            //System.out.println(viewModel.getEmployees().get(i).getName());
             Employee employee = viewModel.getEmployees().get(i);
             workersTableList.add(new WorkersWithCheckboxTable(employee));
             CheckBox checkBox = new CheckBox(" ");
@@ -241,8 +240,7 @@ public class EditTaskViewController extends ViewControllerWithNavigationMenu
     }
     public void resetDeadlineClick(ActionEvent actionEvent)
     {
-        this.deadline.getEditor().clear();
+        viewModel.resetDeadline();
         this.deadline.setEditable(true);
-        deadline.setValue(null);
     }
 }

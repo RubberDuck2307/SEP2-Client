@@ -114,7 +114,6 @@ public class EditProfileViewController extends ViewControllerWithNavigationMenu
   public void genreSetting() {
     if(viewModel.userIsWoman()){
       genderFemale.setSelected(true);
-      System.out.println(viewModel.userIsWoman());
     }
     else{
       genderMale.setSelected(true);
@@ -178,7 +177,6 @@ public class EditProfileViewController extends ViewControllerWithNavigationMenu
 
   @Override
   public Region getRoot() {
-    System.out.println(root);
     return root;
   }
 

@@ -136,6 +136,7 @@ public class WorkerHomeViewController extends ViewControllerWithNavigationMenu {
     }
 
     public void logOut() {
+        viewModel.logOut();
         viewHandler.openView("login");
     }
 

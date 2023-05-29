@@ -51,6 +51,9 @@ public class MainManagerHomeViewModel extends ViewModelWithNavigationMenu
     super.reset();
 
   }
+  public void logOut() {
+    model.logOut();
+  }
   public void load()
   {
     super.load();

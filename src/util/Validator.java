@@ -112,7 +112,6 @@ public class Validator
         if (withoutSpaces.charAt(0) == '+')
         {
             SimpleStringProperty removedPlus = new SimpleStringProperty(withoutSpaces.replace("+", ""));
-            System.out.println(removedPlus.getValue());
         }
     }
     /**

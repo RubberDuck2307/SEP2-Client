@@ -155,6 +155,7 @@ public class ProjectManagerHomeViewController extends ViewControllerWithNavigati
 
   public void logOut()
   {
+    viewModel.logOut();
     viewHandler.openView("login");
   }
 

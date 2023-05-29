@@ -29,7 +29,6 @@ public class TasksTable
         setDeadline(task.getDeadline());
         this.priority = new SimpleStringProperty(task.getPriority());
         this.status = new SimpleStringProperty(task.getStatus());
-        //System.out.println("");
         setEstimatedTime(task.getEstimatedTime());
         this.id=task.getId();
     }

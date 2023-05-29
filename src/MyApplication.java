@@ -16,7 +16,6 @@ public class MyApplication extends Application
   public void start(Stage primaryStage) throws MalformedURLException, NotBoundException, RemoteException {
     ClientInterface client = new Client();
     Model model = new ModelManager(client);
-    //System.out.println(model.getAllTasksOfProject(1L));
     ViewModelFactory viewModelFactory = new ViewModelFactory(model);
     ViewHandler view = new ViewHandler(viewModelFactory);
     view.start(primaryStage);

@@ -59,13 +59,11 @@ public class NotesViewController extends ViewControllerWithNavigationMenu
       //NoteList savedNotes = model.getAllNotesSavedByEmployee(model.getUser().getWorkingNumber());
       NoteList savedNotes = viewModel.getNoteList();
 
-      System.out.println("Notes list loaded from database");
 
       if (savedNotes != null) {
         ArrayList<Note> noteArrayList = new ArrayList<>(savedNotes.getAllNotes());
         NoteList noteList = new NoteList(noteArrayList);
 
-        System.out.println("Existing notes list gotten from database");
 
         // Add the existing notes to the VBox
         List<Node> noteCells = notesListVBox.getChildren();
@@ -74,10 +72,8 @@ public class NotesViewController extends ViewControllerWithNavigationMenu
           VBox savedNoteVBox = createNoteVBOX(savedNote);
           noteCells.add(savedNoteVBox);
 
-          System.out.println("Existing notes inserted into cells");
         }
       }
-      System.out.println("NotesListVBOX was returned");
       return notesListVBox;
 
     } catch (Exception e) {
@@ -94,13 +90,11 @@ public class NotesViewController extends ViewControllerWithNavigationMenu
           "/view/FXML/NoteVBOX.fxml"));
       VBox noteCellVBox = loader.load();
 
-      System.out.println("NotesVBOX.fxml was loaded");
 
       // Get the FXML controller and set the necessary data in the note cell VBox
       NoteVBOXController controller = loader.getController();
       controller.setNoteData(note);
 
-      System.out.println("NoteCellVBox(NotesVBOX.fxml) created");
       return noteCellVBox;
 
     }

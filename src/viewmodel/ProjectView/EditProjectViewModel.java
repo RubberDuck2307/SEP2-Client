@@ -107,8 +107,6 @@ public class EditProjectViewModel extends ViewModelWithNavigationMenu
         }
         ArrayList<Integer> addedEmployees = new ArrayList<>();
         ArrayList<Integer> removedEmployees = new ArrayList<>();
-        System.out.println(assignedEmployees);
-        System.out.println(originalAssignedEmployees);
         if (assignedEmployees.size() != 0)
         {
             for (int i = 0; i < assignedEmployees.size(); i++)
@@ -141,8 +139,6 @@ public class EditProjectViewModel extends ViewModelWithNavigationMenu
         {
             model.dismissEmployeesFromProject(removedEmployees, viewState.getProject().getId());
         }
-        System.out.println(removedEmployees);
-        System.out.println(addedEmployees);
         return valid;
     }
     

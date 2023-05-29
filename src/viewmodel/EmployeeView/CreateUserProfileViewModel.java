@@ -185,7 +185,6 @@ public class CreateUserProfileViewModel extends ViewModelWithNavigationMenu{
         if (gender.get()) {
             genderChar = "M";
         } else genderChar = "F";
-        System.out.println(genderChar);
         Employee employee = new Employee(firstName.getValue() + " " + lastName.getValue(), dob.getValue(), phoneNumber.getValue(), genderChar, selectedRole, email.getValue());
         workingNumber = model.saveEmployee(employee, password.getValue());
     }

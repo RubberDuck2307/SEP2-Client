@@ -83,7 +83,6 @@ public class EditTaskViewModel extends ViewModelWithNavigationMenu
     this.tagList= model.getAllTags();
     initialTags= model.getTagsOfTask(taskID);
     assignedTags= model.getTagsOfTask(taskID);
-    //System.out.println("assigned tags: "+assignedTags.get(0).getName());
 
     originalAssignedEmployees = model.getEmployeesOfTask(taskID);
     assignedEmployees = model.getEmployeesOfTask(taskID);
@@ -169,7 +168,6 @@ public class EditTaskViewModel extends ViewModelWithNavigationMenu
     if(deadline.getValue()!=null){
       try
       {
-        System.out.println("this is current deadline: " + deadline.getValue());
         validator.validateTaskDeadline(deadline.getValue(), project.getDeadline());
       }
       catch (Exception e)
@@ -372,6 +370,9 @@ public class EditTaskViewModel extends ViewModelWithNavigationMenu
       tagList.addTag(tag);
     }
     return valid;
+  }
+  public void resetDeadline(){
+    deadline.setValue(viewState.getProject().getDeadline());
   }
 
   public TagList getTagList()

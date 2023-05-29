@@ -6,6 +6,7 @@ import model.EmployeeRole;
 import util.NamedPropertyChangeSubject;
 import utility.observer.event.ObserverEvent;
 import utility.observer.listener.GeneralListener;
+import utility.observer.listener.RemoteListener;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -22,10 +23,10 @@ public class ListenerHandler implements NamedPropertyChangeSubject {
 
 
     private RemoteModel model;
-    private GeneralListener<String, String> listener;
+    private RemoteListener<String, String> listener;
     private PropertyChangeSupport propertyChangeSupport;
 
-    public ListenerHandler(RemoteModel model, GeneralListener<String, String> listener) {
+    public ListenerHandler(RemoteModel model, RemoteListener<String, String> listener) {
         this.model = model;
         this.listener = listener;
         propertyChangeSupport = new PropertyChangeSupport(this);
@@ -48,15 +49,20 @@ public class ListenerHandler implements NamedPropertyChangeSubject {
     }
 
 
-    public void removeServerListener() {
-
-        try {
-            model.removeListener(listener);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+    public void removeServerListener(Employee employee) throws RemoteException {
+        if (employee != null) {
+            switch (employee.getRole()) {
+                case HR:
+                    model.removeListener(listener, "00|forgetPassword|notification");
+                    break;
+                case WORKER:
+                    model.removeListener(listener, employee.getWorkingNumber() + "|assignedToTask|notification");
+                    break;
+                case PROJECT_MANAGER:
+                    model.removeListener(listener, employee.getWorkingNumber() + "|assignedToProject|notification");
+                    break;
+            }
         }
-
-
     }
 
     public void handlePropertyChange(ObserverEvent<String, String> event) {

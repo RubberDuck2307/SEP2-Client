@@ -126,7 +126,6 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
 
     public void deleteNotification(String message) {
         //model.deleteTag(tag.getId());
-        System.out.println("delete " + message);
     }
 
     public ObservableList<TasksTableForWorkerProfile> getTaskTable() {
@@ -201,5 +200,8 @@ public class WorkerHomeViewModel extends ViewModelWithNavigationMenu {
 
     public boolean isWoman() {
         return Objects.equals(employee.getValue().getGender(), "F");
+    }
+    public void logOut() {
+        model.logOut();
     }
 }

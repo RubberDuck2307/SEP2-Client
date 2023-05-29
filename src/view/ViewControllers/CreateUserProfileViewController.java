@@ -73,7 +73,6 @@ public class CreateUserProfileViewController extends ViewControllerWithNavigatio
     @Override
     public void init(ViewHandler viewHandler, ViewModel viewModel, Region root) {
         this.root = root;
-        System.out.println(root);
         this.viewHandler = viewHandler;
         this.viewModel = (CreateUserProfileViewModel) viewModel;
         setChoiceBox();
@@ -174,7 +173,6 @@ public class CreateUserProfileViewController extends ViewControllerWithNavigatio
 
     @Override
     public Region getRoot() {
-        System.out.println(root);
         return root;
     }
 

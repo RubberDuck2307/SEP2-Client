@@ -17,8 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddTaskViewModel extends ViewModelWithNavigationMenu
-{
+public class AddTaskViewModel extends ViewModelWithNavigationMenu {
     private ViewState viewState;
     private StringProperty nameOfTheProject;
     private StringProperty title;
@@ -36,16 +35,15 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
     private ObjectProperty<javafx.scene.paint.Color> color;
     private StringProperty tagsE;
 
-    private int estimatedHoursInt;
+    private Integer estimatedHoursInt;
     private Validator validator;
     private EmployeeList workers;
     private EmployeeList employeesOfManager;
     private EmployeeList employeesOfProject;
     private ArrayList<Integer> assignedEmployeeWorkingNumbers;
 
-    
-    public AddTaskViewModel(Model model, ViewState viewState)
-    {
+
+    public AddTaskViewModel(Model model, ViewState viewState) {
         super(model);
 
         this.viewState = viewState;
@@ -57,9 +55,9 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
         this.priority = new SimpleObjectProperty<>(null);
         this.estimatedHours = new SimpleStringProperty("");
         this.tags = new SimpleStringProperty("");
-        this.tagListForTask=new TagList();
-        this.color= new SimpleObjectProperty<>(Color.RED);
-        this.tagsE= new SimpleStringProperty("");
+        this.tagListForTask = new TagList();
+        this.color = new SimpleObjectProperty<>(Color.RED);
+        this.tagsE = new SimpleStringProperty("");
         this.errorTitleHours = new SimpleStringProperty("");
         this.errorDeadlineMessage = new SimpleStringProperty("");
         this.errorPriorityMessage = new SimpleStringProperty("");
@@ -68,20 +66,18 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
         this.assignedEmployeeWorkingNumbers = new ArrayList<>();
         this.notification = new SimpleBooleanProperty(false);
     }
-    public void load()
-    {
+
+    public void load() {
         super.load();
-        this.tagList= model.getAllTags();
+        this.tagList = model.getAllTags();
         Project project = viewState.getProject();
         nameOfTheProject.setValue(project.getName());
         deadline.setValue(project.getDeadline());
         employeesOfManager = model.getEmployeesAssignedToManager(model.getUser().getWorkingNumber());
         employeesOfProject = model.getAllEmployeesAssignedToProject(viewState.getProject().getId());
         workers = new EmployeeList();
-        for(int i=0;i<employeesOfManager.size();i++)
-        {
-            if(employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()))
-            {
+        for (int i = 0; i < employeesOfManager.size(); i++) {
+            if (employeesOfProject.containsByWorkingNumber(employeesOfManager.get(i).getWorkingNumber())) {
                 workers.addEmployee(model.getEmployeeByWorkingNumber(employeesOfManager.get(i).getWorkingNumber()));
             }
         }
@@ -89,7 +85,7 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
 
     }
 
-    public void reset(){
+    public void reset() {
         super.reset();
         errorLabelsReset();
         title.setValue("");
@@ -100,95 +96,80 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
         load();
     }
 
-    public void errorLabelsReset(){
+    public void errorLabelsReset() {
         errorTitleHours.setValue("");
         errorDeadlineMessage.setValue("");
         errorTitleMessage.setValue("");
         errorPriorityMessage.setValue("");
     }
-    public StringProperty getNameOfTheProject()
-    {
+
+    public StringProperty getNameOfTheProject() {
         return nameOfTheProject;
     }
 
-    public StringProperty tagsEProperty()
-    {
+    public StringProperty tagsEProperty() {
         return tagsE;
     }
 
-    public boolean addTag(){
+    public boolean addTag() {
         boolean valid = true;
-        Tag tag=new Tag(tags.getValue() ,color.getValue().toString().replace("0x", "#"));
-        try
-        {
+        Tag tag = new Tag(tags.getValue(), color.getValue().toString().replace("0x", "#"));
+        try {
             validator.validateTag(tag);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             tagsE.setValue(e.getMessage());
-            valid=false;
+            valid = false;
         }
-        if(valid){
-            Long id=model.saveTag(tag);
+        if (valid) {
+            Long id = model.saveTag(tag);
             tag.setId(id);
             tagList.addTag(tag);
         }
         return valid;
     }
 
-    public boolean add()
-    {
+    public boolean add() {
         errorTitleHours.setValue(null);
         errorDeadlineMessage.setValue(null);
         errorTitleMessage.setValue(null);
         errorPriorityMessage.setValue(null);
         Project project = viewState.getProject();
         boolean valid = true;
-        try
-        {
+        try {
             validator.validateTitle(title.getValue());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             valid = false;
             errorTitleMessage.setValue("Title can not be empty.");
         }
-        try
-        {
+        try {
             validator.validateEstimatedTimer(getEstimatedHours());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             valid = false;
             errorTitleHours.setValue(e.getMessage());
         }
-        if (deadline.getValue() != null)
-        {
-            try
-            {
-                //System.out.println("this is current deadline: " + deadline.getValue());
+        if (deadline.getValue() != null) {
+            try {
+
                 validator.validateTaskDeadline(deadline.getValue(), project.getDeadline());
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 valid = false;
                 errorDeadlineMessage.setValue(e.getMessage());
             }
         }
-        if (priority.getValue() == null)
-        {
+        if (priority.getValue() == null || priority.getValue().replace(" ", "").equals("")){
             valid = false;
             errorPriorityMessage.setValue("The priority needs to be set.");
         }
-        if (valid)
-        {
-            estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
+        if (valid) {
+            if (estimatedHours.getValue().replace(" ", "").equals("")) {
+                estimatedHoursInt = 0;
+            } else {
+                estimatedHoursInt = Integer.parseInt(estimatedHours.getValue());
+            }
             Task task2 = new Task(title.getValue(), description.getValue(), deadline.getValue(), estimatedHoursInt, priority.getValue(), "TO DO", project.getId());
-            //System.out.println("Bobek: " + task2.toString());
             Long id = model.saveTask(task2);
             model.assignEmployeesToTask(assignedEmployeeWorkingNumbers, id.longValue());
-            for(int i=0;i<tagListForTask.size();i++)
-            {
+            for (int i = 0; i < tagListForTask.size(); i++) {
                 model.addTagToTask(id.longValue(), tagListForTask.get(i).getId());
             }
         }
@@ -196,96 +177,75 @@ public class AddTaskViewModel extends ViewModelWithNavigationMenu
     }
 
 
-
-    public StringProperty titleProperty()
-    {
+    public StringProperty titleProperty() {
         return title;
     }
-    
-    public StringProperty errorPriorityMessageProperty()
-    {
+
+    public StringProperty errorPriorityMessageProperty() {
         return errorPriorityMessage;
     }
-    
-    public StringProperty errorDeadlineMessageProperty()
-    {
+
+    public StringProperty errorDeadlineMessageProperty() {
         return errorDeadlineMessage;
     }
-    
-    public StringProperty errorTitleMessageProperty()
-    {
+
+    public StringProperty errorTitleMessageProperty() {
         return errorTitleMessage;
     }
-    
-    public ObjectProperty<LocalDate> deadlineProperty()
-    {
+
+    public ObjectProperty<LocalDate> deadlineProperty() {
         return deadline;
     }
-    
-    public StringProperty descriptionProperty()
-    {
+
+    public StringProperty descriptionProperty() {
         return description;
     }
-    
-    public ObjectProperty priorityProperty()
-    {
+
+    public ObjectProperty priorityProperty() {
         return priority;
     }
-    
-    public StringProperty estimatedHoursProperty()
-    {
+
+    public StringProperty estimatedHoursProperty() {
         return estimatedHours;
     }
-    
-    public StringProperty tagsProperty()
-    {
+
+    public StringProperty tagsProperty() {
         return tags;
     }
 
-    public TagList getTagList()
-    {
+    public TagList getTagList() {
         return tagList;
     }
 
-    public Property<Color> colorProperty()
-    {
+    public Property<Color> colorProperty() {
         return color;
     }
 
-    public String getEstimatedHours()
-    {
+    public String getEstimatedHours() {
         return estimatedHours.get();
     }
-    
-    public StringProperty errorTitleHoursProperty()
-    {
+
+    public StringProperty errorTitleHoursProperty() {
         return errorTitleHours;
     }
 
-    public void switchTag(Tag tag){
-        if (!tagListForTask.containsById(tag))
-        {
+    public void switchTag(Tag tag) {
+        if (!tagListForTask.containsById(tag)) {
             tagListForTask.addTag(tag);
-        }
-        else
-        {
+        } else {
             tagListForTask.removeTag(tag);
         }
     }
 
-    public void assignWorker(Employee employee)
-    {
-        if (!assignedEmployeeWorkingNumbers.contains(employee.getWorkingNumber()))
-        {
+    public void assignWorker(Employee employee) {
+        if (!assignedEmployeeWorkingNumbers.contains(employee.getWorkingNumber())) {
             assignedEmployeeWorkingNumbers.add(employee.getWorkingNumber());
-        }
-        else
-        {
+        } else {
             assignedEmployeeWorkingNumbers.remove(employee.getWorkingNumber());
         }
     }
-    public EmployeeList getWorkers()
-    {
+
+    public EmployeeList getWorkers() {
         return workers;
     }
 
