@@ -115,7 +115,7 @@ public class EditProfileViewModel extends ViewModelWithNavigationMenu
     boolean valid = true;
     try
     {
-      validator.validateFirstName(firstName.getValue());
+      validator.validateName(firstName.getValue());
       firstNameValue.setValue(true);
       firstNameE.setValue("✓");
     }

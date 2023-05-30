@@ -72,6 +72,10 @@ public class Validator
         {
             throw new RuntimeException("Name has to be longer than one character!");
         }
+        else if (name.trim().length() > 200)
+        {
+            throw new RuntimeException("Name is too long");
+        }
     }
 
     /**
