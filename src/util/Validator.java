@@ -31,6 +31,10 @@ public class Validator
         {
             throw new RuntimeException("First name has to be longer than one character!");
         }
+        else if (firstName.trim().length() > 100)
+        {
+            throw new RuntimeException("First name is too long");
+        }
     }
 
     /**
@@ -47,6 +51,10 @@ public class Validator
         else if (lastName.trim().length() == 1)
         {
             throw new RuntimeException("Last name has to be longer than one character!");
+        }
+        else if (lastName.trim().length() > 100)
+        {
+            throw new RuntimeException("Last name is too long");
         }
     }
 
@@ -196,6 +204,10 @@ public class Validator
         else if (title.trim().length() == 1)
         {
             throw new RuntimeException("Title has to be longer than one character!");
+        }
+        else if (title.trim().length() > 200)
+        {
+            throw new RuntimeException("Title is too long");
         }
     }
 
